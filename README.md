@@ -14,5 +14,7 @@ This project is a proof-of-concept PSLE mathematics coach powered by Gemini and 
    ```
 3. Open `frontend/index.html` in a modern browser.
 
+
 The interface has been restyled with a green background and colourful cards to resemble the [HomeCampus](https://my.homecampus.com.sg) portal.
+
 
