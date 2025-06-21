@@ -5,20 +5,27 @@
 
 :root {
     /* Brand palette inspired by the HomeCampus portal */
-    --primary-color: #4b6cb7;
-    --primary-hover: #3552a3;
-    --accent-color: #182848;
+    --primary-color: #4caf50;
+    --primary-hover: #388e3c;
+    --accent-color: #2e7d32;
     --success-color: #28a745;
-    --background-color: #f3f5f9;
+    --background-color: #e8f5e9;
     --container-bg: #ffffff;
     --text-primary: #1f2d3d;
     --text-secondary: #5f6b7a;
-    --border-color: #e2e6ea;
+    --border-color: #d6e9c6;
+
+    /* Card accent colours */
+    --card-color-yellow: #fff9c4;
+    --card-color-orange: #ffe0b2;
+    --card-color-red: #ffccbc;
+    --card-color-blue: #bbdefb;
+    --card-color-purple: #e1bee7;
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    background: linear-gradient(135deg, #a8e063, #56ab2f);
     background-attachment: fixed;
     color: var(--text-primary);
     margin: 0;
@@ -86,7 +93,15 @@ h1 { font-size: 2rem; font-weight: 700; color: var(--text-primary); }
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     margin-bottom: 1rem;
+    color: var(--text-primary);
 }
+
+/* colourful cards */
+.problem-item:nth-child(5n+1) { background-color: var(--card-color-yellow); }
+.problem-item:nth-child(5n+2) { background-color: var(--card-color-orange); }
+.problem-item:nth-child(5n+3) { background-color: var(--card-color-red); }
+.problem-item:nth-child(5n+4) { background-color: var(--card-color-blue); }
+.problem-item:nth-child(5n)   { background-color: var(--card-color-purple); }
 .problem-item:hover { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
 .problem-item-icon { margin-right: 1.5rem; color: var(--primary-color); }
 .problem-item-details { flex-grow: 1; }
