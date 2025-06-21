@@ -5,19 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PSLE AI Tutor</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
-    <div id="app-container">
-        <h1>PSLE Ratio Problem</h1>
-        <div id="problem-area">
-            <p id="problem-text">Loading problem...</p>
+
+    <div id="login-view" class="view-container">
+        <div class="auth-container">
+            <h2>Login to Your Account</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="auth-button">Login</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="#" id="show-signup-link">Sign Up</a></p>
         </div>
-        <div id="input-area">
-            <input type="text" id="answer-input" placeholder="Enter your answer here">
-            <button id="submit-button">Submit</button>
+    </div>
+
+    <div id="signup-view" class="view-container" style="display: none;">
+        <div class="auth-container">
+            <h2>Create a New Account</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <button type="submit" class="auth-button">Sign Up</button>
+                <p id="signup-error" class="error-message"></p>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="#" id="show-login-link">Login</a></p>
         </div>
-        <div id="feedback-area">
+    </div>
+
+    <div id="dashboard-view" class="view-container" style="display: none;">
+        <div class="header">
+            <h1>PSLE Ratio Problems</h1>
+            <button id="logout-button"><i data-feather="log-out"></i> Logout</button>
+        </div>
+        <div id="problem-list-container"></div>
+    </div>
+
+    <div id="solver-view" class="view-container" style="display: none;">
+        <button id="back-to-dashboard-button"><i data-feather="arrow-left"></i> Back to Dashboard</button>
+        <div id="main-layout">
+            <div id="problem-container">
+                <h2>The Problem</h2>
+                <img id="problem-image" src="" alt="Problem diagram">
+                <div id="problem-text"></div>
             </div>
+            <div id="chat-container">
+                <div id="feedback-area"></div>
+                <div id="input-area">
+                    <input type="text" id="answer-input" placeholder="Enter your answer or next step...">
+                    <button id="submit-button">Send</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js" defer></script>

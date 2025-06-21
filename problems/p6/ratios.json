@@ -1,0 +1,289 @@
+[
+  {
+    "id": "1",
+    "topic": "Ratio",
+    "title": "Ali and Ben's Money",
+    "complexity": 4,
+    "estimated_time_seconds": 240,
+    "skills_tested": [
+      "Constant Difference",
+      "Before and After",
+      "Units and Parts"
+    ],
+    "problem_text": "Ali and Ben had some money. Ali had $200 more than Ben. After Ali spent 1/5 of his money and Ben spent 1/3 of his money, Ali still had $240 more than Ben. How much money did Ali have at first?",
+    "verified_answer": "$800",
+    "solution_hints": [
+        "The difference in money between Ali and Ben changes. Focus on what they had at first.",
+        "The denominators are 5 and 3. What is a useful common multiple to use for your units?",
+        "Don't forget that Ali spends 1/5 of his ENTIRE amount, including the extra $200."
+    ],
+    "common_pitfalls": [
+        "Forgetting that the initial difference of $200 is also affected when Ali spends 1/5 of his money.",
+        "Confusing the 'before' and 'after' ratios when setting up the final equation.",
+        "Solving for the value of '1u' and forgetting to answer the actual question, which is Ali's total initial amount."
+    ],
+    "verified_methodology": [
+      "Step 1: Represent the initial amounts. Ben = 15u. Ali = 15u + $200. (Using 15 as a common multiple of 5 and 3).",
+      "Step 2: Calculate the 'remaining' amounts after spending. Ali has 4/5 left. Ben has 2/3 left.",
+      "Step 3: Calculate Ali's remaining amount: (4/5) * (15u + $200) = 12u + $160.",
+      "Step 4: Calculate Ben's remaining amount: (2/3) * 15u = 10u.",
+      "Step 5: Form an equation using the final difference: (12u + $160) - 10u = $240.",
+      "Step 6: Solve the equation: 2u + 160 = 240 -> 2u = 80 -> 1u = $40.",
+      "Step 7: Answer the original question: Ali's initial amount = 15u + $200 = (15 * 40) + 200 = $800."
+    ]
+  },
+
+  {
+    "id": "2",
+    "topic": "Ratio",
+    "title": "Green and Blue Tiles",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 30,
+    "skills_tested": [
+      "Simplifying Ratios"
+    ],
+    "problem_text": "Eva is making a pattern with 3 green tiles for every 15 blue tiles. Find the ratio of the number of green tiles to the number of blue tiles in the simplest form.",
+    "verified_answer": "1:5",
+    "solution_hints": [
+      "Write down the initial ratio of green tiles to blue tiles.",
+      "To simplify a ratio, find the greatest common divisor for both numbers and divide them by it."
+    ],
+    "common_pitfalls": [
+      "Swapping the order of the numbers in the final ratio.",
+      "Not simplifying the ratio completely."
+    ],
+    "verified_methodology": [
+      "Step 1: Write the initial ratio of Green tiles to Blue tiles, which is 3 : 15.",
+      "Step 2: Find the greatest common divisor (GCD) of 3 and 15, which is 3.",
+      "Step 3: Divide both parts of the ratio by the GCD. 3 ÷ 3 = 1. 15 ÷ 3 = 5.",
+      "Step 4: The ratio in its simplest form is 1:5."
+    ]
+  },
+  {
+    "id": "3",
+    "topic": "Ratio",
+    "title": "Jar and Bottle Capacity",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": [
+      "Ratio and Difference"
+    ],
+    "problem_text": "The difference between the capacities of a jar and a bottle is 160 ml. If the capacities of the bottle and the jar are in the ratio 1 : 3, what is the maximum volume of water in ml that they can hold together?",
+    "verified_answer": "320",
+    "solution_hints": [
+      "Find the difference in the number of units in the given ratio.",
+      "Relate the difference in units to the given difference in volume to find the value of one unit.",
+      "Calculate the total number of units for both items."
+    ],
+    "common_pitfalls": [
+      "Incorrectly assigning the 160ml to one of the units instead of the difference between the units.",
+      "Only calculating the capacity of the larger item instead of the total."
+    ],
+    "verified_methodology": [
+      "Step 1: The ratio of the bottle to the jar is 1 : 3. Let the bottle be 1 unit and the jar be 3 units.",
+      "Step 2: Find the difference in units: 3 units - 1 unit = 2 units.",
+      "Step 3: The problem states this difference is 160 ml. So, 2 units = 160 ml.",
+      "Step 4: Calculate the value of 1 unit: 160 ml ÷ 2 = 80 ml.",
+      "Step 5: Calculate the total number of units: 1 unit + 3 units = 4 units.",
+      "Step 6: Calculate the total volume: 4 units * 80 ml/unit = 320 ml."
+    ]
+  },
+  {
+    "id": "4",
+    "topic": "Ratio",
+    "title": "Rectangle Perimeter and Area",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 180,
+    "skills_tested": [
+      "Ratio and Geometry",
+      "Perimeter Formula"
+    ],
+    "problem_text": "The ratio of the breadth of a rectangle to its perimeter is 1 : 8. Find the area of the rectangle if its length is 27 cm.",
+    "verified_answer": "243",
+    "solution_hints": [
+      "Recall the formula for the perimeter of a rectangle: P = 2(L + B).",
+      "Use the given ratio to express the Length in terms of units of the Breadth.",
+      "Once you have the ratio of Length to Breadth, use the given length to find the breadth."
+    ],
+    "common_pitfalls": [
+      "Assuming the perimeter is Length + Breadth.",
+      "Making an algebraic mistake when expressing Length in terms of units."
+    ],
+    "verified_methodology": [
+      "Step 1: Let the Breadth (B) be 1 unit and the Perimeter (P) be 8 units.",
+      "Step 2: Use the perimeter formula: P = 2(L + B).",
+      "Step 3: Substitute the units into the formula: 8u = 2(L + 1u).",
+      "Step 4: Simplify the equation: 4u = L + 1u.",
+      "Step 5: Solve for L in terms of units: L = 3u.",
+      "Step 6: Now we have the ratio of Breadth to Length as 1u : 3u, or 1:3.",
+      "Step 7: The problem states L = 27 cm. So, 3u = 27 cm.",
+      "Step 8: Find the value of 1 unit: 1u = 27 cm ÷ 3 = 9 cm. So, the Breadth is 9 cm.",
+      "Step 9: Calculate the area: Area = L * B = 27 cm * 9 cm = 243 cm²."
+    ]
+  },
+  {
+    "id": "5",
+    "topic": "Ratio",
+    "title": "Lucy's Shopping Spree",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 180,
+    "skills_tested": [
+      "Multi-part Ratio",
+      "Ratio and Difference"
+    ],
+    "problem_text": "Lucy had $300 at first. She spent a sum of money on a dress, a necklace and a ring in the ratio 5 : 9 : 2. If she spent $198 on the jewellery, how much money had she left?",
+    "verified_answer": "12",
+    "solution_hints": [
+      "Identify which items count as 'jewellery'.",
+      "Find the total number of ratio units that represent the cost of the jewellery.",
+      "Use the cost of the jewellery to find the value of one ratio unit."
+    ],
+    "common_pitfalls": [
+      "Assuming the $198 represents the total amount spent on all three items.",
+      "Calculating the total amount spent correctly but making a subtraction error from the initial $300."
+    ],
+    "verified_methodology": [
+      "Step 1: The spending ratio is Dress : Necklace : Ring = 5 : 9 : 2.",
+      "Step 2: Jewellery consists of the necklace and the ring. The ratio units for jewellery are 9 + 2 = 11 units.",
+      "Step 3: The problem states she spent $198 on jewellery. So, 11 units = $198.",
+      "Step 4: Calculate the value of 1 unit: $198 ÷ 11 = $18.",
+      "Step 5: Calculate the total number of units spent on all items: 5 + 9 + 2 = 16 units.",
+      "Step 6: Calculate the total money spent: 16 units * $18/unit = $288.",
+      "Step 7: Calculate the money left: $300 (initial amount) - $288 (spent) = $12."
+    ]
+  },
+  {
+    "id": "6",
+    "topic": "Ratio",
+    "title": "Three Poles",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 120,
+    "skills_tested": [
+      "Multi-part Ratio",
+      "Ratio and Difference"
+    ],
+    "problem_text": "The lengths of 3 poles are in the ratio 2 : 4 : 6. The shortest pole is 68 cm shorter than the longest pole. What is the length of the poles altogether?",
+    "verified_answer": "204",
+    "solution_hints": [
+      "Identify the number of ratio units for the shortest and longest poles.",
+      "Find the difference in units between the shortest and longest poles.",
+      "Use this difference to find the value of one unit."
+    ],
+    "common_pitfalls": [
+      "Simplifying the ratio 2:4:6 to 1:2:3 and not adjusting the total parts accordingly.",
+      "Assigning the 68cm value to the longest pole instead of the difference."
+    ],
+    "verified_methodology": [
+      "Step 1: The ratio of the lengths of the three poles is 2 : 4 : 6.",
+      "Step 2: The shortest pole corresponds to 2 units. The longest pole corresponds to 6 units.",
+      "Step 3: Find the difference in units: 6 units - 2 units = 4 units.",
+      "Step 4: The problem states this difference is 68 cm. So, 4 units = 68 cm.",
+      "Step 5: Calculate the value of 1 unit: 68 cm ÷ 4 = 17 cm.",
+      "Step 6: Find the total number of units for all poles: 2 + 4 + 6 = 12 units.",
+      "Step 7: Calculate the total length of the poles: 12 units * 17 cm/unit = 204 cm."
+    ]
+  },
+  {
+    "id": "7",
+    "topic": "Ratio",
+    "title": "Julie's Journey",
+    "complexity": 4,
+    "image_url": null,
+    "estimated_time_seconds": 240,
+    "skills_tested": [
+      "Fractions and Ratios",
+      "Nested Ratios"
+    ],
+    "problem_text": "Julie travelled 1/9 of the distance of her journey by car while the rest by bus and train in the ratio 1 : 3. If she travelled 470 km more by train than by car, how far did she travel?",
+    "verified_answer": "846",
+    "solution_hints": [
+      "Express the entire journey in terms of units based on the fraction.",
+      "Divide the 'rest of the journey' units according to the bus and train ratio.",
+      "Create a final, combined ratio for Car : Bus : Train."
+    ],
+    "common_pitfalls": [
+      "Incorrectly splitting the 'rest of the journey' units.",
+      "Comparing the final difference in km to the wrong number of units."
+    ],
+    "verified_methodology": [
+      "Step 1: Let the total journey be 9 units. The distance travelled by car is 1/9, which is 1 unit.",
+      "Step 2: The remaining distance is 9 - 1 = 8 units.",
+      "Step 3: This remaining distance was travelled by bus and train in the ratio 1 : 3. The total parts in this ratio is 1 + 3 = 4 parts.",
+      "Step 4: These 4 parts correspond to the 8 units of distance. So, 4 parts = 8 units, which means 1 part = 2 units.",
+      "Step 5: Distance by bus = 1 part = 2 units. Distance by train = 3 parts = 6 units.",
+      "Step 6: The combined ratio for the whole journey (Car:Bus:Train) is 1 : 2 : 6.",
+      "Step 7: The difference between train and car distance is 6 units - 1 unit = 5 units.",
+      "Step 8: The problem states this difference is 470 km. So, 5 units = 470 km.",
+      "Step 9: Calculate the value of 1 unit: 470 km ÷ 5 = 94 km.",
+      "Step 10: Calculate the total distance of the journey: 9 units * 94 km/unit = 846 km."
+    ]
+  },
+  {
+    "id": "8",
+    "topic": "Ratio",
+    "title": "Parrot Shop",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 180,
+    "skills_tested": [
+      "Combining Ratios"
+    ],
+    "problem_text": "A pet parrot shop has 250 parrots that are coloured either green or blue or yellow. The ratio of the number of green parrots to the number of blue parrots is 11 : 8. The ratio of the number of blue parrots to the number of yellow parrots is 4 : 3. Find the number of yellow parrots.",
+    "verified_answer": "60",
+    "solution_hints": [
+      "You have two separate ratios with a common item (blue parrots).",
+      "You need to make the 'blue' unit value the same in both ratios before you can combine them.",
+      "Once you have the combined ratio, find the total number of units."
+    ],
+    "common_pitfalls": [
+      "Adding the ratios together without making the common term equal.",
+      "Calculating the value of one unit correctly but then finding the number of the wrong colored parrot."
+    ],
+    "verified_methodology": [
+      "Step 1: Write down the two ratios: Green:Blue = 11:8 and Blue:Yellow = 4:3.",
+      "Step 2: To combine them, the 'Blue' term must be the same. The least common multiple of 8 and 4 is 8.",
+      "Step 3: The first ratio (11:8) is already correct. Multiply both sides of the second ratio by 2 to make the 'Blue' term 8. (4*2):(3*2) -> 8:6.",
+      "Step 4: Now we have Green:Blue = 11:8 and Blue:Yellow = 8:6.",
+      "Step 5: Combine them into a single ratio: Green:Blue:Yellow = 11:8:6.",
+      "Step 6: Find the total number of ratio units: 11 + 8 + 6 = 25 units.",
+      "Step 7: The total number of parrots is 250. So, 25 units = 250 parrots.",
+      "Step 8: Calculate the value of 1 unit: 250 ÷ 25 = 10 parrots.",
+      "Step 9: Find the number of yellow parrots, which is 6 units: 6 * 10 = 60 parrots."
+    ]
+  },
+  {
+    "id": "9",
+    "topic": "Ratio",
+    "title": "School Birth Months",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": [
+      "Combining Ratios",
+      "Simplifying Ratios"
+    ],
+    "problem_text": "In a school, for every 3 children born in January there were 5 born in February and for every 5 children born in February there were 3 born in March. What is the ratio of the number of children born in January to the number of children born in March?(in simplest form)",
+    "verified_answer": "1:1",
+    "solution_hints": [
+      "Write down the two ratios given in the problem.",
+      "Identify the common 'linking' month in both ratios.",
+      "Check if the unit value for the linking month is the same in both ratios."
+    ],
+    "common_pitfalls": [
+      "Overcomplicating the problem by trying to change the unit values when they are already consistent."
+    ],
+    "verified_methodology": [
+      "Step 1: Write down the two ratios: January:February = 3:5 and February:March = 5:3.",
+      "Step 2: The common term is February. In the first ratio, February has 5 parts. In the second ratio, February also has 5 parts.",
+      "Step 3: Since the common term is already equal, we can directly combine the ratios.",
+      "Step 4: The combined ratio is January:February:March = 3:5:3.",
+      "Step 5: The question asks for the ratio of January to March, which is 3:3.",
+      "Step 6: Simplify the ratio 3:3 by dividing both sides by 3. The simplest form is 1:1."
+    ]
+  }
+]
