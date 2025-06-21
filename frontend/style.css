@@ -1,45 +1,64 @@
 /* --- The Polished & Responsive Theme --- */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+/* Import a more modern looking font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 
 :root {
-    --primary-color: #007BFF;
-    --primary-hover: #0056b3;
+    /* Brand palette inspired by the HomeCampus portal */
+    --primary-color: #4b6cb7;
+    --primary-hover: #3552a3;
+    --accent-color: #182848;
     --success-color: #28a745;
-    --background-color: #f8f9fa;
-    --container-bg: #FFFFFF;
-    --text-primary: #212529;
-    --text-secondary: #6c757d;
-    --border-color: #dee2e6;
+    --background-color: #f3f5f9;
+    --container-bg: #ffffff;
+    --text-primary: #1f2d3d;
+    --text-secondary: #5f6b7a;
+    --border-color: #e2e6ea;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    background-attachment: fixed;
     color: var(--text-primary);
     margin: 0;
 }
 
+/* --- Branding Header --- */
+#brand-header {
+    width: 100%;
+    text-align: center;
+    padding: 2rem 0 1rem;
+}
+.brand-title {
+    margin: 0;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
 .view-container {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     padding: 2rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 /* --- AUTH & DASHBOARD STYLES --- */
 .auth-container {
     justify-content: center;
     max-width: 420px;
-    height: auto;
-    background: var(--container-bg);
+    width: 100%;
+    background: linear-gradient(180deg, #ffffff 0%, #f6f7fb 100%);
     padding: 2.5rem;
-    border-radius: 12px;
+    border-radius: 16px;
     border: 1px solid var(--border-color);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    margin-top: 10vh;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    backdrop-filter: blur(4px);
 }
 #dashboard-view {
     max-width: 900px;
@@ -102,10 +121,46 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
 #input-area { display: flex; padding: 1rem; border-top: 1px solid var(--border-color); }
 
 /* --- BUTTONS & FORMS --- */
-#answer-input, .form-group input { width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; }
-.auth-button, #submit-button { background-image: linear-gradient(45deg, #007BFF, #0056b3); color: white; font-weight: 600; border: none; border-radius: 8px; padding: 0.8rem 1.5rem; font-size: 1rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-.auth-button:hover, #submit-button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-#logout-button, #back-to-dashboard-button { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; font-size: 0.9rem; background-color: #fff; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; margin-bottom: 1rem; }
+#answer-input, .form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.auth-button, #submit-button {
+    background-image: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.auth-button:hover, #submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+#logout-button, #back-to-dashboard-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background-color: #fff;
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: background-color 0.2s;
+}
+#logout-button:hover, #back-to-dashboard-button:hover {
+    background-color: var(--background-color);
+}
 #back-to-dashboard-button { align-self: flex-start; }
 
 /* --- MOBILE RESPONSIVENESS --- */
