@@ -1,0 +1,7 @@
+Flask
+flask-cors
+python-dotenv
+PyJWT
+google-generativeai
+google-cloud-datastore
+
