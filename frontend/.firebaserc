@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "aicampus-live-firebase"
+  },
+  "targets": {
+    "aicampus-live-firebase": {
+      "hosting": {
+        "live": [
+          "tutorai"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

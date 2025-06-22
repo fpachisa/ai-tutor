@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL STATE & CONSTANTS ---
-    const API_BASE_URL = 'http://127.0.0.1:5000/api';
+    const API_BASE_URL = 'https://aicampus-live.uc.r.appspot.com/api';
     let authToken = null;
     let currentProblemId = null;
     let chatHistory = [];

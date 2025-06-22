@@ -330,4 +330,4 @@ def get_all_progress(current_user_id):
         return jsonify({}), 500 # Return empty object on error
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
