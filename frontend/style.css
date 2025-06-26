@@ -27,7 +27,8 @@
     width: 100%;
     padding: 1rem 2rem;
     box-sizing: border-box;
-    background-color: var(--container-bg);
+    /* Give the header a subtle green tint so it's not stark white */
+    background: linear-gradient(180deg, var(--background-color), var(--container-bg));
     border-bottom: 1px solid var(--border-color);
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     position: fixed;
