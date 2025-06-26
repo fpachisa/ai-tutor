@@ -1,0 +1,223 @@
+[
+  {
+    "id": "601",
+    "topic": "Percentage",
+    "title": "Finding the Whole from a Part",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": ["Finding the whole given part & %"],
+    "problem_text": "$35 is 20 % of Peter’s savings. How much are Peter’s total savings?",
+    "verified_answer": "$175",
+    "solution_hints": [
+      "Whole = Part ÷ (Percentage ÷ 100)."
+    ],
+    "common_pitfalls": [
+      "Multiplying 35 by 0.20 instead of dividing."
+    ],
+    "verified_methodology": [
+      "Step 1 – 20 % = 0.20.",
+      "Step 2 – Whole = 35 ÷ 0.20 = 175."
+    ]
+  },
+  {
+    "id": "602",
+    "topic": "Percentage",
+    "title": "Calculating Percentage Decrease",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": ["Percentage decrease"],
+    "problem_text": "A membership dropped from 250 to 215. What is the percentage decrease?",
+    "verified_answer": "14 %",
+    "solution_hints": [
+      "Decrease = 250 − 215.",
+      "Percentage decrease = (Decrease ÷ Original) × 100 %."
+    ],
+    "common_pitfalls": [
+      "Using 215 as the denominator.",
+      "Subtracting in the wrong order."
+    ],
+    "verified_methodology": [
+      "Step 1 – Decrease = 35.",
+      "Step 2 – 35 ÷ 250 × 100 % = 14 %."
+    ]
+  },
+  {
+    "id": "603",
+    "topic": "Percentage",
+    "title": "Percentage Increase on a Price",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 40,
+    "skills_tested": ["Percentage increase"],
+    "problem_text": "A book’s price rises from $80 to $92. Find the percentage increase.",
+    "verified_answer": "15 %",
+    "solution_hints": [
+      "Increase = 92 − 80.",
+      "Percentage increase = (Increase ÷ 80) × 100 %."
+    ],
+    "common_pitfalls": [
+      "Dividing by the new price instead of the original."
+    ],
+    "verified_methodology": [
+      "Step 1 – Increase = $12.",
+      "Step 2 – 12 ÷ 80 × 100 % = 15 %."
+    ]
+  },
+  {
+    "id": "604",
+    "topic": "Percentage",
+    "title": "Original Price before Discount",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 60,
+    "skills_tested": ["Finding the whole given part & %"],
+    "problem_text": "A backpack is sold for $135 after a 25 % discount. What was its original price?",
+    "verified_answer": "$180",
+    "solution_hints": [
+      "Sale price = 75 % of original.",
+      "Original = 135 ÷ 0.75."
+    ],
+    "common_pitfalls": [
+      "Multiplying 135 by 0.75.",
+      "Using 25 % instead of 75 %."
+    ],
+    "verified_methodology": [
+      "Step 1 – 100 % − 25 % = 75 % = 0.75.",
+      "Step 2 – Original = 135 ÷ 0.75 = 180."
+    ]
+  },
+  {
+    "id": "605",
+    "topic": "Percentage",
+    "title": "Increase in Water Volume",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": ["Percentage increase"],
+    "problem_text": "A tank holds 250 L of water. It is filled until the volume increases by 12 %. How much water is in the tank now?",
+    "verified_answer": "280 L",
+    "solution_hints": [
+      "New volume = 250 × (1 + 12 %)."
+    ],
+    "common_pitfalls": [
+      "Adding 12 L instead of 12 % (which is 30 L)."
+    ],
+    "verified_methodology": [
+      "Step 1 – 12 % of 250 = 0.12 × 250 = 30 L.",
+      "Step 2 – 250 L + 30 L = 280 L."
+    ]
+  },
+  {
+    "id": "606",
+    "topic": "Percentage",
+    "title": "Percentage of the Remainder",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 60,
+    "skills_tested": ["Percentage of a percentage"],
+    "problem_text": "John spent 25 % of his money on shoes and 40 % of the remaining money on a jacket. What percentage of his original money did he spend on the jacket?",
+    "verified_answer": "30 %",
+    "solution_hints": [
+      "Remainder after shoes = 75 %.",
+      "40 % of 75 % = ?"
+    ],
+    "common_pitfalls": [
+      "Adding 25 % and 40 % directly.",
+      "Using 40 % of 100 %."
+    ],
+    "verified_methodology": [
+      "Step 1 – Remaining fraction = 100 % − 25 % = 75 %.",
+      "Step 2 – 0.40 × 75 % = 30 %.",
+      "Step 3 – He spent 30 % of his original money on the jacket."
+    ]
+  },
+  {
+    "id": "607",
+    "topic": "Percentage",
+    "title": "Workforce Growth",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": ["Percentage increase"],
+    "problem_text": "A company’s staff grew from 420 to 483 employees. What is the percentage increase?",
+    "verified_answer": "15 %",
+    "solution_hints": [
+      "Increase = 483 − 420.",
+      "Percentage increase = (Increase ÷ 420) × 100 %."
+    ],
+    "common_pitfalls": [
+      "Dividing by 483 instead of 420."
+    ],
+    "verified_methodology": [
+      "Step 1 – Increase = 63.",
+      "Step 2 – 63 ÷ 420 × 100 % = 15 %."
+    ]
+  },
+  {
+    "id": "608",
+    "topic": "Percentage",
+    "title": "Whole from a Small Percentage",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 40,
+    "skills_tested": ["Finding the whole given part & %"],
+    "problem_text": "48 is 12 % of a number. Find the number.",
+    "verified_answer": "400",
+    "solution_hints": [
+      "Whole = 48 ÷ 0.12."
+    ],
+    "common_pitfalls": [
+      "Multiplying by 0.12.",
+      "Dividing by 12 instead of 0.12."
+    ],
+    "verified_methodology": [
+      "Step 1 – Whole = 48 ÷ 0.12 = 400."
+    ]
+  },
+  {
+    "id": "609",
+    "topic": "Percentage",
+    "title": "Percentage Discount",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": ["Percentage decrease"],
+    "problem_text": "A jacket’s price was reduced from $90 to $72. What was the percentage decrease?",
+    "verified_answer": "20 %",
+    "solution_hints": [
+      "Decrease = 90 − 72.",
+      "Percentage decrease = (Decrease ÷ 90) × 100 %."
+    ],
+    "common_pitfalls": [
+      "Dividing by 72 instead of 90."
+    ],
+    "verified_methodology": [
+      "Step 1 – Decrease = $18.",
+      "Step 2 – 18 ÷ 90 × 100 % = 20 %."
+    ]
+  },
+  {
+    "id": "610",
+    "topic": "Percentage",
+    "title": "Improved Test Score",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 40,
+    "skills_tested": ["Percentage increase"],
+    "problem_text": "A student scored 80 marks in a test. In the next test her score increased by 7.5 %. What was her new score?",
+    "verified_answer": "86",
+    "solution_hints": [
+      "New score = 80 × (1 + 7.5 %)."
+    ],
+    "common_pitfalls": [
+      "Adding 7.5 marks instead of 7.5 % of 80.",
+      "Using 0.075 incorrectly (e.g.\u00A080 × 0.075)."
+    ],
+    "verified_methodology": [
+      "Step 1 – 7.5 % = 0.075.",
+      "Step 2 – New score = 80 × 1.075 = 86."
+    ]
+  }
+]

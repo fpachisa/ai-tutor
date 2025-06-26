@@ -11,12 +11,18 @@ from google.cloud import datastore
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 import re
+import random
 
 # --- CONFIGURATION ---
 load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+# This is our definitive list of topics for the P6 curriculum.
+ALL_P6_TOPICS = [
+    "Algebra", "Fractions", "Speed", "Ratio", "Measurement",
+    "Data Analysis", "Percentage", "Geometry"
+]
 
 # --- DECORATOR FOR AUTHENTICATION ---
 def token_required(f):
@@ -55,39 +61,31 @@ datastore_client = datastore.Client()
 
 # --- LOAD PROBLEMS FROM JSON FILE ---
 def load_problems():
-    """
-    Scans the problems/p6 directory, loads all .json files, 
-    and maps the problems by their ID.
-    """
+    """Scans problem directories, loads all non-diagnostic .json files."""
     all_problems = {}
-    # Define the path to the problems directory
-    problem_dir = pathlib.Path('problems/p6')
-
-    if not problem_dir.is_dir():
-        print(f"ERROR: Problem directory not found at {problem_dir}")
+    problem_base_dir = pathlib.Path('problems')
+    if not problem_base_dir.is_dir():
         return {}
 
-    # Iterate over all .json files in the directory
-    for json_file in problem_dir.glob('*.json'):
-        try:
-            with open(json_file, 'r', encoding='utf-8') as f:
-                problems_list = json.load(f)
-                # Add the problems from this file to our main dictionary
-                for problem in problems_list:
-                    all_problems[problem['id']] = problem
-        except json.JSONDecodeError:
-            print(f"ERROR: Could not decode {json_file}. Check for syntax errors.")
-        except Exception as e:
-            print(f"An error occurred loading {json_file}: {e}")
-
+    for problem_dir in problem_base_dir.iterdir():
+        if problem_dir.is_dir():
+            for json_file in problem_dir.glob('*.json'):
+                # This check ensures we don't load quiz files into the main problem set
+                if 'diagnostic' in json_file.name:
+                    continue
+                try:
+                    with open(json_file, 'r', encoding='utf-8') as f:
+                        problems_list = json.load(f)
+                        for problem in problems_list:
+                            all_problems[problem['id']] = problem
+                except Exception as e:
+                    print(f"Error loading {json_file}: {e}")
     if not all_problems:
-        print("WARNING: No problems were loaded.")
-        
+        print("WARNING: No regular problems were loaded.")
     return all_problems
 
-
-# Load problems into a global variable when the app starts
 PROBLEMS = load_problems()
+
 
 # --- GEMINI API CONFIGURATION ---
 try:
@@ -103,6 +101,7 @@ def signup():
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
+    recommended_topic = data.get('recommended_topic')
 
     if not email or not password:
         return jsonify({"error": "Email and password are required"}), 400
@@ -123,11 +122,19 @@ def signup():
     user_entity.update({
         'email': email,
         'password_hash': password_hash,
-        'created_at': datetime.datetime.now(datetime.timezone.utc)
+        'created_at': datetime.datetime.now(datetime.timezone.utc),
+        'recommended_topic': recommended_topic
     })
     datastore_client.put(user_entity)
 
-    return jsonify({"message": "User created successfully"}), 201
+    # After creating the user, generate a token for them to log them in automatically
+    token = jwt.encode({
+        'user_id': user_entity.key.id, # Use the new user's ID
+        'email': user_entity['email'],
+        'exp': datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=24)
+    }, app.config['SECRET_KEY'], algorithm="HS256")
+
+    return jsonify({"message": "User created successfully", "token": token}), 201
 
 
 @app.route("/api/auth/login", methods=['POST'])
@@ -163,14 +170,34 @@ def login():
 
 
 @app.route("/api/problems")
-def get_all_problems():
-    """Endpoint to get a list of all available problems (without full methodology)."""
-    # We only send basic info to the dashboard, not the full solution
-    problem_list = [
-        {"id": p["id"], "title": p["title"], "topic": p["topic"]}
-        for p in PROBLEMS.values()
-    ]
-    return jsonify(problem_list)
+@token_required
+def get_problems_by_topic(current_user_id):
+    """
+    Endpoint to get a list of practice problems, filtered by topic.
+    If no topic is provided, it returns all problems.
+    """
+    topic = request.args.get('topic')
+
+    # Filter problems based on the provided topic
+    filtered_problems = []
+    for p in PROBLEMS.values():
+        # Exclude diagnostic quiz questions
+        if p.get("is_diagnostic"):
+            continue
+        
+        problem_topic = p.get("topic", p.get("chapter", "General"))
+        
+        # If a topic is specified, only include problems from that topic
+        if topic and topic.lower() != problem_topic.lower():
+            continue
+            
+        filtered_problems.append({
+            "id": p.get("id"),
+            "title": p.get("title", p.get("question", "Untitled Problem")),
+            "topic": problem_topic
+        })
+
+    return jsonify(filtered_problems)
 
 
 @app.route("/api/problems/<problem_id>")
@@ -181,7 +208,77 @@ def get_problem(problem_id):
         return jsonify({"error": "Problem not found"}), 404
     return jsonify(problem)
 
+@app.route("/api/dashboard", methods=['GET'])
+@token_required
+def get_dashboard_data(current_user_id):
+    """
+    Analyzes user progress to provide data for a personalized dashboard,
+    using a fixed list of all available topics.
+    """
+    try:
+        # --- 1. Check for a one-time recommended topic from the diagnostic quiz ---
+        user_key = datastore_client.key('User', current_user_id)
+        user = datastore_client.get(user_key)
 
+        if user and 'recommended_topic' in user and user['recommended_topic']:
+            initial_recommendation = user['recommended_topic']
+            
+            # Once we've used it, we clear it to avoid showing it again.
+            user['recommended_topic'] = None
+            datastore_client.put(user)
+            
+            # The 'all_topics' list should not contain the recommended topic
+            browse_topics = [topic for topic in ALL_P6_TOPICS if topic != initial_recommendation]
+            
+            return jsonify({
+                "recommended_topics": [initial_recommendation],
+                "all_topics": browse_topics
+            })
+
+        # --- 2. Analyze User's Progress to Find Weaknesses (no change here) ---
+        query = datastore_client.query(kind='ProblemProgress')
+        query.add_filter('user_id', '=', current_user_id)
+        user_progress = list(query.fetch())
+        
+        weaknesses = {}
+        if user_progress:
+            for progress_item in user_progress:
+                if progress_item.get('status') == 'in_progress':
+                    problem = PROBLEMS.get(progress_item['problem_id'])
+                    # We also check the diagnostic quiz file for the topic
+                    if not problem:
+                         with open('problems/p6/p6_maths_diagnostic_quiz.json', 'r', encoding='utf-8') as f:
+                            diagnostic_map = {q['id']: q for q in json.load(f)}
+                            problem = diagnostic_map.get(progress_item['problem_id'])
+                    
+                    if problem:
+                        topic = problem.get('chapter', 'Unknown')
+                        weaknesses[topic] = weaknesses.get(topic, 0) + 1
+        
+        # Sort topics by the number of 'in_progress' problems to find recommendations
+        recommended_topics = sorted(weaknesses, key=weaknesses.get, reverse=True)
+
+        # --- 3. Use our new fixed list to build the final response ---
+        # Ensure recommended topics are also in the main list, just in case
+        valid_recommendations = [topic for topic in recommended_topics if topic in ALL_P6_TOPICS]
+        
+        # The 'all_topics' list should not contain the recommended topics
+        browse_topics = [topic for topic in ALL_P6_TOPICS if topic not in valid_recommendations]
+
+        # --- 4. Construct and Return the Final Dashboard Data ---
+        dashboard_data = {
+            "recommended_topics": valid_recommendations[:3], # Return the top 3 recommendations
+            "all_topics": browse_topics
+        }
+        return jsonify(dashboard_data)
+
+    except Exception as e:
+        print(f"An error occurred fetching dashboard data: {e}")
+        # On error, return all topics in the main list
+        return jsonify({
+            "recommended_topics": [],
+            "all_topics": ALL_P6_TOPICS
+        })
 
 @app.route("/api/tutor/submit_answer", methods=['POST'])
 @token_required
@@ -328,6 +425,120 @@ def get_all_progress(current_user_id):
     except Exception as e:
         print(f"An error occurred fetching all progress: {e}")
         return jsonify({}), 500 # Return empty object on error
+
+
+@app.route("/api/diagnostic/start", methods=['GET'])
+def start_diagnostic_quiz():
+    """
+    Builds a balanced 10-question quiz using stratified sampling to ensure
+    all topics are covered.
+    """
+    try:
+        with open('problems/p6/p6_maths_diagnostic_quiz.json', 'r', encoding='utf-8') as f:
+            all_diagnostic_questions = json.load(f)
+
+        # Step 1: Group questions by chapter
+        questions_by_chapter = {}
+        for q in all_diagnostic_questions:
+            chapter = q.get('chapter', 'Unknown')
+            if chapter not in questions_by_chapter:
+                questions_by_chapter[chapter] = []
+            questions_by_chapter[chapter].append(q)
+
+        final_quiz_questions = []
+        chapters_with_questions = list(questions_by_chapter.keys())
+
+        # Step 2: Randomly pick one question from each chapter that has questions
+        for chapter in chapters_with_questions:
+            if questions_by_chapter[chapter]:
+                question = random.choice(questions_by_chapter[chapter])
+                final_quiz_questions.append(question)
+        
+        # Step 3: If we need more questions to reach 10, add more from any topic, ensuring no duplicates
+        all_q_ids = {q['id'] for q in final_quiz_questions}
+        while len(final_quiz_questions) < 10 and len(final_quiz_questions) < len(all_diagnostic_questions):
+            # Pick a random question from the full list
+            random_question = random.choice(all_diagnostic_questions)
+            if random_question['id'] not in all_q_ids:
+                final_quiz_questions.append(random_question)
+                all_q_ids.add(random_question['id'])
+        
+        # Step 4: Shuffle the final list and return it
+        random.shuffle(final_quiz_questions)
+        
+        return jsonify(final_quiz_questions)
+
+    except Exception as e:
+        print(f"An error occurred fetching diagnostic quiz: {e}")
+        return jsonify({"error": "Could not retrieve diagnostic quiz"}), 500
+    
+# In app.py
+
+@app.route("/api/diagnostic/analyze", methods=['POST'])
+def analyze_diagnostic_results():
+    """
+    Receives raw quiz answers, uses GenAI to analyze them, and returns
+    a structured, personalized report.
+    """
+    try:
+        data = request.get_json()
+        user_answers = data.get("user_answers", [])
+
+        if not user_answers:
+            return jsonify({"error": "No answers provided"}), 400
+
+        # We need the full question details to provide context to the AI
+        with open('problems/p6/p6_maths_diagnostic_quiz.json', 'r', encoding='utf-8') as f:
+            all_diagnostic_questions = {q['id']: q for q in json.load(f)}
+
+        # Enrich the answers with question details
+        detailed_results = []
+        for answer in user_answers:
+            question = all_diagnostic_questions.get(answer['question_id'])
+            if question:
+                detailed_results.append({
+                    "question": question.get('question'),
+                    "topic": question.get('chapter'),
+                    "difficulty": question.get('difficulty'),
+                    "is_correct": answer.get('is_correct')
+                })
+
+        # Create the prompt for our AI Analyst
+        report_generator_prompt = f"""
+        You are an encouraging and insightful PSLE (Singapore Primary 6) Math educator.
+        A student has just completed a 10-question diagnostic quiz.
+        Your task is to analyze their results and provide a short, personalized report to encourage them to sign up.
+
+        RULES:
+        1. Be positive and encouraging, even if the score is low.
+        2. Identify 1-2 topics as strengths (where the user answered correctly).
+        3. Identify 1-2 topics as areas for improvement (where the user answered incorrectly).
+        4. Provide a single, concise summary message.
+        5. Recommend the single most important topic to start with.
+        6. Your entire response MUST be a single, valid JSON object with no other text.
+
+        Here are the student's detailed results:
+        --- STUDENT RESULTS ---
+        {json.dumps(detailed_results, indent=2)}
+        --- END RESULTS ---
+
+        Now, generate the personalized report JSON object with the following keys:
+        - "score_text": string (e.g., "You answered 7 out of 10 questions correctly.")
+        - "strengths": array of strings (e.g., ["Algebra", "Ratio"])
+        - "weaknesses": array of strings (e.g., ["Speed", "Geometry"])
+        - "summary_message": string (e.g., "This is a great starting point! You have a solid grasp of core concepts, and with some focused practice on Speed, you'll see great improvement.")
+        - "recommended_topic": string (e.g., "Speed")
+        """
+
+        response = model.generate_content(report_generator_prompt)
+        cleaned_response_text = response.text.replace('```json', '').replace('```', '').strip()
+        analysis_json = json.loads(cleaned_response_text)
+
+        return jsonify(analysis_json)
+
+    except Exception as e:
+        print(f"An error occurred during quiz analysis: {e}")
+        return jsonify({"error": "Could not analyze quiz results"}), 500
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True)

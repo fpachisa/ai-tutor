@@ -1,0 +1,345 @@
+[
+  {
+    "id": "401",
+    "topic": "Measurement",
+    "title": "Converting Centimetres to Metres",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 35,
+    "skills_tested": ["Unit Conversion (Length)"],
+    "problem_text": "Express 248 cm in metres.",
+    "verified_answer": "2.48 m",
+    "solution_hints": [
+      "1 m = 100 cm.",
+      "Divide the number of centimetres by 100."
+    ],
+    "common_pitfalls": [
+      "Multiplying instead of dividing by 100.",
+      "Placing the decimal point incorrectly (e.g.\u00a020.48)."
+    ],
+    "verified_methodology": [
+      "Step\u00a01\u00a0\u2013 248 \u00F7 100 = 2.48.",
+      "Step\u00A02\u00A0\u2013 Attach the unit: 2.48\u00a0m."
+    ]
+  },
+  {
+    "id": "402",
+    "topic": "Measurement",
+    "title": "Perimeter of a Garden",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": ["Perimeter of Rectangles"],
+    "problem_text": "A rectangular garden is 18\u00a0m long and 12\u00a0m wide. What is its perimeter?",
+    "verified_answer": "60 m",
+    "solution_hints": [
+      "Perimeter = 2 \u00D7 (length + width).",
+      "Add the two sides before multiplying."
+    ],
+    "common_pitfalls": [
+      "Multiplying length by width (area formula).",
+      "Forgetting to double after adding the sides."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 length + width = 18 + 12 = 30.",
+      "Step\u00A02\u00A0\u2013 2 \u00D7 30 = 60\u00a0m."
+    ]
+  },
+  {
+    "id": "403",
+    "topic": "Measurement",
+    "title": "Area of a Right-Angled Triangle",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 50,
+    "skills_tested": ["Area of Triangles"],
+    "problem_text": "Find the area of a right-angled triangle with base 9\u00a0cm and height 6\u00a0cm.",
+    "verified_answer": "27 cm²",
+    "solution_hints": [
+      "Area = \u00BD \u00D7 base \u00D7 height.",
+      "Substitute base = 9\u00a0cm and height = 6\u00a0cm."
+    ],
+    "common_pitfalls": [
+      "Forgetting the \u00BD factor.",
+      "Swapping base and height (does not affect answer here)."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 A = \u00BD \u00D7 9 \u00D7 6.",
+      "Step\u00A02\u00A0\u2013 A = 27\u00a0cm²."
+    ]
+  },
+  {
+    "id": "404",
+    "topic": "Measurement",
+    "title": "Volume of a Cuboid",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": ["Volume of Cuboids"],
+    "problem_text": "A cuboid measures 8\u00a0cm by 5\u00a0cm by 3\u00a0cm. What is its volume?",
+    "verified_answer": "120 cm³",
+    "solution_hints": [
+      "Volume = length \u00D7 breadth \u00D7 height.",
+      "Multiply all three dimensions."
+    ],
+    "common_pitfalls": [
+      "Adding instead of multiplying the dimensions.",
+      "Writing the answer without \u00ABcm³\u00BB."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 V = 8 \u00D7 5 \u00D7 3 = 120.",
+      "Step\u00A02\u00A0\u2013 Attach unit: 120\u00a0cm³."
+    ]
+  },
+  {
+    "id": "405",
+    "topic": "Measurement",
+    "title": "Surface Area of a Cube",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 60,
+    "skills_tested": ["Surface Area"],
+    "problem_text": "A cube has edges of 4\u00a0cm. Find its total surface area.",
+    "verified_answer": "96 cm²",
+    "solution_hints": [
+      "A cube has 6 identical square faces.",
+      "Area of one face = edge²."
+    ],
+    "common_pitfalls": [
+      "Multiplying edge by 6 first (24) then squaring.",
+      "Finding only one face area (16\u00a0cm²)."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 One face = 4\u00B2 = 16\u00a0cm².",
+      "Step\u00A02\u00A0\u2013 Total SA = 6 \u00D7 16 = 96\u00a0cm²."
+    ]
+  },
+  {
+    "id": "406",
+    "topic": "Measurement",
+    "title": "Missing Width of a Rectangle",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 70,
+    "skills_tested": ["Area and Inverse Operations"],
+    "problem_text": "A rectangle has an area of 150\u00a0cm² and length 15\u00a0cm. Find its width.",
+    "verified_answer": "10 cm",
+    "solution_hints": [
+      "Area = length \u00D7 width.",
+      "Rearrange to width = Area \u00F7 length."
+    ],
+    "common_pitfalls": [
+      "Adding or subtracting area and length.",
+      "Using perimeter formula instead of area."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 width = 150 \u00F7 15 = 10\u00a0cm."
+    ]
+  },
+  {
+    "id": "407",
+    "topic": "Measurement",
+    "title": "Mass Conversion",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 35,
+    "skills_tested": ["Unit Conversion (Mass)"],
+    "problem_text": "A packet of flour weighs 2.3\u00a0kg. Express this mass in grams.",
+    "verified_answer": "2300 g",
+    "solution_hints": [
+      "1\u00a0kg = 1000\u00a0g.",
+      "Multiply kilograms by 1000."
+    ],
+    "common_pitfalls": [
+      "Dividing instead of multiplying by 1000.",
+      "Placing the decimal incorrectly (e.g.\u00a02300.0\u00a0kg)."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 2.3 \u00D7 1000 = 2300\u00a0g."
+    ]
+  },
+  {
+    "id": "408",
+    "topic": "Measurement",
+    "title": "Capacity Conversion",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 35,
+    "skills_tested": ["Unit Conversion (Capacity)"],
+    "problem_text": "Convert 1.75\u00a0ℓ to millilitres (ml).",
+    "verified_answer": "1750 ml",
+    "solution_hints": [
+      "1\u00a0ℓ = 1000\u00a0ml.",
+      "Multiply the number of litres by 1000."
+    ],
+    "common_pitfalls": [
+      "Writing 1.75 \u00D7 100 = 175\u00a0ml.",
+      "Adding 1000 instead of multiplying."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 1.75 \u00D7 1000 = 1750\u00a0ml."
+    ]
+  },
+  {
+    "id": "409",
+    "topic": "Measurement",
+    "title": "Pouring Water Between Containers",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": ["Volume of Liquids", "Unit Conversion"],
+    "problem_text": "A jug contains 1.2\u00a0ℓ of juice. All the juice is poured equally into 6 identical cups. How many millilitres of juice are in each cup?",
+    "verified_answer": "200 ml",
+    "solution_hints": [
+      "Convert 1.2\u00a0ℓ to ml first.",
+      "Divide by the number of cups."
+    ],
+    "common_pitfalls": [
+      "Dividing 1.2 by 6 before converting, giving 0.2\u00a0ℓ but forgetting to change to ml.",
+      "Multiplying instead of dividing."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 1.2\u00a0ℓ = 1200\u00a0ml.",
+      "Step\u00A02\u00A0\u2013 1200\u00a0ml \u00F7 6 = 200\u00a0ml per cup."
+    ]
+  },
+  {
+    "id": "410",
+    "topic": "Measurement",
+    "title": "Compound Area (L-Shape)",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 110,
+    "skills_tested": ["Area of Composite Figures"],
+    "problem_text": "An L-shaped garden is made of two rectangles:\n\u2022\u00a020\u00a0m \u00D7 8\u00a0m\n\u2022\u00a012\u00a0m \u00D7 5\u00a0m\nFind the total area.",
+    "verified_answer": "220 m²",
+    "solution_hints": [
+      "Find the area of each rectangle separately.",
+      "Add the two areas."
+    ],
+    "common_pitfalls": [
+      "Adding only one dimension from each rectangle (20 + 12).",
+      "Multiplying all four numbers together."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 A₁ = 20 \u00D7 8 = 160\u00a0m².",
+      "Step\u00A02\u00A0\u2013 A₂ = 12 \u00D7 5 = 60\u00a0m².",
+      "Step\u00A03\u00A0\u2013 Total = 160 + 60 = 220\u00a0m²."
+    ]
+  },
+  {
+    "id": "411",
+    "topic": "Measurement",
+    "title": "Rate of Water Flow",
+    "complexity": 4,
+    "image_url": null,
+    "estimated_time_seconds": 120,
+    "skills_tested": ["Volume", "Rate"],
+    "problem_text": "A tap fills a container at a constant rate of 1.8\u00a0ℓ per minute. How long will it take to fill a 27\u00a0ℓ tank completely?",
+    "verified_answer": "15 min",
+    "solution_hints": [
+      "Time = Required volume \u00F7 Rate.",
+      "Ensure both volumes are in litres."
+    ],
+    "common_pitfalls": [
+      "Multiplying instead of dividing.",
+      "Converting litres to millilitres unnecessarily, leading to large numbers."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 T = 27 \u00F7 1.8 = 15.",
+      "Step\u00A02\u00A0\u2013 Attach unit: 15\u00a0min."
+    ]
+  },
+  {
+    "id": "412",
+    "topic": "Measurement",
+    "title": "Surface Area of an Open Box",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 100,
+    "skills_tested": ["Surface Area", "Composite Figures"],
+    "problem_text": "An open rectangular box (no lid) has length 10\u00a0cm, breadth 6\u00a0cm and height 4\u00a0cm. Find its external surface area.",
+    "verified_answer": "188 cm²",
+    "solution_hints": [
+      "Calculate area of the base and four sides (exclude the lid).",
+      "Add them all."
+    ],
+    "common_pitfalls": [
+      "Including the lid (extra 60\u00a0cm²).",
+      "Forgetting opposite sides come in pairs."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 Base = 10 \u00D7 6 = 60.",
+      "Step\u00A02\u00A0\u2013 Two long sides: 2 \u00D7 (10 \u00D7 4) = 80.",
+      "Step\u00A03\u00A0\u2013 Two short sides: 2 \u00D7 (6 \u00D7 4) = 48.",
+      "Step\u00A04\u00A0\u2013 Total SA = 60 + 80 + 48 = 188\u00a0cm² (correcting: include rim? Actually correct open box SA = 60 + 80 + 48 = 188)."
+    ]
+  },
+  {
+    "id": "413",
+    "topic": "Measurement",
+    "title": "Fraction of Tank Filled",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 75,
+    "skills_tested": ["Volume", "Fractions"],
+    "problem_text": "A water tank holds 540\u00a0ℓ when full. Currently it contains 270\u00a0ℓ. What fraction of the tank is filled?",
+    "verified_answer": "1/2",
+    "solution_hints": [
+      "Fraction filled = Current volume \u00F7 Full capacity.",
+      "Simplify the resulting fraction."
+    ],
+    "common_pitfalls": [
+      "Subtracting instead of dividing.",
+      "Leaving fraction unsimplified (270/540)."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 Fraction = 270 \u00F7 540 = 1/2."
+    ]
+  },
+  {
+    "id": "414",
+    "topic": "Measurement",
+    "title": "Scale Drawing Length",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 85,
+    "skills_tested": ["Scale and Ratio", "Length Conversion"],
+    "problem_text": "On a map with a scale of 1\u00a0cm\u00a0:\u00a040\u00a0km, two towns are 7.5\u00a0cm apart. What is the actual distance between the towns?",
+    "verified_answer": "300 km",
+    "solution_hints": [
+      "Multiply the map distance by the scale factor (40\u00a0km per cm).",
+      "Convert if necessary (already in km)."
+    ],
+    "common_pitfalls": [
+      "Dividing instead of multiplying by 40.",
+      "Converting km to m unnecessarily."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 7.5 \u00D7 40 = 300\u00a0km."
+    ]
+  },
+  {
+    "id": "415",
+    "topic": "Measurement",
+    "title": "Comparing Areas in Different Units",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 60,
+    "skills_tested": ["Unit Conversion (Area)"],
+    "problem_text": "Which is larger: 5000\u00a0cm² or 0.6\u00a0m²?",
+    "verified_answer": "0.6 m²",
+    "solution_hints": [
+      "Convert both areas to the same unit (either cm² or m²).",
+      "Remember 1\u00a0m² = 10\u200A000\u00a0cm²."
+    ],
+    "common_pitfalls": [
+      "Dividing by 100 instead of 10\u200A000 when converting cm² to m².",
+      "Comparing numbers without considering units."
+    ],
+    "verified_methodology": [
+      "Step\u00A01\u00A0\u2013 5000\u00a0cm² = 5000 \u00F7 10\u200A000 = 0.5\u00a0m².",
+      "Step\u00A02\u00A0\u2013 0.6\u00a0m² > 0.5\u00a0m², so 0.6\u00a0m² is larger."
+    ]
+  }
+]

@@ -23,6 +23,52 @@
     --card-color-purple: #e1bee7;
 }
 
+#main-header {
+    width: 100%;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    background-color: var(--container-bg);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+#main-nav button {
+    /* This will style our login/logout buttons */
+    background: none;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#main-nav button:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #a8e063, #56ab2f);
@@ -44,16 +90,23 @@ body {
     font-weight: 700;
 }
 
+#view-wrapper {
+    padding-top: 80px; /* Add padding to push content below the fixed header */
+}
+
 .view-container {
+    display: none; /* Hide all views by default */
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    min-height: 100vh;
     padding: 2rem;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
+
+.view-container.active {
+    display: flex;
+}
+
 
 /* --- AUTH & DASHBOARD STYLES --- */
 .auth-container {
@@ -67,19 +120,30 @@ body {
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     backdrop-filter: blur(4px);
 }
+
 #dashboard-view {
     max-width: 900px;
     margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* This ensures items stack vertically */
+    align-items: stretch;  /* This ensures children take up the full width */
 }
+
 .header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+    flex-shrink: 0; /* Prevents the header from shrinking */
 }
+
 h1 { font-size: 2rem; font-weight: 700; color: var(--text-primary); }
-#problem-list-container { width: 100%; }
+#problem-list-container {
+    width: 100%;
+    overflow-y: auto; /* Allows the list to scroll if it gets long */
+}
 
 /* --- PROBLEM ITEM CARDS --- */
 .problem-item {
@@ -112,7 +176,19 @@ h1 { font-size: 2rem; font-weight: 700; color: var(--text-primary); }
 .status-badge.in_progress { background-color: #fff3cd; color: #856404; }
 
 /* --- SOLVER VIEW LAYOUT --- */
-#solver-view { max-width: 1600px; }
+#solver-view {
+    width: 100%;
+    height: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative; /* This is the positioning context for the button */
+    padding-top: 5rem;  /* Make space for the button at the top */
+    box-sizing: border-box;
+    display: none; /* Keep this to hide the view initially */
+    flex-direction: column;
+    align-items: center;
+}
+
 #main-layout { display: flex; gap: 2rem; width: 100%; height: calc(100% - 70px); }
 #problem-container, #chat-container {
     background-color: var(--container-bg);
@@ -159,7 +235,7 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-#logout-button, #back-to-dashboard-button {
+#logout-button {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -176,7 +252,25 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
 #logout-button:hover, #back-to-dashboard-button:hover {
     background-color: var(--background-color);
 }
-#back-to-dashboard-button { align-self: flex-start; }
+#back-to-dashboard-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background-color: #fff;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    /* New positioning rules */
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 10;
+}
 
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 800px) {
@@ -186,4 +280,239 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
     h1 { font-size: 1.5rem; }
     #back-to-dashboard-button { position: absolute; top: 1rem; left: 1rem; z-index: 10; }
     #solver-view { padding-top: 4rem; }
+}
+
+.welcome-container {
+    text-align: center;
+    max-width: 600px;
+}
+.welcome-container h2 {
+    font-size: 2.8rem;
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+.welcome-container h1 {
+    font-size: 2.5rem;
+}
+
+.welcome-container p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.quiz-container {
+    width: 100%;
+    max-width: 800px;
+    background: var(--container-bg);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+#quiz-progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: var(--border-color);
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+#quiz-progress-fill {
+    width: 0%; /* Will be updated by JS */
+    height: 100%;
+    background-color: var(--success-color);
+    transition: width 0.5s ease-in-out;
+}
+
+#quiz-question-number {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+#quiz-question-text {
+    font-size: 1.4rem;
+    margin-top: 0;
+}
+
+#quiz-question-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+#quiz-options-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.quiz-option {
+    display: block;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.quiz-option:hover {
+    border-color: var(--primary-color);
+}
+
+.quiz-option.selected {
+    border-color: var(--primary-color);
+    background-color: #EBF4FF;
+}
+
+.quiz-option input[type="radio"] {
+    display: none; /* Hide the actual radio button */
+}
+
+#quiz-submit-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.button-primary {
+    /* Main call-to-action button style */
+    background-image: linear-gradient(45deg, var(--primary-color), var(--success-color));
+    color: #fff;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 1rem;
+}
+
+.button-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.recommended-topic-card {
+    background-image: linear-gradient(45deg, var(--primary-color), var(--success-color));
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+/* --- Loading Ellipsis Animation --- */
+.ellipsis {
+    display: inline-block;
+    width: 1.5em; /* Adjust width as needed */
+    text-align: left;
+}
+
+.ellipsis span {
+    opacity: 0;
+    animation: ellipsis-fade-in 1.4s infinite;
+}
+
+.ellipsis span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.ellipsis span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.ellipsis span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes ellipsis-fade-in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* In style.css */
+
+/* --- NEW DASHBOARD SECTION STYLES --- */
+#recommended-section, #all-problems-section {
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+
+#dashboard-view h2 {
+    text-align: left;
+    width: 100%;
+}
+
+.section-subtitle {
+    text-align: left;
+    width: 100%;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.topic-card {
+    background-color: var(--container-bg);
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.topic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+#recommended-section .topic-card {
+    border-left-color: var(--accent-color); /* Use accent color for recommended cards */
+}
+
+.problem-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background-color: #fff;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: var(--background-color);
 }

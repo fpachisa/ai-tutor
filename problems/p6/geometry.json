@@ -1,0 +1,174 @@
+[
+  {
+    "id": "701",
+    "topic": "Geometry",
+    "title": "Opposite Angles in a Parallelogram",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 35,
+    "skills_tested": ["Finding unknown angles – parallelogram"],
+    "problem_text": "In parallelogram ABCD, ∠ABC = 68°. Find ∠ADC.",
+    "verified_answer": "68°",
+    "solution_hints": [
+      "Opposite angles in a parallelogram are equal."
+    ],
+    "common_pitfalls": [
+      "Adding 180° instead of using equality."
+    ],
+    "verified_methodology": [
+      "Step 1 – In any parallelogram, ∠ABC = ∠ADC.",
+      "Step 2 – Therefore ∠ADC = 68°."
+    ]
+  },
+  {
+    "id": "702",
+    "topic": "Geometry",
+    "title": "Diagonal in a Rectangle",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": ["Finding unknown angles – rectangle & triangle"],
+    "problem_text": "Rectangle PQRS has diagonal PR drawn. If ∠QPR = 42°, find ∠PRQ.",
+    "verified_answer": "48°",
+    "solution_hints": [
+      "A rectangle has right angles (90°).",
+      "Use angle sum of a triangle."
+    ],
+    "common_pitfalls": [
+      "Using 42° + 42° instead of 90° + 42° when summing angles."
+    ],
+    "verified_methodology": [
+      "Step 1 – Triangle PQR is right-angled at Q (90°).",
+      "Step 2 – Sum of angles in ΔPQR: 90° + 42° + ∠PRQ = 180°.",
+      "Step 3 – ∠PRQ = 180° − 132° = 48°."
+    ]
+  },
+  {
+    "id": "703",
+    "topic": "Geometry",
+    "title": "Adjacent Angles in a Rhombus",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 35,
+    "skills_tested": ["Finding unknown angles – rhombus"],
+    "problem_text": "Rhombus WXYZ has ∠WXY = 60°. Find ∠XYZ.",
+    "verified_answer": "120°",
+    "solution_hints": [
+      "Adjacent angles of any parallelogram (and thus a rhombus) are supplementary."
+    ],
+    "common_pitfalls": [
+      "Assuming all angles are equal (only true for a square)."
+    ],
+    "verified_methodology": [
+      "Step 1 – In a rhombus, ∠WXY + ∠XYZ = 180°.",
+      "Step 2 – ∠XYZ = 180° − 60° = 120°."
+    ]
+  },
+  {
+    "id": "704",
+    "topic": "Geometry",
+    "title": "Base Angles in an Isosceles Trapezium",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 40,
+    "skills_tested": ["Finding unknown angles – trapezium"],
+    "problem_text": "Isosceles trapezium ABCD has AB ∥ CD and AD = BC. If ∠ABC = 65°, find ∠BAD.",
+    "verified_answer": "65°",
+    "solution_hints": [
+      "Base angles on the same (parallel) base of an isosceles trapezium are equal."
+    ],
+    "common_pitfalls": [
+      "Adding 180° − 65° instead of recognising equality."
+    ],
+    "verified_methodology": [
+      "Step 1 – For base AB, the base angles are ∠ABC and ∠BAD.",
+      "Step 2 – These angles are equal in an isosceles trapezium.",
+      "Step 3 – ∠BAD = 65°."
+    ]
+  },
+  {
+    "id": "705",
+    "topic": "Geometry",
+    "title": "Diagonal in a Square",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 35,
+    "skills_tested": ["Finding unknown angles – square & triangle"],
+    "problem_text": "Square ABCD has diagonal AC drawn. Find ∠ACB.",
+    "verified_answer": "45°",
+    "solution_hints": [
+      "The diagonal of a square creates two congruent isosceles right triangles."
+    ],
+    "common_pitfalls": [
+      "Answering 90° (the square’s corner) instead of the triangle’s angle."
+    ],
+    "verified_methodology": [
+      "Step 1 – ΔABC is right-angled at B with AB = BC.",
+      "Step 2 – Base angles in an isosceles right triangle are 45°.",
+      "Step 3 – ∠ACB = 45°."
+    ]
+  },
+  {
+    "id": "706",
+    "topic": "Geometry",
+    "title": "Angle Sum in a Triangle",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 30,
+    "skills_tested": ["Finding unknown angles – triangle"],
+    "problem_text": "In ΔABC, ∠CAB = 52° and ∠ABC = 63°. Find ∠ACB.",
+    "verified_answer": "65°",
+    "solution_hints": [
+      "Use the angle-sum property of a triangle (180°)."
+    ],
+    "common_pitfalls": [
+      "Adding instead of subtracting from 180°."
+    ],
+    "verified_methodology": [
+      "Step 1 – ∠ACB = 180° − (52° + 63°) = 65°."
+    ]
+  },
+  {
+    "id": "707",
+    "topic": "Geometry",
+    "title": "Isosceles Triangle within the Strand",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 35,
+    "skills_tested": ["Finding unknown angles – isosceles triangle"],
+    "problem_text": "Isosceles ΔPQR has PQ = PR and ∠QPR = 34°. Find ∠PQR.",
+    "verified_answer": "73°",
+    "solution_hints": [
+      "Base angles in an isosceles triangle are equal."
+    ],
+    "common_pitfalls": [
+      "Dividing the remaining angle by 3 instead of 2."
+    ],
+    "verified_methodology": [
+      "Step 1 – Sum of the two base angles = 180° − 34° = 146°.",
+      "Step 2 – Each base angle = 146° ÷ 2 = 73°.",
+      "Step 3 – ∠PQR = 73°."
+    ]
+  },
+  {
+    "id": "708",
+    "topic": "Geometry",
+    "title": "Opposite Angles in a Parallelogram (II)",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 30,
+    "skills_tested": ["Finding unknown angles – parallelogram"],
+    "problem_text": "Parallelogram KLMN has ∠KLM = 112°. Find ∠KNM.",
+    "verified_answer": "68°",
+    "solution_hints": [
+      "Consecutive angles in a parallelogram are supplementary."
+    ],
+    "common_pitfalls": [
+      "Answering 112° (opposite instead of consecutive)."
+    ],
+    "verified_methodology": [
+      "Step 1 – ∠KLM + ∠KNM = 180°.",
+      "Step 2 – ∠KNM = 180° − 112° = 68°."
+    ]
+  }
+]

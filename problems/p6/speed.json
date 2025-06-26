@@ -1,0 +1,344 @@
+[
+  {
+    "id": "301",
+    "topic": "Speed",
+    "title": "Cyclist’s Distance",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 40,
+    "skills_tested": ["Finding Distance"],
+    "problem_text": "A cyclist travels at 12 km/h for 3 hours. How far does he travel?",
+    "verified_answer": "36 km",
+    "solution_hints": [
+      "Use Distance = Speed × Time.",
+      "Multiply 12 km/h by 3 h."
+    ],
+    "common_pitfalls": [
+      "Adding instead of multiplying speed and time.",
+      "Forgetting to state the unit (km)."
+    ],
+    "verified_methodology": [
+      "Step 1: D = 12 × 3 = 36.",
+      "Step 2: State unit ⇒ 36 km."
+    ]
+  },
+  {
+    "id": "302",
+    "topic": "Speed",
+    "title": "Car’s Average Speed",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 40,
+    "skills_tested": ["Finding Speed"],
+    "problem_text": "A car travels 180 km in 3 hours. What is its average speed?",
+    "verified_answer": "60 km/h",
+    "solution_hints": [
+      "Speed = Distance ÷ Time.",
+      "Divide 180 km by 3 h."
+    ],
+    "common_pitfalls": [
+      "Multiplying distance and time instead of dividing.",
+      "Giving answer in km instead of km/h."
+    ],
+    "verified_methodology": [
+      "Step 1: S = 180 ÷ 3 = 60.",
+      "Step 2: State unit ⇒ 60 km/h."
+    ]
+  },
+  {
+    "id": "303",
+    "topic": "Speed",
+    "title": "Jogger’s Time",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 60,
+    "skills_tested": ["Finding Time", "Unit Conversion"],
+    "problem_text": "A jogger runs 5 km at a speed of 8 km/h. How long does he take? (Give your answer in minutes.)",
+    "verified_answer": "37.5 min",
+    "solution_hints": [
+      "Time = Distance ÷ Speed.",
+      "Convert hours to minutes by ×60."
+    ],
+    "common_pitfalls": [
+      "Using Speed ÷ Distance instead of Distance ÷ Speed.",
+      "Forgetting to convert 0.625 h to minutes."
+    ],
+    "verified_methodology": [
+      "Step 1: T = 5 ÷ 8 = 0.625 h.",
+      "Step 2: 0.625 h × 60 = 37.5 min."
+    ]
+  },
+  {
+    "id": "304",
+    "topic": "Speed",
+    "title": "Train Speed Conversion",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 50,
+    "skills_tested": ["Unit Conversion"],
+    "problem_text": "A train travels at 90 km/h. What is its speed in m/s?",
+    "verified_answer": "25 m/s",
+    "solution_hints": [
+      "Recall 1 km = 1000 m and 1 h = 3600 s.",
+      "Multiply 90 by 1000, then divide by 3600."
+    ],
+    "common_pitfalls": [
+      "Dividing by 60 instead of 3600.",
+      "Forgetting to convert kilometres to metres."
+    ],
+    "verified_methodology": [
+      "Step 1: 90 km/h = 90 000 m ÷ 3600 s.",
+      "Step 2: 90 000 ÷ 3600 = 25 m/s."
+    ]
+  },
+  {
+    "id": "305",
+    "topic": "Speed",
+    "title": "Two-Segment Trip",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": ["Average Speed", "Multi-Step Reasoning"],
+    "problem_text": "John drove 120 km at 60 km/h and then 80 km at 80 km/h. What was his average speed for the whole trip?",
+    "verified_answer": "66 2/3 km/h",
+    "solution_hints": [
+      "Average Speed = Total Distance ÷ Total Time.",
+      "Find time for each segment, add them, then divide."
+    ],
+    "common_pitfalls": [
+      "Averaging 60 and 80 directly (giving 70 km/h).",
+      "Forgetting to convert 0.5 h from decimals to fractions if required."
+    ],
+    "verified_methodology": [
+      "Step 1: Time₁ = 120 ÷ 60 = 2 h.",
+      "Step 2: Time₂ = 80 ÷ 80 = 1 h.",
+      "Step 3: Total distance = 200 km; total time = 3 h.",
+      "Step 4: Avg speed = 200 ÷ 3 = 66 2/3 km/h."
+    ]
+  },
+  {
+    "id": "306",
+    "topic": "Speed",
+    "title": "Cycling There and Back",
+    "complexity": 4,
+    "image_url": null,
+    "estimated_time_seconds": 120,
+    "skills_tested": ["Forming Equations", "Finding Time Difference"],
+    "problem_text": "Amy cycled from Town A to Town B at 15 km/h. She returned at 10 km/h and took 30 minutes longer on the return trip. What is the distance between Town A and Town B?",
+    "verified_answer": "15 km",
+    "solution_hints": [
+      "Let the distance be d km.",
+      "Set up an equation for the difference in times.",
+      "Remember 30 minutes = 0.5 h."
+    ],
+    "common_pitfalls": [
+      "Using 30 minutes as 30 h.",
+      "Adding instead of subtracting the two times."
+    ],
+    "verified_methodology": [
+      "Step 1: Forward time = d ÷ 15.",
+      "Step 2: Return time = d ÷ 10.",
+      "Step 3: d/10 − d/15 = 0.5.",
+      "Step 4: Multiply by 30: 3d − 2d = 15 ⇒ d = 15 km."
+    ]
+  },
+  {
+    "id": "307",
+    "topic": "Speed",
+    "title": "Bird’s Flight Distance",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 70,
+    "skills_tested": ["Finding Distance", "Unit Conversion"],
+    "problem_text": "A bird flies at 18 m/s. How far will it fly in 4 minutes?",
+    "verified_answer": "4.32 km",
+    "solution_hints": [
+      "Convert 4 minutes to seconds (×60).",
+      "Multiply speed by time, then convert metres to kilometres."
+    ],
+    "common_pitfalls": [
+      "Multiplying 18 by 4 without converting units.",
+      "Forgetting that 1000 m = 1 km."
+    ],
+    "verified_methodology": [
+      "Step 1: 4 min = 240 s.",
+      "Step 2: Distance = 18 × 240 = 4320 m.",
+      "Step 3: 4320 m ÷ 1000 = 4.32 km."
+    ]
+  },
+  {
+    "id": "308",
+    "topic": "Speed",
+    "title": "Walk-and-Jog Average",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": ["Average Speed", "Multi-Step Reasoning"],
+    "problem_text": "Serene walked at 5 km/h for 30 minutes and then jogged at 9 km/h for 20 minutes. What was her average speed for the whole journey?",
+    "verified_answer": "6.6 km/h",
+    "solution_hints": [
+      "Find distance for each part using D = S × T.",
+      "Convert minutes to hours.",
+      "Average Speed = Total Distance ÷ Total Time."
+    ],
+    "common_pitfalls": [
+      "Adding speeds directly (5 + 9).",
+      "Using 20/100 instead of 20/60 for hours."
+    ],
+    "verified_methodology": [
+      "Step 1: Walk distance = 5 × 0.5 = 2.5 km.",
+      "Step 2: Jog distance = 9 × (20/60) = 3 km.",
+      "Step 3: Total distance = 5.5 km.",
+      "Step 4: Total time = 0.5 h + 0.333… h = 0.833… h.",
+      "Step 5: Avg speed ≈ 5.5 ÷ 0.833… = 6.6 km/h."
+    ]
+  },
+  {
+    "id": "309",
+    "topic": "Speed",
+    "title": "Meeting Time",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 70,
+    "skills_tested": ["Relative Speed"],
+    "problem_text": "Two pupils start walking towards each other from points 1.2 km apart. One walks at 60 m/min and the other at 40 m/min. How long will they take to meet?",
+    "verified_answer": "12 min",
+    "solution_hints": [
+      "Convert all speeds to the same unit (m/min).",
+      "Add the two speeds to get relative speed.",
+      "Time = Distance ÷ Relative Speed."
+    ],
+    "common_pitfalls": [
+      "Subtracting the speeds instead of adding.",
+      "Leaving distance in kilometres and speed in m/min."
+    ],
+    "verified_methodology": [
+      "Step 1: Distance = 1.2 km = 1200 m.",
+      "Step 2: Relative speed = 60 + 40 = 100 m/min.",
+      "Step 3: Time = 1200 ÷ 100 = 12 min."
+    ]
+  },
+  {
+    "id": "310",
+    "topic": "Speed",
+    "title": "Train Passing a Lamp-Post",
+    "complexity": 2,
+    "image_url": null,
+    "estimated_time_seconds": 60,
+    "skills_tested": ["Finding Speed", "Unit Conversion"],
+    "problem_text": "A 120 m long train passes a lamp-post in 12 seconds. What is the train’s speed in km/h?",
+    "verified_answer": "36 km/h",
+    "solution_hints": [
+      "Speed = Length ÷ Time gives m/s.",
+      "Convert m/s to km/h (×3.6)."
+    ],
+    "common_pitfalls": [
+      "Using 12 ÷ 120 instead of 120 ÷ 12.",
+      "Multiplying by 60 instead of 3.6 to convert."
+    ],
+    "verified_methodology": [
+      "Step 1: S = 120 ÷ 12 = 10 m/s.",
+      "Step 2: 10 m/s × 3.6 = 36 km/h."
+    ]
+  },
+  {
+    "id": "311",
+    "topic": "Speed",
+    "title": "Round-Trip Average Speed",
+    "complexity": 3,
+    "image_url": null,
+    "estimated_time_seconds": 80,
+    "skills_tested": ["Average Speed"],
+    "problem_text": "A car travels from town X to town Y at 80 km/h and returns at 60 km/h. What is its average speed for the whole journey?",
+    "verified_answer": "68.6 km/h",
+    "solution_hints": [
+      "Let the one-way distance be d km.",
+      "Average Speed = 2d ÷ (d/80 + d/60).",
+      "Simplify the expression."
+    ],
+    "common_pitfalls": [
+      "Averaging 80 and 60 directly (giving 70 km/h).",
+      "Dividing total distance by the average of the times."
+    ],
+    "verified_methodology": [
+      "Step 1: Total distance = 2d.",
+      "Step 2: Total time = d/80 + d/60 = (7d)/240.",
+      "Step 3: Avg speed = 2d ÷ [(7d)/240] = 480/7 ≈ 68.6 km/h."
+    ]
+  },
+  {
+    "id": "312",
+    "topic": "Speed",
+    "title": "Pace to Speed",
+    "complexity": 1,
+    "image_url": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": ["Unit Conversion"],
+    "problem_text": "A marathon runner maintains a pace of 5 minutes per kilometre. What is his speed in km/h?",
+    "verified_answer": "12 km/h",
+    "solution_hints": [
+      "1 km in 5 min ⇒ find km in 60 min.",
+      "60 ÷ 5 = 12."
+    ],
+    "common_pitfalls": [
+      "Multiplying 5 by 60 (giving 300 km/h).",
+      "Leaving answer in km/min."
+    ],
+    "verified_methodology": [
+      "Step 1: 60 min / 5 min = 12 km.",
+      "Step 2: Therefore speed = 12 km/h."
+    ]
+  },
+  {
+    "id": "313",
+    "topic": "Speed",
+    "title": "Bus B Catches Up",
+    "complexity": 4,
+    "image_url": null,
+    "estimated_time_seconds": 110,
+    "skills_tested": ["Relative Speed", "Multi-Step Reasoning"],
+    "problem_text": "Bus A leaves a station at 8 a.m. travelling at 45 km/h. Bus B leaves the same station at 9 a.m. on the same route at 65 km/h. At what time will Bus B catch up with Bus A?",
+    "verified_answer": "11 : 15 a.m.",
+    "solution_hints": [
+      "Find Bus A’s head-start distance after 1 hour.",
+      "Relative speed = 65 km/h − 45 km/h.",
+      "Time to catch up = Head start ÷ Relative speed, then add to 9 a.m."
+    ],
+    "common_pitfalls": [
+      "Adding the two speeds instead of subtracting.",
+      "Forgetting that Bus B starts 1 hour later."
+    ],
+    "verified_methodology": [
+      "Step 1: Head-start distance = 45 km (Bus A in its first hour).",
+      "Step 2: Relative speed = 20 km/h.",
+      "Step 3: Time to catch up = 45 ÷ 20 = 2.25 h = 2 h 15 min.",
+      "Step 4: 9 a.m. + 2 h 15 min = 11 : 15 a.m."
+    ]
+  },
+  {
+    "id": "314",
+    "topic": "Speed",
+    "title": "Arriving On Time",
+    "complexity": 4,
+    "image_url": null,
+    "estimated_time_seconds": 120,
+    "skills_tested": ["Finding Required Speed"],
+    "problem_text": "A bus is scheduled to travel 210 km in 3 h 30 min. Due to traffic, it averages 50 km/h for the first 2 hours. What must its average speed be for the remaining distance in order to arrive on time?",
+    "verified_answer": "73 ⅓ km/h (≈ 73.3 km/h)",
+    "solution_hints": [
+      "Calculate distance covered in the first 2 h.",
+      "Find remaining distance and remaining time.",
+      "Required speed = Remaining distance ÷ Remaining time."
+    ],
+    "common_pitfalls": [
+      "Using 3.5 h − 2 h = 2 h remaining (should be 1.5 h).",
+      "Subtracting instead of dividing when finding required speed."
+    ],
+    "verified_methodology": [
+      "Step 1: Distance in first 2 h = 50 × 2 = 100 km.",
+      "Step 2: Remaining distance = 210 − 100 = 110 km.",
+      "Step 3: Remaining time = 3.5 − 2 = 1.5 h.",
+      "Step 4: Required speed = 110 ÷ 1.5 = 73 ⅓ km/h ≈ 73.3 km/h."
+    ]
+  }
+]
