@@ -216,58 +216,76 @@ def get_dashboard_data(current_user_id):
     using a fixed list of all available topics.
     """
     try:
-        # --- 1. Check for a one-time recommended topic from the diagnostic quiz ---
+        # --- 1. Check for a persistent recommended topic from the diagnostic quiz ---
         user_key = datastore_client.key('User', current_user_id)
         user = datastore_client.get(user_key)
 
-        if user and 'recommended_topic' in user and user['recommended_topic']:
-            initial_recommendation = user['recommended_topic']
-            
-            # Once we've used it, we clear it to avoid showing it again.
-            user['recommended_topic'] = None
-            datastore_client.put(user)
-            
-            # The 'all_topics' list should not contain the recommended topic
-            browse_topics = [topic for topic in ALL_P6_TOPICS if topic != initial_recommendation]
-            
-            return jsonify({
-                "recommended_topics": [initial_recommendation],
-                "all_topics": browse_topics
-            })
+        # Check if user has a diagnostic recommendation that should persist
+        diagnostic_recommendation = None
+        if user and user.get('recommended_topic'):
+            diagnostic_recommendation = user['recommended_topic']
 
-        # --- 2. Analyze User's Progress to Find Weaknesses (no change here) ---
-        query = datastore_client.query(kind='ProblemProgress')
-        query.add_filter('user_id', '=', current_user_id)
-        user_progress = list(query.fetch())
+        # --- 2. Optimized Progress Analysis ---
+        # Try optimized query first, fallback to original if index doesn't exist
+        try:
+            # Use projection query to only fetch needed fields
+            query = datastore_client.query(kind='ProblemProgress', projection=['problem_id'])
+            query.add_filter(filter=('user_id', '=', current_user_id))
+            query.add_filter(filter=('status', '=', 'in_progress'))
+            in_progress_items = list(query.fetch())
+            problem_ids = [item['problem_id'] for item in in_progress_items]
+        except Exception as index_error:
+            # Fallback to original approach if composite index doesn't exist
+            print(f"Using fallback query due to index issue: {index_error}")
+            query = datastore_client.query(kind='ProblemProgress')
+            query.add_filter(filter=('user_id', '=', current_user_id))
+            user_progress = list(query.fetch())
+            problem_ids = [item['problem_id'] for item in user_progress if item.get('status') == 'in_progress']
         
         weaknesses = {}
-        if user_progress:
-            for progress_item in user_progress:
-                if progress_item.get('status') == 'in_progress':
-                    problem = PROBLEMS.get(progress_item['problem_id'])
-                    # We also check the diagnostic quiz file for the topic
-                    if not problem:
-                         with open('problems/p6/p6_maths_diagnostic_quiz.json', 'r', encoding='utf-8') as f:
+        if problem_ids:
+            # Batch process problem lookups
+            # Load diagnostic quiz data once if needed
+            diagnostic_map = None
+            
+            for problem_id in problem_ids:
+                problem = PROBLEMS.get(problem_id)
+                
+                # Only load diagnostic quiz if we have problems not in PROBLEMS
+                if not problem and diagnostic_map is None:
+                    try:
+                        with open('problems/p6/p6_maths_diagnostic_quiz.json', 'r', encoding='utf-8') as f:
                             diagnostic_map = {q['id']: q for q in json.load(f)}
-                            problem = diagnostic_map.get(progress_item['problem_id'])
-                    
-                    if problem:
-                        topic = problem.get('chapter', 'Unknown')
-                        weaknesses[topic] = weaknesses.get(topic, 0) + 1
+                    except (FileNotFoundError, json.JSONDecodeError):
+                        diagnostic_map = {}
+                
+                if not problem and diagnostic_map:
+                    problem = diagnostic_map.get(problem_id)
+                
+                if problem:
+                    topic = problem.get('chapter', 'Unknown')
+                    weaknesses[topic] = weaknesses.get(topic, 0) + 1
         
         # Sort topics by the number of 'in_progress' problems to find recommendations
         recommended_topics = sorted(weaknesses, key=weaknesses.get, reverse=True)
 
-        # --- 3. Use our new fixed list to build the final response ---
-        # Ensure recommended topics are also in the main list, just in case
-        valid_recommendations = [topic for topic in recommended_topics if topic in ALL_P6_TOPICS]
+        # --- 3. Combine diagnostic recommendation with progress-based recommendations ---
+        # Start with diagnostic recommendation if it exists
+        final_recommendations = []
+        if diagnostic_recommendation and diagnostic_recommendation in ALL_P6_TOPICS:
+            final_recommendations.append(diagnostic_recommendation)
         
-        # The 'all_topics' list should not contain the recommended topics
-        browse_topics = [topic for topic in ALL_P6_TOPICS if topic not in valid_recommendations]
+        # Add progress-based recommendations (avoiding duplicates)
+        valid_recommendations = [topic for topic in recommended_topics 
+                               if topic in ALL_P6_TOPICS and topic not in final_recommendations]
+        final_recommendations.extend(valid_recommendations)
+        
+        # The 'all_topics' list should not contain any recommended topics
+        browse_topics = [topic for topic in ALL_P6_TOPICS if topic not in final_recommendations]
 
         # --- 4. Construct and Return the Final Dashboard Data ---
         dashboard_data = {
-            "recommended_topics": valid_recommendations[:3], # Return the top 3 recommendations
+            "recommended_topics": final_recommendations[:3], # Return the top 3 recommendations
             "all_topics": browse_topics
         }
         return jsonify(dashboard_data)
@@ -279,7 +297,7 @@ def get_dashboard_data(current_user_id):
             "recommended_topics": [],
             "all_topics": ALL_P6_TOPICS
         })
-
+    
 @app.route("/api/tutor/submit_answer", methods=['POST'])
 @token_required
 def submit_answer(current_user_id):
