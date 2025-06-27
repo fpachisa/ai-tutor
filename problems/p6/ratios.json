@@ -10,26 +10,26 @@
       "Before and After",
       "Units and Parts"
     ],
-    "problem_text": "Ali and Ben had some money. Ali had $200 more than Ben. After Ali spent 1/5 of his money and Ben spent 1/3 of his money, Ali still had $240 more than Ben. How much money did Ali have at first?",
-    "verified_answer": "$800",
+    "problem_text": "Ali and Ben had some money. Ali had \\$200 more than Ben. After Ali spent 1/5 of his money and Ben spent 1/3 of his money, Ali still had \\$240 more than Ben. How much money did Ali have at first?",
+    "verified_answer": "\\$800",
     "solution_hints": [
         "The difference in money between Ali and Ben changes. Focus on what they had at first.",
         "The denominators are 5 and 3. What is a useful common multiple to use for your units?",
-        "Don't forget that Ali spends 1/5 of his ENTIRE amount, including the extra $200."
+        "Don't forget that Ali spends 1/5 of his ENTIRE amount, including the extra \\$200."
     ],
     "common_pitfalls": [
-        "Forgetting that the initial difference of $200 is also affected when Ali spends 1/5 of his money.",
+        "Forgetting that the initial difference of \\$200 is also affected when Ali spends 1/5 of his money.",
         "Confusing the 'before' and 'after' ratios when setting up the final equation.",
         "Solving for the value of '1u' and forgetting to answer the actual question, which is Ali's total initial amount."
     ],
     "verified_methodology": [
-      "Step 1: Represent the initial amounts. Ben = 15u. Ali = 15u + $200. (Using 15 as a common multiple of 5 and 3).",
+      "Step 1: Represent the initial amounts. Ben = 15u. Ali = 15u + \\$200. (Using 15 as a common multiple of 5 and 3).",
       "Step 2: Calculate the 'remaining' amounts after spending. Ali has 4/5 left. Ben has 2/3 left.",
-      "Step 3: Calculate Ali's remaining amount: (4/5) * (15u + $200) = 12u + $160.",
+      "Step 3: Calculate Ali's remaining amount: (4/5) * (15u + \\$200) = 12u + \\$160.",
       "Step 4: Calculate Ben's remaining amount: (2/3) * 15u = 10u.",
-      "Step 5: Form an equation using the final difference: (12u + $160) - 10u = $240.",
-      "Step 6: Solve the equation: 2u + 160 = 240 -> 2u = 80 -> 1u = $40.",
-      "Step 7: Answer the original question: Ali's initial amount = 15u + $200 = (15 * 40) + 200 = $800."
+      "Step 5: Form an equation using the final difference: (12u + \\$160) - 10u = \\$240.",
+      "Step 6: Solve the equation: 2u + 160 = 240 -> 2u = 80 -> 1u = \\$40.",
+      "Step 7: Answer the original question: Ali's initial amount = 15u + \\$200 = (15 * 40) + 200 = \\$800."
     ]
   },
 
@@ -135,7 +135,7 @@
       "Multi-part Ratio",
       "Ratio and Difference"
     ],
-    "problem_text": "Lucy had $300 at first. She spent a sum of money on a dress, a necklace and a ring in the ratio 5 : 9 : 2. If she spent $198 on the jewellery, how much money had she left?",
+    "problem_text": "Lucy had \\$300 at first. She spent a sum of money on a dress, a necklace and a ring in the ratio 5 : 9 : 2. If she spent \\$198 on the jewellery, how much money had she left?",
     "verified_answer": "12",
     "solution_hints": [
       "Identify which items count as 'jewellery'.",
@@ -143,17 +143,17 @@
       "Use the cost of the jewellery to find the value of one ratio unit."
     ],
     "common_pitfalls": [
-      "Assuming the $198 represents the total amount spent on all three items.",
-      "Calculating the total amount spent correctly but making a subtraction error from the initial $300."
+      "Assuming the \\$198 represents the total amount spent on all three items.",
+      "Calculating the total amount spent correctly but making a subtraction error from the initial \\$300."
     ],
     "verified_methodology": [
       "Step 1: The spending ratio is Dress : Necklace : Ring = 5 : 9 : 2.",
       "Step 2: Jewellery consists of the necklace and the ring. The ratio units for jewellery are 9 + 2 = 11 units.",
-      "Step 3: The problem states she spent $198 on jewellery. So, 11 units = $198.",
-      "Step 4: Calculate the value of 1 unit: $198 ÷ 11 = $18.",
+      "Step 3: The problem states she spent \\$198 on jewellery. So, 11 units = \\$198.",
+      "Step 4: Calculate the value of 1 unit: \\$198 ÷ 11 = \\$18.",
       "Step 5: Calculate the total number of units spent on all items: 5 + 9 + 2 = 16 units.",
-      "Step 6: Calculate the total money spent: 16 units * $18/unit = $288.",
-      "Step 7: Calculate the money left: $300 (initial amount) - $288 (spent) = $12."
+      "Step 6: Calculate the total money spent: 16 units * \\$18/unit = \\$288.",
+      "Step 7: Calculate the money left: \\$300 (initial amount) - \\$288 (spent) = \\$12."
     ]
   },
   {

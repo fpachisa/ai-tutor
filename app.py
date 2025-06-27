@@ -231,41 +231,23 @@ def get_dashboard_data(current_user_id):
         # Use projection query to only fetch needed fields
         query = datastore_client.query(kind='ProblemProgress')
         query.add_filter('user_id', '=', current_user_id)
-        query.add_filter('status', '=', 'in_progress')  # Try without the filter= parameter
+        query.add_filter('status', '=', 'in_progress')  
         in_progress_items = list(query.fetch())
         problem_ids = [item['problem_id'] for item in in_progress_items]
 
         
         weaknesses = {}
         if problem_ids:
-            # Batch process problem lookups
-            # Load diagnostic quiz data once if needed
-            diagnostic_map = None
             
             for problem_id in problem_ids:
                 problem = PROBLEMS.get(problem_id)
-                
-                # Only load diagnostic quiz if we have problems not in PROBLEMS
-                if not problem and diagnostic_map is None:
-                    try:
-                        with open('problems/p6/p6_maths_diagnostic_quiz.json', 'r', encoding='utf-8') as f:
-                            diagnostic_map = {q['id']: q for q in json.load(f)}
-                    except (FileNotFoundError, json.JSONDecodeError):
-                        diagnostic_map = {}
-                
-                if not problem and diagnostic_map:
-                    problem = diagnostic_map.get(problem_id)
-                
                 if problem:
                     topic = problem.get('topic', 'Unknown')
                     weaknesses[topic] = weaknesses.get(topic, 0) + 1
         
         # Sort topics by the number of 'in_progress' problems to find recommendations
         recommended_topics = sorted(weaknesses, key=weaknesses.get, reverse=True)
-        print(f"Problem IDs found: {problem_ids}")
-        print(f"Weaknesses dict: {weaknesses}")
-        print(f"Recommended topics (sorted): {recommended_topics}")
-        print(f"Diagnostic recommendation: {diagnostic_recommendation}")
+
         # --- 3. Combine diagnostic recommendation with progress-based recommendations ---
         # Start with diagnostic recommendation if it exists
         final_recommendations = []

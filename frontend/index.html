@@ -20,12 +20,16 @@
         };
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
     <header id="main-header">
         <div class="header-content">
-            <h1 class="brand-title">TutorAI</h1>
+            <a href="#" id="brand-logo" class="brand-logo">
+                <i data-feather="target"></i>
+                <h1 class="brand-title">TutorAI</h1>
+            </a>
             <nav id="main-nav"></nav>
         </div>
     </header>
@@ -135,6 +139,9 @@
                     <h2>The Problem</h2>
                     <img id="problem-image" src="" alt="Problem diagram">
                     <div id="problem-text"></div>
+                    <div id="chart-container" style="display: none;">
+                        <canvas id="problem-chart"></canvas>
+                    </div>
                 </div>
                 <div id="chat-container">
                     <div id="feedback-area"></div>

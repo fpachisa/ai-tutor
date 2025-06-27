@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL STATE & CONSTANTS ---
-    //const API_BASE_URL = 'https://aicampus-live.uc.r.appspot.com/api';
-    const API_BASE_URL = 'http://127.0.0.1:8080/api';
+    const API_BASE_URL = 'https://aicampus-live.uc.r.appspot.com/api';
+    //const API_BASE_URL = 'http://127.0.0.1:8080/api';
     let authToken = null;
     let currentProblemId = null;
     let chatHistory = [];
@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userAnswers: [],
         recommendedTopic: null,
     };
+    let currentChart = null;
 
     // --- ELEMENT REFERENCES ---
     const views = {
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const answerInputElement = document.getElementById('answer-input');
     const submitButton = document.getElementById('submit-button');
     const feedbackArea = document.getElementById('feedback-area');
+
 
     // --- VIEW MANAGEMENT ---
     function showView(viewId) {
@@ -331,19 +333,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     async function fetchProblem(problemId) {
+        // First, clear any old chart
+        renderChart(null); 
+
         try {
             const response = await authedFetch(`${API_BASE_URL}/problems/${problemId}`);
             if (!response.ok) throw new Error('Network response was not ok');
             const problem = await response.json();
+
+            // Render the text and image as before
             problemTextElement.innerHTML = problem.problem_text;
+            typesetMath(problemTextElement);
             problemImageElement.style.display = problem.image_url ? 'block' : 'none';
             problemImageElement.src = problem.image_url || '';
-            typesetMath(problemTextElement);
+
+            // NEW: Check for the pre-processed chart_data object and render it
+            if (problem.chart_data) {
+                renderChart(problem.chart_data);
+            }
+
         } catch (error) {
             problemTextElement.innerHTML = 'Failed to load problem.';
+            console.error("Fetch Problem Error:", error);
         }
     }
-    
+
     async function submitAnswer() {
         const studentAnswer = answerInputElement.value;
         if (!studentAnswer) return;
@@ -456,7 +470,45 @@ document.addEventListener('DOMContentLoaded', () => {
             // This ensures the signup prompt always appears once the process is done.
             signupPromptArea.style.display = 'block';
         }
-    }  
+    }
+
+
+    function renderChart(chartConfig) {
+        // If a chart already exists, destroy it before drawing a new one
+        if (currentChart) {
+            currentChart.destroy();
+        }
+
+        const chartContainer = document.getElementById('chart-container');
+        const problemChartCanvas = document.getElementById('problem-chart');
+
+        // Check if we have valid data to render
+        if (chartConfig && chartConfig.type && chartConfig.data) {
+            chartContainer.style.display = 'block';
+            const ctx = problemChartCanvas.getContext('2d');
+
+            // For now, we only handle 'pie', but this is ready for 'bar', 'line', etc.
+            if (chartConfig.type === 'pie') {
+                currentChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: chartConfig.data, // Use the data object directly from our JSON
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        }
+                    }
+                });
+            }
+            // Future: else if (chartConfig.type === 'bar') { ... }
+
+        } else {
+            // If no chart data, hide the container
+            chartContainer.style.display = 'none';
+        }
+    }
     // --- INITIALIZATION ---
     function initializeApp() {
         const savedToken = localStorage.getItem('authToken');

@@ -4,232 +4,229 @@
     "topic": "Data Analysis",
     "title": "Counting From a Percentage Slice",
     "complexity": 1,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["Apples", "Other Fruits"],
+        "datasets": [{
+          "label": "Number of Students",
+          "data": [60, 180]
+        }]
+      }
+    },
     "estimated_time_seconds": 45,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Percentage"],
     "problem_text": "A pie chart represents the favourite fruits of 240 students. The slice for **Apples** covers 25 % of the chart. How many students chose Apples?",
     "verified_answer": "60",
-    "solution_hints": [
-      "Number = 25 % × 240.",
-      "25 % is one quarter."
-    ],
-    "common_pitfalls": [
-      "Dividing 240 by 25 instead of multiplying by 0.25.",
-      "Forgetting the % means ‘out of 100’."
-    ],
-    "verified_methodology": [
-      "Step 1 – 0.25 × 240 = 60.",
-      "Step 2 – 60 students chose Apples."
-    ]
+    "solution_hints": ["Number = 25 % × 240.", "25 % is one quarter."],
+    "common_pitfalls": ["Dividing 240 by 25 instead of multiplying by 0.25.", "Forgetting the % means ‘out of 100’."],
+    "verified_methodology": ["Step 1 – 0.25 × 240 = 60.","Step 2 – 60 students chose Apples."]
   },
-
   {
     "id": "552",
     "topic": "Data Analysis",
     "title": "Converting Angle to Percentage",
     "complexity": 1,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["Science", "Others"],
+        "datasets": [{
+          "label": "Angle in Degrees",
+          "data": [72, 288]
+        }]
+      }
+    },
     "estimated_time_seconds": 45,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Angles", "Percentage"],
     "problem_text": "In a pie chart the **Science** sector has an angle of 72°. What percentage of the whole set chose Science?",
     "verified_answer": "20 %",
-    "solution_hints": [
-      "Fraction = angle ÷ 360°.",
-      "Multiply the fraction by 100 %."
-    ],
-    "common_pitfalls": [
-      "Using 72 ÷ 100.",
-      "Rounding 20 % to 20.0 unnecessarily."
-    ],
-    "verified_methodology": [
-      "Step 1 – 72 ÷ 360 = 0.20.",
-      "Step 2 – 0.20 × 100 % = 20 %."
-    ]
+    "solution_hints": ["Fraction = angle ÷ 360°.", "Multiply the fraction by 100 %."],
+    "common_pitfalls": ["Using 72 ÷ 100.","Rounding 20 % to 20.0 unnecessarily."],
+    "verified_methodology": ["Step 1 – 72 ÷ 360 = 0.20.", "Step 2 – 0.20 × 100 % = 20 %."]
   },
-
   {
     "id": "553",
     "topic": "Data Analysis",
     "title": "Fraction Slice to Quantity",
     "complexity": 1,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["Red", "Others"],
+        "datasets": [{
+          "label": "Proportion",
+          "data": [1, 4]
+        }]
+      }
+    },
     "estimated_time_seconds": 40,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Fractions"],
     "problem_text": "In a pie chart showing 150 coloured marbles, the **Red** slice occupies \\(\\tfrac{1}{5}\\) of the circle. How many red marbles are there?",
     "verified_answer": "30",
-    "solution_hints": [
-      "Number = Fraction × Total.",
-      "\\(\\tfrac{1}{5}\\) of 150 = 150 ÷ 5."
-    ],
-    "common_pitfalls": [
-      "Multiplying by 5 instead of dividing by 5."
-    ],
-    "verified_methodology": [
-      "Step 1 – 150 × 1/5 = 30.",
-      "Step 2 – There are 30 red marbles."
-    ]
+    "solution_hints": ["Number = Fraction × Total.","\\(\\tfrac{1}{5}\\) of 150 = 150 ÷ 5."],
+    "common_pitfalls": ["Multiplying by 5 instead of dividing by 5."],
+    "verified_methodology": ["Step 1 – 150 × 1/5 = 30.", "Step 2 – There are 30 red marbles."]
   },
-
   {
     "id": "554",
     "topic": "Data Analysis",
     "title": "Angle to Simplest Fraction",
     "complexity": 2,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["IT Jobs", "Other Jobs"],
+        "datasets": [{
+          "label": "Angle in Degrees",
+          "data": [126, 234]
+        }]
+      }
+    },
     "estimated_time_seconds": 55,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Fractions", "Angles"],
     "problem_text": "A sector for **IT** jobs in a careers survey has an angle of 126°. Express this portion as a fraction of the whole circle in its simplest form.",
     "verified_answer": "7/20",
-    "solution_hints": [
-      "Fraction = 126° ÷ 360°.",
-      "Reduce the fraction to lowest terms."
-    ],
-    "common_pitfalls": [
-      "Forgetting to simplify 126/360.",
-      "Cancelling only by 2 instead of the highest common factor."
-    ],
-    "verified_methodology": [
-      "Step 1 – 126/360 = 7/20 (divide numerator & denominator by 18).",
-      "Step 2 – Simplest fraction = 7/20."
-    ]
+    "solution_hints": ["Fraction = 126° ÷ 360°.", "Reduce the fraction to lowest terms."],
+    "common_pitfalls": ["Forgetting to simplify 126/360.", "Cancelling only by 2 instead of the highest common factor."],
+    "verified_methodology": ["Step 1 – 126/360 = 7/20 (divide numerator & denominator by 18).", "Step 2 – Simplest fraction = 7/20."]
   },
-
   {
     "id": "555",
     "topic": "Data Analysis",
     "title": "Angle Needed for Votes",
     "complexity": 2,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["Candidate B", "Others"],
+        "datasets": [{
+          "label": "Number of Votes",
+          "data": [90, 210]
+        }]
+      }
+    },
     "estimated_time_seconds": 55,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Angles"],
     "problem_text": "In a school election, Candidate B received 90 of the 300 votes cast. What angle would represent Candidate B on a pie chart?",
     "verified_answer": "108°",
-    "solution_hints": [
-      "Fraction = 90/300.",
-      "Angle = Fraction × 360°."
-    ],
-    "common_pitfalls": [
-      "Multiplying 90 by 360 directly (forgetting to divide by total first).",
-      "Using 300 ÷ 90."
-    ],
-    "verified_methodology": [
-      "Step 1 – 90/300 = 0.3.",
-      "Step 2 – 0.3 × 360° = 108°."
-    ]
+    "solution_hints": ["Fraction = 90/300.", "Angle = Fraction × 360°."],
+    "common_pitfalls": ["Multiplying 90 by 360 directly (forgetting to divide by total first).", "Using 300 ÷ 90."],
+    "verified_methodology": ["Step 1 – 90/300 = 0.3.", "Step 2 – 0.3 × 360° = 108°."]
   },
-
   {
     "id": "556",
     "topic": "Data Analysis",
     "title": "Finding Quantity From Angle",
     "complexity": 1,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["Travel", "Others"],
+        "datasets": [{
+          "label": "Angle in Degrees",
+          "data": [45, 315]
+        }]
+      }
+    },
     "estimated_time_seconds": 45,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Angles"],
     "problem_text": "A survey pie chart of 200 people shows **Travel** with an angle of 45°. How many people chose Travel?",
     "verified_answer": "25",
-    "solution_hints": [
-      "Fraction = 45° ÷ 360° = 1/8.",
-      "Number = 1/8 × 200."
-    ],
-    "common_pitfalls": [
-      "Dividing 200 by 45 directly.",
-      "Using 45/200 × 360."
-    ],
-    "verified_methodology": [
-      "Step 1 – 1/8 × 200 = 25.",
-      "Step 2 – 25 people chose Travel."
-    ]
+    "solution_hints": ["Fraction = 45° ÷ 360° = 1/8.", "Number = 1/8 × 200."],
+    "common_pitfalls": ["Dividing 200 by 45 directly.", "Using 45/200 × 360."],
+    "verified_methodology": ["Step 1 – 1/8 × 200 = 25.", "Step 2 – 25 people chose Travel."]
   },
-
   {
     "id": "557",
     "topic": "Data Analysis",
     "title": "Percentage From Count",
     "complexity": 1,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["Swimming", "Other Sports"],
+        "datasets": [{
+          "label": "Number of Pupils",
+          "data": [18, 102]
+        }]
+      }
+    },
     "estimated_time_seconds": 40,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Percentage"],
     "problem_text": "In a pie chart of 120 pupils’ favourite sports, 18 pupils prefer **Swimming**. What percentage does the Swimming slice represent?",
     "verified_answer": "15 %",
-    "solution_hints": [
-      "Percentage = (18 ÷ 120) × 100 %."
-    ],
-    "common_pitfalls": [
-      "Using 120 ÷ 18.",
-      "Leaving the answer as a fraction."
-    ],
-    "verified_methodology": [
-      "Step 1 – 18/120 = 0.15.",
-      "Step 2 – 0.15 × 100 % = 15 %."
-    ]
+    "solution_hints": ["Percentage = (18 ÷ 120) × 100 %."],
+    "common_pitfalls": ["Using 120 ÷ 18.", "Leaving the answer as a fraction."],
+    "verified_methodology": ["Step 1 – 18/120 = 0.15.", "Step 2 – 0.15 × 100 % = 15 %."]
   },
-
   {
     "id": "558",
     "topic": "Data Analysis",
     "title": "Angle Relationship (Double)",
     "complexity": 1,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["Basketball", "Tennis", "Others"],
+        "datasets": [{
+          "label": "Angle in Degrees",
+          "data": [60, 30, 270]
+        }]
+      }
+    },
     "estimated_time_seconds": 40,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Angles"],
     "problem_text": "In a sports participation pie chart, the sector for **Basketball** is **twice** as large as the sector for **Tennis**, which measures 30°. What is the angle for Basketball?",
     "verified_answer": "60°",
-    "solution_hints": [
-      "Basketball angle = 2 × 30°."
-    ],
-    "common_pitfalls": [
-      "Adding 30° instead of doubling.",
-      "Dividing by 2."
-    ],
-    "verified_methodology": [
-      "Step 1 – 2 × 30° = 60°."
-    ]
+    "solution_hints": ["Basketball angle = 2 × 30°."],
+    "common_pitfalls": ["Adding 30° instead of doubling.", "Dividing by 2."],
+    "verified_methodology": ["Step 1 – 2 × 30° = 60°."]
   },
-
   {
     "id": "559",
     "topic": "Data Analysis",
     "title": "Angle for a Quarter Slice",
     "complexity": 1,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["Mystery", "Others"],
+        "datasets": [{
+          "label": "Proportion",
+          "data": [1, 3]
+        }]
+      }
+    },
     "estimated_time_seconds": 35,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Fractions"],
     "problem_text": "A reading survey shows that \\(\\tfrac{1}{4}\\) of pupils enjoy **Mystery** books. What is the angle of the Mystery sector on the pie chart?",
     "verified_answer": "90°",
-    "solution_hints": [
-      "Angle = Fraction × 360°.",
-      "One quarter of a circle."
-    ],
-    "common_pitfalls": [
-      "Using 360 ÷ 4 = 45° (mix-up with half of a half)."
-    ],
-    "verified_methodology": [
-      "Step 1 – 1/4 × 360° = 90°."
-    ]
+    "solution_hints": ["Angle = Fraction × 360°.", "One quarter of a circle."],
+    "common_pitfalls": ["Using 360 ÷ 4 = 45° (mix-up with half of a half)."],
+    "verified_methodology": ["Step 1 – 1/4 × 360° = 90°."]
   },
-
   {
     "id": "560",
     "topic": "Data Analysis",
     "title": "Total Quantity From a Sector",
     "complexity": 2,
-    "image_url": null,
+    "chart_data": {
+      "type": "pie",
+      "data": {
+        "labels": ["Marketing", "Others"],
+        "datasets": [{
+          "label": "Angle in Degrees",
+          "data": [54, 306]
+        }]
+      }
+    },
     "estimated_time_seconds": 60,
-    "skills_tested": ["Pie Charts"],
+    "skills_tested": ["Pie Charts", "Angles"],
     "problem_text": "On a company pie chart, the **Marketing** sector is 54° and represents 60 employees. How many employees are there in the whole company?",
     "verified_answer": "400",
-    "solution_hints": [
-      "Fraction = 54° ÷ 360°.",
-      "Total = Part ÷ Fraction."
-    ],
-    "common_pitfalls": [
-      "Multiplying 60 by 54.",
-      "Dividing 54 by 60."
-    ],
-    "verified_methodology": [
-      "Step 1 – 54/360 = 0.15.",
-      "Step 2 – Total employees = 60 ÷ 0.15 = 400."
-    ]
+    "solution_hints": ["Fraction = 54° ÷ 360°.", "Total = Part ÷ Fraction."],
+    "common_pitfalls": ["Multiplying 60 by 54.", "Dividing 54 by 60."],
+    "verified_methodology": ["Step 1 – 54/360 = 0.15.", "Step 2 – Total employees = 60 ÷ 0.15 = 400."]
   }
 ]
