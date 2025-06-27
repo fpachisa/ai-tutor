@@ -185,7 +185,7 @@ def get_problems_by_topic(current_user_id):
         if p.get("is_diagnostic"):
             continue
         
-        problem_topic = p.get("topic", p.get("chapter", "General"))
+        problem_topic = p.get("topic", p.get("topic", "General"))
         
         # If a topic is specified, only include problems from that topic
         if topic and topic.lower() != problem_topic.lower():
@@ -227,20 +227,14 @@ def get_dashboard_data(current_user_id):
 
         # --- 2. Optimized Progress Analysis ---
         # Try optimized query first, fallback to original if index doesn't exist
-        try:
-            # Use projection query to only fetch needed fields
-            query = datastore_client.query(kind='ProblemProgress', projection=['problem_id'])
-            query.add_filter(filter=('user_id', '=', current_user_id))
-            query.add_filter(filter=('status', '=', 'in_progress'))
-            in_progress_items = list(query.fetch())
-            problem_ids = [item['problem_id'] for item in in_progress_items]
-        except Exception as index_error:
-            # Fallback to original approach if composite index doesn't exist
-            print(f"Using fallback query due to index issue: {index_error}")
-            query = datastore_client.query(kind='ProblemProgress')
-            query.add_filter(filter=('user_id', '=', current_user_id))
-            user_progress = list(query.fetch())
-            problem_ids = [item['problem_id'] for item in user_progress if item.get('status') == 'in_progress']
+
+        # Use projection query to only fetch needed fields
+        query = datastore_client.query(kind='ProblemProgress')
+        query.add_filter('user_id', '=', current_user_id)
+        query.add_filter('status', '=', 'in_progress')  # Try without the filter= parameter
+        in_progress_items = list(query.fetch())
+        problem_ids = [item['problem_id'] for item in in_progress_items]
+
         
         weaknesses = {}
         if problem_ids:
@@ -263,12 +257,15 @@ def get_dashboard_data(current_user_id):
                     problem = diagnostic_map.get(problem_id)
                 
                 if problem:
-                    topic = problem.get('chapter', 'Unknown')
+                    topic = problem.get('topic', 'Unknown')
                     weaknesses[topic] = weaknesses.get(topic, 0) + 1
         
         # Sort topics by the number of 'in_progress' problems to find recommendations
         recommended_topics = sorted(weaknesses, key=weaknesses.get, reverse=True)
-
+        print(f"Problem IDs found: {problem_ids}")
+        print(f"Weaknesses dict: {weaknesses}")
+        print(f"Recommended topics (sorted): {recommended_topics}")
+        print(f"Diagnostic recommendation: {diagnostic_recommendation}")
         # --- 3. Combine diagnostic recommendation with progress-based recommendations ---
         # Start with diagnostic recommendation if it exists
         final_recommendations = []
@@ -282,6 +279,8 @@ def get_dashboard_data(current_user_id):
         
         # The 'all_topics' list should not contain any recommended topics
         browse_topics = [topic for topic in ALL_P6_TOPICS if topic not in final_recommendations]
+
+        print("Final Recommendations: ", final_recommendations )
 
         # --- 4. Construct and Return the Final Dashboard Data ---
         dashboard_data = {
@@ -455,21 +454,21 @@ def start_diagnostic_quiz():
         with open('problems/p6/p6_maths_diagnostic_quiz.json', 'r', encoding='utf-8') as f:
             all_diagnostic_questions = json.load(f)
 
-        # Step 1: Group questions by chapter
-        questions_by_chapter = {}
+        # Step 1: Group questions by topic
+        questions_by_topic = {}
         for q in all_diagnostic_questions:
-            chapter = q.get('chapter', 'Unknown')
-            if chapter not in questions_by_chapter:
-                questions_by_chapter[chapter] = []
-            questions_by_chapter[chapter].append(q)
+            topic = q.get('topic', 'Unknown')
+            if topic not in questions_by_topic:
+                questions_by_topic[topic] = []
+            questions_by_topic[topic].append(q)
 
         final_quiz_questions = []
-        chapters_with_questions = list(questions_by_chapter.keys())
+        topics_with_questions = list(questions_by_topic.keys())
 
-        # Step 2: Randomly pick one question from each chapter that has questions
-        for chapter in chapters_with_questions:
-            if questions_by_chapter[chapter]:
-                question = random.choice(questions_by_chapter[chapter])
+        # Step 2: Randomly pick one question from each topic that has questions
+        for topic in topics_with_questions:
+            if questions_by_topic[topic]:
+                question = random.choice(questions_by_topic[topic])
                 final_quiz_questions.append(question)
         
         # Step 3: If we need more questions to reach 10, add more from any topic, ensuring no duplicates
@@ -516,7 +515,7 @@ def analyze_diagnostic_results():
             if question:
                 detailed_results.append({
                     "question": question.get('question'),
-                    "topic": question.get('chapter'),
+                    "topic": question.get('topic'),
                     "difficulty": question.get('difficulty'),
                     "is_correct": answer.get('is_correct')
                 })
