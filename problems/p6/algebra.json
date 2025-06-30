@@ -286,7 +286,7 @@
     "image_url": null,
     "estimated_time_seconds": 90,
     "skills_tested": ["Forming Linear Equations"],
-    "problem_text": "Ken has $18 more than Paul. Together they have $78. How much money does Ken have now?",
+    "problem_text": "Ken has \\$18 more than Paul. Together they have \\$78. How much money does Ken have now?",
     "verified_answer": "$48",
     "solution_hints": [
       "Let Paul’s amount be P dollars.",

@@ -59,32 +59,43 @@ app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "your-default-super-secret-ke
 # you set up with 'gcloud auth application-default login'.
 datastore_client = datastore.Client()
 
-# --- LOAD PROBLEMS FROM JSON FILE ---
-def load_problems():
-    """Scans problem directories, loads all non-diagnostic .json files."""
-    all_problems = {}
+def load_all_problems():
+    """
+    Loads all problems from all JSON files at startup and separates them
+    into practice and diagnostic sets for efficient access.
+    """
+    practice_problems = {}
+    diagnostic_problems = {}
     problem_base_dir = pathlib.Path('problems')
+
     if not problem_base_dir.is_dir():
-        return {}
+        print("WARNING: 'problems' directory not found.")
+        return {}, {}
 
     for problem_dir in problem_base_dir.iterdir():
         if problem_dir.is_dir():
             for json_file in problem_dir.glob('*.json'):
-                # This check ensures we don't load quiz files into the main problem set
-                if 'diagnostic' in json_file.name:
-                    continue
                 try:
                     with open(json_file, 'r', encoding='utf-8') as f:
                         problems_list = json.load(f)
+                        # Check if the filename indicates it's a diagnostic quiz
+                        is_diagnostic = 'diagnostic' in json_file.name.lower()
                         for problem in problems_list:
-                            all_problems[problem['id']] = problem
+                            if is_diagnostic:
+                                diagnostic_problems[problem['id']] = problem
+                            else:
+                                practice_problems[problem['id']] = problem
                 except Exception as e:
                     print(f"Error loading {json_file}: {e}")
-    if not all_problems:
-        print("WARNING: No regular problems were loaded.")
-    return all_problems
+    
+    print(f"Loaded {len(practice_problems)} practice problems and {len(diagnostic_problems)} diagnostic questions.")
+    # This function now correctly returns TWO separate dictionaries
+    return practice_problems, diagnostic_problems
 
-PROBLEMS = load_problems()
+# This section now correctly calls the function and creates all the necessary global variables
+PRACTICE_PROBLEMS, DIAGNOSTIC_PROBLEMS = load_all_problems()
+ALL_PROBLEMS_MAP = {**PRACTICE_PROBLEMS, **DIAGNOSTIC_PROBLEMS}
+ALL_P6_TOPICS = sorted(list(set(p.get("topic") for p in PRACTICE_PROBLEMS.values() if p.get("topic"))))
 
 
 # --- GEMINI API CONFIGURATION ---
@@ -169,41 +180,68 @@ def login():
     return jsonify({"message": "Login successful", "token": token}), 200
 
 
-@app.route("/api/problems")
+@app.route("/api/problems", methods=['GET'])
 @token_required
 def get_problems_by_topic(current_user_id):
     """
-    Endpoint to get a list of practice problems, filtered by topic.
-    If no topic is provided, it returns all problems.
+    Endpoint to get practice problems for a topic, with filters for status.
+    Accepts query parameters: ?topic=... and ?filter=...
+    filter can be 'in_progress', 'mastered', or 'next' (default).
     """
-    topic = request.args.get('topic')
+    try:
+        topic_name = request.args.get('topic')
+        filter_type = request.args.get('filter')
 
-    # Filter problems based on the provided topic
-    filtered_problems = []
-    for p in PROBLEMS.values():
-        # Exclude diagnostic quiz questions
-        if p.get("is_diagnostic"):
-            continue
-        
-        problem_topic = p.get("topic", p.get("topic", "General"))
-        
-        # If a topic is specified, only include problems from that topic
-        if topic and topic.lower() != problem_topic.lower():
-            continue
-            
-        filtered_problems.append({
-            "id": p.get("id"),
-            "title": p.get("title", p.get("question", "Untitled Problem")),
-            "topic": problem_topic
-        })
+        if not topic_name:
+            return jsonify({"error": "Topic parameter is required"}), 400
 
-    return jsonify(filtered_problems)
+        # 1. Get all problem IDs for the requested topic
+        all_problem_ids_in_topic = {
+            pid for pid, p in PRACTICE_PROBLEMS.items() if p.get('topic') == topic_name
+        }
+
+        # 2. Get ALL of the user's progress entities in one go
+        query = datastore_client.query(kind='ProblemProgress')
+        query.add_filter('user_id', '=', current_user_id)
+        all_user_progress = list(query.fetch())
+        
+        # Create a map of problem_id -> status for easy lookup
+        progress_map = {item['problem_id']: item['status'] for item in all_user_progress}
+
+        # 3. Apply the requested filter
+        filtered_problem_ids = []
+        if filter_type == 'in_progress':
+            filtered_problem_ids = [pid for pid in all_problem_ids_in_topic if progress_map.get(pid) == 'in_progress']
+        elif filter_type == 'mastered':
+            filtered_problem_ids = [pid for pid in all_problem_ids_in_topic if progress_map.get(pid) == 'mastered']
+        else: # Default case is to find the 'next' unseen problem
+            unseen_problem_ids = [pid for pid in all_problem_ids_in_topic if pid not in progress_map]
+            if unseen_problem_ids:
+                # Return just the first unseen problem
+                filtered_problem_ids = [unseen_problem_ids[0]]
+
+        # 4. Fetch the full problem data for the filtered IDs
+        final_problem_list = []
+        for pid in filtered_problem_ids:
+            problem_data = PRACTICE_PROBLEMS.get(pid)
+            if problem_data:
+                final_problem_list.append({
+                    "id": problem_data.get("id"),
+                    "title": problem_data.get("title", "Untitled"),
+                    "topic": problem_data.get("topic")
+                })
+
+        return jsonify(final_problem_list)
+
+    except Exception as e:
+        print(f"An error occurred in get_problems_by_topic: {e}")
+        return jsonify({"error": "Could not retrieve problems for topic"}), 500
 
 
 @app.route("/api/problems/<problem_id>")
 def get_problem(problem_id):
     """Endpoint to get the full details for a single problem."""
-    problem = PROBLEMS.get(problem_id)
+    problem = PRACTICE_PROBLEMS.get(problem_id)
     if not problem:
         return jsonify({"error": "Problem not found"}), 404
     return jsonify(problem)
@@ -240,7 +278,7 @@ def get_dashboard_data(current_user_id):
         if problem_ids:
             
             for problem_id in problem_ids:
-                problem = PROBLEMS.get(problem_id)
+                problem = PRACTICE_PROBLEMS.get(problem_id)
                 if problem:
                     topic = problem.get('topic', 'Unknown')
                     weaknesses[topic] = weaknesses.get(topic, 0) + 1
@@ -279,117 +317,78 @@ def get_dashboard_data(current_user_id):
             "all_topics": ALL_P6_TOPICS
         })
     
+
 @app.route("/api/tutor/submit_answer", methods=['POST'])
 @token_required
 def submit_answer(current_user_id):
-    # 1. Initial validation
     if not model:
         return jsonify({"error": "AI Model not configured"}), 503
 
-    # 2. Get and sanitize data from the frontend request
+    # 1. Get all necessary data
     data = request.get_json()
     problem_id = data.get("problem_id")
-    raw_answer = data.get("student_answer", "")
-    student_answer = raw_answer.replace('\n', ' ').replace('\r', ' ').strip()
-    chat_history = data.get("chat_history", []) # This includes the user's latest message
-
-    problem = PROBLEMS.get(problem_id)
+    chat_history = data.get("chat_history", [])
+    problem = PRACTICE_PROBLEMS.get(problem_id)
+    
     if not problem:
         return jsonify({"error": "Problem not found"}), 404
 
-    # 3. Determine if the answer is correct and build the appropriate AI prompt
+    # 2. Construct the new "AI Examiner" Prompt
+    # We give the AI all context and ask it to make the judgment call.
+    examiner_prompt = f"""
+    You are an expert PSLE Mathematics examiner and tutor. Your task is to analyze a student's conversation and determine if they have solved the problem correctly, then provide the appropriate response.
 
-    verified_answer = problem["verified_answer"]
-    # We use a regular expression to find the verified answer as a whole word in the student's submission.
-    # This is more flexible than a direct string comparison.
-    is_correct = bool(re.search(r'\b' + re.escape(verified_answer) + r'\b', student_answer))
+    --- CONTEXT ---
+    PROBLEM: {problem['problem_text']}
+    VERIFIED ANSWER: "{problem['verified_answer']}"
+    VERIFIED METHODOLOGY: {problem['verified_methodology']}
+    CHAT HISTORY (User and your previous responses): {json.dumps(chat_history, indent=2)}
+    --- END CONTEXT ---
 
-    prompt = ""
+    --- YOUR TASK ---
+    Analyze all the information above.
+    1.  Determine if the student's conversation and latest input prove they have fully solved the problem and arrived at the verified answer. They do not need to have typed the answer verbatim, but their reasoning and result must be correct.
+    2.  Based on your determination, generate a JSON response with two keys:
+        - "is_final_answer_correct": A boolean (true or false).
+        - "feedback": An object containing your response, with keys "encouragement" and "socratic_question".
+    3.  If the student is correct, set "is_final_answer_correct" to true, and write a varied, positive congratulatory message in the "encouragement" field. The "socratic_question" should be an empty string.
+    4.  If the student is NOT correct, set "is_final_answer_correct" to false, and generate an encouraging, Socratic hint to guide them to their *next* logical step based on where they are in the methodology.
 
-    if is_correct:
-        # Prompt for when the user gets the final answer right
-        prompt = f"""
-        You are the 'PSLE AI Math Tutor'. The user has just submitted the CORRECT final answer.
-        Your task is to provide a single, short, positive, and varied congratulatory message. Do not be repetitive.
-        Keep it concise and encouraging. For example: "That's exactly right! Great job." or "Perfect! You've mastered this."
-        Your final output MUST be a single, valid JSON object with two keys: "encouragement" and "socratic_question". The "socratic_question" should be an empty string.
-        Example format: {{"encouragement": "That's it! Fantastic work!", "socratic_question": ""}}
-        """
-    else:
-        # Prompt for when the user's answer is incorrect
-        prompt = f"""
-        You are the 'PSLE AI Math Tutor'. Your role is to be an expert, encouraging Socratic guide for a 12-year-old student in Singapore.
-        Your personality is patient and encouraging. Never give the direct answer.
-        You have been given a problem, the correct answer, and the step-by-step solution.
-        The user has submitted an incorrect answer. Your goal is to guide them to find their own mistake.
-        Always respond in the required JSON format: {{"encouragement": "...", "socratic_question": "..."}}.
+    IMPORTANT: Your entire response must be ONLY the single, valid JSON object.
+    """
 
-        Here is the problem context:
-        Problem: {problem['problem_text']}
-        Verified Answer: {problem['verified_answer']}
-        Verified Methodology: {problem['verified_methodology']}
-        
-        The user's incorrect answer is: "{student_answer}"
-        
-        Now, generate the JSON output to guide the student.
-        """
-
-    # 4. Call the AI and handle the response
+    # 3. Call the AI and process the response
     final_response = {}
     try:
-        # We start a new chat session for each turn to ensure context is clean.
-        # The prompt contains all necessary context.
-        chat = model.start_chat(history=[])
-        response = chat.send_message(prompt)
-
-        cleaned_response_text = response.text.replace('```json', '').replace('```', '').strip()
-        ai_feedback_json = json.loads(cleaned_response_text)
-        final_response = {"is_correct": is_correct, "feedback": ai_feedback_json}
+        response = model.generate_content(examiner_prompt)
+        ai_response_json = json.loads(response.text.replace('```json', '').replace('```', '').strip())
+        
+        # We now trust the AI's judgment on correctness
+        is_correct = ai_response_json.get("is_final_answer_correct", False)
+        
+        final_response = {
+            "is_correct": is_correct,
+            "feedback": ai_response_json.get("feedback", {})
+        }
 
     except Exception as e:
         print(f"An error occurred during AI generation: {e}")
-        final_response = {
-            "is_correct": False,
-            "feedback": {
-                "encouragement": "I'm having a little trouble thinking at the moment.",
-                "socratic_question": "Could you please try that again?"
-            }
-        }
+        final_response = { "is_correct": False, "feedback": { "encouragement": "I'm having a little trouble thinking.", "socratic_question": "Can you try rephrasing?" } }
 
-    # 5. Save progress and history to Datastore
+    # 4. Save progress to the database (this logic is now driven by the AI's response)
     if final_response.get("feedback"):
-        # The chat_history from the frontend already includes the user's latest message.
-        # We just need to add the AI's response to complete the turn.
-        model_response_for_history = {'role': 'model', 'parts': [json.dumps(final_response['feedback'])]}
-        if is_correct:
-            # For correct answers, we store the simpler text response in history
-             model_response_for_history = {'role': 'model', 'parts': [final_response['feedback']['encouragement']]}
-
+        is_correct_from_ai = final_response.get("is_correct", False)
+        model_response_for_history = {'role': 'model', 'parts': [json.dumps(final_response['feedback'])] if not is_correct_from_ai else [final_response['feedback']['encouragement']]}
         history_to_save = chat_history + [model_response_for_history]
 
-        # Save the full chat history
-        chat_key = datastore_client.key('ChatHistory', f"{current_user_id}-{problem_id}")
-        chat_entity = datastore.Entity(key=chat_key, exclude_from_indexes=['history'])
-        chat_entity.update({
-            'user_id': current_user_id,
-            'problem_id': problem_id,
-            'history': history_to_save,
-            'updated_at': datetime.datetime.now(datetime.timezone.utc)
-        })
-        datastore_client.put(chat_entity)
-
-        # Save the problem's current status
         progress_key = datastore_client.key('ProblemProgress', f"{current_user_id}-{problem_id}")
+        chat_key = datastore_client.key('ChatHistory', f"{current_user_id}-{problem_id}")
         progress_entity = datastore.Entity(key=progress_key)
-        progress_entity.update({
-            'user_id': current_user_id,
-            'problem_id': problem_id,
-            'status': 'mastered' if is_correct else 'in_progress',
-            'updated_at': datetime.datetime.now(datetime.timezone.utc)
-        })
-        datastore_client.put(progress_entity)
+        chat_entity = datastore.Entity(key=chat_key, exclude_from_indexes=['history'])
+        progress_entity.update({ 'user_id': current_user_id, 'problem_id': problem_id, 'status': 'mastered' if is_correct_from_ai else 'in_progress', 'updated_at': datetime.datetime.now(datetime.timezone.utc) })
+        chat_entity.update({ 'user_id': current_user_id, 'problem_id': problem_id, 'history': history_to_save, 'updated_at': datetime.datetime.now(datetime.timezone.utc) })
+        datastore_client.put_multi([progress_entity, chat_entity])
 
-    # 6. Return the AI's response to the frontend
     return jsonify(final_response)
 
 
@@ -538,6 +537,59 @@ def analyze_diagnostic_results():
     except Exception as e:
         print(f"An error occurred during quiz analysis: {e}")
         return jsonify({"error": "Could not analyze quiz results"}), 500
+
+@app.route("/api/progress/topic_summary/<topic_name>", methods=['GET'])
+@token_required
+def get_topic_summary(current_user_id, topic_name):
+    """
+    Calculates and returns a user's progress summary for a specific topic,
+    considering only the main practice problems.
+    """
+    try:
+        # Step 1: Find all practice problem IDs that belong to the requested topic.
+        # This correctly uses the PRACTICE_PROBLEMS dictionary only.
+        problem_ids_in_topic = {
+            pid for pid, p in PRACTICE_PROBLEMS.items() if p.get('topic') == topic_name
+        }
+        total_problems = len(problem_ids_in_topic)
+
+        if total_problems == 0:
+            return jsonify({
+                "topic": topic_name, "total_problems": 0,
+                "mastered_count": 0, "in_progress_count": 0
+            })
+
+        # Step 2: Efficiently fetch only the relevant progress entities from Datastore.
+        # We build the specific keys we need and use a single get_multi call.
+        progress_keys = [
+            datastore_client.key('ProblemProgress', f"{current_user_id}-{pid}")
+            for pid in problem_ids_in_topic
+        ]
+        progress_entities = datastore_client.get_multi(progress_keys)
+
+        # Step 3: Calculate stats from the fetched entities.
+        mastered_count = 0
+        in_progress_count = 0
+        for entity in progress_entities:
+            # The get_multi result includes placeholders, so we check if the entity exists.
+            if entity:
+                if entity.get("status") == "mastered":
+                    mastered_count += 1
+                elif entity.get("status") == "in_progress":
+                    in_progress_count += 1
+        
+        summary = {
+            "topic": topic_name,
+            "total_problems": total_problems,
+            "mastered_count": mastered_count,
+            "in_progress_count": in_progress_count
+        }
+        return jsonify(summary)
+
+    except Exception as e:
+        print(f"An error occurred fetching topic summary for {topic_name}: {e}")
+        return jsonify({"error": "Could not retrieve topic summary"}), 500
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True)

@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
         recommendedTopic: null,
     };
     let currentChart = null;
+    let currentProblemData = null;
+    let currentTopicName = null;
 
     // --- ELEMENT REFERENCES ---
     const views = {
@@ -48,7 +50,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const answerInputElement = document.getElementById('answer-input');
     const submitButton = document.getElementById('submit-button');
     const feedbackArea = document.getElementById('feedback-area');
+    const TOPIC_METADATA = {
+        "Algebra":    { icon: "hash",    gradient: "linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%)" },
+        "Fractions":  { icon: "book",      gradient: "linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%)" },
+        "Speed":      { icon: "wind",           gradient: "linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%)" },
+        "Ratio":      { icon: "bar-chart-2",    gradient: "linear-gradient(45deg, #d4fc79 0%, #96e6a1 100%)" },
+        "Measurement":{ icon: "box",          gradient: "linear-gradient(45deg, #fbc2eb 0%, #a6c1ee 100%)" },
+        "Data Analysis": { icon: "pie-chart",    gradient: "linear-gradient(45deg, #ffc3a0 0%, #ffafbd 100%)" },
+        "Percentage": { icon: "percent",        gradient: "linear-gradient(45deg, #f6d365 0%, #fda085 100%)" },
+        "Geometry":   { icon: "triangle",       gradient: "linear-gradient(45deg, #89f7fe 0%, #66a6ff 100%)" },
+        "Default":    { icon: "book-open",      gradient: "linear-gradient(45deg, #6c757d 0%, #a9a9a9 100%)" }
+    };
 
+    const showNextProblemButton = document.getElementById('show-next-problem-button');
 
     // --- VIEW MANAGEMENT ---
     function showView(viewId) {
@@ -236,127 +250,202 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // --- MAIN APP LOGIC (Dashboard & Solver) ---
     async function fetchAndDisplayDashboard() {
-        // Get the new container elements
         const recommendedContainer = document.getElementById('recommended-topics-container');
         const allTopicsContainer = document.getElementById('all-topics-container');
-
-        // Clear any previous content
-        recommendedContainer.innerHTML = 'Loading recommendations...';
+        recommendedContainer.innerHTML = '<p>Loading recommendations...</p>';
         allTopicsContainer.innerHTML = '';
 
         try {
-            // Call our new smart dashboard endpoint
             const response = await authedFetch(`${API_BASE_URL}/dashboard`);
             if (!response.ok) throw new Error('Could not fetch dashboard data');
             const data = await response.json();
 
+            // A helper function to create a card to avoid repeating code
+            const createTopicCard = (topic) => {
+                const card = document.createElement('div');
+                card.className = 'topic-card';
+
+                // Get the specific icon and gradient for this topic
+                const metadata = TOPIC_METADATA[topic] || TOPIC_METADATA['Default'];
+
+                card.style.background = metadata.gradient;
+                card.innerHTML = `<i data-feather="${metadata.icon}"></i><span>${topic}</span>`;
+
+                card.addEventListener('click', () => showTopicView(topic));
+                return card;
+            };
+
             // --- Populate Recommended Topics ---
-            recommendedContainer.innerHTML = ''; // Clear loading message
+            recommendedContainer.innerHTML = '';
             if (data.recommended_topics && data.recommended_topics.length > 0) {
                 data.recommended_topics.forEach(topic => {
-                    const card = document.createElement('div');
-                    card.className = 'topic-card';
-                    card.textContent = topic;
-                    card.addEventListener('click', () => showTopicView(topic));
-                    recommendedContainer.appendChild(card);
+                    recommendedContainer.appendChild(createTopicCard(topic));
                 });
             } else {
                 recommendedContainer.innerHTML = '<p>No specific recommendations yet. Great job! Pick any topic to begin.</p>';
             }
 
             // --- Populate All Other Topics ---
-            allTopicsContainer.innerHTML = ''; // Clear loading message
+            allTopicsContainer.innerHTML = '';
             if (data.all_topics && data.all_topics.length > 0) {
                 data.all_topics.forEach(topic => {
-                    const card = document.createElement('div');
-                    card.className = 'topic-card';
-                    card.textContent = topic;
-                    card.addEventListener('click', () => showTopicView(topic));
-                    allTopicsContainer.appendChild(card);
+                    allTopicsContainer.appendChild(createTopicCard(topic));
                 });
             }
+
+            // This is essential to render the new icons
+            feather.replace();
 
         } catch (error) {
             recommendedContainer.innerHTML = '<p>Could not load recommendations.</p>';
             console.error("Dashboard fetch error:", error);
         }
     }
-
+    
     async function showTopicView(topicName) {
+        currentTopicName = topicName;
         showView('topic-view');
-        const topicTitle = document.getElementById('topic-title');
-        const problemList = document.getElementById('topic-problem-list');
+        document.getElementById('topic-title').textContent = topicName;
+
+        // --- 1. GET AND RENDER SCORECARD ---
+        const scorecard = document.getElementById('topic-scorecard');
+        scorecard.innerHTML = `<p>Loading stats...</p>`;
+
+        const summaryResponse = await authedFetch(`${API_BASE_URL}/progress/topic_summary/${encodeURIComponent(topicName)}`);
+        const summary = await summaryResponse.json();
+
+        scorecard.innerHTML = `
+            <button id="filter-in-progress" class="stat-card in-progress">
+                <div class="stat-card-value">${summary.in_progress_count}</div>
+                <div class="stat-card-label">In Progress</div>
+            </button>
+            <button id="filter-mastered" class="stat-card mastered">
+                <div class="stat-card-value">${summary.mastered_count}</div>
+                <div class="stat-card-label">Mastered</div>
+            </button>
+        `;
+
+        // --- 2. ADD EVENT LISTENERS TO SCORECARD ---
+        const masteredButton = document.getElementById('filter-mastered');
+        const inProgressButton = document.getElementById('filter-in-progress');
         
-        topicTitle.textContent = topicName;
-        problemList.innerHTML = 'Loading problems...';
+        masteredButton.addEventListener('click', () => {
+            masteredButton.classList.add('active');
+            inProgressButton.classList.remove('active');
+            fetchAndDisplayProblemList(topicName, 'mastered');
+        });
+
+        inProgressButton.addEventListener('click', () => {
+            inProgressButton.classList.add('active');
+            masteredButton.classList.remove('active');
+            fetchAndDisplayProblemList(topicName, 'in_progress');
+        });
+
+        // --- 3. LOAD THE DEFAULT 'NEXT' PROBLEM ---
+        // Remove the 'active' class from both buttons for the default view
+        masteredButton.classList.remove('active');
+        inProgressButton.classList.remove('active');
+        fetchAndDisplayProblemList(topicName, 'next');
+
+        const nextProblemButton = document.getElementById('show-next-problem-button');
+        nextProblemButton.addEventListener('click', () => {
+            // De-select the other filter buttons
+            masteredButton.classList.remove('active');
+            inProgressButton.classList.remove('active');
+            // Fetch the next unseen problem
+            fetchAndDisplayProblemList(topicName, 'next');
+        });
+    }
+
+
+    async function fetchAndDisplayProblemList(topicName, filter) {
+        const problemList = document.getElementById('topic-problem-list');
+        const listHeader = document.getElementById('problem-list-header');
+        problemList.innerHTML = '<p>Loading problems...</p>';
+
+        // Update header based on filter
+        if (filter === 'mastered') {
+            listHeader.textContent = 'Completed Problems';
+        } else if (filter === 'in_progress') {
+            listHeader.textContent = 'In Progress Problems';
+        } else {
+            listHeader.textContent = 'Next Up For You';
+        }
 
         try {
-            // Construct the URL with the topic query parameter
-            const response = await authedFetch(`${API_BASE_URL}/problems?topic=${encodeURIComponent(topicName)}`);
+            const response = await authedFetch(`${API_BASE_URL}/problems?topic=${encodeURIComponent(topicName)}&filter=${filter}`);
             if (!response.ok) throw new Error('Could not fetch problems');
-            
-            // The backend now returns only the problems for the specified topic
-            const topicProblems = await response.json();
-            
-            problemList.innerHTML = '';
-            if (topicProblems.length > 0) {
-                topicProblems.forEach(problem => {
+            const problems = await response.json();
+
+            problemList.innerHTML = ''; // Clear loading message
+            if (problems.length > 0) {
+                problems.forEach(problem => {
                     const problemElement = document.createElement('div');
                     problemElement.className = 'problem-item';
-                    problemElement.textContent = problem.title;
+                    problemElement.innerHTML = `<span>${problem.title}</span>`;
                     problemElement.addEventListener('click', () => switchToSolverView(problem.id));
                     problemList.appendChild(problemElement);
                 });
             } else {
-                problemList.innerHTML = '<p>No problems found for this topic yet.</p>';
+                problemList.innerHTML = `<p>No problems found for this filter.</p>`;
             }
         } catch (error) {
-            problemList.innerHTML = '<p>Could not load problems for this topic.</p>';
-            console.error(`Error fetching problems for ${topicName}:`, error);
+            problemList.innerHTML = '<p>Could not load problems.</p>';
+            console.error(`Error fetching problems for filter ${filter}:`, error);
         }
     }
-    
+
     async function switchToSolverView(problemId) {
+        // 1. Immediately switch to the solver view and reset all states
         showView('solver-view');
         currentProblemId = problemId;
-        try {
-            const response = await authedFetch(`${API_BASE_URL}/progress/${problemId}`);
-            if (!response.ok) throw new Error('Could not fetch progress');
-            const data = await response.json();
-            chatHistory = data.chat_history || [];
-            renderChatHistory();
-        } catch(error) {
-            chatHistory = [];
-            renderChatHistory();
-        }
-        fetchProblem(problemId);
-    }
-    
-    async function fetchProblem(problemId) {
-        // First, clear any old chart
-        renderChart(null); 
+        currentProblemData = null;
+        chatHistory = [];
+        currentHintIndex = 0;
+        
+        // 2. Clear the UI and show a loading message
+
+        problemTextElement.innerHTML = '<p>Loading problem...</p>';
+        renderChart(null);
+        renderChatHistory();
 
         try {
-            const response = await authedFetch(`${API_BASE_URL}/problems/${problemId}`);
-            if (!response.ok) throw new Error('Network response was not ok');
-            const problem = await response.json();
+            // 3. Fetch both the problem data and the user's progress for it at the same time
+            const [problemResponse, progressResponse] = await Promise.all([
+                authedFetch(`${API_BASE_URL}/problems/${problemId}`),
+                authedFetch(`${API_BASE_URL}/progress/${problemId}`)
+            ]);
 
-            // Render the text and image as before
-            problemTextElement.innerHTML = problem.problem_text;
-            typesetMath(problemTextElement);
-            problemImageElement.style.display = problem.image_url ? 'block' : 'none';
-            problemImageElement.src = problem.image_url || '';
-
-            // NEW: Check for the pre-processed chart_data object and render it
-            if (problem.chart_data) {
-                renderChart(problem.chart_data);
+            if (!problemResponse.ok || !progressResponse.ok) {
+                throw new Error('Could not load problem data or user progress.');
             }
 
+            const problem = await problemResponse.json();
+            const progress = await progressResponse.json();
+
+            // 4. Update our application's state with the fetched data
+            currentProblemData = problem;
+            chatHistory = progress.chat_history || [];
+
+            // 5. Render all the new content
+            problemTextElement.innerHTML = currentProblemData.problem_text;
+            typesetMath(problemTextElement);
+
+            problemImageElement.style.display = currentProblemData.image_url ? 'block' : 'none';
+            problemImageElement.src = currentProblemData.image_url || '';
+            
+            if (currentProblemData.chart_data) {
+                renderChart(currentProblemData.chart_data);
+            }
+
+            renderChatHistory(); // Render the loaded chat history
+
+
         } catch (error) {
-            problemTextElement.innerHTML = 'Failed to load problem.';
-            console.error("Fetch Problem Error:", error);
+            console.error("Error loading solver view:", error);
+            problemTextElement.innerHTML = '<p>Failed to load the problem. Please go back and try again.</p>';
         }
-    }
+    }    
 
     async function submitAnswer() {
         const studentAnswer = answerInputElement.value;
@@ -509,6 +598,8 @@ document.addEventListener('DOMContentLoaded', () => {
             chartContainer.style.display = 'none';
         }
     }
+
+
     // --- INITIALIZATION ---
     function initializeApp() {
         const savedToken = localStorage.getItem('authToken');
@@ -529,7 +620,16 @@ document.addEventListener('DOMContentLoaded', () => {
     showLoginLink.addEventListener('click', (e) => { e.preventDefault(); showView('login-view'); });
     hookShowSignupButton.addEventListener('click', (e) => { e.preventDefault(); showView('signup-view'); });
     hookShowLoginLink.addEventListener('click', (e) => { e.preventDefault(); showView('login-view'); });
-    backButton.addEventListener('click', () => { showView('topic-view'); }); // Go back to topic view from solver
+    backButton.addEventListener('click', () => {
+        // If we know what the last topic was, reload it completely.
+        if (currentTopicName) {
+            showTopicView(currentTopicName);
+        } else {
+            // As a fallback, just go to the main dashboard.
+            showView('dashboard-view');
+            fetchAndDisplayDashboard();
+        }
+    });
     backToDashboardFromTopicButton.addEventListener('click', () => { showView('dashboard-view'); fetchAndDisplayDashboard(); });
     submitButton.addEventListener('click', submitAnswer);
     answerInputElement.addEventListener('keyup', (e) => { if (e.key === 'Enter') submitAnswer(); });

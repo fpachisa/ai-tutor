@@ -497,21 +497,34 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
 }
 
 .topic-card {
-    background-color: var(--container-bg);
-    padding: 1.25rem 1rem;
-    border-radius: 12px;
-    border-left: 5px solid var(--primary-color);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    /* We will now set the background dynamically with JavaScript */
+    color: #fff; /* White text for better contrast on gradients */
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     text-align: center;
-    font-weight: 600;
-    font-size: 1.2rem;
+    font-weight: 700;
+    font-size: 1.3rem;
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
+    display: flex;
+    flex-direction: column; /* Stack icon and text vertically */
+    justify-content: center;
+    align-items: center;
+    gap: 1rem; /* Space between icon and text */
+    min-height: 50px;
 }
 
 .topic-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* Style for the large icon on the card */
+.topic-card svg {
+    width: 48px;
+    height: 48px;
+    stroke-width: 2;
 }
 
 #recommended-section .topic-card {
@@ -540,4 +553,71 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
 
 .back-button:hover {
     background-color: var(--background-color);
+}
+
+#topic-scorecard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin-bottom: 2.5rem;
+}
+
+.stat-card {
+    background-color: var(--container-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid transparent; /* A border to handle the active state */
+    border-top: 5px solid;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+/* A new style for the active filter card */
+.stat-card.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.stat-card-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stat-card-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Assign different colors for each stat card */
+.stat-card.mastered { border-color: var(--success-color); }
+.stat-card.in-progress { border-color: var(--accent-color); }
+.stat-card.total { border-color: var(--primary-color); }
+
+.topic-view-content {
+    max-width: 900px;
+    width: 100%;
+}
+
+.topic-header {
+    display: flex;
+    justify-content: flex-start; /* Align items to the start */
+    align-items: center;
+    gap: 1.5rem; /* Add space between items */
+    width: 100%;
+}
+
+.topic-header h1 {
+    flex-grow: 1; /* Allow the title to take up remaining space */
+    margin: 0; /* Remove default margins */
+    border: none;
+    padding: 0;
 }

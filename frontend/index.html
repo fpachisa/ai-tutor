@@ -34,6 +34,7 @@
         </div>
     </header>
 
+
     <main id="view-wrapper">
         
         <div id="welcome-view" class="view-container">
@@ -80,7 +81,7 @@
                 <form id="login-form">
                     <div class="form-group"><label for="login-email">Email</label><input type="email" id="login-email" required></div>
                     <div class="form-group"><label for="login-password">Password</label><input type="password" id="login-password" required></div>
-                    <button type="submit" class="auth-button">Login</button>
+                    <br><button type="submit" class="auth-button">Login</button>
                     <p id="login-error" class="error-message"></p>
                 </form>
                 <p class="auth-switch">Don't have an account? <a href="#" id="show-signup-link">Sign Up</a></p>
@@ -101,34 +102,51 @@
         </div>
 
         <div id="dashboard-view" class="view-container" style="display: none;">
-            <div class="header">
-                <h1>Dashboard</h1>
-            </div>
+
 
             <div id="dashboard-grid">
-            <div id="recommended-section">
-                <h2>Recommended For You</h2>
-                <div id="recommended-topics-container" class="topic-grid">
+                <div id="recommended-section">
+                    <h2>Recommended For You</h2>
+                    <div id="recommended-topics-container" class="topic-grid">
+                    </div>
                 </div>
-            </div>
 
-            <div id="all-topics-section">
-                <h2>Browse All Topics</h2>
-                <div id="all-topics-container" class="topic-grid">
+                <div id="all-topics-section">
+                    <h2>All Other Topics</h2>
+                    <div id="all-topics-container" class="topic-grid">
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
 
         <div id="topic-view" class="view-container" style="display: none;">
-            <div class="dashboard-view" style="max-width: 900px; width: 100%;">
+            <div class="topic-view-content">
                 <div class="header topic-header">
-                    <button id="back-to-dashboard-from-topic-button" class="back-button"><i data-feather="arrow-left"></i> Back to Dashboard</button>
+                    <button id="back-to-dashboard-from-topic-button" class="back-button">
+                        <i data-feather="arrow-left"></i> Back to Dashboard
+                    </button>
                     <h1 id="topic-title">Topic</h1>
+                    <button id="show-next-problem-button" class="button-primary">Show Next Problem <i data-feather="arrow-right"></i></button>
                 </div>
+
+                <div id="topic-scorecard">
+                    <button id="filter-total" class="stat-card total active">
+                        <div class="stat-card-value">--</div>
+                        <div class="stat-card-label">Total Problems</div>
+                    </button>
+                    <button id="filter-mastered" class="stat-card mastered">
+                        <div class="stat-card-value">--</div>
+                        <div class="stat-card-label">Mastered</div>
+                    </button>
+                    <button id="filter-in-progress" class="stat-card in-progress">
+                        <div class="stat-card-value">--</div>
+                        <div class="stat-card-label">In Progress</div>
+                    </button>
+                </div>
+
+                <h2 id="problem-list-header">Next Up</h2>
                 <div id="topic-problem-list" class="problem-list">
-                    <!-- Problems for the selected topic will be dynamically inserted here -->
-                </div>
+                    </div>
             </div>
         </div>
         
@@ -145,6 +163,8 @@
                 </div>
                 <div id="chat-container">
                     <div id="feedback-area"></div>
+
+
                     <div id="input-area">
                         <input type="text" id="answer-input" placeholder="Enter your answer or next step...">
                         <button id="submit-button">Send</button>
