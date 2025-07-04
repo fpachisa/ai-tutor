@@ -2,5 +2,6 @@ indexes:
 - kind: ProblemProgress
   properties:
   - name: user_id
-  - name: status
-  - name: problem_id
+  - name: updated_at
+    direction: desc
+

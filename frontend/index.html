@@ -37,11 +37,27 @@
 
     <main id="view-wrapper">
         
-        <div id="welcome-view" class="view-container">
+        <div id="welcome-chat-view" class="view-container active">
+            <div class="chat-container welcome-chat">
+                <div id="welcome-chat-log" class="feedback-area">
+                    </div>
+                <div id="welcome-chat-actions" class="chat-actions">
+                    </div>
+            </div>
+        </div>        
+        
+        <div id="welcome-view" class="view-container style="display: none;">
             <div class="welcome-container">
                 <h2>Master PSLE Mathematics</h2>
                 <p>Start with our short, adaptive diagnostic quiz to discover your personalized learning path.</p>
                 <button id="start-quiz-button" class="button-primary">Start Diagnostic Quiz</button>
+            </div>
+        </div>
+
+        <div id="logout-view" class="view-container style="display: none;">
+            <div class="logout-container">
+                <h2>See you again soon!!</h2>
+                <p>Hope you had a good session. Keep up the good work.</p>
             </div>
         </div>
 
@@ -92,9 +108,18 @@
              <div class="auth-container">
                 <h2>Create Account</h2>
                 <form id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-firstname">First Name</label>
+                        <input type="text" id="signup-firstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-lastname">Last Name</label>
+                        <input type="text" id="signup-lastname" required>
+                    </div>
+
                     <div class="form-group"><label for="signup-email">Email</label><input type="email" id="signup-email" required></div>
                     <div class="form-group"><label for="signup-password">Password</label><input type="password" id="signup-password" required></div>
-                    <button type="submit" class="auth-button">Sign Up</button>
+                    <br><button type="submit" class="auth-button">Sign Up</button>
                     <p id="signup-error" class="error-message"></p>
                 </form>
                 <p class="auth-switch">Already have an account? <a href="#" id="show-login-link">Login</a></p>

@@ -906,7 +906,7 @@
     "id": "6.2.2",
     "topic": "Data Analysis",
     "subtopic": "Pie Charts – Word Problems",
-    "question": "In a company’s budget pie chart, Marketing = 72°, R&D = 108°, Production = 144°. If the total budget is $2 million, how much is allocated to 'Others'?",
+    "question": "In a company’s budget pie chart, Marketing = 72°, R&D = 108°, Production = 144°. If the total budget is \\$2 million, how much is allocated to 'Others'?",
     "options": [
       "$0.2 million",
       "$0.5 million",
@@ -969,7 +969,7 @@
     "id": "7.2.1",
     "topic": "Percentage",
     "subtopic": "Percentage Increase and Decrease",
-    "question": "The price of a jacket increases from $80 to $100. What is the percentage increase?",
+    "question": "The price of a jacket increases from \\$80 to \\$100. What is the percentage increase?",
     "options": [
       "25 %",
       "20 %",
@@ -1032,7 +1032,7 @@
     "id": "7.3.2",
     "topic": "Percentage",
     "subtopic": "Word Problems",
-    "question": "A shirt costing $40 is discounted by 15 %. What is the sale price?",
+    "question": "A shirt costing \\$40 is discounted by 15 %. What is the sale price?",
     "options": [
       "$34",
       "$36",

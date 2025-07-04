@@ -1,7 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL STATE & CONSTANTS ---
-    const API_BASE_URL = 'https://aicampus-live.uc.r.appspot.com/api';
-    //const API_BASE_URL = 'http://127.0.0.1:8080/api';
+    //const API_BASE_URL = 'https://aicampus-live.uc.r.appspot.com/api';
+    const API_BASE_URL = 'http://127.0.0.1:8080/api';
+    
+    // Application configuration for hierarchical URLs
+    const APP_CONFIG = {
+        currentGrade: 'p6',
+        currentSubject: 'math',
+        getHierarchicalURL: function(endpoint) {
+            return `${API_BASE_URL}/grades/${this.currentGrade}/subjects/${this.currentSubject}${endpoint}`;
+        }
+    };
     let authToken = null;
     let currentProblemId = null;
     let chatHistory = [];
@@ -14,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentChart = null;
     let currentProblemData = null;
     let currentTopicName = null;
+    let isTtsEnabled = true; // Voice is on by default
+    const synth = window.speechSynthesis;
+    
 
     // --- ELEMENT REFERENCES ---
     const views = {
@@ -62,17 +74,159 @@ document.addEventListener('DOMContentLoaded', () => {
         "Default":    { icon: "book-open",      gradient: "linear-gradient(45deg, #6c757d 0%, #a9a9a9 100%)" }
     };
 
-    const showNextProblemButton = document.getElementById('show-next-problem-button');
+    const welcomeChatLog = document.getElementById('welcome-chat-log');
+    const welcomeChatActions = document.getElementById('welcome-chat-actions');
 
-    // --- VIEW MANAGEMENT ---
-    function showView(viewId) {
-        Object.values(views).forEach(view => {
-            if(view) view.style.display = 'none';
+    // --- VIEW MANAGEMENT WITH URL ROUTING ---
+    function showView(viewId, updateURL = true) {
+        // This function robustly finds all views and hides them
+        const allViewElements = document.querySelectorAll('.view-container');
+        allViewElements.forEach(view => {
+            view.style.display = 'none';
         });
+        
+        // Then it finds the specific view to show and displays it
         const activeView = document.getElementById(viewId);
-        if (activeView) activeView.style.display = 'flex';
+        if (activeView) {
+            // We use 'flex' because our containers rely on flexbox for centering
+            activeView.style.display = 'flex';
+            
+            // Update URL hash to reflect current view
+            if (updateURL) {
+                updateURLHash(viewId);
+            }
+        } else {
+            console.error(`Error: Could not find view with id "${viewId}"`);
+        }
     }
 
+    function updateURLHash(viewId, context = null) {
+        let hash = `#/${viewId.replace('-view', '')}`;
+        
+        // Add context for specific views
+        if (context) {
+            if (viewId === 'topic-view') {
+                hash = `#/topics/${encodeURIComponent(context)}`;
+            } else if (viewId === 'solver-view') {
+                hash = `#/problems/${encodeURIComponent(context)}`;
+            }
+        }
+        
+        // Update URL without triggering a page reload
+        window.history.pushState({viewId, context}, '', hash);
+    }
+
+    function handleURLChange() {
+        const hash = window.location.hash;
+        
+        if (!hash || hash === '#/' || hash === '#') {
+            // Default route
+            initializeApp();
+            return;
+        }
+
+        // Parse hash routes
+        if (hash.startsWith('#/topics/')) {
+            const topicName = decodeURIComponent(hash.replace('#/topics/', ''));
+            currentTopicName = topicName;
+            showTopicView(topicName);
+        } else if (hash.startsWith('#/problems/')) {
+            const problemId = decodeURIComponent(hash.replace('#/problems/', ''));
+            switchToSolverView(problemId);
+        } else if (hash === '#/quiz') {
+            showView('quiz-view', false);
+        } else if (hash === '#/signup') {
+            showView('signup-view', false);
+        } else if (hash === '#/login') {
+            showView('login-view', false);
+        } else if (hash === '#/dashboard') {
+            showView('dashboard-view', false);
+            fetchAndDisplayDashboard();
+        } else {
+            // Default to welcome/dashboard based on auth
+            initializeApp();
+        }
+    }
+
+    async function typewriterEffect(element, lines, onComplete) {
+        element.innerHTML = ''; // Clear the element
+        const cursor = `<span class="typing-cursor"></span>`;
+
+        for (const line of lines) {
+            const lineElement = document.createElement('p');
+            element.appendChild(lineElement);
+
+            for (let i = 0; i < line.length; i++) {
+                lineElement.innerHTML = line.substring(0, i + 1) + cursor;
+                await new Promise(resolve => setTimeout(resolve, 45)); // Adjust typing speed here
+            }
+            lineElement.innerHTML = line; // Finalize line without cursor
+            await new Promise(resolve => setTimeout(resolve, 700)); // The pause between lines
+        }
+
+        if (onComplete) {
+            onComplete(); // Call the callback when all lines are done
+        }
+    }
+
+    async function startSession() {
+        showView('welcome-chat-view');
+        welcomeChatLog.innerHTML = `<div class="chat-turn model-turn"><p>Connecting to your AI Tutor...</p></div>`;
+        welcomeChatActions.innerHTML = '';
+        authToken = localStorage.getItem('authToken');
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/session/start`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // This line conditionally adds the Authorization header ONLY if a token exists
+                    ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+                },
+                // A POST request should have a body, even if it's empty
+                body: JSON.stringify({})
+            });
+            if (!response.ok) throw new Error('Session start failed');
+            
+            const data = await response.json();
+            
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'chat-turn model-turn';
+            const textElement = document.createElement('p');
+            messageContainer.appendChild(textElement);
+            
+            welcomeChatLog.innerHTML = '';
+            welcomeChatLog.appendChild(messageContainer);
+
+            // This determines the message content based on user state
+            const linesToType = data.message_lines || [data.message];
+            const fullMessageToSpeak = linesToType.join(' ');
+
+            // --- THE FIX IS HERE ---
+            // We call speak() with the full message first
+            speak(fullMessageToSpeak);
+            
+            // Then we start the typewriter effect
+            typewriterEffect(textElement, linesToType, () => {
+                // This callback runs only after the typing is complete
+                if (data.suggested_actions && welcomeChatActions.children.length === 0) {
+                    data.suggested_actions.forEach(action => {
+                        const button = document.createElement('button');
+                        button.className = 'action-button';
+                        button.textContent = action.text;
+                        button.dataset.actionId = action.action_id;
+                        if (action.context) button.dataset.context = action.context;
+                        welcomeChatActions.appendChild(button);
+                    });
+                }
+            });
+
+        } catch (error) {
+            welcomeChatLog.innerHTML = `<div class="chat-turn model-turn"><p>Sorry, I couldn't connect. Please try refreshing the page.</p></div>`;
+            console.error("Error starting session:", error);
+        }
+    }
+        
     // --- AUTHENTICATED FETCH HELPER ---
     async function authedFetch(url, options = {}) {
         if (!authToken) { handleLogout(); throw new Error("User not authenticated"); }
@@ -93,21 +247,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- HEADER AND NAVIGATION ---
     function updateHeader() {
         mainNav.innerHTML = '';
+        const ttsButton = document.createElement('button');
+        ttsButton.id = 'tts-toggle-button';
+
+        // Set the initial icon based on the state
+        ttsButton.innerHTML = isTtsEnabled ? `<i data-feather="volume-2"></i>` : `<i data-feather="volume-x"></i>`;
+
+        ttsButton.addEventListener('click', () => {
+            isTtsEnabled = !isTtsEnabled; // Toggle the state
+            ttsButton.innerHTML = isTtsEnabled ? `<i data-feather="volume-2"></i>` : `<i data-feather="volume-x"></i>`;
+            if (!isTtsEnabled) {
+                synth.cancel(); // Stop any currently speaking utterance
+            }
+            feather.replace();
+        });
+
+        mainNav.appendChild(ttsButton);
+
+        // Add the Login or Logout button next to it
         if (authToken) {
             const logoutButton = document.createElement('button');
-            logoutButton.id = 'logout-button-dynamic';
             logoutButton.innerHTML = `<i data-feather="log-out"></i> Logout`;
             logoutButton.addEventListener('click', handleLogout);
             mainNav.appendChild(logoutButton);
         } else {
             const loginButton = document.createElement('button');
-            loginButton.id = 'show-login-button';
             loginButton.textContent = 'Login';
-            loginButton.addEventListener('click', () => showView('login-view'));
+            loginButton.addEventListener('click', () => { showView('login-view'); });
             mainNav.appendChild(loginButton);
         }
         feather.replace();
     }
+
 
     // --- AUTHENTICATION LOGIC ---
     async function handleLogin(e) {
@@ -130,32 +301,42 @@ document.addEventListener('DOMContentLoaded', () => {
     async function handleSignup(e) {
         e.preventDefault();
         signupError.textContent = '';
+
+        // Get the new name fields
+        const firstName = document.getElementById('signup-firstname').value;
+        const lastName = document.getElementById('signup-lastname').value;
         const email = document.getElementById('signup-email').value;
         const password = document.getElementById('signup-password').value;
+
+        // The rest of the logic remains the same
+        const quizResults = quizState.userAnswers.length > 0 ? quizState.userAnswers : null;
+
         try {
             const response = await fetch(`${API_BASE_URL}/auth/signup`, {
-                method: 'POST', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    email, 
-                    password, 
-                    recommended_topic: quizState.recommendedTopic 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email,
+                    password,
+                    firstName, // Send the new data
+                    lastName,  // Send the new data
+                    quiz_results: quizResults,
+                    recommended_topic: quizState.recommendedTopic
                 }),
             });
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || 'Signup failed');
-            
-            // If signup is successful and a token is returned, log the user in
+
             if (data.token) {
                 authToken = data.token;
                 localStorage.setItem('authToken', authToken);
-                initializeApp(); // This will now show the dashboard
+                initializeApp(); // This will trigger the personalized welcome flow
             } else {
-                // Fallback in case the backend doesn't return a token
+                // Fallback in case token isn't returned
                 showView('login-view');
                 loginError.textContent = 'Signup successful! Please log in.';
             }
             signupForm.reset();
-
         } catch (error) {
             signupError.textContent = error.message;
         }
@@ -167,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
         quizState.userAnswers = [];
         loginForm.reset();
         signupForm.reset();
-        showView('welcome-view');
+        showView('logout-view');
         updateHeader();
     }
     
@@ -176,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showView('quiz-view');
         quizState = { questions: [], currentQuestionIndex: 0, userAnswers: [] };
         try {
-            const response = await fetch(`${API_BASE_URL}/diagnostic/start`);
+            const response = await fetch(APP_CONFIG.getHierarchicalURL('/diagnostic/start'));
             if (!response.ok) throw new Error('Could not start quiz');
             const questions = await response.json();
             if (questions && questions.length > 0) {
@@ -256,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
         allTopicsContainer.innerHTML = '';
 
         try {
-            const response = await authedFetch(`${API_BASE_URL}/dashboard`);
+            const response = await authedFetch(APP_CONFIG.getHierarchicalURL('/dashboard'));
             if (!response.ok) throw new Error('Could not fetch dashboard data');
             const data = await response.json();
 
@@ -304,57 +485,72 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function showTopicView(topicName) {
         currentTopicName = topicName;
-        showView('topic-view');
+        showView('topic-view', false); // Don't auto-update URL, we'll do it manually
+        updateURLHash('topic-view', topicName);
         document.getElementById('topic-title').textContent = topicName;
 
-        // --- 1. GET AND RENDER SCORECARD ---
+        // --- 1. INITIALIZE LOADING STATES ---
         const scorecard = document.getElementById('topic-scorecard');
-        scorecard.innerHTML = `<p>Loading stats...</p>`;
-
-        const summaryResponse = await authedFetch(`${API_BASE_URL}/progress/topic_summary/${encodeURIComponent(topicName)}`);
-        const summary = await summaryResponse.json();
-
-        scorecard.innerHTML = `
-            <button id="filter-in-progress" class="stat-card in-progress">
-                <div class="stat-card-value">${summary.in_progress_count}</div>
-                <div class="stat-card-label">In Progress</div>
-            </button>
-            <button id="filter-mastered" class="stat-card mastered">
-                <div class="stat-card-value">${summary.mastered_count}</div>
-                <div class="stat-card-label">Mastered</div>
-            </button>
-        `;
-
-        // --- 2. ADD EVENT LISTENERS TO SCORECARD ---
-        const masteredButton = document.getElementById('filter-mastered');
-        const inProgressButton = document.getElementById('filter-in-progress');
+        const problemList = document.getElementById('topic-problem-list');
+        const listHeader = document.getElementById('problem-list-header');
         
-        masteredButton.addEventListener('click', () => {
-            masteredButton.classList.add('active');
-            inProgressButton.classList.remove('active');
-            fetchAndDisplayProblemList(topicName, 'mastered');
-        });
+        scorecard.innerHTML = `<p>Loading stats...</p>`;
+        problemList.innerHTML = '<p>Loading problems...</p>';
+        listHeader.textContent = 'Next Up For You';
 
-        inProgressButton.addEventListener('click', () => {
-            inProgressButton.classList.add('active');
-            masteredButton.classList.remove('active');
-            fetchAndDisplayProblemList(topicName, 'in_progress');
-        });
+        try {
+            // --- 2. LOAD STATS AND PROBLEMS IN PARALLEL ---
+            const [summaryResponse] = await Promise.all([
+                authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${encodeURIComponent(topicName)}/progress/summary`)),
+                // Start loading the default 'next' problems immediately
+                fetchAndDisplayProblemList(topicName, 'next')
+            ]);
+            
+            const summary = await summaryResponse.json();
 
-        // --- 3. LOAD THE DEFAULT 'NEXT' PROBLEM ---
-        // Remove the 'active' class from both buttons for the default view
-        masteredButton.classList.remove('active');
-        inProgressButton.classList.remove('active');
-        fetchAndDisplayProblemList(topicName, 'next');
+            // --- 3. RENDER SCORECARD AFTER STATS LOAD ---
+            scorecard.innerHTML = `
+                <button id="filter-in-progress" class="stat-card in-progress">
+                    <div class="stat-card-value">${summary.in_progress_count}</div>
+                    <div class="stat-card-label">In Progress</div>
+                </button>
+                <button id="filter-mastered" class="stat-card mastered">
+                    <div class="stat-card-value">${summary.mastered_count}</div>
+                    <div class="stat-card-label">Mastered</div>
+                </button>
+            `;
 
-        const nextProblemButton = document.getElementById('show-next-problem-button');
-        nextProblemButton.addEventListener('click', () => {
-            // De-select the other filter buttons
-            masteredButton.classList.remove('active');
-            inProgressButton.classList.remove('active');
-            // Fetch the next unseen problem
-            fetchAndDisplayProblemList(topicName, 'next');
-        });
+            // --- 4. ADD EVENT LISTENERS TO SCORECARD ---
+            const masteredButton = document.getElementById('filter-mastered');
+            const inProgressButton = document.getElementById('filter-in-progress');
+            
+            masteredButton.addEventListener('click', () => {
+                masteredButton.classList.add('active');
+                inProgressButton.classList.remove('active');
+                fetchAndDisplayProblemList(topicName, 'mastered');
+            });
+
+            inProgressButton.addEventListener('click', () => {
+                inProgressButton.classList.add('active');
+                masteredButton.classList.remove('active');
+                fetchAndDisplayProblemList(topicName, 'in_progress');
+            });
+
+            // --- 5. SET UP NEXT PROBLEM BUTTON ---
+            const nextProblemButton = document.getElementById('show-next-problem-button');
+            nextProblemButton.addEventListener('click', () => {
+                // De-select the other filter buttons
+                masteredButton.classList.remove('active');
+                inProgressButton.classList.remove('active');
+                // Fetch the next unseen problem
+                fetchAndDisplayProblemList(topicName, 'next');
+            });
+
+        } catch (error) {
+            console.error('Error loading topic view:', error);
+            scorecard.innerHTML = '<p>Error loading stats</p>';
+            problemList.innerHTML = '<p>Error loading problems</p>';
+        }
     }
 
 
@@ -373,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await authedFetch(`${API_BASE_URL}/problems?topic=${encodeURIComponent(topicName)}&filter=${filter}`);
+            const response = await authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${encodeURIComponent(topicName)}/problems?filter=${filter}`));
             if (!response.ok) throw new Error('Could not fetch problems');
             const problems = await response.json();
 
@@ -397,7 +593,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function switchToSolverView(problemId) {
         // 1. Immediately switch to the solver view and reset all states
-        showView('solver-view');
+        showView('solver-view', false); // Don't auto-update URL, we'll do it manually
+        updateURLHash('solver-view', problemId);
         currentProblemId = problemId;
         currentProblemData = null;
         chatHistory = [];
@@ -412,8 +609,8 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // 3. Fetch both the problem data and the user's progress for it at the same time
             const [problemResponse, progressResponse] = await Promise.all([
-                authedFetch(`${API_BASE_URL}/problems/${problemId}`),
-                authedFetch(`${API_BASE_URL}/progress/${problemId}`)
+                authedFetch(APP_CONFIG.getHierarchicalURL(`/problems/${problemId}`)),
+                authedFetch(`${API_BASE_URL}/progress/${problemId}`) // Progress endpoint remains non-hierarchical
             ]);
 
             if (!problemResponse.ok || !progressResponse.ok) {
@@ -455,7 +652,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderChatHistory();
         answerInputElement.value = '';
         try {
-            const response = await authedFetch(`${API_BASE_URL}/tutor/submit_answer`, {
+            const response = await authedFetch(APP_CONFIG.getHierarchicalURL('/tutor/submit_answer'), {
                 method: 'POST',
                 body: JSON.stringify({ problem_id: currentProblemId, student_answer: studentAnswer, chat_history: chatHistory }),
             });
@@ -521,11 +718,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const signupPromptArea = document.getElementById('signup-prompt-area');
 
         // Set the initial "loading" state
-        resultsArea.innerHTML = '<h2>Analyzing your results<span class="ellipsis"><span>.</span><span>.</span><span>.</span></span></h2><p>We are building your personalized report.</p>';
+        resultsArea.innerHTML = '<h2>Analyzing your results<span class="ellipsis"><span>.</span><span>.</span><span>.</span></span></h2><p>I am building your personalized report.</p>';
         signupPromptArea.style.display = 'none'; // Ensure the prompt is hidden initially
 
         try {
-            const response = await fetch(`${API_BASE_URL}/diagnostic/analyze`, {
+            const response = await fetch(APP_CONFIG.getHierarchicalURL('/diagnostic/analyze'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ user_answers: quizState.userAnswers })
@@ -549,6 +746,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p><strong>We recommend you start with:</strong></p>
                 <div class="recommended-topic-card">${report.recommended_topic}</div>
             `;
+
+            // Add click event listener to the recommended topic card
+            const recommendedTopicCard = resultsArea.querySelector('.recommended-topic-card');
+            if (recommendedTopicCard) {
+                recommendedTopicCard.addEventListener('click', () => {
+                    showView('signup-view');
+                });
+            }
 
         } catch (error) {
             console.error("Error analyzing results:", error);
@@ -599,18 +804,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    async function speak(textToSpeak) {
+        if (!isTtsEnabled || !textToSpeak) {
+            return;
+        }
+
+        try {
+            // Call our new backend endpoint to generate the audio
+            const response = await fetch(`${API_BASE_URL}/tts/generate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: textToSpeak })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch audio from backend.');
+            }
+
+            // Get the audio data as a 'blob'
+            const audioBlob = await response.blob();
+            // Create a temporary URL for the audio blob
+            const audioUrl = URL.createObjectURL(audioBlob);
+
+            // Create an audio element and play it
+            const audio = new Audio(audioUrl);
+            audio.play();
+
+        } catch (error) {
+            console.error("Text-to-speech failed:", error);
+        }
+    }
 
     // --- INITIALIZATION ---
     function initializeApp() {
-        const savedToken = localStorage.getItem('authToken');
-        if (savedToken) {
-            authToken = savedToken;
-            showView('dashboard-view');
-            fetchAndDisplayDashboard();
-        } else {
-            showView('welcome-view');
-        }
-        updateHeader();
+        updateHeader(); // Set up the header button first
+        startSession(); // Start the session to get personalized welcome
     }
 
     // Attach all event listeners
@@ -636,5 +864,33 @@ document.addEventListener('DOMContentLoaded', () => {
     startQuizButton.addEventListener('click', startQuiz);
     quizSubmitButton.addEventListener('click', handleQuizSubmit);
 
-    initializeApp();
+    document.body.addEventListener('click', (e) => {
+        // Check if the clicked element is one of our dynamic action buttons
+        if (e.target && e.target.matches('.action-button')) {
+            const actionId = e.target.dataset.actionId;
+            const context = e.target.dataset.context;
+
+            if (actionId === 'start_quiz') {
+                startQuiz();
+            } else if (actionId === 'show_login') {
+                showView('login-view');
+            } else if (actionId === 'browse_topics') {
+                showView('dashboard-view');
+                fetchAndDisplayDashboard();
+            } else if (actionId === 'continue_topic' && context) {
+                showTopicView(context);
+            }
+        }
+        });
+
+    // --- URL ROUTING EVENT LISTENERS ---
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', handleURLChange);
+    
+    // Initialize app - only once when DOM is ready
+    if (window.location.hash) {
+        handleURLChange();
+    } else {
+        initializeApp();
+    }
 });

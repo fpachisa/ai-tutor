@@ -1,6 +1,6 @@
 /* --- The Polished & Responsive Theme --- */
 /* Import a more modern looking font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 
 
 :root {
@@ -80,7 +80,7 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Nunito', sans-serif; /* Use the new font */
     background: linear-gradient(135deg, #a8e063, #56ab2f);
     background-attachment: fixed;
     color: var(--text-primary);
@@ -431,6 +431,13 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
     font-size: 1.2rem;
     font-weight: 600;
     margin-top: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recommended-topic-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /* --- Loading Ellipsis Animation --- */
@@ -620,4 +627,85 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
     margin: 0; /* Remove default margins */
     border: none;
     padding: 0;
+}
+
+
+#welcome-chat-log .model-turn {
+    max-width: 100%; /* Allow the first message to be wider */
+    font-size: 1.2rem;
+    line-height: 1.6;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+}
+
+.chat-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+}
+
+.action-button {
+    background-image: linear-gradient(45deg, var(--primary-color), var(--success-color));
+    color: #fff;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-weight: 600;
+}
+
+.action-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.welcome-chat {
+    width: 100%;
+    max-width: 800px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column; /* Stack the message and buttons vertically */
+    align-items: center;
+    justify-content: center;
+   /* text-align: center; /* Center the text within its container */
+}
+
+/* 2. Styling for the typing cursor effect */
+.typing-cursor {
+    display: inline-block;
+    width: 2px; /* A thinner cursor looks better */
+    height: 1.2rem;
+    background-color: #fff;
+    animation: blink 1s infinite;
+    margin-left: 4px;
+    position: relative;
+    top: 2px;
+}
+
+
+/* Keyframe Definitions */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+
+
+#welcome-chat-log .model-turn {
+    /* Remove all background and border properties */
+    background-color: transparent;
+    backdrop-filter: none;
+    border: none;
+
+    /* Style the text directly */
+    color: #FFFFFF;
+    font-size: 1.3rem; /* Make the welcome text larger and more impactful */
+    line-height: 1.6;
+    max-width: 100%;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add shadow for readability */
 }
