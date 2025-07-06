@@ -1,0 +1,259 @@
+[
+  {
+    "concept_id": "algebra_variables_introduction",
+    "title": "Introduction to Variables",
+    "topic": "Algebra",
+    "grade": "p6",
+    "description": "Understanding that a letter (like a, x, or y) can represent an unknown number or quantity. This is the foundation of algebraic thinking.",
+    "prerequisites": [],
+    "learning_objectives": [
+      "Understand that a letter can represent an unknown number",
+      "Recognize variables in simple expressions",
+      "Relate variables to boxes or blanks in equations"
+    ],
+    "difficulty_level": 1,
+    "estimated_minutes": 20,
+    "visual_elements": {
+      "type": "interactive_boxes",
+      "description": "Box diagrams showing □ + 4 = 10 converting to x + 4 = 10"
+    },
+    "real_world_examples": [
+      "Using boxes to represent unknown quantities: □ + 4 = 10",
+      "Missing numbers in number patterns: 2, 4, 6, ?, 10",
+      "Age problems: 'Let my age be represented by the letter a'"
+    ],
+    "interactive_activities": [
+      {
+        "type": "box_to_variable",
+        "title": "Box to Variable Converter",
+        "description": "Convert box equations to variable equations",
+        "examples": [
+          {"box": "□ + 4 = 10", "variable": "x + 4 = 10"},
+          {"box": "17 - □ = 5", "variable": "17 - y = 5"},
+          {"box": "6 × □ = 18", "variable": "6 × a = 18"}
+        ]
+      },
+      {
+        "type": "variable_recognition",
+        "title": "Spot the Variable",
+        "description": "Identify variables in mathematical expressions",
+        "examples": ["3a + 5", "x - 2", "2y + 7"]
+      }
+    ],
+    "common_misconceptions": [
+      "Thinking that different letters represent different unknown quantities",
+      "Confusing variables with actual numbers",
+      "Not understanding that the same letter always represents the same value"
+    ]
+  },
+  {
+    "concept_id": "algebra_simple_expressions",
+    "title": "Simple Algebraic Expressions",
+    "topic": "Algebra",
+    "grade": "p6",
+    "description": "Learning to write and interpret simple algebraic expressions like 3a, a + 5, 2x - 3, and understanding their meaning.",
+    "prerequisites": ["algebra_variables_introduction"],
+    "learning_objectives": [
+      "Write simple algebraic expressions",
+      "Interpret expressions like 3a, a + 5, 2x - 3",
+      "Understand coefficient and variable relationships"
+    ],
+    "difficulty_level": 2,
+    "estimated_minutes": 25,
+    "visual_elements": {
+      "type": "expression_builder",
+      "description": "Visual representation of expressions using blocks and symbols"
+    },
+    "real_world_examples": [
+      "Cost calculation: If one pen costs $3, then 'a' pens cost $3a",
+      "Savings: If I save $5 every week, after 'w' weeks I have $5w",
+      "Temperature: If today is 3°C warmer than yesterday (y°C), today is (y + 3)°C"
+    ],
+    "interactive_activities": [
+      {
+        "type": "expression_builder",
+        "title": "Build the Expression",
+        "description": "Create algebraic expressions from word descriptions",
+        "examples": [
+          {"description": "3 times a number x", "expression": "3x"},
+          {"description": "A number y increased by 7", "expression": "y + 7"},
+          {"description": "5 less than a number a", "expression": "a - 5"}
+        ]
+      },
+      {
+        "type": "expression_interpreter",
+        "title": "What Does It Mean?",
+        "description": "Interpret algebraic expressions in words",
+        "examples": [
+          {"expression": "4a", "meaning": "4 times the number a"},
+          {"expression": "x + 8", "meaning": "8 more than x"},
+          {"expression": "y - 3", "meaning": "3 less than y"}
+        ]
+      }
+    ],
+    "common_misconceptions": [
+      "Writing 'a3' instead of '3a' for 'three times a'",
+      "Confusing 'a + 3' with '3a'",
+      "Not understanding that '3a' means '3 × a'"
+    ]
+  },
+  {
+    "concept_id": "algebra_substitution",
+    "title": "Substitution and Evaluation",
+    "topic": "Algebra",
+    "grade": "p6",
+    "description": "Learning to substitute values for variables and evaluate algebraic expressions, like finding the value of 3p + 7 when p = 4.",
+    "prerequisites": ["algebra_simple_expressions"],
+    "learning_objectives": [
+      "Substitute given values for variables",
+      "Evaluate expressions after substitution",
+      "Follow order of operations correctly"
+    ],
+    "difficulty_level": 2,
+    "estimated_minutes": 30,
+    "visual_elements": {
+      "type": "substitution_calculator",
+      "description": "Step-by-step substitution process visualization"
+    },
+    "real_world_examples": [
+      "Temperature conversion: If C = 25, find F = 1.8C + 32",
+      "Taxi fare: If distance is 5km, find cost = 3d + 5",
+      "Recipe scaling: If recipe serves 4, ingredients for 6 people"
+    ],
+    "interactive_activities": [
+      {
+        "type": "substitution_practice",
+        "title": "Replace and Calculate",
+        "description": "Practice substituting values and evaluating",
+        "examples": [
+          {"expression": "3p + 7", "value": "p = 4", "result": "3(4) + 7 = 19"},
+          {"expression": "2x - 5", "value": "x = 8", "result": "2(8) - 5 = 11"},
+          {"expression": "4a + 3a", "value": "a = 2", "result": "4(2) + 3(2) = 14"}
+        ]
+      },
+      {
+        "type": "order_of_operations",
+        "title": "Step-by-Step Evaluation",
+        "description": "Practice following BODMAS/PEMDAS rules",
+        "examples": [
+          {"expression": "2x + 3", "value": "x = 5", "steps": ["2(5) + 3", "10 + 3", "13"]}
+        ]
+      }
+    ],
+    "common_misconceptions": [
+      "Adding before multiplying: (3 + 4) instead of 3 × 4 + 7",
+      "Forgetting to multiply the coefficient by the variable value",
+      "Not using parentheses when substituting negative values"
+    ]
+  },
+  {
+    "concept_id": "algebra_simple_equations",
+    "title": "Simple Linear Equations",
+    "topic": "Algebra",
+    "grade": "p6",
+    "description": "Learning to solve simple linear equations involving one variable, like x + 5 = 12 or 3y = 21, using inverse operations.",
+    "prerequisites": ["algebra_substitution"],
+    "learning_objectives": [
+      "Solve simple linear equations with one variable",
+      "Use inverse operations to isolate variables",
+      "Check solutions by substitution"
+    ],
+    "difficulty_level": 3,
+    "estimated_minutes": 35,
+    "visual_elements": {
+      "type": "balance_scales",
+      "description": "Balance scale showing equation solving process"
+    },
+    "real_world_examples": [
+      "Shopping: If you buy x items at $5 each and spend $25, how many items? 5x = 25",
+      "Age problems: If I'm 3 years older than my sister and I'm 15, how old is she? s + 3 = 15",
+      "Savings: If I save $10 weekly and have $80, how many weeks? 10w = 80"
+    ],
+    "interactive_activities": [
+      {
+        "type": "balance_equation",
+        "title": "Balance the Scale",
+        "description": "Use balance scales to understand equation solving",
+        "examples": [
+          {"equation": "x + 5 = 12", "steps": ["Remove 5 from both sides", "x = 7"]},
+          {"equation": "3y = 21", "steps": ["Divide both sides by 3", "y = 7"]}
+        ]
+      },
+      {
+        "type": "inverse_operations",
+        "title": "Undo the Operation",
+        "description": "Identify and apply inverse operations",
+        "examples": [
+          {"operation": "Add 5", "inverse": "Subtract 5"},
+          {"operation": "Multiply by 3", "inverse": "Divide by 3"},
+          {"operation": "Subtract 8", "inverse": "Add 8"}
+        ]
+      }
+    ],
+    "common_misconceptions": [
+      "Doing the same operation to both sides instead of inverse operations",
+      "Not performing operations on both sides of the equation",
+      "Getting confused about which operation to do first"
+    ]
+  },
+  {
+    "concept_id": "algebra_word_problems",
+    "title": "Word Problems and Applications",
+    "topic": "Algebra",
+    "grade": "p6",
+    "description": "Translating word problems into algebraic equations and solving them. This includes problems about age, money, geometry, and other real-world contexts.",
+    "prerequisites": ["algebra_simple_equations"],
+    "learning_objectives": [
+      "Translate word problems into algebraic equations",
+      "Identify the unknown quantity and define variables",
+      "Solve multi-step word problems",
+      "Interpret solutions in context"
+    ],
+    "difficulty_level": 4,
+    "estimated_minutes": 40,
+    "visual_elements": {
+      "type": "problem_translator",
+      "description": "Visual guide for converting words to equations"
+    },
+    "real_world_examples": [
+      "Age problems: 'Ben is 3 years older than Alice. Together they are 25 years old.'",
+      "Money problems: 'Sarah has $12 more than Tom. Together they have $48.'",
+      "Geometry: 'A rectangle's length is 5cm more than its width. The area is 84 cm².'",
+      "Consecutive numbers: 'Find three consecutive numbers that sum to 96.'"
+    ],
+    "interactive_activities": [
+      {
+        "type": "problem_translator",
+        "title": "Words to Equations",
+        "description": "Practice translating word problems to algebraic equations",
+        "examples": [
+          {
+            "problem": "A number increased by 8 equals 23",
+            "equation": "x + 8 = 23",
+            "solution": "x = 15"
+          },
+          {
+            "problem": "Twice a number minus 5 equals 19",
+            "equation": "2x - 5 = 19",
+            "solution": "x = 12"
+          }
+        ]
+      },
+      {
+        "type": "context_checker",
+        "title": "Does the Answer Make Sense?",
+        "description": "Check if algebraic solutions make sense in real-world context",
+        "examples": [
+          {"problem": "Age problem", "solution": "x = -5", "sensible": false, "reason": "Age cannot be negative"},
+          {"problem": "Money problem", "solution": "x = 25", "sensible": true, "reason": "Valid amount of money"}
+        ]
+      }
+    ],
+    "common_misconceptions": [
+      "Not defining what the variable represents clearly",
+      "Setting up equations incorrectly from word problems",
+      "Not checking if the solution makes sense in context",
+      "Confusing 'more than' and 'times' in word problems"
+    ]
+  }
+]

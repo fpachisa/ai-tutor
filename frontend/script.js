@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return `${API_BASE_URL}/grades/${this.currentGrade}/subjects/${this.currentSubject}${endpoint}`;
         }
     };
-    let authToken = null;
+    let authToken = localStorage.getItem('authToken');
     let currentProblemId = null;
     let chatHistory = [];
     let quizState = {
@@ -23,8 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentChart = null;
     let currentProblemData = null;
     let currentTopicName = null;
+    let algebraTutorHistory = [];
+    let currentAlgebraStep = 1;
     let isTtsEnabled = true; // Voice is on by default
     const synth = window.speechSynthesis;
+    
+    // --- EMOTIONAL INTELLIGENCE AI TRACKING ---
+    let emotionalState = {
+        questionStartTime: null,
+        consecutiveErrors: 0,
+        responseTimeHistory: [],
+        confidenceIndicators: [],
+        strugglingPattern: false,
+        lastEmotionalIntervention: null
+    };
     
 
     // --- ELEMENT REFERENCES ---
@@ -36,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         signup: document.getElementById('signup-view'),
         dashboard: document.getElementById('dashboard-view'),
         topic: document.getElementById('topic-view'),
+        algebraTutor: document.getElementById('algebra-tutor-view'),
         solver: document.getElementById('solver-view'),
     };
     const mainNav = document.getElementById('main-nav');
@@ -127,12 +140,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Parse hash routes
         if (hash.startsWith('#/topics/')) {
+            if (!authToken) {
+                showView('login-view', false);
+                return;
+            }
             const topicName = decodeURIComponent(hash.replace('#/topics/', ''));
             currentTopicName = topicName;
             showTopicView(topicName);
         } else if (hash.startsWith('#/problems/')) {
+            if (!authToken) {
+                showView('login-view', false);
+                return;
+            }
             const problemId = decodeURIComponent(hash.replace('#/problems/', ''));
             switchToSolverView(problemId);
+        } else if (hash.startsWith('#/algebra-tutor')) {
+            if (!authToken) {
+                showView('login-view', false);
+                return;
+            }
+            startAlgebraTutor();
         } else if (hash === '#/quiz') {
             showView('quiz-view', false);
         } else if (hash === '#/signup') {
@@ -140,6 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (hash === '#/login') {
             showView('login-view', false);
         } else if (hash === '#/dashboard') {
+            if (!authToken) {
+                showView('login-view', false);
+                return;
+            }
             showView('dashboard-view', false);
             fetchAndDisplayDashboard();
         } else {
@@ -173,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showView('welcome-chat-view');
         welcomeChatLog.innerHTML = `<div class="chat-turn model-turn"><p>Connecting to your AI Tutor...</p></div>`;
         welcomeChatActions.innerHTML = '';
-        authToken = localStorage.getItem('authToken');
 
         try {
             const response = await fetch(`${API_BASE_URL}/session/start`, {
@@ -489,62 +519,31 @@ document.addEventListener('DOMContentLoaded', () => {
         updateURLHash('topic-view', topicName);
         document.getElementById('topic-title').textContent = topicName;
 
-        // --- 1. INITIALIZE LOADING STATES ---
+        // --- 1. INITIALIZE CLEAN STATE ---
         const scorecard = document.getElementById('topic-scorecard');
         const problemList = document.getElementById('topic-problem-list');
         const listHeader = document.getElementById('problem-list-header');
         
-        scorecard.innerHTML = `<p>Loading stats...</p>`;
-        problemList.innerHTML = '<p>Loading problems...</p>';
-        listHeader.textContent = 'Next Up For You';
+        // Clear legacy elements
+        scorecard.innerHTML = '';
+        problemList.innerHTML = '';
+        listHeader.textContent = '';
 
         try {
-            // --- 2. LOAD STATS AND PROBLEMS IN PARALLEL ---
-            const [summaryResponse] = await Promise.all([
-                authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${encodeURIComponent(topicName)}/progress/summary`)),
-                // Start loading the default 'next' problems immediately
-                fetchAndDisplayProblemList(topicName, 'next')
-            ]);
+            // --- 2. LOAD STATS FOR DECISION MAKING ---
+            const summaryResponse = await authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${encodeURIComponent(topicName)}/progress/summary`));
             
             const summary = await summaryResponse.json();
 
-            // --- 3. RENDER SCORECARD AFTER STATS LOAD ---
-            scorecard.innerHTML = `
-                <button id="filter-in-progress" class="stat-card in-progress">
-                    <div class="stat-card-value">${summary.in_progress_count}</div>
-                    <div class="stat-card-label">In Progress</div>
-                </button>
-                <button id="filter-mastered" class="stat-card mastered">
-                    <div class="stat-card-value">${summary.mastered_count}</div>
-                    <div class="stat-card-label">Mastered</div>
-                </button>
-            `;
+            // --- 3. CLEAR LEGACY UI ELEMENTS ---
+            scorecard.innerHTML = '';
+            problemList.innerHTML = '';
+            listHeader.textContent = '';
 
-            // --- 4. ADD EVENT LISTENERS TO SCORECARD ---
-            const masteredButton = document.getElementById('filter-mastered');
-            const inProgressButton = document.getElementById('filter-in-progress');
-            
-            masteredButton.addEventListener('click', () => {
-                masteredButton.classList.add('active');
-                inProgressButton.classList.remove('active');
-                fetchAndDisplayProblemList(topicName, 'mastered');
-            });
+            // --- 5. SET UP CONTEXT-AWARE DASHBOARD ---
+            await updateTopicViewForAlgebra(topicName, summary);
 
-            inProgressButton.addEventListener('click', () => {
-                inProgressButton.classList.add('active');
-                masteredButton.classList.remove('active');
-                fetchAndDisplayProblemList(topicName, 'in_progress');
-            });
-
-            // --- 5. SET UP NEXT PROBLEM BUTTON ---
-            const nextProblemButton = document.getElementById('show-next-problem-button');
-            nextProblemButton.addEventListener('click', () => {
-                // De-select the other filter buttons
-                masteredButton.classList.remove('active');
-                inProgressButton.classList.remove('active');
-                // Fetch the next unseen problem
-                fetchAndDisplayProblemList(topicName, 'next');
-            });
+            // Event handlers are set up in updateTopicViewForAlgebra
 
         } catch (error) {
             console.error('Error loading topic view:', error);
@@ -600,6 +599,12 @@ document.addEventListener('DOMContentLoaded', () => {
         chatHistory = [];
         currentHintIndex = 0;
         
+        // Remove any existing next problem button when loading a new problem
+        const existingButton = document.getElementById('next-problem-button');
+        if (existingButton) {
+            existingButton.remove();
+        }
+        
         // 2. Clear the UI and show a loading message
 
         problemTextElement.innerHTML = '<p>Loading problem...</p>';
@@ -636,6 +641,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             renderChatHistory(); // Render the loaded chat history
+            
+            // --- EMOTIONAL INTELLIGENCE: Start timing for new problem ---
+            emotionalState.questionStartTime = Date.now();
+            emotionalState.consecutiveErrors = 0; // Reset error count for new problem
+            console.log("⏱️ EI: Started timing for new problem, reset error count");
 
 
         } catch (error) {
@@ -651,24 +661,143 @@ document.addEventListener('DOMContentLoaded', () => {
         chatHistory.push(currentTurn);
         renderChatHistory();
         answerInputElement.value = '';
+        
+        // --- EMOTIONAL INTELLIGENCE FOR PRACTICE MODE ---
+        const responseTime = emotionalState.questionStartTime ? 
+            Date.now() - emotionalState.questionStartTime : null;
+        
+        // AI-powered confidence analysis
+        const confidenceMarkers = await analyzeConfidence(studentAnswer);
+        
+        // Debug logging
+        console.log("⏱️ EI: Response time:", responseTime + "ms");
+        console.log("🤖 EI: AI Confidence analysis:", confidenceMarkers);
+        
+        if (responseTime) {
+            emotionalState.responseTimeHistory.push(responseTime);
+            if (emotionalState.responseTimeHistory.length > 10) {
+                emotionalState.responseTimeHistory.shift();
+            }
+        }
+        
         try {
             const response = await authedFetch(APP_CONFIG.getHierarchicalURL('/tutor/submit_answer'), {
                 method: 'POST',
-                body: JSON.stringify({ problem_id: currentProblemId, student_answer: studentAnswer, chat_history: chatHistory }),
+                body: JSON.stringify({ 
+                    problem_id: currentProblemId, 
+                    student_answer: studentAnswer, 
+                    chat_history: chatHistory,
+                    emotional_intelligence: {
+                        response_time: responseTime,
+                        consecutive_errors: emotionalState.consecutiveErrors,
+                        avg_response_time: emotionalState.responseTimeHistory.length > 0 ? 
+                            emotionalState.responseTimeHistory.reduce((a, b) => a + b, 0) / emotionalState.responseTimeHistory.length : null,
+                        confidence_indicators: confidenceMarkers,
+                        struggling_pattern: emotionalState.strugglingPattern
+                    }
+                }),
             });
             if (!response.ok) throw new Error('Network response was not ok');
             const result = await response.json();
+            
+            // --- EMOTIONAL INTELLIGENCE: Update error tracking ---
             if (result.is_correct) {
+                emotionalState.consecutiveErrors = 0; // Reset on success
+                console.log("✅ EI: Correct answer, resetting error count");
                 chatHistory.push({ role: 'model', parts: [result.feedback.encouragement] });
             } else {
-                chatHistory.push({ role: 'model', parts: [JSON.stringify(result.feedback)] });
+                emotionalState.consecutiveErrors++; // Increment on error
+                console.log(`❌ EI: Wrong answer, consecutive errors: ${emotionalState.consecutiveErrors}`);
+                
+                // Format feedback properly - combine encouragement and socratic question
+                let feedbackText = result.feedback.encouragement || "";
+                if (result.feedback.socratic_question) {
+                    feedbackText += (feedbackText ? "\n\n" : "") + result.feedback.socratic_question;
+                }
+                
+                chatHistory.push({ role: 'model', parts: [feedbackText] });
             }
+            
+            // Update struggling pattern detection
+            detectStrugglePattern();
+            
             renderChatHistory();
             if (result.is_correct) {
                 // Refresh dashboard data in background to update status badge
                 fetchAndDisplayDashboard();
+                // Show Next Problem button
+                showNextProblemButton();
             }
         } catch (error) { console.error('Submit answer error:', error); }
+    }
+
+    function showNextProblemButton() {
+        // Remove any existing next problem button
+        const existingButton = document.getElementById('next-problem-button');
+        if (existingButton) {
+            existingButton.remove();
+        }
+        
+        // Create Next Problem button
+        const nextButton = document.createElement('button');
+        nextButton.id = 'next-problem-button';
+        nextButton.className = 'next-problem-btn';
+        nextButton.innerHTML = `
+            <i data-feather="arrow-right"></i>
+            Next Problem
+        `;
+        nextButton.onclick = loadNextProblem;
+        
+        // Add button to feedback area
+        const feedbackArea = document.getElementById('feedback-area');
+        feedbackArea.appendChild(nextButton);
+        
+        // Refresh feather icons
+        feather.replace();
+    }
+
+    function loadNextProblem() {
+        // Get the current topic and find next problem
+        if (!currentTopicName) {
+            console.error('No current topic set');
+            return;
+        }
+        
+        // Get next problem from the same topic
+        fetch(APP_CONFIG.getHierarchicalURL(`/topics/${encodeURIComponent(currentTopicName)}/problems?filter=next`), {
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            }
+        })
+        .then(response => response.json())
+        .then(problems => {
+            if (problems && problems.length > 0) {
+                // Find a problem that's not the current one
+                let nextProblem = problems.find(p => p.id !== currentProblemId);
+                
+                if (!nextProblem) {
+                    // If no different problem found, just take the first one
+                    nextProblem = problems[0];
+                }
+                
+                if (nextProblem) {
+                    // Load the next problem
+                    switchToSolverView(nextProblem.id);
+                } else {
+                    // No more problems available
+                    alert('Great job! You\'ve completed all available problems in this topic.');
+                    showTopicView(currentTopicName);
+                }
+            } else {
+                // No problems available, go back to topic view
+                alert('Great job! You\'ve completed all available problems in this topic.');
+                showTopicView(currentTopicName);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading next problem:', error);
+            alert('Error loading next problem. Please try again.');
+        });
     }
 
     function renderChatHistory() {
@@ -835,10 +964,668 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- CONCEPT LEARNING FUNCTIONS ---
+    
+    
+    async function determineStudentAlgebraState(topicName, summary) {
+        // Determine if student should see learning mode or practice mode
+        if (topicName !== 'Algebra') {
+            return { mode: 'practice', reason: 'not_algebra' };
+        }
+        
+        // TEMPORARILY DISABLE STATUS CHECK TO DEBUG HANGING ISSUE
+        // try {
+        //     // Check algebra tutor status first (with timeout)
+        //     const controller = new AbortController();
+        //     const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+            
+        //     const tutorResponse = await authedFetch(APP_CONFIG.getHierarchicalURL('/algebra-tutor/status'), {
+        //         signal: controller.signal
+        //     });
+        //     clearTimeout(timeoutId);
+            
+        //     if (tutorResponse.ok) {
+        //         const tutorStatus = await tutorResponse.json();
+                
+        //         // If user completed tutoring (mastered), always show practice mode
+        //         if (tutorStatus.progress_status === 'mastered') {
+        //             return { mode: 'practice', reason: 'completed_tutoring' };
+        //         }
+                
+        //         // If user has tutoring history, show learning mode to continue
+        //         if (tutorStatus.has_history && tutorStatus.progress_status === 'in_progress') {
+        //             return { mode: 'learning', reason: 'continue_tutoring' };
+        //         }
+        //     }
+        // } catch (error) {
+        //     console.warn('Could not check algebra tutor status:', error);
+        //     // Fall through to problem-based logic to ensure page doesn't break
+        // }
+        
+        // Check if student has significant progress (indicating they've done some work)
+        const totalProgress = (summary.mastered_count || 0) + (summary.in_progress_count || 0);
+        
+        if (totalProgress === 0) {
+            // Brand new to algebra - show learning mode
+            return { mode: 'learning', reason: 'new_student' };
+        } else if (summary.mastered_count >= 2) {
+            // Has mastered multiple problems - show practice mode
+            return { mode: 'practice', reason: 'experienced_student' };
+        } else {
+            // Has some progress but not much - could be either, default to learning
+            return { mode: 'learning', reason: 'minimal_progress' };
+        }
+    }
+    
+    function showLearningModeDashboard() {
+        // Show learning mode UI
+        document.getElementById('learning-mode-dashboard').style.display = 'block';
+        document.getElementById('practice-mode-dashboard').style.display = 'none';
+        document.getElementById('legacy-practice-area').style.display = 'none';
+        
+        // Set up event listeners
+        const startLearningBtn = document.getElementById('start-algebra-learning');
+        const skipToPracticeBtn = document.getElementById('skip-to-practice');
+        
+        if (startLearningBtn) {
+            startLearningBtn.addEventListener('click', startAlgebraTutor);
+        }
+        
+        if (skipToPracticeBtn) {
+            skipToPracticeBtn.addEventListener('click', () => {
+                showPracticeModeDashboard(currentTopicName);
+            });
+        }
+    }
+    
+    function showPracticeModeDashboard(topicName) {
+        // Show practice mode UI
+        document.getElementById('learning-mode-dashboard').style.display = 'none';
+        document.getElementById('practice-mode-dashboard').style.display = 'block';
+        document.getElementById('legacy-practice-area').style.display = 'none';
+        
+        // Set up review with tutor button
+        const reviewBtn = document.getElementById('review-with-tutor');
+        if (reviewBtn) {
+            reviewBtn.addEventListener('click', startAlgebraTutor);
+        }
+        
+        // Load practice mode data
+        loadPracticeModeData(topicName);
+    }
+    
+    async function loadPracticeModeData(topicName) {
+        try {
+            // Load stats and problems for practice mode
+            const [summaryResponse] = await Promise.all([
+                authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${encodeURIComponent(topicName)}/progress/summary`))
+            ]);
+            
+            const summary = await summaryResponse.json();
+            
+            // Populate stats grid
+            const statsGrid = document.getElementById('practice-stats');
+            statsGrid.innerHTML = `
+                <div class="practice-stat-card mastered" onclick="filterPracticeProblems('mastered')">
+                    <div class="practice-stat-value">${summary.mastered_count || 0}</div>
+                    <div class="practice-stat-label">Mastered</div>
+                </div>
+                <div class="practice-stat-card in-progress" onclick="filterPracticeProblems('in_progress')">
+                    <div class="practice-stat-value">${summary.in_progress_count || 0}</div>
+                    <div class="practice-stat-label">In Progress</div>
+                </div>
+            `;
+            
+            // Load initial problem list
+            await loadPracticeProblems(topicName, 'next');
+            
+        } catch (error) {
+            console.error('Error loading practice mode data:', error);
+        }
+    }
+    
+    async function loadPracticeProblems(topicName, filter) {
+        try {
+            const response = await authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${encodeURIComponent(topicName)}/problems?filter=${filter}`));
+            const problems = await response.json();
+            
+            const problemList = document.getElementById('practice-problem-list');
+            const header = document.getElementById('practice-problems-header');
+            
+            // Update header
+            if (filter === 'mastered') {
+                header.textContent = '✅ Completed Problems';
+            } else if (filter === 'in_progress') {
+                header.textContent = '🔄 In Progress Problems';
+            } else {
+                header.textContent = '📝 Next Problems';
+            }
+            
+            // Populate problem list
+            problemList.innerHTML = '';
+            if (problems.length > 0) {
+                problems.forEach(problem => {
+                    const problemElement = document.createElement('div');
+                    problemElement.className = 'problem-item';
+                    problemElement.innerHTML = `<span>${problem.title}</span>`;
+                    problemElement.addEventListener('click', () => switchToSolverView(problem.id));
+                    problemList.appendChild(problemElement);
+                });
+            } else {
+                problemList.innerHTML = `<p style="text-align: center; color: var(--text-secondary);">No problems found for this filter.</p>`;
+            }
+        } catch (error) {
+            console.error('Error loading practice problems:', error);
+        }
+    }
+    
+    // Global function for filtering practice problems
+    window.filterPracticeProblems = (filter) => {
+        loadPracticeProblems(currentTopicName, filter);
+    };
+    
+    // Global function for going to practice problems from tutor
+    window.goToPracticeProblems = () => {
+        // Go directly to practice problems without showing dashboard
+        console.log('goToPracticeProblems called, currentTopicName:', currentTopicName);
+        showView('topic-view');
+        if (currentTopicName) {
+            // Show practice mode dashboard instead of learning mode
+            showPracticeModeDashboard(currentTopicName);
+            // Then load the practice problems
+            loadPracticeProblems(currentTopicName, 'next');
+        } else {
+            console.error('currentTopicName is not set!');
+        }
+    };
+    
+    async function updateTopicViewForAlgebra(topicName, summary) {
+        // Determine which dashboard to show based on student state
+        const studentState = await determineStudentAlgebraState(topicName, summary);
+        
+        if (studentState.mode === 'learning') {
+            showLearningModeDashboard();
+        } else {
+            showPracticeModeDashboard(topicName);
+        }
+    }
+    
+    // Algebra tutor functions
+    async function startAlgebraTutor() {
+        try {
+            console.log('Starting algebra tutor...');
+            
+            // Set current topic name for navigation back to practice problems
+            currentTopicName = 'Algebra';
+            console.log('startAlgebraTutor: currentTopicName set to:', currentTopicName);
+            
+            showView('algebra-tutor-view', false);
+            updateURLHash('algebra-tutor-view');
+            
+            // Clear previous chat
+            const chatLog = document.getElementById('tutor-chat-log');
+            chatLog.innerHTML = '';
+            algebraTutorHistory = [];
+            currentAlgebraStep = 1;
+            
+            console.log('Making API call to start algebra tutor...');
+            
+            // Start tutoring session with API
+            const response = await authedFetch(APP_CONFIG.getHierarchicalURL('/algebra-tutor/start'), {
+                method: 'POST'
+            });
+            
+            console.log('API response received:', response.status);
+            
+            if (!response.ok) throw new Error('Failed to start algebra tutor');
+            
+            const data = await response.json();
+            console.log('API data:', data);
+            
+            // Handle resume vs new session
+            if (data.is_resume && data.practice_review) {
+                // Student is reviewing their practice progress
+                console.log('Showing practice review with stats:', data.practice_stats);
+                await sendTutorMessage(data.message, 'tutor');
+                
+                // Show practice stats if available
+                if (data.practice_stats && data.practice_stats.total_attempted > 0) {
+                    setTimeout(async () => {
+                        const statsMessage = `📊 Your Practice Summary:\n✅ Completed: ${data.practice_stats.completed} problems\n🔄 In Progress: ${data.practice_stats.in_progress} problems\n\nKeep practicing - you're doing great!`;
+                        await sendTutorMessage(statsMessage, 'tutor');
+                    }, 2000);
+                }
+                
+                // Show continue practicing button
+                setTimeout(() => {
+                    const chatLog = document.getElementById('tutor-chat-log');
+                    const buttonDiv = document.createElement('div');
+                    buttonDiv.className = 'tutor-message tutor';
+                    
+                    const avatar = document.createElement('div');
+                    avatar.className = 'avatar';
+                    avatar.innerHTML = '🎯';
+                    
+                    const messageContent = document.createElement('div');
+                    messageContent.className = 'message-content';
+                    messageContent.innerHTML = `
+                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; transition: all 0.2s ease;">
+                            <i data-feather="arrow-right"></i> Continue Practice
+                        </button>
+                    `;
+                    
+                    buttonDiv.appendChild(avatar);
+                    buttonDiv.appendChild(messageContent);
+                    chatLog.appendChild(buttonDiv);
+                    chatLog.scrollTop = chatLog.scrollHeight;
+                    feather.replace();
+                }, 3500);
+                
+            } else if (data.is_resume && data.completed_learning) {
+                // Student has already completed learning - show message and practice button
+                console.log('Student already completed learning, showing practice option');
+                await sendTutorMessage(data.message, 'tutor');
+                
+                // Show practice button immediately
+                setTimeout(() => {
+                    const chatLog = document.getElementById('tutor-chat-log');
+                    const buttonDiv = document.createElement('div');
+                    buttonDiv.className = 'tutor-message tutor';
+                    
+                    const avatar = document.createElement('div');
+                    avatar.className = 'avatar';
+                    avatar.innerHTML = '🎯';
+                    
+                    const messageContent = document.createElement('div');
+                    messageContent.className = 'message-content';
+                    messageContent.innerHTML = `
+                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; transition: all 0.2s ease;">
+                            <i data-feather="arrow-right"></i> Try Practice Problems
+                        </button>
+                    `;
+                    
+                    buttonDiv.appendChild(avatar);
+                    buttonDiv.appendChild(messageContent);
+                    chatLog.appendChild(buttonDiv);
+                    chatLog.scrollTop = chatLog.scrollHeight;
+                    feather.replace();
+                }, 1000);
+                
+            } else if (data.is_resume && data.existing_history) {
+                // Resume existing session - restore chat history
+                algebraTutorHistory = data.existing_history;
+                currentAlgebraStep = data.step;
+                
+                console.log('Resuming session with', data.existing_history.length, 'messages');
+                
+                // Just send the resume message, don't replay all history (too slow/complex)
+                await sendTutorMessage(data.message, 'tutor');
+            } else {
+                // New session - clear history and start fresh
+                algebraTutorHistory = [];
+                currentAlgebraStep = data.step;
+                
+                console.log('Starting new session');
+                
+                // Send initial message
+                await sendTutorMessage(data.message, 'tutor');
+            }
+            
+            console.log('Setting up event listeners...');
+            
+            // Set up event listeners
+            setupAlgebraTutorListeners();
+            
+            console.log('Algebra tutor started successfully');
+            
+        } catch (error) {
+            console.error('Error starting algebra tutor:', error);
+            
+            // Fallback to client-side version
+            try {
+                console.log('Using fallback client-side tutor...');
+                const chatLog = document.getElementById('tutor-chat-log');
+                chatLog.innerHTML = '';
+                algebraTutorHistory = [];
+                currentAlgebraStep = 1;
+                
+                await sendTutorMessage("Hi! I'm your algebra tutor. Let's start with the very basics. Have you ever seen a problem like this: □ + 4 = 10?", 'tutor');
+                setupAlgebraTutorListeners();
+                console.log('Fallback tutor setup complete');
+            } catch (fallbackError) {
+                console.error('Even fallback failed:', fallbackError);
+                // Last resort - show a simple message
+                const chatLog = document.getElementById('tutor-chat-log');
+                chatLog.innerHTML = '<div class="tutor-message tutor">Sorry, there was an error starting the tutor. Please try again.</div>';
+            }
+        }
+    }
+    
+    function setupAlgebraTutorListeners() {
+        const input = document.getElementById('tutor-answer-input');
+        const submitBtn = document.getElementById('tutor-submit-button');
+        const backBtn = document.getElementById('back-to-topic-from-tutor-button');
+        
+        // Remove existing listeners
+        const newInput = input.cloneNode(true);
+        const newSubmitBtn = submitBtn.cloneNode(true);
+        input.parentNode.replaceChild(newInput, input);
+        submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+        
+        // Add new listeners
+        newSubmitBtn.addEventListener('click', handleTutorSubmit);
+        newInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleTutorSubmit();
+        });
+        
+        backBtn.addEventListener('click', () => {
+            if (currentTopicName) {
+                showTopicView(currentTopicName);
+            } else {
+                showView('dashboard-view');
+                fetchAndDisplayDashboard();
+            }
+        });
+    }
+    
+    async function handleTutorSubmit() {
+        const input = document.getElementById('tutor-answer-input');
+        const userAnswer = input.value.trim();
+        
+        if (!userAnswer) return;
+        
+        // Add user message to chat
+        await sendTutorMessage(userAnswer, 'student');
+        input.value = '';
+        
+        // Get AI response based on conversation step
+        await getTutorResponse(userAnswer);
+    }
+    
+    function parseMarkdown(text) {
+        // Simple markdown parser for basic formatting
+        let parsed = text;
+        
+        // Bold text: **text** -> <strong>text</strong>
+        parsed = parsed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        
+        // Italic text: *text* -> <em>text</em>
+        parsed = parsed.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        
+        // Code inline: `text` -> <code>text</code>
+        parsed = parsed.replace(/`(.*?)`/g, '<code style="background: rgba(102, 126, 234, 0.1); padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace;">$1</code>');
+        
+        // Math equations: □ symbol highlighting
+        parsed = parsed.replace(/□/g, '<span style="background: rgba(102, 126, 234, 0.2); padding: 0.1rem 0.3rem; border-radius: 3px; font-weight: bold;">□</span>');
+        
+        // Line breaks: \n -> <br> (convert newlines to HTML breaks)
+        parsed = parsed.replace(/\n/g, '<br>');
+        
+        // Preserve existing HTML (like equation boxes)
+        return parsed;
+    }
+
+    // --- EMOTIONAL INTELLIGENCE HELPER FUNCTIONS ---
+    async function analyzeConfidence(userAnswer) {
+        // AI-powered confidence analysis - no hardcoded rules!
+        try {
+            const response = await authedFetch(`${API_BASE_URL}/ai/analyze-confidence`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    user_response: userAnswer
+                })
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                return {
+                    level: result.confidence_level, // 'low', 'medium', 'high'
+                    indicators: result.reasoning,   // AI's reasoning
+                    ai_analysis: result.analysis    // Full AI analysis
+                };
+            }
+        } catch (error) {
+            console.log("AI confidence analysis failed, using fallback:", error);
+        }
+        
+        // Simple fallback only for critical errors
+        return {
+            level: 'medium',
+            indicators: ['fallback'],
+            ai_analysis: 'AI analysis unavailable'
+        };
+    }
+    
+    function detectStrugglePattern() {
+        // Check if student is struggling based on response times and error patterns
+        const wasStruggling = emotionalState.strugglingPattern;
+        
+        if (emotionalState.responseTimeHistory.length >= 3) {
+            const avgTime = emotionalState.responseTimeHistory.reduce((a, b) => a + b, 0) / emotionalState.responseTimeHistory.length;
+            const longResponseTimes = avgTime > 30000; // More than 30 seconds average
+            
+            const recentErrors = emotionalState.consecutiveErrors >= 2;
+            
+            emotionalState.strugglingPattern = longResponseTimes || recentErrors;
+            
+            // Debug logging when struggle pattern changes
+            if (emotionalState.strugglingPattern !== wasStruggling) {
+                console.log(`🆘 EI: Struggling pattern ${emotionalState.strugglingPattern ? 'DETECTED' : 'CLEARED'}:`, {
+                    avgResponseTime: Math.round(avgTime),
+                    consecutiveErrors: emotionalState.consecutiveErrors,
+                    longResponseTimes,
+                    recentErrors
+                });
+            }
+        }
+    }
+
+    async function sendTutorMessage(message, sender) {
+        const chatLog = document.getElementById('tutor-chat-log');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `tutor-message ${sender}`;
+        
+        // --- EMOTIONAL INTELLIGENCE TRACKING ---
+        if (sender === 'tutor') {
+            // Check if tutor is asking a question to start timing
+            const isQuestion = message.includes('?') || 
+                              message.toLowerCase().includes('what') ||
+                              message.toLowerCase().includes('how');
+            
+            if (isQuestion) {
+                emotionalState.questionStartTime = Date.now();
+            }
+        }
+        
+        // Create avatar
+        const avatar = document.createElement('div');
+        avatar.className = 'avatar';
+        avatar.innerHTML = sender === 'student' ? '👤' : '🎯';
+        
+        // Create message content
+        const messageContent = document.createElement('div');
+        messageContent.className = 'message-content';
+        messageContent.innerHTML = parseMarkdown(message); // Parse markdown and support HTML content
+        
+        messageDiv.appendChild(avatar);
+        messageDiv.appendChild(messageContent);
+        
+        chatLog.appendChild(messageDiv);
+        chatLog.scrollTop = chatLog.scrollHeight;
+        
+        // Add to history
+        algebraTutorHistory.push({ sender, message, step: currentAlgebraStep });
+        
+        // Type math equations with MathJax if needed
+        typesetMath(messageContent);
+    }
+    
+    function showTypingIndicator() {
+        const chatLog = document.getElementById('tutor-chat-log');
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'tutor-message tutor typing-indicator';
+        typingDiv.id = 'typing-indicator';
+        
+        const avatar = document.createElement('div');
+        avatar.className = 'avatar';
+        avatar.innerHTML = '🎯';
+        
+        const messageContent = document.createElement('div');
+        messageContent.className = 'message-content';
+        messageContent.innerHTML = `
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        `;
+        
+        typingDiv.appendChild(avatar);
+        typingDiv.appendChild(messageContent);
+        chatLog.appendChild(typingDiv);
+        chatLog.scrollTop = chatLog.scrollHeight;
+    }
+    
+    function hideTypingIndicator() {
+        const typingIndicator = document.getElementById('typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    }
+    
+    async function getTutorResponse(userAnswer) {
+        try {
+            // --- EMOTIONAL INTELLIGENCE TRACKING ---
+            const responseTime = emotionalState.questionStartTime ? 
+                Date.now() - emotionalState.questionStartTime : null;
+            
+            // Analyze confidence indicators in student response
+            const confidenceMarkers = analyzeConfidence(userAnswer);
+            
+            // Track response time for pattern analysis
+            if (responseTime) {
+                emotionalState.responseTimeHistory.push(responseTime);
+                // Keep only last 10 response times
+                if (emotionalState.responseTimeHistory.length > 10) {
+                    emotionalState.responseTimeHistory.shift();
+                }
+            }
+            
+            // Send user input to algebra tutor API with emotional intelligence data
+            const response = await authedFetch(APP_CONFIG.getHierarchicalURL('/algebra-tutor/chat'), {
+                method: 'POST',
+                body: JSON.stringify({
+                    student_answer: userAnswer,
+                    conversation_history: algebraTutorHistory,
+                    current_step: currentAlgebraStep,
+                    emotional_intelligence: {
+                        response_time: responseTime,
+                        consecutive_errors: emotionalState.consecutiveErrors,
+                        avg_response_time: emotionalState.responseTimeHistory.length > 0 ? 
+                            emotionalState.responseTimeHistory.reduce((a, b) => a + b, 0) / emotionalState.responseTimeHistory.length : null,
+                        confidence_indicators: confidenceMarkers,
+                        struggling_pattern: emotionalState.strugglingPattern
+                    }
+                })
+            });
+            
+            if (!response.ok) throw new Error('Failed to get tutor response');
+            
+            const data = await response.json();
+            
+            // --- EMOTIONAL INTELLIGENCE PROCESSING ---
+            // Update error tracking based on student understanding
+            if (data.shows_understanding) {
+                emotionalState.consecutiveErrors = 0; // Reset on success
+                console.log("✅ EI: Student shows understanding, resetting error count");
+            } else if (data.new_step === currentAlgebraStep) {
+                // Student didn't advance, likely made an error
+                emotionalState.consecutiveErrors++;
+                console.log(`❌ EI: Error detected, consecutive errors: ${emotionalState.consecutiveErrors}`);
+            }
+            
+            // Update struggling pattern detection
+            detectStrugglePattern();
+            
+            // Debug logging for emotional intelligence
+            console.log("🧠 Emotional Intelligence Data:", {
+                responseTime: responseTime,
+                consecutiveErrors: emotionalState.consecutiveErrors,
+                avgResponseTime: emotionalState.responseTimeHistory.length > 0 ? 
+                    Math.round(emotionalState.responseTimeHistory.reduce((a, b) => a + b, 0) / emotionalState.responseTimeHistory.length) : null,
+                confidenceLevel: confidenceMarkers.level,
+                strugglingPattern: emotionalState.strugglingPattern
+            });
+            
+            // Update step
+            currentAlgebraStep = data.new_step;
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Send tutor response after a brief delay to feel natural
+            setTimeout(async () => {
+                hideTypingIndicator();
+                await sendTutorMessage(data.tutor_response, 'tutor');
+                
+                // If ready for problems, show practice button (transition message is now included in main response)
+                if (data.ready_for_problems) {
+                    setTimeout(async () => {
+                        // Add practice button to chat (without additional transition message)
+                        const chatLog = document.getElementById('tutor-chat-log');
+                        const buttonDiv = document.createElement('div');
+                        buttonDiv.className = 'tutor-message tutor';
+                        
+                        const avatar = document.createElement('div');
+                        avatar.className = 'avatar';
+                        avatar.innerHTML = '🎯';
+                        
+                        const messageContent = document.createElement('div');
+                        messageContent.className = 'message-content';
+                        messageContent.innerHTML = `
+                            <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; transition: all 0.2s ease;">
+                                <i data-feather="arrow-right"></i> Try Practice Problems
+                            </button>
+                        `;
+                        
+                        buttonDiv.appendChild(avatar);
+                        buttonDiv.appendChild(messageContent);
+                        chatLog.appendChild(buttonDiv);
+                        chatLog.scrollTop = chatLog.scrollHeight;
+                        feather.replace();
+                    }, 1500); // Shorter delay since no transition message
+                }
+            }, 1500);
+            
+        } catch (error) {
+            console.error('Error getting tutor response:', error);
+            // Fallback response with typing indicator
+            showTypingIndicator();
+            setTimeout(async () => {
+                hideTypingIndicator();
+                await sendTutorMessage("I'm having trouble right now. Can you try rephrasing your answer?", 'tutor');
+            }, 1000);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+
     // --- INITIALIZATION ---
     function initializeApp() {
         updateHeader(); // Set up the header button first
-        startSession(); // Start the session to get personalized welcome
+        
+        // If user is already authenticated, go to dashboard
+        if (authToken) {
+            showView('dashboard-view');
+            fetchAndDisplayDashboard();
+        } else {
+            startSession(); // Start the session to get personalized welcome
+        }
     }
 
     // Attach all event listeners

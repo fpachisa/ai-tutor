@@ -1,0 +1,280 @@
+[
+  {
+    "concept_id": "fractions_basics",
+    "title": "Understanding Fractions",
+    "topic": "Fractions",
+    "grade": "p6",
+    "description": "A fraction represents a part of a whole. The top number (numerator) tells us how many parts we have, and the bottom number (denominator) tells us how many equal parts the whole is divided into.",
+    "prerequisites": [],
+    "learning_objectives": [
+      "Understand what fractions represent",
+      "Identify numerator and denominator",
+      "Visualize fractions using pictures and real objects",
+      "Recognize fractions in everyday life"
+    ],
+    "difficulty_level": 1,
+    "visual_elements": {
+      "type": "interactive_circle",
+      "description": "Interactive circular pie charts that students can divide and shade",
+      "animation": "progressive_shading"
+    },
+    "real_world_examples": [
+      "Sharing pizza slices equally among friends",
+      "Measuring ingredients for baking (1/2 cup of flour)",
+      "Time representation (quarter past, half past)",
+      "Money (50 cents is 1/2 of a dollar)"
+    ],
+    "interactive_activities": [
+      {
+        "type": "drag_and_drop",
+        "title": "Pizza Party Sharing",
+        "description": "Help divide pizzas equally among friends",
+        "difficulty": "easy"
+      },
+      {
+        "type": "slider_exploration",
+        "title": "Fraction Slider",
+        "description": "Move the slider to see how fractions change",
+        "difficulty": "medium"
+      }
+    ]
+  },
+  {
+    "concept_id": "fractions_equivalent",
+    "title": "Equivalent Fractions",
+    "topic": "Fractions",
+    "grade": "p6",
+    "description": "Equivalent fractions are different fractions that represent the same amount. For example, 1/2 = 2/4 = 3/6 because they all represent half of something.",
+    "prerequisites": ["fractions_basics"],
+    "learning_objectives": [
+      "Recognize that different fractions can represent the same value",
+      "Find equivalent fractions by multiplying or dividing",
+      "Simplify fractions to their lowest terms",
+      "Compare fractions using equivalent forms"
+    ],
+    "difficulty_level": 2,
+    "visual_elements": {
+      "type": "parallel_bars",
+      "description": "Side-by-side fraction bars showing equivalent relationships",
+      "animation": "morphing_divisions"
+    },
+    "real_world_examples": [
+      "Half a chocolate bar = 2 quarters of the same bar",
+      "30 minutes = 1/2 hour = 3/6 of an hour",
+      "25 cents = 1/4 dollar = 2/8 dollar"
+    ],
+    "interactive_activities": [
+      {
+        "type": "matching_game",
+        "title": "Equivalent Fraction Matching",
+        "description": "Match fractions that represent the same amount",
+        "difficulty": "medium"
+      },
+      {
+        "type": "fraction_builder",
+        "title": "Build Your Own Equivalents",
+        "description": "Create equivalent fractions using visual models",
+        "difficulty": "medium"
+      }
+    ]
+  },
+  {
+    "concept_id": "algebra_basics",
+    "title": "Introduction to Algebra",
+    "topic": "Algebra",
+    "grade": "p6",
+    "description": "Algebra is like a puzzle where some numbers are hidden behind letters. We use letters (like x or n) to represent unknown numbers that we need to find.",
+    "prerequisites": [],
+    "learning_objectives": [
+      "Understand that letters can represent unknown numbers",
+      "Solve simple equations with one variable",
+      "Use algebra to solve word problems",
+      "Balance equations like a see-saw"
+    ],
+    "difficulty_level": 1,
+    "visual_elements": {
+      "type": "balance_scale",
+      "description": "Interactive balance scale showing equation solving",
+      "animation": "balancing_weights"
+    },
+    "real_world_examples": [
+      "Finding missing money: 'I had $20, spent some, and have $12 left. How much did I spend?'",
+      "Age puzzles: 'Sarah is 3 years older than Tom. If Sarah is 15, how old is Tom?'",
+      "Shopping problems: 'Apples cost $2 each. How many can I buy with $10?'"
+    ],
+    "interactive_activities": [
+      {
+        "type": "balance_game",
+        "title": "Equation Balance Master",
+        "description": "Balance the equation scale by finding the missing number",
+        "difficulty": "easy"
+      },
+      {
+        "type": "mystery_box",
+        "title": "Number Mystery Box",
+        "description": "What number is hiding in the mystery box?",
+        "difficulty": "easy"
+      }
+    ]
+  },
+  {
+    "concept_id": "ratio_basics",
+    "title": "Understanding Ratios",
+    "topic": "Ratio",
+    "grade": "p6",
+    "description": "A ratio compares two or more quantities. It tells us how much of one thing there is compared to another. For example, in a class of 15 boys and 10 girls, the ratio of boys to girls is 15:10 or 3:2.",
+    "prerequisites": ["fractions_basics"],
+    "learning_objectives": [
+      "Understand what ratios represent",
+      "Write ratios in different forms (3:2, 3 to 2, 3/2)",
+      "Simplify ratios to their simplest form",
+      "Use ratios to solve practical problems"
+    ],
+    "difficulty_level": 2,
+    "visual_elements": {
+      "type": "grouped_objects",
+      "description": "Visual groupings showing ratio relationships",
+      "animation": "grouping_and_counting"
+    },
+    "real_world_examples": [
+      "Recipe ingredients: 2 cups flour to 1 cup water",
+      "Paint mixing: 3 parts blue to 1 part yellow makes green",
+      "Class composition: 12 girls to 8 boys",
+      "Speed comparisons: Car travels 60km while bicycle travels 15km"
+    ],
+    "interactive_activities": [
+      {
+        "type": "recipe_mixer",
+        "title": "Perfect Recipe Ratios",
+        "description": "Mix ingredients in the correct ratio to make delicious food",
+        "difficulty": "medium"
+      },
+      {
+        "type": "paint_mixing",
+        "title": "Color Creation Lab",
+        "description": "Mix colors in different ratios to create new colors",
+        "difficulty": "easy"
+      }
+    ]
+  },
+  {
+    "concept_id": "percentage_basics",
+    "title": "Understanding Percentages",
+    "topic": "Percentage",
+    "grade": "p6",
+    "description": "Percentage means 'out of 100'. It's another way to write fractions and decimals. 50% means 50 out of 100, which is the same as 1/2 or 0.5.",
+    "prerequisites": ["fractions_basics"],
+    "learning_objectives": [
+      "Understand that percent means 'out of 100'",
+      "Convert between percentages, fractions, and decimals",
+      "Calculate simple percentages",
+      "Recognize percentages in everyday situations"
+    ],
+    "difficulty_level": 2,
+    "visual_elements": {
+      "type": "hundred_grid",
+      "description": "Interactive 100-square grid for visualizing percentages",
+      "animation": "progressive_filling"
+    },
+    "real_world_examples": [
+      "Test scores: 'You got 85% on your math test'",
+      "Sales discounts: '20% off all toys'",
+      "Battery level: 'Phone battery is at 30%'",
+      "Weather: '80% chance of rain today'"
+    ],
+    "interactive_activities": [
+      {
+        "type": "grid_shader",
+        "title": "Percentage Grid Artist",
+        "description": "Shade the grid to show different percentages",
+        "difficulty": "easy"
+      },
+      {
+        "type": "shopping_calculator",
+        "title": "Discount Shopping Spree",
+        "description": "Calculate discounts and final prices while shopping",
+        "difficulty": "medium"
+      }
+    ]
+  },
+  {
+    "concept_id": "area_perimeter_basics",
+    "title": "Area and Perimeter Fundamentals",
+    "topic": "Area and Perimeter",
+    "grade": "p6",
+    "description": "Perimeter is the distance around the outside of a shape - like walking around a playground. Area is the space inside a shape - like how much grass covers a field.",
+    "prerequisites": [],
+    "learning_objectives": [
+      "Distinguish between area and perimeter",
+      "Calculate perimeter by adding all sides",
+      "Find area using square units",
+      "Apply area and perimeter to real-world problems"
+    ],
+    "difficulty_level": 1,
+    "visual_elements": {
+      "type": "interactive_shapes",
+      "description": "Draggable shapes with highlighted perimeters and fillable areas",
+      "animation": "outline_and_fill"
+    },
+    "real_world_examples": [
+      "Fencing a garden: perimeter tells you how much fence you need",
+      "Painting a wall: area tells you how much paint you need",
+      "Carpet for a room: need to know the floor area",
+      "Running track: perimeter is the distance around"
+    ],
+    "interactive_activities": [
+      {
+        "type": "fence_builder",
+        "title": "Garden Fence Calculator",
+        "description": "Help farmers calculate how much fencing they need",
+        "difficulty": "easy"
+      },
+      {
+        "type": "tile_counter",
+        "title": "Floor Tile Designer",
+        "description": "Count how many tiles fit in different room shapes",
+        "difficulty": "medium"
+      }
+    ]
+  },
+  {
+    "concept_id": "volume_basics",
+    "title": "Understanding Volume",
+    "topic": "Volume",
+    "grade": "p6",
+    "description": "Volume is the amount of space inside a 3D object. Think of it as how much water you can pour into a container, or how many small cubes can fit inside a box.",
+    "prerequisites": ["area_perimeter_basics"],
+    "learning_objectives": [
+      "Understand volume as 3D space measurement",
+      "Use cubic units to measure volume",
+      "Calculate volume of rectangular prisms",
+      "Connect volume to real-world containers and spaces"
+    ],
+    "difficulty_level": 2,
+    "visual_elements": {
+      "type": "3d_containers",
+      "description": "Interactive 3D containers that can be filled with unit cubes",
+      "animation": "layer_by_layer_filling"
+    },
+    "real_world_examples": [
+      "Water bottles: 500ml volume",
+      "Moving boxes: how much stuff fits inside",
+      "Swimming pools: how much water they hold",
+      "Fish tanks: space for fish to swim"
+    ],
+    "interactive_activities": [
+      {
+        "type": "cube_packer",
+        "title": "Box Packing Challenge",
+        "description": "Pack unit cubes into different sized boxes",
+        "difficulty": "medium"
+      },
+      {
+        "type": "liquid_pourer",
+        "title": "Container Comparison",
+        "description": "Pour water between containers to compare volumes",
+        "difficulty": "easy"
+      }
+    ]
+  }
+]

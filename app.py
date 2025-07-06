@@ -10,8 +10,11 @@ from routes.auth import auth_bp
 from routes.content import content_bp
 from routes.diagnostic import diagnostic_bp
 from routes.tutor import tutor_bp
+from routes.concepts import concepts_bp
 from routes.progress import progress_bp
 from routes.session import session_bp
+from routes.algebra_tutor import algebra_tutor_bp
+from routes.ai_analysis import ai_analysis_bp
 
 # Import services to initialize them
 from services import problem_service
@@ -31,8 +34,11 @@ def create_app(config_name='default'):
     app.register_blueprint(content_bp)
     app.register_blueprint(diagnostic_bp)
     app.register_blueprint(tutor_bp)
+    app.register_blueprint(concepts_bp)
     app.register_blueprint(progress_bp)
     app.register_blueprint(session_bp)
+    app.register_blueprint(algebra_tutor_bp)
+    app.register_blueprint(ai_analysis_bp)
     
     @app.route('/health')
     def health_check():

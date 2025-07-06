@@ -1,0 +1,310 @@
+{
+  "concept_to_problems": {
+    "algebra_variables_introduction": {
+      "description": "Problems that introduce the concept of variables and unknown quantities",
+      "related_problems": ["ALG-101", "ALG-102", "ALG-103", "ALG-104", "ALG-105"],
+      "practice_types": [
+        "Converting box equations to variable equations",
+        "Identifying unknowns in word problems",
+        "Simple substitution with given values"
+      ]
+    },
+    "algebra_simple_expressions": {
+      "description": "Problems involving simple algebraic expressions and their interpretation",
+      "related_problems": ["ALG-201", "ALG-202", "ALG-203", "ALG-204", "ALG-205", "ALG-301", "ALG-302", "ALG-303", "ALG-304", "ALG-305"],
+      "practice_types": [
+        "Simplifying expressions like 5a + 3a - 2a",
+        "Writing expressions from word descriptions",
+        "Combining like terms"
+      ]
+    },
+    "algebra_substitution": {
+      "description": "Problems requiring substitution of values into expressions",
+      "related_problems": ["ALG-401", "ALG-402", "ALG-403", "ALG-404", "ALG-405"],
+      "practice_types": [
+        "Evaluating expressions when variable values are given",
+        "Following order of operations after substitution",
+        "Real-world substitution problems"
+      ]
+    },
+    "algebra_simple_equations": {
+      "description": "Solving simple linear equations with one variable",
+      "related_problems": ["ALG-501", "ALG-502", "ALG-503", "ALG-504"],
+      "practice_types": [
+        "One-step equations (x + 5 = 12)",
+        "Two-step equations (4x - 9 = 23)",
+        "Word problems leading to simple equations"
+      ]
+    },
+    "algebra_word_problems": {
+      "description": "Complex word problems requiring equation setup and solving",
+      "related_problems": ["ALG-505"],
+      "practice_types": [
+        "Age problems with multiple people",
+        "Money and sharing problems", 
+        "Geometry problems with algebraic relationships",
+        "Multi-step reasoning problems"
+      ]
+    }
+  },
+  "problem_to_concepts": {
+    "ALG-101": {
+      "primary_concept": "algebra_variables_introduction",
+      "secondary_concepts": [],
+      "prerequisite_concepts": [],
+      "difficulty_alignment": "Basic - introduction to variables",
+      "skills_reinforced": ["Using a letter to represent an unknown number"]
+    },
+    "ALG-102": {
+      "primary_concept": "algebra_variables_introduction",
+      "secondary_concepts": [],
+      "prerequisite_concepts": [],
+      "difficulty_alignment": "Basic - introduction to variables",
+      "skills_reinforced": ["Using a letter to represent an unknown number"]
+    },
+    "ALG-103": {
+      "primary_concept": "algebra_variables_introduction",
+      "secondary_concepts": [],
+      "prerequisite_concepts": [],
+      "difficulty_alignment": "Basic - introduction to variables",
+      "skills_reinforced": ["Using a letter to represent an unknown number"]
+    },
+    "ALG-104": {
+      "primary_concept": "algebra_variables_introduction",
+      "secondary_concepts": [],
+      "prerequisite_concepts": [],
+      "difficulty_alignment": "Basic - introduction to variables",
+      "skills_reinforced": ["Using a letter to represent an unknown number"]
+    },
+    "ALG-105": {
+      "primary_concept": "algebra_variables_introduction",
+      "secondary_concepts": [],
+      "prerequisite_concepts": [],
+      "difficulty_alignment": "Basic - introduction to variables",
+      "skills_reinforced": ["Using a letter to represent an unknown number"]
+    },
+    "ALG-201": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": ["algebra_variables_introduction"],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Basic - writing expressions",
+      "skills_reinforced": ["Notation, representations and interpretation"]
+    },
+    "ALG-202": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": ["algebra_variables_introduction"],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Basic - writing expressions",
+      "skills_reinforced": ["Notation, representations and interpretation"]
+    },
+    "ALG-203": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": ["algebra_variables_introduction"],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Basic - writing expressions",
+      "skills_reinforced": ["Notation, representations and interpretation"]
+    },
+    "ALG-204": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": ["algebra_variables_introduction"],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Intermediate - complex expressions",
+      "skills_reinforced": ["Notation, representations and interpretation"]
+    },
+    "ALG-205": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": ["algebra_variables_introduction"],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Intermediate - complex expressions",
+      "skills_reinforced": ["Notation, representations and interpretation"]
+    },
+    "ALG-301": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": [],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Basic - combining like terms",
+      "skills_reinforced": ["Simplifying simple linear expressions"]
+    },
+    "ALG-302": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": [],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Basic - combining like terms",
+      "skills_reinforced": ["Simplifying simple linear expressions"]
+    },
+    "ALG-303": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": [],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Intermediate - mixed operations",
+      "skills_reinforced": ["Simplifying simple linear expressions"]
+    },
+    "ALG-304": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": [],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Intermediate - multiple variables",
+      "skills_reinforced": ["Simplifying simple linear expressions"]
+    },
+    "ALG-305": {
+      "primary_concept": "algebra_simple_expressions",
+      "secondary_concepts": ["algebra_word_problems"],
+      "prerequisite_concepts": ["algebra_variables_introduction"],
+      "difficulty_alignment": "Advanced - word to expression",
+      "skills_reinforced": ["Simplifying simple linear expressions", "Notation, representations and interpretation"]
+    },
+    "ALG-401": {
+      "primary_concept": "algebra_substitution",
+      "secondary_concepts": ["algebra_simple_expressions"],
+      "prerequisite_concepts": ["algebra_variables_introduction", "algebra_simple_expressions"],
+      "difficulty_alignment": "Basic - simple substitution",
+      "skills_reinforced": ["Evaluating simple linear expressions by substitution"]
+    },
+    "ALG-402": {
+      "primary_concept": "algebra_substitution",
+      "secondary_concepts": ["algebra_simple_expressions"],
+      "prerequisite_concepts": ["algebra_variables_introduction", "algebra_simple_expressions"],
+      "difficulty_alignment": "Basic - substitution with multiplication",
+      "skills_reinforced": ["Evaluating simple linear expressions by substitution"]
+    },
+    "ALG-403": {
+      "primary_concept": "algebra_substitution",
+      "secondary_concepts": ["algebra_simple_expressions"],
+      "prerequisite_concepts": ["algebra_variables_introduction", "algebra_simple_expressions"],
+      "difficulty_alignment": "Basic - substitution with division",
+      "skills_reinforced": ["Evaluating simple linear expressions by substitution"]
+    },
+    "ALG-404": {
+      "primary_concept": "algebra_substitution",
+      "secondary_concepts": ["algebra_simple_expressions"],
+      "prerequisite_concepts": ["algebra_variables_introduction", "algebra_simple_expressions"],
+      "difficulty_alignment": "Intermediate - two-step substitution",
+      "skills_reinforced": ["Evaluating simple linear expressions by substitution"]
+    },
+    "ALG-405": {
+      "primary_concept": "algebra_substitution",
+      "secondary_concepts": ["algebra_simple_expressions"],
+      "prerequisite_concepts": ["algebra_variables_introduction", "algebra_simple_expressions"],
+      "difficulty_alignment": "Intermediate - substitution with subtraction",
+      "skills_reinforced": ["Evaluating simple linear expressions by substitution"]
+    },
+    "ALG-501": {
+      "primary_concept": "algebra_simple_equations",
+      "secondary_concepts": ["algebra_substitution"],
+      "prerequisite_concepts": ["algebra_variables_introduction", "algebra_simple_expressions"],
+      "difficulty_alignment": "Basic - box equations",
+      "skills_reinforced": ["Solving simple linear equations"]
+    },
+    "ALG-502": {
+      "primary_concept": "algebra_simple_equations",
+      "secondary_concepts": ["algebra_substitution"],
+      "prerequisite_concepts": ["algebra_variables_introduction", "algebra_simple_expressions"],
+      "difficulty_alignment": "Basic - box equations with subtraction",
+      "skills_reinforced": ["Solving simple linear equations"]
+    },
+    "ALG-503": {
+      "primary_concept": "algebra_simple_equations",
+      "secondary_concepts": ["algebra_substitution"],
+      "prerequisite_concepts": ["algebra_variables_introduction", "algebra_simple_expressions"],
+      "difficulty_alignment": "Basic - box equations with multiplication",
+      "skills_reinforced": ["Solving simple linear equations"]
+    },
+    "ALG-504": {
+      "primary_concept": "algebra_simple_equations",
+      "secondary_concepts": ["algebra_word_problems"],
+      "prerequisite_concepts": ["algebra_simple_equations"],
+      "difficulty_alignment": "Intermediate - contextual problems",
+      "skills_reinforced": ["Solving simple linear equations"]
+    },
+    "ALG-505": {
+      "primary_concept": "algebra_word_problems",
+      "secondary_concepts": ["algebra_simple_equations"],
+      "prerequisite_concepts": ["algebra_simple_equations"],
+      "difficulty_alignment": "Advanced - complex word problems",
+      "skills_reinforced": ["Solving simple linear equations"]
+    }
+  },
+  "learning_progression": {
+    "stage_1": {
+      "name": "Foundation Building",
+      "concepts": ["algebra_variables_introduction"],
+      "recommended_problems": ["ALG-101", "ALG-102", "ALG-103"],
+      "focus": "Understanding what variables represent",
+      "success_criteria": "Can identify variables and understand they represent unknown quantities"
+    },
+    "stage_2": {
+      "name": "Expression Mastery", 
+      "concepts": ["algebra_simple_expressions"],
+      "recommended_problems": ["ALG-201", "ALG-301", "ALG-302"],
+      "focus": "Working with algebraic expressions",
+      "success_criteria": "Can combine like terms and interpret expressions"
+    },
+    "stage_3": {
+      "name": "Substitution Skills",
+      "concepts": ["algebra_substitution"],
+      "recommended_problems": ["ALG-401", "ALG-402", "ALG-403"],
+      "focus": "Substituting values and evaluating expressions",
+      "success_criteria": "Can substitute values correctly and follow order of operations"
+    },
+    "stage_4": {
+      "name": "Equation Solving",
+      "concepts": ["algebra_simple_equations"],
+      "recommended_problems": ["ALG-501", "ALG-502", "ALG-503"],
+      "focus": "Solving linear equations with one variable",
+      "success_criteria": "Can solve two-step equations and check solutions"
+    },
+    "stage_5": {
+      "name": "Advanced Applications",
+      "concepts": ["algebra_word_problems"],
+      "recommended_problems": ["ALG-505"],
+      "focus": "Complex word problems and real-world applications",
+      "success_criteria": "Can translate complex scenarios into equations and solve them"
+    }
+  },
+  "adaptive_recommendations": {
+    "if_struggling_with_expressions": {
+      "go_back_to": "algebra_variables_introduction",
+      "extra_practice": "Variable identification exercises",
+      "support_needed": "Visual representations of variables"
+    },
+    "if_struggling_with_substitution": {
+      "go_back_to": "algebra_simple_expressions", 
+      "extra_practice": "Order of operations review",
+      "support_needed": "Step-by-step substitution examples"
+    },
+    "if_struggling_with_equations": {
+      "go_back_to": "algebra_substitution",
+      "extra_practice": "Balance scale visualizations",
+      "support_needed": "Inverse operations practice"
+    },
+    "if_struggling_with_word_problems": {
+      "go_back_to": "algebra_simple_equations",
+      "extra_practice": "Simple word-to-equation translations",
+      "support_needed": "Problem breakdown strategies"
+    }
+  },
+  "assessment_rubric": {
+    "concept_mastery_levels": {
+      "not_started": {
+        "description": "No understanding demonstrated",
+        "indicators": ["Cannot identify variables", "No attempt at problems"],
+        "next_steps": "Start with concrete examples and visual representations"
+      },
+      "exploring": {
+        "description": "Basic awareness but significant errors",
+        "indicators": ["Can identify some variables", "Makes systematic errors", "Needs significant guidance"],
+        "next_steps": "Guided practice with immediate feedback"
+      },
+      "understood": {
+        "description": "Good understanding with minor gaps",
+        "indicators": ["Solves most problems correctly", "Minor calculation errors", "Good problem-solving approach"],
+        "next_steps": "Independent practice and application problems"
+      },
+      "mastered": {
+        "description": "Complete understanding and confident application",
+        "indicators": ["Consistently correct solutions", "Can explain reasoning", "Applies to new contexts"],
+        "next_steps": "Advanced problems and help others learn"
+      }
+    }
+  }
+}

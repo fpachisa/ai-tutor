@@ -23,14 +23,22 @@ def submit_answer(current_user_id, grade, subject):
         data = request.get_json()
         problem_id = data.get("problem_id")
         chat_history = data.get("chat_history", [])
+        emotional_intelligence = data.get('emotional_intelligence', {})
+        
+        # DEBUG: Basic route logging for practice mode
+        print(f"\n🔍 PRACTICE TUTOR REQUEST:")
+        print(f"   Problem ID: {problem_id}")
+        print(f"   EI Data Received: {bool(emotional_intelligence)}")
+        if emotional_intelligence:
+            print(f"   EI Keys: {list(emotional_intelligence.keys())}")
         
         # Get problem data
         problem = problem_service.get_practice_problem(problem_id)
         if not problem:
             return jsonify({"error": "Problem not found"}), 404
 
-        # Evaluate answer using tutor service
-        result = tutor_service.evaluate_answer(problem, chat_history)
+        # Evaluate answer using tutor service with emotional intelligence
+        result = tutor_service.evaluate_answer(problem, chat_history, emotional_intelligence)
         
         # Save progress if we have feedback
         if result.get("feedback"):
