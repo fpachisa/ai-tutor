@@ -9,7 +9,7 @@
     <script>
         MathJax = {
             tex: {
-                inlineMath: [['\\(', '\\)']],  // Removed ['$', '$'] to avoid conflicts with money
+                inlineMath: [['\\(', '\\)'], ['$', '$']],  // Added back ['$', '$'] for fraction problems
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true,
                 processEnvironments: true
@@ -146,46 +146,44 @@
 
         <div id="topic-view" class="view-container" style="display: none;">
             <div class="topic-view-content">
-                <div class="header topic-header">
-                    <button id="back-to-dashboard-from-topic-button" class="back-button">
-                        <i data-feather="arrow-left"></i> Back to Dashboard
+                <!-- Subtle back navigation -->
+                <div class="topic-nav">
+                    <button id="back-to-dashboard-from-topic-button" class="back-link">
+                        <i data-feather="arrow-left"></i> Dashboard
                     </button>
-                    <h1 id="topic-title">Topic</h1>
-                    <div id="topic-main-action">
-                        <button id="start-algebra-tutor" class="button-primary" style="display: none;">
-                            <i data-feather="message-circle"></i> Start with AI Tutor
-                        </button>
-                        <button id="show-practice-problems" class="button-primary" style="display: none;">
-                            Practice Problems <i data-feather="arrow-right"></i>
-                        </button>
-                    </div>
                 </div>
+                
+                <!-- Hidden topic title for JavaScript compatibility -->
+                <h1 id="topic-title" style="display: none;">Topic</h1>
 
                 <!-- Learning Mode Dashboard -->
                 <div id="learning-mode-dashboard" style="display: none;">
                     <div class="learning-mode-container">
-                        <div class="learning-hero">
-                            <div class="learning-icon">🎓</div>
-                            <h2>Learn Algebra</h2>
-                            <p>Ready to learn algebra step by step with your AI tutor? We'll start with the very basics and build your understanding naturally.</p>
-                        </div>
-                        
-                        <div class="learning-actions">
-                            <button id="start-algebra-learning" class="button-primary large">
-                                <i data-feather="message-circle"></i> Start Learning
-                            </button>
-                            <button id="skip-to-practice" class="button-secondary large">
-                                <i data-feather="book-open"></i> Skip to Practice
-                            </button>
+                        <div class="learning-hero compact">
+                            <h2 id="learning-topic-title">🎓 Learn Topic</h2>
                         </div>
                         
                         <div class="learning-preview">
-                            <h3>What you'll learn:</h3>
-                            <div class="learning-topics">
-                                <div class="topic-preview">📝 Using letters for unknown numbers</div>
-                                <div class="topic-preview">🔢 Simple algebraic expressions</div>
-                                <div class="topic-preview">⚖️ Solving basic equations</div>
-                                <div class="topic-preview">📖 Real-world algebra problems</div>
+                            <h3>Your Learning Journey:</h3>
+                            <div class="learning-pathway">
+                                <div id="pathway-container" class="pathway-container">
+                                    <!-- Pathway steps will be populated by JavaScript -->
+                                </div>
+
+                                <!-- Progress Bar -->
+                                <div class="pathway-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" data-progress="0"></div>
+                                    </div>
+                                    <div class="progress-text">0% Complete</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Skip to Practice option at bottom -->
+                            <div class="learning-actions-bottom">
+                                <button id="skip-to-practice" class="button-secondary large">
+                                    <i data-feather="book-open"></i> Skip to Practice Problems
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -195,7 +193,7 @@
                 <div id="practice-mode-dashboard" style="display: none;">
                     <div class="practice-mode-container">
                         <div class="practice-header">
-                            <h2>📊 Your Algebra Progress</h2>
+                            <h2 id="practice-progress-title">📊 Your Progress</h2>
                             <button id="review-with-tutor" class="button-secondary">
                                 <i data-feather="message-circle"></i> Review with Tutor
                             </button>
@@ -239,9 +237,9 @@
             <div class="tutor-chat-container">
                 <div class="tutor-header">
                     <button id="back-to-topic-from-tutor-button" class="back-button">
-                        <i data-feather="arrow-left"></i> Back to Algebra
+                        <i data-feather="arrow-left"></i> <span id="back-to-topic-text">Back to Topic</span>
                     </button>
-                    <h2>🎯 Algebra Tutor</h2>
+                    <h2 id="tutor-header-title">🎯 Tutor</h2>
                 </div>
                 
                 <div class="tutor-chat-area">

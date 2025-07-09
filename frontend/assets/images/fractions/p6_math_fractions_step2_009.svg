@@ -1,0 +1,46 @@
+
+    <svg viewBox="0 0 450 280" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial, sans-serif">
+      <defs>
+        <!-- A single 1kg flour bag -->
+        <g id="flour-bag">
+          <rect x="0" y="0" width="40" height="50" fill="#EADDCB" rx="5"/>
+          <text x="20" y="30" text-anchor="middle" font-size="12" fill="#7D6A55">1kg</text>
+        </g>
+        <!-- A single cake icon -->
+        <g id="cake-icon">
+          <path d="M 5 20 C 5 10, 35 10, 35 20 L 35 35 L 5 35 Z" fill="#E6A4B4"/>
+          <path d="M 2 35 L 38 35 L 35 40 L 5 40 Z" fill="#F3D7CA"/>
+          <circle cx="20" cy="15" r="4" fill="#C70039"/>
+        </g>
+      </defs>
+
+      <!-- Part 1: Total Flour -->
+      <g id="total-flour">
+        <text x="10" y="70" font-size="14">The baker has 6 kg of flour:</text>
+        <use href="#flour-bag" x="10" y="90" />
+        <use href="#flour-bag" x="60" y="90" />
+        <use href="#flour-bag" x="110" y="90" />
+        <use href="#flour-bag" x="160" y="90" />
+        <use href="#flour-bag" x="210" y="90" />
+        <use href="#flour-bag" x="260" y="90" />
+      </g>
+
+      <!-- Part 2: Flour per cake -->
+      <g id="flour-per-cake">
+        <text x="10" y="180" font-size="14">Each cake needs 3/4 kg of flour:</text>
+        <use href="#cake-icon" x="10" y="200" />
+        <text x="60" y="230" font-size="20" font-weight="bold">=</text>
+        
+        <!-- Corrected 3/4 kg visual -->
+        <g id="three-quarters-kg-visual">
+            <!-- Background container to show the full 1kg bag size -->
+            <rect x="85" y="200" width="40" height="50" fill="#F0F0F0" stroke="#CCCCCC" rx="5"/>
+            <!-- Flour part (3/4 of the height, placed at the bottom) -->
+            <rect x="85" y="212.5" width="40" height="37.5" fill="#EADDCB" rx="5"/>
+            <!-- A line to make the top of the flour level clear -->
+            <line x1="85" y1="212.5" x2="125" y2="212.5" stroke="#D6C5B3" stroke-width="1"/>
+            <text x="140" y="230" text-anchor="start" font-size="14" fill="#333">3/4 kg</text>
+        </g>
+      </g>
+    </svg>
+

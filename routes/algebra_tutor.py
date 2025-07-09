@@ -10,6 +10,7 @@ from routes.auth import token_required
 algebra_tutor_bp = Blueprint('algebra_tutor', __name__)
 algebra_service = AlgebraTutorService()
 
+
 @algebra_tutor_bp.route('/api/grades/<grade>/subjects/<subject>/algebra-tutor/start', methods=['POST'])
 @token_required
 def start_algebra_tutor(user_id, grade, subject):
@@ -91,16 +92,26 @@ def start_algebra_tutor(user_id, grade, subject):
                         'completed_learning': True
                     })
             
-            # Determine current step from history
+            # Determine current step and completed steps from history
             current_step = 1
+            completed_steps = set()
+            
             for msg in existing_history:
                 if msg.get('step'):
                     current_step = max(current_step, msg.get('step', 1))
+                if msg.get('completed_step'):
+                    completed_steps.add(msg.get('completed_step'))
+            
+            print(f"🔄 ALGEBRA TUTOR RESUME:")
+            print(f"   Current Step: {current_step}")
+            print(f"   Completed Steps: {sorted(list(completed_steps))}")
+            print(f"   History Length: {len(existing_history)}")
             
             # Get appropriate resume message with next prompt
             step_info = algebra_service.get_step_summary(current_step)
             
-            # Create a more engaging resume message that includes the next learning step
+            # Always start fresh with a clean question for the current step
+            # Only preserve the learning step progress, not conversation details
             if current_step == 1:
                 next_prompt = "Let's try: □ + 4 = 10. What number should go in the box?"
             elif current_step == 2:
@@ -110,16 +121,20 @@ def start_algebra_tutor(user_id, grade, subject):
             else:
                 next_prompt = "Let's try a word problem: 'Some children are in a class. If 5 more join, there will be 23 total.' Can you write this as an equation?"
             
-            resume_message = f"Welcome back! We were working on {step_info['title']}. Let's continue from where we left off.\n\n{next_prompt}"
+            resume_message = f"Welcome back! We were working on {step_info['title']}. Let's continue with a fresh question.\n\n{next_prompt}"
+            print(f"🔄 ALGEBRA RESUME: Starting fresh question for step {current_step}: {next_prompt[:50]}...")
             
             return jsonify({
                 'success': True,
                 'message': resume_message,
                 'step': current_step,
                 'session_id': f"algebra_tutor_{user_id}",
+                'completed_steps_count': len(completed_steps),  # Add completion info
+                'current_step': current_step,  # Ensure consistency
                 'instructions': 'Type your answer or question in the chat box below.',
-                'existing_history': existing_history,
-                'is_resume': True
+                'existing_history': [],  # Start with fresh history
+                'is_resume': True,
+                'fresh_start': True  # Flag to indicate this is a clean restart
             })
         else:
             # Start new session
@@ -174,10 +189,38 @@ def algebra_tutor_chat(user_id, grade, subject):
             tutor_response, new_step, shows_understanding, asked_question = result
         
         # Check if student is ready for practice problems
-        updated_history = conversation_history + [
-            {'sender': 'student', 'message': student_answer, 'step': current_step},
-            {'sender': 'tutor', 'message': tutor_response, 'step': new_step}
-        ]
+        student_message = {'sender': 'student', 'message': student_answer, 'step': current_step}
+        tutor_message = {'sender': 'tutor', 'message': tutor_response, 'step': new_step}
+        
+        # Debug: Log the evaluation results
+        print(f"🔍 ALGEBRA TUTOR EVALUATION:")
+        print(f"   Current Step: {current_step}")
+        print(f"   New Step: {new_step}")
+        print(f"   Shows Understanding: {shows_understanding}")
+        print(f"   Student Answer: '{student_answer}'")
+        
+        # Check if this step was already completed
+        already_completed = False
+        for msg in conversation_history:
+            if msg.get('completed_step') == current_step:
+                already_completed = True
+                break
+        
+        # REVISED COMPLETION LOGIC: Only mark step as completed when advancing to next step
+        # AND showing understanding (not just on first correct answer)
+        if shows_understanding and new_step > current_step and not already_completed:
+            # Student demonstrated understanding AND is advancing - this indicates step mastery
+            student_message['completed_step'] = current_step
+            tutor_message['completed_step'] = current_step
+            print(f"✅ STEP COMPLETION: Student mastered step {current_step} and advancing to step {new_step}")
+        elif shows_understanding and new_step > current_step and already_completed:
+            print(f"✅ Student continues to show mastery and advances from completed step {current_step}")
+        elif shows_understanding and new_step == current_step:
+            print(f"📚 Student shows understanding in step {current_step} but needs more practice")
+        elif new_step > current_step:
+            print(f"⚠️ Step advanced but student doesn't show understanding ({current_step} -> {new_step})")
+        
+        updated_history = conversation_history + [student_message, tutor_message]
         
         # Evaluate readiness more precisely based on current response
         # Student is ready ONLY if they're at step 4+ AND just showed understanding
@@ -206,6 +249,17 @@ def algebra_tutor_chat(user_id, grade, subject):
             'step_info': algebra_service.get_step_summary(new_step)
         }
         
+        # Add step completion information if a step was completed
+        if shows_understanding and new_step > current_step:
+            response_data['step_completed'] = current_step
+            
+            # Calculate updated completed steps count from the new history
+            updated_completed_steps = set()
+            for msg in updated_history:
+                if msg.get('completed_step'):
+                    updated_completed_steps.add(msg.get('completed_step'))
+            response_data['completed_steps_count'] = len(updated_completed_steps)
+        
         # Practice transition is now handled by AI in the main tutor_response
         # No need for separate practice_transition message
         
@@ -230,18 +284,78 @@ def get_algebra_tutor_status(user_id, grade, subject):
         
         # Determine current step and completed steps from history
         current_step = 1
-        completed_steps = []
+        completed_steps = set()  # Use set to avoid duplicates
+        max_step_reached = 1
         
         if existing_history:
             for msg in existing_history:
+                # Track current step progression
                 if msg.get('step'):
                     step = msg.get('step', 1)
                     current_step = max(current_step, step)
-                    if step not in completed_steps and step < current_step:
-                        completed_steps.append(step)
+                    max_step_reached = max(max_step_reached, step)
+                
+                # Track completed steps from completion markers
+                if msg.get('completed_step'):
+                    completed_steps.add(msg.get('completed_step'))
         
-        # Get progress status
+        # IMPORTANT FIX: Infer completed steps from progression
+        # If student has reached step N, then steps 1 to N-1 must be completed
+        for step in range(1, max_step_reached):
+            completed_steps.add(step)
+            
+        # Additional check: If student has moved beyond step N and shows understanding, 
+        # then step N is also completed
+        # Look for cases where step advanced with understanding
+        previous_step = 1
+        for msg in existing_history:
+            if msg.get('step'):
+                msg_step = msg.get('step', 1)
+                # If there was a step advancement, mark previous step as completed
+                if msg_step > previous_step:
+                    completed_steps.add(previous_step)
+                previous_step = msg_step
+        
+        # Final logic: If on step 4, then steps 1,2,3 must be completed
+        if current_step >= 4:
+            completed_steps.update([1, 2, 3])
+        elif current_step >= 3:
+            completed_steps.update([1, 2])
+        elif current_step >= 2:
+            completed_steps.update([1])
+            
+        completed_steps = sorted(list(completed_steps))  # Convert back to sorted list
+        
+        # Get progress status  
         progress_status = progress_map.get(algebra_tutor_id, 'pending')
+        
+        # Check if student is ready for practice problems (completed all learning)
+        if progress_status == 'mastered':
+            # If marked as mastered, then all 4 steps are completed
+            completed_steps = [1, 2, 3, 4]  # Override with all steps completed
+            print(f"🎓 MASTERED STATUS: Marking all 4 steps as completed")
+        
+        # Debug logging
+        print(f"📊 ALGEBRA TUTOR STATUS (ENHANCED):")
+        print(f"   Current Step: {current_step}")
+        print(f"   Max Step Reached: {max_step_reached}")
+        print(f"   Progress Status: {progress_status}")
+        print(f"   Completed Steps: {completed_steps}")
+        print(f"   History Messages: {len(existing_history) if existing_history else 0}")
+        
+        # Debug: Show which steps were marked as completed in history
+        if existing_history:
+            print(f"📋 COMPLETION MARKERS IN HISTORY:")
+            for i, msg in enumerate(existing_history):
+                if msg.get('completed_step'):
+                    print(f"   Message {i}: Completed step {msg.get('completed_step')}")
+                if msg.get('step'):
+                    print(f"   Message {i}: On step {msg.get('step')}")
+        else:
+            print(f"📋 No history found")
+        
+        # Determine if algebra tutor is completed
+        is_completed = progress_status == 'mastered' or len(completed_steps) >= 4
         
         return jsonify({
             'success': True,
@@ -250,10 +364,12 @@ def get_algebra_tutor_status(user_id, grade, subject):
                 step: info for step, info in algebra_service.learning_steps.items()
             },
             'current_step': current_step,
-            'completed_steps': completed_steps,
+            'completed_steps': len(completed_steps),  # Frontend expects number of completed steps
+            'is_completed': is_completed,
             'progress_status': progress_status,
             'has_history': len(existing_history) > 0 if existing_history else False,
-            'message_count': len(existing_history) if existing_history else 0
+            'message_count': len(existing_history) if existing_history else 0,
+            'completed_step_list': completed_steps  # Keep the original list too
         })
         
     except Exception as e:

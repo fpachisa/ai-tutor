@@ -1,0 +1,374 @@
+{
+  "topic": "Fractions - Division",
+  "version": "2.4",
+  "description": "Sequential conversation-based learning for P6 fractions division",
+  "step1_sequence": [
+    {
+      "id": "p6_math_fractions_step1_001",
+      "type": "concept_introduction",
+      "text": "Hello! Let's learn how to divide a fraction by a whole number. Imagine you have half (1/2) of a large pizza and you want to share it equally among 3 people. To find out the fraction of the *whole* pizza each person gets, we need to divide.",
+      "question": "When setting up the calculation, which number should come first: the fraction of pizza we have (1/2), or the number of people we are sharing with (3)?",
+      "sample_correct_response": "1/2",
+      "sample_incorrect_response": "3",
+      "exact_detailed_explanation": "Let's think about it. We always start with the total amount that is being shared. In this case, that's the 1/2 of a pizza. So, the calculation starts with 1/2, making the full problem 1/2 ÷ 3."
+    },
+    {
+      "id": "p6_math_fractions_step1_002",
+      "type": "method_explanation",
+      "text": "Great. Now, how do we solve 1/2 ÷ 3? It looks tricky, but there's a special rule: instead of dividing by a whole number, we can **multiply by its reciprocal**. The reciprocal of a whole number is just 1 over that number.",
+      "question": "What is the reciprocal of 3?",
+      "sample_correct_response": "1/3",
+      "sample_incorrect_response": "3 or I don't know",
+      "exact_detailed_explanation": "Not quite. The reciprocal of a whole number is 1 over that number. So, the reciprocal of 3 is 1/3. This means we change the problem from 1/2 ÷ 3 to 1/2 × 1/3."
+    },
+    {
+      "id": "p6_math_fractions_step1_003",
+      "type": "method_practice",
+      "text": "Let's practice finding reciprocals. Remember, the reciprocal of any whole number 'n' is '1/n'.",
+      "question": "What is the reciprocal of 5?",
+      "sample_correct_response": "1/5",
+      "sample_incorrect_response": "5 or I don't know or any version which does not answer the question",
+      "exact_detailed_explanation": "The correct answer is 1/5. Remember, the reciprocal of any whole number 'n' is simply 1/n."
+    },
+    {
+      "id": "p6_math_fractions_step1_004",
+      "type": "worked_example",
+      "text": "Let's solve our pizza problem: 1/2 ÷ 3.",
+      "demonstration_problem": "1/2 ÷ 3",
+      "solution_steps": [
+        "Step 1: The problem is 1/2 ÷ 3.",
+        "Step 2: Find the reciprocal of the whole number (3), which is 1/3.",
+        "Step 3: Change the division into multiplication using the reciprocal: 1/2 × 1/3.",
+        "Step 4: Multiply the fractions: (1×1)/(2×3) = 1/6. Each person gets 1/6 of the whole pizza."
+      ],
+      "demonstration_answer": "1/6",
+      "question": "Now try this similar problem: What is 1/4 ÷ 2?",
+      "sample_correct_response": "1/8",
+      "sample_incorrect_response": "2/4 or 1/6 or I don't know or any version which does not answer the question",
+      "exact_detailed_explanation": "Let's look at the steps. The problem is 1/4 ÷ 2. We change this to multiplication by the reciprocal: 1/4 × 1/2. Multiplying gives us 1/8."
+    },
+    {
+      "id": "p6_math_fractions_step1_005",
+      "type": "worked_example",
+      "text": "Let's try another worked example with a different fraction.",
+      "demonstration_problem": "3/4 ÷ 2",
+      "solution_steps": [
+        "Step 1: Write the division problem: 3/4 ÷ 2",
+        "Step 2: Change to multiplication using the reciprocal of 2: 3/4 × 1/2",
+        "Step 3: Multiply the fractions: (3×1)/(4×2) = 3/8"
+      ],
+      "demonstration_answer": "3/8",
+      "question": "Now you try: What is 2/3 ÷ 3?",
+      "sample_correct_response": "2/9",
+      "sample_incorrect_response": "6/3 or 2/6 or I don't know or any version which does not answer the question",
+      "exact_detailed_explanation": "Let's break it down. The problem 2/3 ÷ 3 becomes 2/3 × 1/3 when we use the reciprocal. Multiplying across gives us 2/9."
+    },
+    {
+      "id": "p6_math_fractions_step1_006",
+      "type": "practice_problem",
+      "text": "Now let's practice with some problems on your own.",
+      "question": "What is 2/3 ÷ 4?",
+      "sample_correct_response": "1/6 or 2/12",
+      "sample_incorrect_response": "8/3 or 2/7 or I don't know or any version which does not answer the question",
+      "exact_detailed_explanation": "To solve 2/3 ÷ 4: Change to multiplication: 2/3 × 1/4 = 2/12. Simplified, this is 1/6."
+    },
+    {
+      "id": "p6_math_fractions_step1_007",
+      "type": "practice_problem",
+      "text": "Let's try another practice problem.",
+      "question": "What is 1/3 ÷ 2?",
+      "sample_correct_response": "1/6",
+      "sample_incorrect_response": "2/3 or 1/5 or I don't know or any version which does not answer the question",
+      "exact_detailed_explanation": "To solve 1/3 ÷ 2: Change to multiplication: 1/3 × 1/2 = 1/6."
+    },
+    {
+      "id": "p6_math_fractions_step1_008",
+      "type": "practice_problem",
+      "text": "Here's a slightly more challenging practice problem.",
+      "question": "What is 5/6 ÷ 3?",
+      "sample_correct_response": "5/18",
+      "sample_incorrect_response": "15/6 or 5/9 or I don't know or any version which does not answer the question",
+      "exact_detailed_explanation": "To solve 5/6 ÷ 3: Change to multiplication: 5/6 × 1/3 = 5/18."
+    },
+    {
+      "id": "p6_math_fractions_step1_009",
+      "type": "word_problem",
+      "text": "Now let's apply this to real-world situations.",
+      "question": "Sarah has 3/4 of a chocolate bar. She wants to share it equally among herself and her 2 friends. How much of the original bar does each person get?",
+      "sample_correct_response": "1/4 or 3/12",
+      "sample_incorrect_response": "3/8 or 6/4 or I don't know or any version which does not answer the question",
+      "exact_detailed_explanation": "Let's check the calculation. Sarah and her 2 friends make 3 people in total. So we calculate 3/4 ÷ 3. This becomes 3/4 × 1/3, which equals 3/12. Simplified, each person gets 1/4 of the original bar."
+    },
+    {
+      "id": "p6_math_fractions_step1_010",
+      "type": "word_problem",
+      "text": "Let's try another word problem with fractions division.",
+      "question": "A ribbon is 2/5 metres long. If it is cut into 4 equal pieces, how long is each piece in metres?",
+      "sample_correct_response": "1/10 or 2/20",
+      "sample_incorrect_response": "8/5 or 2/9 or I don't know or any version which does not answer the question",
+      "exact_detailed_explanation": "Here's the solution: We calculate 2/5 ÷ 4. This becomes 2/5 × 1/4 = 2/20. When simplified, each piece is 1/10 metres long."
+    },
+    {
+      "id": "p6_math_fractions_step1_011",
+      "type": "mastery_check",
+      "text": "Let's check if you've mastered dividing fractions by whole numbers.",
+      "question": "What is 7/8 ÷ 5?",
+      "sample_correct_response": "7/40",
+      "sample_incorrect_response": "35/8 or 7/13 or I don't know or any version which does not answer the question",
+      "exact_detailed_explanation": "To solve 7/8 ÷ 5: Change to multiplication: 7/8 × 1/5 = 7/40."
+    },
+    {
+      "id": "p6_math_fractions_step1_012",
+      "type": "completion",
+      "text": "Congratulations! You have successfully learned how to divide proper fractions by whole numbers. You now understand the reciprocal method and can apply it to solve problems.",
+      "question": "Are you ready to move on to the next topic: dividing by fractions?",
+      "sample_correct_response": "yes or no both are acceptable",
+      "sample_incorrect_response": "",
+      "exact_detailed_explanation": "If user says 'yes' or similar, say like well done and let's move to new topic if user says 'no' or similar then say That's okay. Taking time to be sure is smart. Remember the key concepts we learned: dividing a fraction is like splitting it into equal parts, and we can solve these problems by changing the division sign to multiplication and using the reciprocal of the whole number."
+    }
+  ],
+  "step2_sequence": [
+    {
+      "id": "p6_math_fractions_step2_001",
+      "type": "concept_introduction",
+      "text": "Well done! Now let's learn to divide by a fraction. This is like asking, 'How many times does a small fraction fit into a bigger number?' For example, if you have a 2-metre long ribbon, and you want to cut it into pieces that are each 1/4 metre long, you are dividing.",
+      "question": "To find out how many pieces you can cut, which number should you start with: the total length of the ribbon (2), or the length of the small pieces (1/4)?",
+      "sample_correct_response": "2",
+      "sample_incorrect_response": "1/4",
+      "exact_detailed_explanation": "Let's think about it. We always start with the total amount that is being split up, which is the 2-metre ribbon. We want to see how many times the smaller piece (1/4) can fit into it. So, the problem is always set up as 2 ÷ 1/4."
+    },
+    {
+      "id": "p6_math_fractions_step2_002",
+      "type": "method_explanation",
+      "text": "The rule is the same as before! To divide by a fraction, we multiply by its reciprocal. The reciprocal of a fraction is found by flipping it upside down.",
+      "question": "What is the reciprocal of 1/4?",
+      "sample_correct_response": "4/1 or 4",
+      "sample_incorrect_response": "1/4 or I don't know",
+      "exact_detailed_explanation": "Let's review. To find the reciprocal of a fraction, we just flip it. So the reciprocal of 1/4 is 4/1, which is the same as the whole number 4."
+    },
+    {
+      "id": "p6_math_fractions_step2_003",
+      "type": "method_practice",
+      "text": "Let's practice finding reciprocals of fractions.",
+      "question": "What is the reciprocal of 2/3?",
+      "sample_correct_response": "3/2",
+      "sample_incorrect_response": "2/3 or I don't know",
+      "exact_detailed_explanation": "The correct answer is 3/2. Remember to flip the numerator and the denominator to find the reciprocal."
+    },
+    {
+      "id": "p6_math_fractions_step2_004",
+      "type": "worked_example",
+      "text": "Let's solve our ribbon problem: 2 ÷ 1/4.",
+      "demonstration_problem": "2 ÷ 1/4",
+      "solution_steps": [
+        "Step 1: The problem is 2 ÷ 1/4.",
+        "Step 2: Find the reciprocal of the fraction (1/4), which is 4/1 or 4.",
+        "Step 3: Change the division to multiplication: 2 × 4.",
+        "Step 4: Calculate the answer: 2 × 4 = 8. You can cut 8 pieces of ribbon."
+      ],
+      "demonstration_answer": "8",
+      "question": "Now you try: What is 5 ÷ 1/3?",
+      "sample_correct_response": "15",
+      "sample_incorrect_response": "5/3 or 3/5",
+      "exact_detailed_explanation": "Here's the solution: 5 ÷ 1/3 becomes 5 × 3/1, which is 5 × 3 = 15."
+    },
+    {
+      "id": "p6_math_fractions_step2_005",
+      "type": "worked_example",
+      "text": "Now let's try dividing a fraction by a fraction. The method is exactly the same! Let's solve 1/2 ÷ 1/8.",
+      "demonstration_problem": "1/2 ÷ 1/8",
+      "solution_steps": [
+        "Step 1: The problem is 1/2 ÷ 1/8.",
+        "Step 2: Keep the first fraction: 1/2.",
+        "Step 3: Change the sign to multiplication: ×.",
+        "Step 4: Flip the second fraction to its reciprocal: 8/1.",
+        "Step 5: The new problem is 1/2 × 8/1. This equals 8/2, which simplifies to 4."
+      ],
+      "demonstration_answer": "4",
+      "question": "Now you try: What is 1/3 ÷ 1/6?",
+      "sample_correct_response": "2",
+      "sample_incorrect_response": "1/18 or 1/2",
+      "exact_detailed_explanation": "Let's follow the steps. 1/3 ÷ 1/6 becomes 1/3 × 6/1. This equals 6/3, and the simplified answer is 2."
+    },
+    {
+      "id": "p6_math_fractions_step2_006",
+      "type": "practice_problem",
+      "text": "Let's practice. Remember the 'Keep, Change, Flip' rule.",
+      "question": "What is 3/4 ÷ 1/4?",
+      "sample_correct_response": "3",
+      "sample_incorrect_response": "3/16 or 1",
+      "exact_detailed_explanation": "Let's work it out. 3/4 ÷ 1/4 becomes 3/4 × 4/1. This gives us 12/4, which simplifies to 3."
+    },
+    {
+      "id": "p6_math_fractions_step2_007",
+      "type": "practice_problem",
+      "text": "Here's another one. Be careful with the multiplication.",
+      "question": "What is 2/5 ÷ 3/4?",
+      "sample_correct_response": "8/15",
+      "sample_incorrect_response": "6/20 or 15/8",
+      "exact_detailed_explanation": "Let's check the steps. 2/5 ÷ 3/4 becomes 2/5 × 4/3. Multiplying the numerators (2×4) and denominators (5×3) gives 8/15."
+    },
+    {
+      "id": "p6_math_fractions_step2_008",
+      "type": "practice_problem",
+      "text": "This one involves simplification. You can simplify before you multiply to make it easier.",
+      "question": "What is 4/5 ÷ 2/15?",
+      "sample_correct_response": "6",
+      "sample_incorrect_response": "8/75 or 1/6",
+      "exact_detailed_explanation": "The problem is 4/5 × 15/2. We can simplify before multiplying: 4 and 2 can be simplified to 2 and 1. 15 and 5 can be simplified to 3 and 1. This leaves us with 2/1 × 3/1 = 6."
+    },
+    {
+      "id": "p6_math_fractions_step2_009",
+      "type": "word_problem",
+      "text": "Let's solve a word problem.",
+      "question": "A baker has 6 kg of flour. He needs 3/4 kg of flour to make one cake. How many cakes can he make?",
+      "sample_correct_response": "8",
+      "sample_incorrect_response": "18/4 or 4/18",
+      "exact_detailed_explanation": "The problem is 6 ÷ 3/4. This becomes 6 × 4/3. The calculation is (6×4)/3 = 24/3, which simplifies to 8. He can make 8 cakes."
+    },
+    {
+      "id": "p6_math_fractions_step2_010",
+      "type": "word_problem",
+      "text": "Here is another word problem.",
+      "question": "A bottle contains 3/4 litre of juice. If one serving is 1/8 litre, how many servings are in the bottle?",
+      "sample_correct_response": "6",
+      "sample_incorrect_response": "3/32 or 1/6",
+      "exact_detailed_explanation": "The problem is 3/4 ÷ 1/8. Using 'Keep, Change, Flip', we get 3/4 × 8/1. This equals 24/4, which simplifies to 6. There are 6 servings."
+    },
+    {
+      "id": "p6_math_fractions_step2_011",
+      "type": "mastery_check",
+      "text": "Let's check if you've mastered dividing by fractions.",
+      "question": "What is 5/6 ÷ 5/12?",
+      "sample_correct_response": "2",
+      "sample_incorrect_response": "25/72 or 1/2",
+      "exact_detailed_explanation": "Let's solve it. 5/6 ÷ 5/12 becomes 5/6 × 12/5. The 5s cancel out, and 12/6 simplifies to 2. The answer is 2."
+    },
+    {
+      "id": "p6_math_fractions_step2_012",
+      "type": "completion",
+      "text": "Excellent work! You have learned how to divide whole numbers and fractions by proper fractions. This is a very important skill.",
+      "question": "Do you feel confident with this topic?",
+      "sample_correct_response": "yes or no",
+      "sample_incorrect_response": "",
+      "exact_detailed_explanation": "That's perfectly fine. The key idea is 'Keep, Change, Flip': Keep the first number, change the sign to multiply, and flip the second fraction to its reciprocal. It just takes practice!"
+    }
+  ],
+  "step3_sequence": [
+    {
+      "id": "p6_math_fractions_step3_001",
+      "type": "word_problem_addition",
+      "text": "Let's begin with word problems. We will start with addition. Read the question carefully to decide which operation to use.",
+      "question": "John ate 1/8 of a pizza and Mary ate 3/8 of the same pizza. What fraction of the pizza did they eat altogether?",
+      "sample_correct_response": "4/8 or 1/2",
+      "sample_incorrect_response": "2/8 or 4/16",
+      "exact_detailed_explanation": "Let's look at the question. The word 'altogether' suggests we need to add. So, we calculate 1/8 + 3/8. Since the denominators are the same, we just add the numerators: 1 + 3 = 4. The answer is 4/8, which can be simplified to 1/2."
+    },
+    {
+      "id": "p6_math_fractions_step3_002",
+      "type": "word_problem_subtraction",
+      "text": "Good. Now for a subtraction problem.",
+      "question": "A jug was 7/8 full of water. After Samy drank some water, the jug was 1/4 full. What fraction of the full jug of water did Samy drink?",
+      "sample_correct_response": "5/8",
+      "sample_incorrect_response": "6/4 or 6/8",
+      "exact_detailed_explanation": "To find out how much was drunk, we need to subtract the final amount from the starting amount. The problem is 7/8 - 1/4. To subtract, we need a common denominator, which is 8. So, the problem becomes 7/8 - 2/8. The answer is 5/8."
+    },
+    {
+      "id": "p6_math_fractions_step3_003",
+      "type": "word_problem_multiplication",
+      "text": "Let's try a multiplication problem.",
+      "question": "There are 24 students in a class. 2/3 of them are girls. How many girls are there in the class?",
+      "sample_correct_response": "16",
+      "sample_incorrect_response": "12 or 8",
+      "exact_detailed_explanation": "The phrase 'fraction of a number' means we need to multiply. We need to find 2/3 of 24. The calculation is 2/3 × 24, which is (2 × 24) / 3 = 48 / 3. The answer is 16 girls."
+    },
+    {
+      "id": "p6_math_fractions_step3_004",
+      "type": "word_problem_division",
+      "text": "Now for a division problem.",
+      "question": "A baker needs 1/5 kg of flour to make one loaf of bread. If she has 3 kg of flour, how many loaves of bread can she make?",
+      "sample_correct_response": "15",
+      "sample_incorrect_response": "3/5 or 5/3",
+      "exact_detailed_explanation": "This problem asks how many times the smaller amount (1/5 kg) fits into the total amount (3 kg). This is a division problem: 3 ÷ 1/5. We use 'Keep, Change, Flip' to get 3 × 5/1, which equals 15. She can make 15 loaves."
+    },
+    {
+      "id": "p6_math_fractions_step3_005",
+      "type": "mastery_check_division",
+      "text": "Here is one last problem to check your understanding.",
+      "question": "A ribbon of length 3/4 m is cut into shorter pieces of length 1/8 m each. How many shorter pieces can be cut?",
+      "sample_correct_response": "6",
+      "sample_incorrect_response": "3/32 or 1/6",
+      "exact_detailed_explanation": "To find how many shorter pieces can be cut from the longer one, we divide. The problem is 3/4 ÷ 1/8. Using the reciprocal method, this becomes 3/4 × 8/1. This equals 24/4, which simplifies to 6. The answer is 6 pieces."
+    }
+  ],
+    "step4_sequence": [
+    {
+      "id": "p6_math_fractions_step4_001",
+      "type": "word_problem_multi_step",
+      "text": "You're ready for multi-step problems! These require two or more operations. Let's start with one involving division and subtraction.",
+      "question": "Daisy had 3/5 kg of rice. She packed the rice into bags of 1/10 kg each. After packing the full bags, how much rice was left over?",
+      "sample_correct_response": "0 or no rice left",
+      "sample_incorrect_response": "1/10 or 6",
+      "exact_detailed_explanation": "Let's do this in two steps. First, find how many bags she can make: 3/5 ÷ 1/10 = 3/5 × 10/1 = 30/5 = 6 bags. Since it's a whole number, she uses all the rice exactly. There is no rice left over."
+    },
+    {
+      "id": "p6_math_fractions_step4_002",
+      "type": "word_problem_multi_step",
+      "text": "Let's try another one. This time, there will be a remainder.",
+      "question": "A baker has 2 kg of sugar. She needs 3/10 kg for each batch of cookies. How much more sugar does she need to make one more full batch?",
+      "sample_correct_response": "1/10 kg",
+      "sample_incorrect_response": "2/10 kg or 6",
+      "exact_detailed_explanation": "First, find how many full batches she can make: 2 ÷ 3/10 = 2 × 10/3 = 20/3 = 6 and 2/3 batches. So, she can make 6 full batches. Next, find the sugar used: 6 × 3/10 = 18/10 kg. Then, find the sugar left: 2 - 18/10 = 20/10 - 18/10 = 2/10 kg. Finally, find how much more is needed: 3/10 (needed) - 2/10 (left) = 1/10 kg."
+    },
+    {
+      "id": "p6_math_fractions_step4_003",
+      "type": "word_problem_multi_step",
+      "text": "This is a classic 'remainder' concept problem.",
+      "question": "Mr. Tan spent 1/4 of his salary on rent and 2/5 of the remainder on food. He saved the rest, which was $900. What was his original salary?",
+      "sample_correct_response": "$2000",
+      "sample_incorrect_response": "$1500 or $2250",
+      "exact_detailed_explanation": "Let's work backwards. The $900 he saved is the part of the remainder not spent on food, which is 1 - 2/5 = 3/5 of the remainder. If 3/5 of the remainder is $900, the full remainder was $900 × 5/3 = $1500. This $1500 was the amount left after paying rent, which means it is 1 - 1/4 = 3/4 of his original salary. If 3/4 of his salary is $1500, his full salary was $1500 × 4/3 = $2000."
+    },
+    {
+      "id": "p6_math_fractions_step4_004",
+      "type": "word_problem_multi_step",
+      "text": "This problem involves finding a total from different groups.",
+      "question": "In a hall, 3/5 of the people are adults and the rest are children. 1/4 of the adults are men. If there are 90 women, how many children are there in the hall?",
+      "sample_correct_response": "80",
+      "sample_incorrect_response": "200 or 120",
+      "exact_detailed_explanation": "First, find the fraction of adults who are women: 1 - 1/4 = 3/4. Now, find the fraction of the total people who are women: 3/4 of 3/5 = 3/4 × 3/5 = 9/20. If 9/20 of the people is 90, then 1/20 is 10 people. The total number of people is 20 × 10 = 200. The fraction of children is 1 - 3/5 = 2/5. So, the number of children is 2/5 of 200, which is 80."
+    },
+    {
+      "id": "p6_math_fractions_step4_005",
+      "type": "word_problem_multi_step",
+      "text": "Let's try another problem where you need to interpret the remainder.",
+      "question": "A shopkeeper has a 50 m roll of ribbon. He cuts as many pieces of 3/4 m length as possible. How much ribbon is left on the roll?",
+      "sample_correct_response": "1/2 m or 2/4 m",
+      "sample_incorrect_response": "66 or 2/3 m",
+      "exact_detailed_explanation": "First, find how many full pieces can be cut: 50 ÷ 3/4 = 50 × 4/3 = 200/3 = 66 and 2/3 pieces. He can cut 66 full pieces. Next, find the length of ribbon used: 66 × 3/4 = 198/4 = 49 and 1/2 m. Finally, find the length left over: 50 - 49 and 1/2 = 1/2 m."
+    },
+    {
+      "id": "p6_math_fractions_step4_006",
+      "type": "mastery_check_multi_step",
+      "text": "Here is a final challenge problem.",
+      "question": "A shopkeeper buys 20 kg of nuts. He packs them into bags of 3/8 kg each. He sells each full bag for $5. How much money does he collect from the sale of all the full bags?",
+      "sample_correct_response": "$265",
+      "sample_incorrect_response": "53 or $212",
+      "exact_detailed_explanation": "First, find out how many full bags he can pack: 20 ÷ 3/8 = 20 × 8/3 = 160/3 = 53 and 1/3 bags. He can only sell the 53 full bags. To find the total money collected, we multiply the number of full bags by the price per bag: 53 × $5 = $265."
+    }
+  ],
+  "advancement_rules": {
+    "correct_response": "move_to_next_section",
+    "incorrect_response_attempts": 2,
+    "after_max_attempts": "provide_explanation_then_advance",
+    "minimum_practice_problems": 3,
+    "mastery_threshold": "80_percent_correct"
+  },
+  "metadata": {
+    "created_date": "2025-01-08",
+    "version": "2.4",
+    "total_sections": 24,
+    "estimated_duration": "40-50 minutes",
+    "difficulty_level": "P6_Singapore_Math"
+  }
+}

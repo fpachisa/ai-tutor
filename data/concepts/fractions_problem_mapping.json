@@ -1,0 +1,92 @@
+{
+  "FRAC-101": {
+    "skill_level": 1,
+    "concept": "fraction_division_by_whole",
+    "title": "Dividing Fractions by Whole Numbers",
+    "description": "Basic division of proper fractions by whole numbers"
+  },
+  "FRAC-102": {
+    "skill_level": 1,
+    "concept": "fraction_division_by_whole",
+    "title": "Dividing Fractions by Whole Numbers",
+    "description": "Basic division of proper fractions by whole numbers"
+  },
+  "FRAC-103": {
+    "skill_level": 1,
+    "concept": "fraction_division_by_whole",
+    "title": "Dividing Fractions by Whole Numbers",
+    "description": "Basic division of proper fractions by whole numbers"
+  },
+  "FRAC-104": {
+    "skill_level": 1,
+    "concept": "fraction_division_by_whole",
+    "title": "Dividing Fractions by Whole Numbers",
+    "description": "Basic division of proper fractions by whole numbers"
+  },
+  "FRAC-105": {
+    "skill_level": 1,
+    "concept": "fraction_division_by_whole",
+    "title": "Dividing Fractions by Whole Numbers",
+    "description": "Basic division of proper fractions by whole numbers"
+  },
+  "FRAC-201": {
+    "skill_level": 2,
+    "concept": "division_by_fractions",
+    "title": "Dividing by Fractions",
+    "description": "Dividing whole numbers and fractions by proper fractions"
+  },
+  "FRAC-202": {
+    "skill_level": 2,
+    "concept": "division_by_fractions",
+    "title": "Dividing by Fractions",
+    "description": "Dividing whole numbers and fractions by proper fractions"
+  },
+  "FRAC-203": {
+    "skill_level": 2,
+    "concept": "division_by_fractions",
+    "title": "Dividing by Fractions",
+    "description": "Dividing whole numbers and fractions by proper fractions"
+  },
+  "FRAC-204": {
+    "skill_level": 2,
+    "concept": "division_by_fractions",
+    "title": "Dividing by Fractions",
+    "description": "Dividing whole numbers and fractions by proper fractions"
+  },
+  "FRAC-205": {
+    "skill_level": 2,
+    "concept": "division_by_fractions",
+    "title": "Dividing by Fractions",
+    "description": "Dividing whole numbers and fractions by proper fractions"
+  },
+  "FRAC-301": {
+    "skill_level": 3,
+    "concept": "word_problems_four_operations",
+    "title": "Word Problems with Four Operations",
+    "description": "Real-world problems using addition, subtraction, multiplication, and division of fractions"
+  },
+  "FRAC-302": {
+    "skill_level": 3,
+    "concept": "word_problems_four_operations",
+    "title": "Word Problems with Four Operations",
+    "description": "Real-world problems using addition, subtraction, multiplication, and division of fractions"
+  },
+  "FRAC-303": {
+    "skill_level": 3,
+    "concept": "word_problems_four_operations",
+    "title": "Word Problems with Four Operations",
+    "description": "Real-world problems using addition, subtraction, multiplication, and division of fractions"
+  },
+  "FRAC-304": {
+    "skill_level": 4,
+    "concept": "multi_step_complex",
+    "title": "Multi-Step Complex Problems",
+    "description": "Advanced word problems requiring multiple operations and strategic thinking"
+  },
+  "FRAC-305": {
+    "skill_level": 4,
+    "concept": "multi_step_complex",
+    "title": "Multi-Step Complex Problems",
+    "description": "Advanced word problems requiring multiple operations and strategic thinking"
+  }
+}

@@ -58,7 +58,8 @@ class ConceptService:
     def _load_problem_mappings(self) -> None:
         """Load problem-to-concept mappings for better integration."""
         mapping_files = [
-            'data/concepts/algebra_problem_mapping.json'
+            'data/concepts/algebra_problem_mapping.json',
+            'data/concepts/fractions_problem_mapping.json'
             # Add more mapping files for other topics as needed
         ]
         

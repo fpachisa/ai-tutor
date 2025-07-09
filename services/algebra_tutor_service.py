@@ -127,13 +127,15 @@ class AlgebraTutorService:
             new_step = ai_analysis.get('next_step', current_step)
             shows_understanding = ai_analysis.get('shows_understanding', False)
             
-            # Critical fix: Check if tutor is asking a question that needs an answer
+            # Trust the AI's analysis of student understanding
+            # The AI can determine if a student shows understanding while asking follow-up questions
+            print(f"🤖 AI Analysis - Shows Understanding: {shows_understanding}")
+            print(f"🤖 AI Analysis - Next Step: {new_step}")
+            
+            # Check if tutor is asking a question (for other logic)
             question_patterns = ['?', 'what is', 'how many', 'can you tell me', 'what would', 'how would you']
             asking_question = any(pattern in tutor_message.lower() for pattern in question_patterns)
-            
-            # If we're asking a question, student hasn't shown complete understanding yet
-            if asking_question:
-                shows_understanding = False
+            print(f"🤖 AI Analysis - Contains Question: {asking_question}")
             
             # Add visual elements if appropriate
             if 'equation' in ai_analysis:
@@ -215,22 +217,23 @@ Step 4: Real-world word problems with algebraic thinking (FINAL STEP before prac
 
 IMPORTANT: Analyze the student's response carefully:
 - If they answered "yes/no" to a question, ask them to solve the actual problem
-- If they gave a correct number answer, celebrate and IMMEDIATELY introduce the next concept
+- If they gave a correct number answer, celebrate and give them MORE practice in the same concept
 - If they seem confused, give a helpful hint but stay on current step
-- When they show understanding, advance to the next step with a new concept
+- Only advance to the next step after they show CONSISTENT understanding through multiple correct answers
 
-EXAMPLES OF GOOD RESPONSES:
-- Student answers "6" to □ + 4 = 10: "🎉 Excellent! You got it right - the box equals 6! Now here's something cool: instead of boxes □, mathematicians use letters like 'a' or 'x'. So we can write: a + 4 = 10. What do you think 'a' equals?"
-- Student answers "6" to a + 4 = 10: "Perfect! You understand that letters work just like boxes. Let's try another: x + 5 = 12. What is x?"
-- Student writes "x + 5 = 23" for word problem: "🎉 Fantastic! You wrote the equation perfectly! Now solve it: What is x?" (shows_understanding = false because asking question)
-- Student answers "18" to "What is x?": "Perfect! You've mastered all the algebra basics - from boxes to letters to word problems! You're ready to try some practice problems on your own!" (shows_understanding = true, includes natural transition)
+EXAMPLES OF GOOD RESPONSES (with proper formatting):
+- Student answers "6" to □ + 4 = 10: "🎉 Excellent! You got it right - the box equals 6!\\n\\n**Let's try another one: □ + 7 = 15. What goes in the box?**" (shows_understanding = true, but stay on step 1 for more practice)
+- Student solves multiple box problems correctly: "Great job! You really understand how boxes work. Now here's something cool: instead of boxes □, mathematicians use letters like 'a' or 'x'.\\n\\n**So we can write: a + 4 = 10. What do you think 'a' equals?**" (advance to step 2)
+- Student answers "6" to a + 4 = 10: "Perfect! You understand that letters work just like boxes.\\n\\n**Let's try another: x + 5 = 12. What is x?**" (shows_understanding = true - practicing within step 2)
+- Student writes "x + 5 = 23" for word problem: "🎉 Fantastic! You wrote the equation perfectly!\\n\\n**Now solve it: What is x?**" (shows_understanding = true - practicing within step)
+- Student completes multiple problems in each step: "Perfect! You've mastered all the algebra basics - from boxes to letters to word problems!\\n\\n**You're ready to try some practice problems on your own!**" (shows_understanding = true - all steps mastered)
 
 STEP ADVANCEMENT RULES:
-- Step 1 to 2: When student correctly solves □ + 4 = 10 (answer is 6), celebrate and introduce letters: "Great! Now let's use letters instead of boxes: a + 4 = 10. What is a?"
-- Step 2 to 3: When student solves letter equations correctly, introduce substitution concepts  
-- Step 3 to 4: When student handles substitution correctly, introduce word problems with specific question
-- Step 4 has TWO parts: (a) Student writes equation correctly, (b) Student solves for the variable
-- Step 4 to completion: Only after student completes BOTH parts of the word problem
+- Step 1 to 2: Only after student correctly solves MULTIPLE box problems (□ + 4 = 10, □ + 7 = 15, etc.) 
+- Step 2 to 3: Only after student solves MULTIPLE letter equations correctly (a + 4 = 10, x + 5 = 12, etc.)
+- Step 3 to 4: Only after student handles MULTIPLE substitution problems correctly
+- Step 4 to completion: Only after student completes MULTIPLE word problems with both equation writing AND solving
+- NEVER advance after just ONE correct answer - require consistent demonstration of mastery
 
 CRITICAL RULES:
 1. If student just answered correctly, celebrate first, then ask the NEXT question
@@ -240,16 +243,23 @@ CRITICAL RULES:
 5. At step 3, if student answers substitution correctly, move to step 4 with actual word problem
 6. Only declare readiness for practice problems after step 4 completion
 
-QUESTION DETECTION RULE:
-- If your response ends with a question mark (?), you MUST set "shows_understanding": false
-- If you ask "What is x?" or "How many children..." you are waiting for an answer
-- Only set "shows_understanding": true when student has fully completed the concept
+UNDERSTANDING DETECTION RULES:
+1. Set "shows_understanding": true when the student demonstrates mastery of the current step's concept
+2. You can celebrate understanding AND ask the next question in the same response
+3. CORRECT examples:
+   - Student solves equation correctly → shows_understanding: true (even if asking next question)
+   - Student writes correct equation → shows_understanding: true (even if asking to solve it)
+   - Student gives right answer → shows_understanding: true (even if moving to next topic)
+4. Only set "shows_understanding": false when:
+   - Student gives wrong answer
+   - Student shows confusion about the current concept
+   - Student needs more help with the current step
 
 Respond with ONLY a JSON object:
 
 {{
-    "shows_understanding": true or false (FALSE if you ask any question that needs an answer),
-    "tutor_response": "Your response to the student (either celebrate + ask next question, or give encouragement)",
+    "shows_understanding": true or false (true if student demonstrated mastery of current concept, even if asking follow-up),
+    "tutor_response": "Your response to the student. Use \\n\\n for line breaks. Put questions in **bold** like **What is x + 5 = 12?** to make them stand out clearly.",
     "next_step": {current_step + 1 if current_step < 4 else current_step} (advance only when student demonstrates understanding),
     "asked_question": true or false (true if your response contains a question for the student to answer)
 }}
@@ -260,7 +270,7 @@ IMPORTANT:
 - When student completes Step 4 successfully, celebrate AND tell them they're ready for practice problems
 - Include natural transition like "You're ready to try some practice problems on your own!" in your response
 - Do NOT jump to practice problems until they complete Step 4!
-- If you ask ANY question, set shows_understanding to FALSE until they answer it"""
+- CRITICAL: shows_understanding should reflect whether the student demonstrated mastery of the concept, NOT whether you're asking a follow-up question"""
         
         return prompt
     

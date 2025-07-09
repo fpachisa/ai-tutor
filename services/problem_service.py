@@ -35,6 +35,10 @@ class ProblemService:
             if problem_dir.is_dir():
                 for json_file in problem_dir.glob('*.json'):
                     try:
+                        # Skip learning curriculum files (they have different structure)
+                        if '_learn.json' in json_file.name:
+                            continue
+                            
                         with open(json_file, 'r', encoding='utf-8') as f:
                             problems_list = json.load(f)
                             # Check if the filename indicates it's a diagnostic quiz
