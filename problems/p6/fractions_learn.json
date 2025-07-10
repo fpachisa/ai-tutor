@@ -1,7 +1,29 @@
 {
-  "topic": "Fractions - Division",
+  "topic": "Fractions - Primary 6",
   "version": "2.4",
-  "description": "Sequential conversation-based learning for P6 fractions division",
+  "description": "Sequential conversation-based learning for P6 fractions",
+  "steps": [
+    {
+        "icon": "🍕➗",
+        "title": "Dividing Fractions by Whole Numbers",
+        "description": "Understanding how to divide fractions like 1/2 ÷ 3"
+    },
+    {
+        "icon": "🔄📊",
+        "title": "Dividing by Fractions",
+        "description": "Learning to divide using reciprocals like 4 ÷ 1/2"
+    },
+    {
+        "icon": "📝🧮",
+        "title": "Word Problems with Four Operations",
+        "description": "Solving real-world problems with +, -, ×, ÷ of fractions"
+    },
+    {
+        "icon": "🧩🎯",
+        "title": "Multi-Step Complex Problems",
+        "description": "Advanced problems requiring multiple operations"
+    }
+],
   "step1_sequence": [
     {
       "id": "p6_math_fractions_step1_001",

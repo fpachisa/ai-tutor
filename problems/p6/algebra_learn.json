@@ -1,0 +1,224 @@
+{
+  "topic": "Algebra - Primary 6",
+  "version": "1.0",
+  "description": "Sequential conversation-based learning for P6 Algebra",
+ "steps": [
+    {
+        "icon": "📦➡️📝",
+        "title": "From Boxes to Letters",
+        "description": "Understanding that letters can represent unknown numbers"
+    },
+    {
+        "icon": "🔢",
+        "title": "Simple Algebraic Expressions", 
+        "description": "Working with expressions like a + 3, 2x, and n ÷ 3"
+    },
+    {
+        "icon": "🔍",
+        "title": "Substitution",
+        "description": "Finding values when we know what letters represent"
+    },
+    {
+        "icon": "📖",
+        "title": "Word Problems with Visual Models",
+        "description": "Solving real-world problems using algebra"
+    }
+  ],
+  "step1_sequence": [
+    {
+      "id": "p6_math_algebra_step1_001",
+      "type": "concept_introduction",
+      "text": "Hello! Let's start our journey into Algebra. Algebra is a fun way to use letters to represent unknown numbers. Imagine you have some apples in a bag. We don't know how many, so let's just say you have 'a' apples.",
+      "question": "If your friend gives you 2 more apples, how would you describe the new number of apples you have using 'a'?",
+      "sample_correct_response": "a + 2",
+      "sample_incorrect_response": "a2 or 2a",
+      "exact_detailed_explanation": "Let's think about it. You start with 'a' apples and add 2 more. The operation is addition. So, the correct expression is 'a + 2'."
+    },
+    {
+      "id": "p6_math_algebra_step1_002",
+      "type": "method_practice",
+      "text": "Great! Let's look at another example. If a pen costs $2, and we buy 'p' pens, the total cost is '2 × p'. In algebra, we write this simply as '2p'. We usually write the number first.",
+      "question": "A cat has 4 legs. How would you write the total number of legs for 'c' cats?",
+      "sample_correct_response": "4c",
+      "sample_incorrect_response": "c4 or 4+c",
+      "exact_detailed_explanation": "Remember, to find the total, we multiply the number of legs (4) by the number of cats (c). In algebra, we write this as '4c', with the number before the letter."
+    },
+    {
+      "id": "p6_math_algebra_step1_003",
+      "type": "method_practice",
+      "text": "Now for division. If we share 'm' marbles equally among 3 friends, each friend gets 'm ÷ 3' marbles. In algebra, we often write this as a fraction: m/3.",
+      "question": "How would you write 'n' divided by 5 as a fraction?",
+      "sample_correct_response": "n/5",
+      "sample_incorrect_response": "5/n or n-5",
+      "exact_detailed_explanation": "The correct way to write 'n' divided by 5 is as a fraction, with 'n' at the top (the numerator) and 5 at the bottom (the denominator). So, the answer is n/5."
+    },
+    {
+      "id": "p6_math_algebra_step1_004",
+      "type": "mastery_check",
+      "text": "Let's check your understanding. Read this carefully.",
+      "question": "Siti is 'y' years old. Her brother is 3 years younger. Write an algebraic expression for her brother's age.",
+      "sample_correct_response": "y - 3",
+      "sample_incorrect_response": "y + 3 or 3y or 3 - y",
+      "exact_detailed_explanation": "The term 'younger' means we need to subtract. Since Siti is 'y' years old, her brother's age is 'y - 3'."
+    },
+    {
+      "id": "p6_math_algebra_step1_005",
+      "type": "completion",
+      "text": "Well done! You now understand that in Algebra, letters are simply used as placeholders for unknown numbers. This is the first big step!",
+      "question": "Are you ready to learn how to simplify expressions?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's fine. The key idea to remember is that a letter in maths is just a number we don't know yet. We can add to it, subtract from it, multiply it, or divide it."
+    }
+  ],
+  "step2_sequence": [
+    {
+      "id": "p6_math_algebra_step2_001",
+      "type": "concept_introduction",
+      "text": "Let's learn to simplify expressions. This is like tidying up your room! In algebra, we can only combine things that are alike. We call these 'like terms'. For example, 3 apples + 2 apples = 5 apples. So, 3a + 2a = 5a.",
+      "question": "Based on this, what do you think 7b - 4b simplifies to?",
+      "sample_correct_response": "3b",
+      "sample_incorrect_response": "3 or 11b",
+      "exact_detailed_explanation": "Just like with numbers, we subtract the coefficients (the numbers in front). So, 7 - 4 = 3. Since they are 'like terms', we keep the 'b'. The answer is 3b."
+    },
+    {
+      "id": "p6_math_algebra_step2_002",
+      "type": "method_explanation",
+      "text": "What about expressions with numbers in them, like '4k + 5 + 2k'? We can only combine the 'like terms'. The terms with 'k' are like terms, and the numbers without any letter are like terms.",
+      "question": "In the expression '4k + 5 + 2k', which two terms can be combined?",
+      "sample_correct_response": "4k and 2k",
+      "sample_incorrect_response": "4k and 5 or 5 and 2k",
+      "exact_detailed_explanation": "We can only combine terms that are of the same kind. Here, '4k' and '2k' are like terms because they both have the variable 'k'. The number '5' is a constant, so it can't be combined with them."
+    },
+    {
+      "id": "p6_math_algebra_step2_003",
+      "type": "method_practice",
+      "text": "So, to simplify 4k + 5 + 2k, we first group the like terms: (4k + 2k) + 5. This simplifies to 6k + 5.",
+      "question": "Now you try: Simplify 8m + 3 + 2m.",
+      "sample_correct_response": "10m + 3",
+      "sample_incorrect_response": "13m or 10m + 3m",
+      "exact_detailed_explanation": "Let's break it down. We combine the 'm' terms: 8m + 2m = 10m. The number '3' has no other like terms to combine with, so it stays as it is. The answer is 10m + 3."
+    },
+    {
+      "id": "p6_math_algebra_step2_004",
+      "type": "mastery_check",
+      "text": "Time to check your simplifying skills!",
+      "question": "Simplify the expression: 9p + 7 - 5p + 2",
+      "sample_correct_response": "4p + 9",
+      "sample_incorrect_response": "4p + 5 or 13p",
+      "exact_detailed_explanation": "Let's group the like terms. For the 'p' terms: 9p - 5p = 4p. For the numbers: 7 + 2 = 9. Putting them together gives us 4p + 9."
+    },
+    {
+      "id": "p6_math_algebra_step2_005",
+      "type": "completion",
+      "text": "Excellent! You now know how to simplify algebraic expressions by combining like terms. This is a very useful skill.",
+      "question": "Ready to move on to evaluating expressions?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "No problem. The main rule to remember is that you can only add or subtract terms if they have the exact same letter. Think of it as 'you can't add apples and oranges'."
+    }
+  ],
+  "step3_sequence": [
+    {
+      "id": "p6_math_algebra_step3_001",
+      "type": "concept_introduction",
+      "text": "Now, let's learn to 'evaluate' an expression. This means finding its final numerical value. We can do this when we are told what number the letter represents.",
+      "question": "If we have the expression 'a + 5' and we are told that 'a = 10', what do you think is the first step?",
+      "sample_correct_response": "replace a with 10",
+      "sample_incorrect_response": "add 5 and 10",
+      "exact_detailed_explanation": "The very first step is always to substitute, which means replacing the letter with the number it stands for. So we change 'a + 5' into '10 + 5'."
+    },
+    {
+      "id": "p6_math_algebra_step3_002",
+      "type": "method_practice",
+      "text": "Let's evaluate '3y + 4' when 'y = 5'. First, substitute 'y' with 5: 3 × 5 + 4. Remember the order of operations (BODMAS/PEMDAS) - we multiply before we add! So, 15 + 4 = 19.",
+      "question": "Evaluate 2k - 3 when k = 8.",
+      "sample_correct_response": "13",
+      "sample_incorrect_response": "16 or 10",
+      "exact_detailed_explanation": "Let's follow the steps. First, substitute k=8: 2 × 8 - 3. Multiplication comes first: 2 × 8 = 16. Then subtract: 16 - 3 = 13."
+    },
+    {
+      "id": "p6_math_algebra_step3_003",
+      "type": "practice_problem",
+      "text": "Let's get some practice.",
+      "question": "Find the value of 20 - 4x when x = 3.",
+      "sample_correct_response": "8",
+      "sample_incorrect_response": "12 or 48",
+      "exact_detailed_explanation": "First, substitute x=3 to get 20 - 4 × 3. Remember to multiply first: 4 × 3 = 12. Then, do the subtraction: 20 - 12 = 8."
+    },
+    {
+      "id": "p6_math_algebra_step3_004",
+      "type": "mastery_check",
+      "text": "Let's see if you've mastered this.",
+      "question": "What is the value of (c/4) + 5 when c = 12?",
+      "sample_correct_response": "8",
+      "sample_incorrect_response": "17 or 35",
+      "exact_detailed_explanation": "First, substitute c=12: (12/4) + 5. Do the division first: 12 / 4 = 3. Then, add: 3 + 5 = 8."
+    },
+    {
+      "id": "p6_math_algebra_step3_005",
+      "type": "completion",
+      "text": "Great job! You can now evaluate algebraic expressions. This is like using a secret code where you know what the letters mean!",
+      "question": "Are you ready for the final step, solving equations?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's alright. The most important things to remember are to substitute the number for the letter first, and then follow the order of operations (BODMAS/PEMDAS)."
+    }
+  ],
+  "step4_sequence": [
+    {
+      "id": "p6_math_algebra_step4_001",
+      "type": "concept_introduction",
+      "text": "Our final topic is solving equations. An equation is like a balanced scale. It has an equals sign (=). If we have 'x + 3 = 10', our goal is to find the value of 'x' that keeps the scale balanced.",
+      "question": "To find 'x' in 'x + 3 = 10', we need to get 'x' by itself. Should we add 3, subtract 3, multiply by 3, or divide by 3 on both sides?",
+      "sample_correct_response": "subtract 3",
+      "sample_incorrect_response": "add 3",
+      "exact_detailed_explanation": "To get 'x' by itself, we need to do the opposite of '+ 3', which is '- 3'. To keep the scale balanced, we must subtract 3 from both sides. This gives us x = 10 - 3, so x = 7."
+    },
+    {
+      "id": "p6_math_algebra_step4_002",
+      "type": "practice_problem",
+      "text": "Let's solve '4y = 20'. Here, 'y' is multiplied by 4. To get 'y' by itself, we must do the opposite: divide by 4. We do this to both sides: 4y ÷ 4 = 20 ÷ 4. This gives us y = 5.",
+      "question": "Solve the equation: p/3 = 6",
+      "sample_correct_response": "18",
+      "sample_incorrect_response": "2 or 9",
+      "exact_detailed_explanation": "In 'p/3 = 6', 'p' is divided by 3. The opposite of division is multiplication. To solve for 'p', we multiply both sides by 3: p = 6 × 3, so p = 18."
+    },
+    {
+      "id": "p6_math_algebra_step4_003",
+      "type": "word_problem_1_step",
+      "text": "Now let's apply this to a word problem. Form an equation first, then solve it.",
+      "question": "After giving away 8 stickers, Ali had 15 stickers left. How many stickers did he have at first? (Let 's' be the number of stickers he had at first).",
+      "sample_correct_response": "23",
+      "sample_incorrect_response": "7",
+      "exact_detailed_explanation": "First, form the equation. Starting with 's' stickers and giving away 8 means 's - 8'. He had 15 left, so the equation is s - 8 = 15. To solve, we add 8 to both sides: s = 15 + 8, so s = 23."
+    },
+    {
+      "id": "p6_math_algebra_step4_004",
+      "type": "practice_problem",
+      "text": "Let's try a 2-step problem. The cost of 3 identical t-shirts and a pair of shorts that costs $15 is $51. Let 't' be the cost of one t-shirt. The equation is 3t + 15 = 51. To solve, we first undo the addition, then the multiplication. Step 1: 3t = 51 - 15 = 36. Step 2: t = 36 ÷ 3 = 12. So, one t-shirt costs $12.",
+      "question": "The total mass of a box and 4 identical books is 9 kg. If the box has a mass of 1 kg, what is the mass of one book? (Let 'b' be the mass of one book).",
+      "sample_correct_response": "2 kg",
+      "sample_incorrect_response": "8 kg or 2.5 kg",
+      "exact_detailed_explanation": "The equation is 4b + 1 = 9. First, subtract 1 from both sides to find the mass of the 4 books: 4b = 9 - 1 = 8. Then, divide by 4 to find the mass of one book: b = 8 ÷ 4 = 2 kg."
+    },
+    {
+      "id": "p6_math_algebra_step4_005",
+      "type": "mastery_check_2_step",
+      "text": "Here is a final challenge problem.",
+      "question": "Siti is 'y' years old. Her father is 4 times her age. The sum of their ages is 45 years. How old is Siti?",
+      "sample_correct_response": "9",
+      "sample_incorrect_response": "11 or 36",
+      "exact_detailed_explanation": "First, we write the expression for the sum of their ages: Siti's age (y) + Father's age (4y). The equation is y + 4y = 45. Simplify the left side: 5y = 45. Now, solve for y by dividing both sides by 5: y = 45 ÷ 5 = 9. Siti is 9 years old."
+    },
+    {
+      "id": "p6_math_algebra_step4_006",
+      "type": "completion",
+      "text": "Congratulations! You have successfully learned the basics of PSLE Algebra, from understanding variables to solving 2-step word problems.",
+      "question": "Do you feel confident with this topic?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's perfectly okay. Algebra takes practice. The most important skill is to read the word problem carefully and turn it into a balanced equation. From there, you just undo the operations one by one to find the unknown."
+    }
+  ]
+}

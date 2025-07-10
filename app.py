@@ -13,7 +13,6 @@ from routes.tutor import tutor_bp
 from routes.concepts import concepts_bp
 from routes.progress import progress_bp
 from routes.session import session_bp
-from routes.algebra_tutor import algebra_tutor_bp
 from routes.fractions_tutor import fractions_tutor_bp
 from routes.learning_tutor import learning_tutor_bp
 from routes.ai_analysis import ai_analysis_bp
@@ -39,7 +38,6 @@ def create_app(config_name='default'):
     app.register_blueprint(concepts_bp)
     app.register_blueprint(progress_bp)
     app.register_blueprint(session_bp)
-    app.register_blueprint(algebra_tutor_bp)
     app.register_blueprint(fractions_tutor_bp)
     app.register_blueprint(learning_tutor_bp)
     app.register_blueprint(ai_analysis_bp)

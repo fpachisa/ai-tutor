@@ -1003,8 +1003,22 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function determineStudentLearningState(topicName, summary) {
         // Determine if student should see learning mode or practice mode
-        if (topicName !== 'Algebra' && topicName !== 'Fractions') {
-            return { mode: 'practice', reason: 'not_learning_topic' };
+        
+        // Check if topic has learning tutor support by trying to get steps
+        try {
+            const topicKey = topicName.toLowerCase();
+            const url = APP_CONFIG.getHierarchicalURL(`/${topicKey}/learn/steps`);
+            const response = await authedFetch(url);
+            
+            if (!response.ok) {
+                console.log(`📚 ${topicName} does not have learning tutor support, showing practice mode`);
+                return { mode: 'practice', reason: 'no_learning_support' };
+            }
+            
+            console.log(`📚 ${topicName} has learning tutor support, checking progress...`);
+        } catch (error) {
+            console.log(`📚 Error checking ${topicName} learning support:`, error);
+            return { mode: 'practice', reason: 'learning_check_failed' };
         }
         
         // TEMPORARILY DISABLE STATUS CHECK TO DEBUG HANGING ISSUE
@@ -1051,7 +1065,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    function showLearningModeDashboard(topicName) {
+    async function showLearningModeDashboard(topicName) {
         // Show learning mode UI
         document.getElementById('learning-mode-dashboard').style.display = 'block';
         document.getElementById('practice-mode-dashboard').style.display = 'none';
@@ -1064,7 +1078,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Create the pathway content for this topic
-        createPathwayContent(topicName);
+        await createPathwayContent(topicName);
         
         // Initialize the learning pathway for the specific topic
         initializeLearningPathway(topicName);
@@ -1083,17 +1097,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function createPathwayContent(topicName) {
-        const container = document.getElementById('pathway-container');
-        if (!container) return;
+    // --- DYNAMIC STEPS LOADING ---
+    async function getStepsForTopic(topicName) {
+        try {
+            // Try to get steps from new API endpoint
+            const topicKey = topicName.toLowerCase();
+            const url = APP_CONFIG.getHierarchicalURL(`/${topicKey}/learn/steps`);
+            
+            const response = await authedFetch(url);
+            if (response.ok) {
+                const data = await response.json();
+                console.log(`✅ Loaded ${data.total_steps} steps for ${topicName} from API`);
+                return data.steps;
+            } else {
+                console.log(`⚠️ API call failed for ${topicName}, using fallback steps`);
+            }
+        } catch (error) {
+            console.log(`⚠️ Error loading steps for ${topicName}, using fallback:`, error);
+        }
         
-        // Clear existing content
-        container.innerHTML = '';
-        
-        let steps = [];
-        
+        // Fallback to hardcoded steps for backward compatibility
+        return getHardcodedStepsForTopic(topicName);
+    }
+
+    function getHardcodedStepsForTopic(topicName) {
         if (topicName === 'Algebra') {
-            steps = [
+            return [
                 {
                     icon: '📦➡️📝',
                     title: 'From Boxes to Letters',
@@ -1116,7 +1145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             ];
         } else if (topicName === 'Fractions') {
-            steps = [
+            return [
                 {
                     icon: '🍕➗',
                     title: 'Dividing Fractions by Whole Numbers',
@@ -1139,6 +1168,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             ];
         }
+        
+        // Default fallback for other topics
+        return [
+            {
+                icon: '📚',
+                title: 'Step 1',
+                description: `Learning step 1 for ${topicName}`
+            },
+            {
+                icon: '📚',
+                title: 'Step 2', 
+                description: `Learning step 2 for ${topicName}`
+            },
+            {
+                icon: '📚',
+                title: 'Step 3',
+                description: `Learning step 3 for ${topicName}`
+            },
+            {
+                icon: '📚',
+                title: 'Step 4',
+                description: `Learning step 4 for ${topicName}`
+            }
+        ];
+    }
+
+    async function createPathwayContent(topicName) {
+        const container = document.getElementById('pathway-container');
+        if (!container) return;
+        
+        // Clear existing content
+        container.innerHTML = '';
+        
+        // Get steps dynamically from API, with fallback to hardcoded
+        let steps = await getStepsForTopic(topicName);
         
         // Create pathway steps
         for (let i = 0; i < steps.length; i++) {
@@ -1195,6 +1259,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateLearningPathway(progress);
                 setupPathwayInteractivity(topicName);
             });
+        } else {
+            // Use generic progress for other topics
+            getUserGenericTutorProgress(topicName).then(progress => {
+                updateLearningPathway(progress);
+                setupPathwayInteractivity(topicName);
+            });
         }
     }
 
@@ -1247,6 +1317,37 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.log('Could not fetch fractions tutor progress:', error);
+        }
+        
+        // Default progress for new users
+        return {
+            completedSteps: 0,
+            currentStep: 1,
+            isCompleted: false,
+            progressStatus: 'pending'
+        };
+    }
+
+    async function getUserGenericTutorProgress(topicName) {
+        try {
+            // Use hierarchical URL structure with generic learning tutor
+            const topicKey = topicName.toLowerCase();
+            const url = APP_CONFIG.getHierarchicalURL(`/${topicKey}-tutor/status`);
+            const response = await authedFetch(url);
+            if (response.ok) {
+                const status = await response.json();
+                console.log(`📊 PATHWAY: Fetched ${topicName} tutor status:`, status);
+                const progress = {
+                    completedSteps: status.completed_steps || 0,
+                    currentStep: status.current_step || 1,
+                    isCompleted: status.is_completed || false,
+                    progressStatus: status.progress_status || 'pending'
+                };
+                console.log(`📊 PATHWAY: Processed ${topicName} progress data:`, progress);
+                return progress;
+            }
+        } catch (error) {
+            console.log(`Could not fetch ${topicName} tutor progress:`, error);
         }
         
         // Default progress for new users
@@ -1371,6 +1472,10 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (topicName === 'Fractions') {
             console.log(`Starting fractions tutor from step ${stepNumber}`);
             startFractionsTutorFromStep(stepNumber);
+        } else {
+            // Use generic learning tutor for all other topics
+            console.log(`Starting ${topicName} tutor from step ${stepNumber}`);
+            startLearningTutor(topicName.toLowerCase(), stepNumber);
         }
     }
 
@@ -1521,7 +1626,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const studentState = await determineStudentLearningState(topicName, summary);
         
         if (studentState.mode === 'learning') {
-            showLearningModeDashboard(topicName);
+            await showLearningModeDashboard(topicName);
         } else {
             showPracticeModeDashboard(topicName);
         }
@@ -2704,17 +2809,30 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupLearningTutorListeners(topic) {
         const input = document.getElementById('tutor-answer-input');
         const submitBtn = document.getElementById('tutor-submit-button');
+        const backBtn = document.getElementById('back-to-topic-from-tutor-button');
         
         // Remove existing listeners to prevent duplicates
         const newInput = input.cloneNode(true);
         const newSubmitBtn = submitBtn.cloneNode(true);
+        const newBackBtn = backBtn.cloneNode(true);
         input.parentNode.replaceChild(newInput, input);
         submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+        backBtn.parentNode.replaceChild(newBackBtn, backBtn);
         
         // Add new listeners
         newSubmitBtn.addEventListener('click', () => handleLearningTutorSubmit(topic));
         newInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') handleLearningTutorSubmit(topic);
+        });
+        
+        // Set up back button listener
+        newBackBtn.addEventListener('click', () => {
+            if (currentTopicName) {
+                showTopicView(currentTopicName);
+            } else {
+                showView('dashboard-view');
+                fetchAndDisplayDashboard();
+            }
         });
         
         // Focus on input
@@ -2819,6 +2937,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (!isStrugglingNow && emotionalState.strugglingPattern) {
                 emotionalState.strugglingPattern = false;
             }
+            
+            // Add natural typing delay (same as fractions tutor for consistency)
+            const naturalDelay = Math.random() * 1000 + 500; // 0.5-1.5 seconds
+            await new Promise(resolve => setTimeout(resolve, naturalDelay));
             
             hideTypingIndicator();
             

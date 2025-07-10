@@ -1,0 +1,224 @@
+{
+  "topic": "Percentage - Primary 6",
+  "version": "1.0",
+  "description": "Sequential conversation-based learning for P6 Percentage",
+  "steps": [
+    {
+      "icon": "💯�",
+      "title": "Finding the Whole (100%)",
+      "description": "Learn to find the total amount from a part and a percentage."
+    },
+    {
+      "icon": "📈📉",
+      "title": "Percentage Increase & Decrease",
+      "description": "Calculate price changes, discounts, and more."
+    },
+    {
+      "icon": "🛒💰",
+      "title": "Complex Word Problems",
+      "description": "Solving real-world problems with GST, discounts, and interest."
+    }
+  ],
+  "step1_sequence": [
+    {
+    "id": "p6_math_percentage_step1_001",
+    "type": "concept_introduction",
+    "text": "Hello! Let's learn how to find the total amount (the whole) when we only know a part and its percentage. For example, if 20% of the students in a class are boys, and there are 10 boys.",
+    "question": "We know that 20% represents 10 boys. To find the value of 1%, should we calculate '10 divided by 20' or '20 divided by 10'?",
+    "sample_correct_response": "10 divided by 20",
+    "sample_incorrect_response": "20 divided by 10",
+    "exact_detailed_explanation": "That's a common mix-up. To get from a known percentage down to 1%, we always divide the value by that percentage. So, we calculate '10 divided by 20'. This gives us the value of 1%, which is the first step in finding the total."
+    },
+    {
+      "id": "p6_math_percentage_step1_002",
+      "type": "worked_example",
+      "text": "Let's use the Unitary Method to solve our problem: 20% of the students are boys, and there are 10 boys. Find the total number of students.",
+      "demonstration_problem": "20% = 10 students. Find 100%.",
+      "solution_steps": [
+        "Step 1: We know that 20% represents 10 students.",
+        "Step 2: Find the value of 1%. To do this, we divide by 20: 1% = 10 ÷ 20 = 0.5 students.",
+        "Step 3: Find the value of 100%. We multiply the value of 1% by 100: 100% = 0.5 × 100 = 50 students.",
+        "Step 4: The total number of students is 50."
+      ],
+      "demonstration_answer": "50",
+      "question": "Now you try: 25% of a number is 5. What is the number?",
+      "sample_correct_response": "20",
+      "sample_incorrect_response": "1.25 or 125",
+      "exact_detailed_explanation": "Let's follow the steps. If 25% = 5, then 1% = 5 ÷ 25 = 0.2. To find 100%, we calculate 100 × 0.2, which is 20."
+    },
+    {
+      "id": "p6_math_percentage_step1_003",
+      "type": "practice_problem",
+      "text": "Let's get some practice.",
+      "question": "40% of the animals on a farm are chickens. If there are 80 chickens, what is the total number of animals on the farm?",
+      "sample_correct_response": "200",
+      "sample_incorrect_response": "32 or 120",
+      "exact_detailed_explanation": "Let's use the unitary method. If 40% = 80 animals, then 1% = 80 ÷ 40 = 2 animals. Therefore, 100% = 100 × 2 = 200 animals."
+    },
+    {
+      "id": "p6_math_percentage_step1_004",
+      "type": "mastery_check",
+      "text": "Let's check your understanding with a word problem.",
+      "question": "Siti spent 60% of her savings on a dress. If the dress cost $42, how much savings did she have at first?",
+      "sample_correct_response": "$70",
+      "sample_incorrect_response": "$25.20 or $112",
+      "exact_detailed_explanation": "The problem states that 60% of her savings is $42. To find the whole (100%), we first find 1%: $42 ÷ 60 = $0.70. Then, we find 100%: 100 × $0.70 = $70."
+    },
+    {
+      "id": "p6_math_percentage_step1_005",
+      "type": "completion",
+      "text": "Well done! You now know how to find the whole amount using the unitary method. This is a very important skill for solving percentage problems.",
+      "question": "Are you ready to learn about percentage increase and decrease?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's fine. The key idea is to always find the value of 1% first. Once you have that, you can find any other percentage, including the total 100%."
+    }
+  ],
+  "step2_sequence": [
+    {
+      "id": "p6_math_percentage_step2_001",
+      "type": "concept_introduction",
+      "text": "Let's learn about percentage increase and decrease. This is very common in real life, like when shops have discounts or prices go up. The original price is always considered 100%.",
+      "question": "If a price increases by 15%, what is the new percentage of the original price?",
+      "sample_correct_response": "115%",
+      "sample_incorrect_response": "15% or 85%",
+      "exact_detailed_explanation": "Let's think about it. The original price is 100%. If it increases by 15%, the new percentage is 100% + 15% = 115%."
+    },
+    {
+      "id": "p6_math_percentage_step2_002",
+      "type": "worked_example",
+      "text": "Let's calculate a price increase. A book costs $20. The price increases by 10%. What is the new price?",
+      "demonstration_problem": "Find the new price of the book.",
+      "solution_steps": [
+        "Method 1: Find the increase amount first.",
+        "Step 1: Increase amount = 10% of $20 = (10/100) × 20 = $2.",
+        "Step 2: New price = Original price + Increase = $20 + $2 = $22.",
+        "Method 2: Find the new percentage first.",
+        "Step 1: New percentage = 100% + 10% = 110%.",
+        "Step 2: New price = 110% of $20 = (110/100) × 20 = $22."
+      ],
+      "demonstration_answer": "$22",
+      "question": "Now you try: A toy costs $50. Its price increases by 20%. What is the new price?",
+      "sample_correct_response": "$60",
+      "sample_incorrect_response": "$10 or $70",
+      "exact_detailed_explanation": "Let's use Method 2. The new percentage is 100% + 20% = 120%. The new price is 120% of $50, which is (120/100) × 50 = $60."
+    },
+    {
+      "id": "p6_math_percentage_step2_003",
+      "type": "concept_introduction",
+      "text": "Now let's look at percentage decrease, like a discount. If a shop offers a 30% discount, you pay less than the original price.",
+      "question": "If an item has a 30% discount, what percentage of the original price do you pay?",
+      "sample_correct_response": "70%",
+      "sample_incorrect_response": "30% or 130%",
+      "exact_detailed_explanation": "The original price is 100%. If there is a 30% discount, you pay 100% - 30% = 70% of the original price."
+    },
+    {
+      "id": "p6_math_percentage_step2_004",
+      "type": "worked_example",
+      "text": "Let's calculate a discount. A shirt costs $40. There is a 25% discount. What is the final price?",
+      "demonstration_problem": "Find the final price of the shirt.",
+      "solution_steps": [
+        "Method 1: Find the discount amount first.",
+        "Step 1: Discount amount = 25% of $40 = (25/100) × 40 = $10.",
+        "Step 2: Final price = Original price - Discount = $40 - $10 = $30.",
+        "Method 2: Find the final percentage first.",
+        "Step 1: Final percentage = 100% - 25% = 75%.",
+        "Step 2: Final price = 75% of $40 = (75/100) × 40 = $30."
+      ],
+      "demonstration_answer": "$30",
+      "question": "Now you try: A bag costs $80. There is a 10% discount. What is the final price?",
+      "sample_correct_response": "$72",
+      "sample_incorrect_response": "$8 or $88",
+      "exact_detailed_explanation": "Let's use Method 2. The final percentage you pay is 100% - 10% = 90%. The final price is 90% of $80, which is (90/100) × 80 = $72."
+    },
+    {
+      "id": "p6_math_percentage_step2_005",
+      "type": "mastery_check",
+      "text": "Let's check your understanding of both increase and decrease.",
+      "question": "Last year, a school had 500 students. This year, the number of students increased by 8%. How many students are there this year?",
+      "sample_correct_response": "540",
+      "sample_incorrect_response": "40 or 460",
+      "exact_detailed_explanation": "This is a percentage increase. The new percentage is 100% + 8% = 108%. The number of students this year is 108% of 500, which is (108/100) × 500 = 540."
+    },
+    {
+      "id": "p6_math_percentage_step2_006",
+      "type": "completion",
+      "text": "Excellent work! You can now calculate percentage increases and decreases, which is very useful for shopping!",
+      "question": "Are you ready to tackle some more complex word problems?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "No problem. The key is to remember that the original amount is always 100%. For an increase, you add to 100%. For a decrease, you subtract from 100%."
+    }
+  ],
+  "step3_sequence": [
+    {
+      "id": "p6_math_percentage_step3_001",
+      "type": "concept_introduction",
+      "text": "Let's solve some challenging word problems. These often involve finding the original price or dealing with taxes like GST (Goods and Services Tax).",
+      "question": "If a price of $100 is subject to 9% GST, does the final price become more or less than $100?",
+      "sample_correct_response": "more",
+      "sample_incorrect_response": "less",
+      "exact_detailed_explanation": "GST is a tax, which means it is added to the price. Therefore, the final price will be more than the original price."
+    },
+    {
+      "id": "p6_math_percentage_step3_002",
+      "type": "worked_example",
+      "text": "Let's solve a common PSLE-style problem. After a 20% discount, a pair of shoes costs $64. What was the original price of the shoes?",
+      "demonstration_problem": "Find the original price (100%).",
+      "solution_steps": [
+        "Step 1: A 20% discount means the final price is 100% - 20% = 80% of the original price.",
+        "Step 2: So, we know that 80% of the original price is $64.",
+        "Step 3: Use the Unitary Method. If 80% = $64, then 1% = $64 ÷ 80 = $0.80.",
+        "Step 4: The original price (100%) = 100 × $0.80 = $80."
+      ],
+      "demonstration_answer": "$80",
+      "question": "Now you try: After a 15% discount, a watch costs $170. What was its original price?",
+      "sample_correct_response": "$200",
+      "sample_incorrect_response": "$144.50 or $195.50",
+      "exact_detailed_explanation": "Let's follow the steps. The price paid is 100% - 15% = 85%. So, 85% = $170. This means 1% = $170 ÷ 85 = $2. The original price (100%) was 100 × $2 = $200."
+    },
+    {
+      "id": "p6_math_percentage_step3_003",
+      "type": "practice_problem",
+      "text": "Let's practice with GST.",
+      "question": "The price of a laptop is $1200 before GST. If GST is 9%, what is the total amount a customer has to pay?",
+      "sample_correct_response": "$1308",
+      "sample_incorrect_response": "$108 or $1092",
+      "exact_detailed_explanation": "GST is added on. The total percentage is 100% + 9% = 109%. The final price is 109% of $1200, which is (109/100) × 1200 = $1308."
+    },
+    {
+      "id": "p6_math_percentage_step3_004",
+      "type": "worked_example",
+      "text": "Let's try a problem with simple interest. A bank pays 2% interest per year. If Mr. Lim deposits $5000, how much money will he have in total after one year?",
+      "demonstration_problem": "Find the total amount after one year.",
+      "solution_steps": [
+        "Step 1: The interest is an increase on the original deposit.",
+        "Step 2: Find the interest amount: 2% of $5000 = (2/100) × 5000 = $100.",
+        "Step 3: Find the total amount: Original deposit + Interest = $5000 + $100 = $5100."
+      ],
+      "demonstration_answer": "$5100",
+      "question": "Now you try: Mrs. Chen deposits $800 in a bank that pays 5% interest per year. How much interest does she earn in one year?",
+      "sample_correct_response": "$40",
+      "sample_incorrect_response": "$840 or $4000",
+      "exact_detailed_explanation": "The question asks only for the interest earned, not the total amount. We need to calculate 5% of $800, which is (5/100) × 800 = $40."
+    },
+    {
+      "id": "p6_math_percentage_step3_005",
+      "type": "mastery_check",
+      "text": "Here is a final challenge combining a discount and GST.",
+      "question": "A television is priced at $1500. It is sold at a 10% discount. The discounted price is then subject to 9% GST. What is the final amount the customer pays?",
+      "sample_correct_response": "$1471.50",
+      "sample_incorrect_response": "$1350 or $1635",
+      "exact_detailed_explanation": "This is a two-step calculation. First, find the discounted price: 100% - 10% = 90%. Price after discount = 90% of $1500 = $1350. Next, add GST to this new price: 100% + 9% = 109%. Final amount = 109% of $1350 = (109/100) × 1350 = $1471.50."
+    },
+    {
+      "id": "p6_math_percentage_step3_006",
+      "type": "completion",
+      "text": "Congratulations! You have tackled some of the most common and challenging types of percentage problems found in the PSLE. You are now a percentage expert!",
+      "question": "Do you feel ready to practice more problems on your own?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's perfectly fine. These problems can be tricky. The key is to handle one step at a time. Always find the price after the discount *before* you calculate the GST."
+    }
+  ]
+}

@@ -3,6 +3,13 @@ Tutor Service Factory - Creates appropriate tutor service for each topic
 """
 
 from services.fractions_tutor_service import FractionsTutorService
+from services.algebra_tutor_service import AlgebraTutorService
+from services.speed_tutor_service import SpeedTutorService
+from services.ratio_tutor_service import RatioTutorService
+from services.percentage_tutor_service import PercentageTutorService
+from services.measurement_tutor_service import MeasurementTutorService
+from services.data_analysis_tutor_service import DataAnalysisTutorService
+from services.geometry_tutor_service import GeometryTutorService
 
 class TutorServiceFactory:
     """Factory class to create appropriate tutor services for different topics"""
@@ -10,11 +17,13 @@ class TutorServiceFactory:
     # Registry of available tutor services
     _services = {
         'fractions': FractionsTutorService,
-        # Future topics will be added here:
-        # 'algebra': AlgebraTutorService,
-        # 'geometry': GeometryTutorService,
-        # 'ratio': RatioTutorService,
-        # 'speed': SpeedTutorService,
+        'algebra': AlgebraTutorService,
+        'speed': SpeedTutorService,
+        'ratio': RatioTutorService,
+        'percentage': PercentageTutorService,
+        'measurement': MeasurementTutorService,
+        'data_analysis': DataAnalysisTutorService,
+        'geometry': GeometryTutorService,
     }
     
     @classmethod

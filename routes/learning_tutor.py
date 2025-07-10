@@ -539,3 +539,58 @@ def get_practice_review(user_id, grade, subject, topic):
     except Exception as e:
         print(f"Error getting {topic} practice review: {e}")
         return jsonify({'error': 'Could not analyze practice progress'}), 500
+
+@learning_tutor_bp.route('/api/grades/<grade>/subjects/<subject>/<topic>/learn/steps', methods=['GET'])
+@token_required
+def get_learning_steps_metadata(user_id, grade, subject, topic):
+    """
+    Get learning steps metadata for any topic (icon, title, description)
+    Reads from the 'steps' field in the {topic}_learn.json file
+    """
+    try:
+        # Validate topic is supported
+        if not TutorServiceFactory.is_topic_supported(topic):
+            available_topics = TutorServiceFactory.get_available_topics()
+            return jsonify({
+                'error': f'Topic "{topic}" is not supported',
+                'available_topics': available_topics
+            }), 400
+        
+        # Get the appropriate service for this topic
+        tutor_service = get_tutor_service(topic)
+        
+        # Get steps metadata from curriculum JSON
+        steps_metadata = tutor_service.curriculum_content.get("steps", [])
+        
+        # If no steps field found, create fallback based on step sequences
+        if not steps_metadata:
+            # Count step sequences to determine step count
+            step_sequences = [key for key in tutor_service.curriculum_content.keys() 
+                            if key.startswith('step') and key.endswith('_sequence')]
+            step_count = len(step_sequences)
+            
+            # Generate default steps structure
+            steps_metadata = []
+            for i in range(1, step_count + 1):
+                steps_metadata.append({
+                    "icon": f"📚",
+                    "title": f"Step {i}",
+                    "description": f"Learning step {i} for {topic.title()}"
+                })
+            
+            print(f"ℹ️ Generated fallback steps for {topic}: {step_count} steps")
+        
+        return jsonify({
+            'success': True,
+            'topic': tutor_service.curriculum_content.get("topic", f"{topic.title()} - Primary 6"),
+            'description': tutor_service.curriculum_content.get("description", f"Learning {topic}"),
+            'total_steps': len(steps_metadata),
+            'steps': steps_metadata
+        })
+        
+    except Exception as e:
+        print(f"Error getting {topic} steps metadata: {e}")
+        return jsonify({
+            'error': f'Could not load {topic} steps metadata',
+            'message': str(e)
+        }), 500

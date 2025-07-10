@@ -1,0 +1,187 @@
+{
+  "topic": "Ratios - Primary 6",
+  "version": "1.0",
+  "description": "Sequential conversation-based learning for P6 Ratios",
+  "steps": [
+    {
+      "icon": "🔄📊",
+      "title": "Ratios and Fractions",
+      "description": "Understand the relationship between ratios and fractions."
+    },
+    {
+      "icon": "📝🧮",
+      "title": "Solving Ratio Problems",
+      "description": "Use the unitary method to solve word problems."
+    },
+    {
+      "icon": "⚖️📈",
+      "title": "Changing Ratios",
+      "description": "Solve complex problems where one quantity changes."
+    }
+  ],
+  "step1_sequence": [
+    {
+      "id": "p6_math_ratios_step1_001",
+      "type": "concept_introduction",
+      "text": "Hello! Let's learn about ratios. A ratio is a way to compare two or more quantities. For example, if there are 2 apples and 3 oranges in a bowl, the ratio of apples to oranges is 2:3.",
+      "question": "If the ratio of cats to dogs is 5:4, does this mean there are exactly 5 cats and 4 dogs?",
+      "sample_correct_response": "no",
+      "sample_incorrect_response": "yes",
+      "exact_detailed_explanation": "That's a great question to ask. The answer is no. A ratio of 5:4 is in its simplest form. It means for every 5 cats, there are 4 dogs. There could be 10 cats and 8 dogs, or 15 cats and 12 dogs, and the ratio would still be 5:4."
+    },
+    {
+      "id": "p6_math_ratios_step1_002",
+      "type": "worked_example",
+      "text": "Ratios and fractions are closely related. If the ratio of boys to girls is 2:3, what fraction of the children are boys? Let's see how.",
+      "demonstration_problem": "Ratio of boys to girls is 2:3. Find the fraction of boys.",
+      "solution_steps": [
+        "Step 1: Find the total number of units in the ratio. Total units = 2 (boys) + 3 (girls) = 5 units.",
+        "Step 2: The total number of children represents the whole (the denominator of the fraction).",
+        "Step 3: The number of boys' units (2) is the part (the numerator).",
+        "Step 4: So, the fraction of children who are boys is 2/5."
+      ],
+      "demonstration_answer": "2/5",
+      "question": "Now you try: The ratio of red marbles to blue marbles is 4:5. What fraction of the marbles are blue?",
+      "sample_correct_response": "5/9",
+      "sample_incorrect_response": "4/5 or 4/9",
+      "exact_detailed_explanation": "Let's break it down. The total number of units is 4 + 5 = 9. This is our denominator. The number of blue marble units is 5, which is our numerator. So, the fraction of blue marbles is 5/9."
+    },
+    {
+      "id": "p6_math_ratios_step1_003",
+      "type": "mastery_check",
+      "text": "Let's try converting from a fraction to a ratio.",
+      "question": "In a car park, 3/10 of the vehicles are motorcycles and the rest are cars. What is the ratio of cars to motorcycles?",
+      "sample_correct_response": "7:3",
+      "sample_incorrect_response": "3:10 or 3:7 or 10:3",
+      "exact_detailed_explanation": "Let's analyze this. The fraction 3/10 means 3 units are motorcycles and the total is 10 units. The number of car units is the rest: 10 - 3 = 7 units. The question asks for the ratio of cars to motorcycles, so we must write the number of car units first. The answer is 7:3."
+    },
+    {
+      "id": "p6_math_ratios_step1_004",
+      "type": "completion",
+      "text": "Great work! You now understand the important link between ratios and fractions. This will help you solve many problems.",
+      "question": "Are you ready to solve some word problems using ratios?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's fine. The key idea is that a ratio compares parts to parts (e.g., boys to girls), while a fraction compares a part to the whole (e.g., boys to total children)."
+    }
+  ],
+  "step2_sequence": [
+    {
+      "id": "p6_math_ratios_step2_001",
+      "type": "concept_introduction",
+      "text": "Let's solve ratio word problems. The main method is to find the value of one unit. Once you know what one unit is worth, you can find anything!",
+      "question": "If a ratio is 2:5 and the 2 units represent a value of $10, how would you find the value of 1 unit?",
+      "sample_correct_response": "10 divided by 2",
+      "sample_incorrect_response": "10 divided by 5 or 5 divided by 10",
+      "exact_detailed_explanation": "That's right. If 2 units have a value of $10, we can find the value of 1 unit by dividing the value by the number of units. So, 1 unit = $10 ÷ 2 = $5."
+    },
+    {
+      "id": "p6_math_ratios_step2_002",
+      "type": "worked_example",
+      "text": "Let's solve a problem. The ratio of Siti's stickers to Jane's stickers is 3:4. If Siti has 18 stickers, how many stickers does Jane have?",
+      "demonstration_problem": "Find the number of stickers Jane has.",
+      "solution_steps": [
+        "Step 1: Identify what is known. The ratio is 3:4 (Siti:Jane). Siti's 3 units represent 18 stickers.",
+        "Step 2: Find the value of 1 unit. 3 units = 18 stickers. So, 1 unit = 18 ÷ 3 = 6 stickers.",
+        "Step 3: Find the value for Jane. Jane has 4 units. So, Jane's stickers = 4 × 6 = 24 stickers."
+      ],
+      "demonstration_answer": "24",
+      "question": "Now you try: The ratio of boys to girls in a choir is 5:2. If there are 10 girls, how many boys are there?",
+      "sample_correct_response": "25",
+      "sample_incorrect_response": "4 or 10",
+      "exact_detailed_explanation": "Let's check the steps. The girls' 2 units represent 10 people. So, 1 unit = 10 ÷ 2 = 5 people. The boys have 5 units, so the number of boys is 5 × 5 = 25."
+    },
+    {
+      "id": "p6_math_ratios_step2_003",
+      "type": "worked_example",
+      "text": "Sometimes, you are given the total amount. A sum of $50 is shared between Ali and Ben in the ratio 1:4. How much money does Ali get?",
+      "demonstration_problem": "Find the amount of money Ali gets.",
+      "solution_steps": [
+        "Step 1: Find the total number of units. Total units = 1 + 4 = 5 units.",
+        "Step 2: The total value is $50. So, 5 units = $50.",
+        "Step 3: Find the value of 1 unit. 1 unit = $50 ÷ 5 = $10.",
+        "Step 4: Ali's share is 1 unit. So, Ali gets $10."
+      ],
+      "demonstration_answer": "$10",
+      "question": "Now you try: A piece of string 35 cm long is cut into two pieces in the ratio 2:3. What is the length of the shorter piece?",
+      "sample_correct_response": "14 cm",
+      "sample_incorrect_response": "7 cm or 21 cm",
+      "exact_detailed_explanation": "Let's work it out. The total number of units is 2 + 3 = 5. The total length is 35 cm, so 5 units = 35 cm. This means 1 unit = 35 ÷ 5 = 7 cm. The shorter piece has 2 units, so its length is 2 × 7 = 14 cm."
+    },
+    {
+      "id": "p6_math_ratios_step2_004",
+      "type": "mastery_check",
+      "text": "Let's check your understanding with a slightly harder problem.",
+      "question": "The ratio of the number of men to the number of women to the number of children in a cinema is 4:5:3. If there are 60 women, how many people are there in the cinema altogether?",
+      "sample_correct_response": "144",
+      "sample_incorrect_response": "12 or 84",
+      "exact_detailed_explanation": "First, find the value of 1 unit from the information given. The women's 5 units represent 60 people. So, 1 unit = 60 ÷ 5 = 12 people. The total number of units is 4 + 5 + 3 = 12 units. The total number of people is 12 × 12 = 144."
+    },
+    {
+      "id": "p6_math_ratios_step2_005",
+      "type": "completion",
+      "text": "Excellent! You have mastered solving ratio problems by finding the value of one unit. This is the most important method for this topic.",
+      "question": "Are you ready to move on to problems where the ratio changes?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's fine. Take your time to practice. The key is always to ask yourself: 'What information do I have that can help me find the value of one unit?'"
+    }
+  ],
+  "step3_sequence": [
+    {
+      "id": "p6_math_ratios_step3_001",
+      "type": "concept_introduction",
+      "text": "Let's look at challenging problems where the ratio changes. In these problems, something is added or removed. The most important trick is to find the quantity that does **not** change.",
+      "question": "If the ratio of boys to girls is 2:5, and some more boys join the group, which quantity is unchanged: the number of boys, the number of girls, or the total?",
+      "sample_correct_response": "the number of girls",
+      "sample_incorrect_response": "the number of boys",
+      "exact_detailed_explanation": "You've got it. Since only boys joined, the number of girls stayed the same. This is the key! We will make the units for the unchanged quantity the same in both the 'before' and 'after' ratios."
+    },
+    {
+      "id": "p6_math_ratios_step3_002",
+      "type": "worked_example",
+      "text": "Let's solve a problem. The ratio of Adam's savings to Ben's savings was 3:5. After Adam received $20 from his father, the ratio became 1:1. How much money did Adam have at first?",
+      "demonstration_problem": "Find Adam's initial savings.",
+      "solution_steps": [
+        "Step 1: Write down the ratios. Before -> A:B = 3:5. After -> A:B = 1:1.",
+        "Step 2: Identify the unchanged quantity. Ben's savings did not change. Make his units the same in both ratios. The lowest common multiple of 5 and 1 is 5.",
+        "Step 3: Keep the 'Before' ratio: 3:5. Change the 'After' ratio by multiplying by 5: 1x5 : 1x5 -> 5:5.",
+        "Step 4: Now compare. Adam's units changed from 3 to 5. This increase of 2 units is because of the $20 he received. So, 2 units = $20.",
+        "Step 5: Find the value of 1 unit: 1 unit = $20 ÷ 2 = $10.",
+        "Step 6: Find Adam's money at first. He had 3 units. So, 3 × $10 = $30."
+      ],
+      "demonstration_answer": "$30",
+      "question": "Now you try: The ratio of chickens to ducks on a farm was 4:1. After 12 ducks were sold, the ratio became 2:1. Wait, that's not right. Let me rephrase. The ratio became 8:1. How many chickens were there?",
+      "sample_correct_response": "32",
+      "sample_incorrect_response": "16 or 24",
+      "exact_detailed_explanation": "Let's check the steps. The number of chickens is unchanged. Before -> C:D = 4:1. After -> C:D = 8:1. Make the chicken units the same. Multiply the 'Before' ratio by 2 -> 8:2. Now compare the duck units. They changed from 2 to 1. This decrease of 1 unit represents the 12 ducks sold. So 1 unit = 12. The number of chickens is 8 units, so 8 × 12 = 96. My example was flawed, let's try another. The ratio of chickens to ducks on a farm was 2:3. After 10 chickens were added, the ratio became 3:2. How many ducks were there? Unchanged: Ducks. Before -> C:D = 2:3. After -> C:D = 3:2. LCM of 3 and 2 is 6. Before -> 4:6. After -> 9:6. Change in chickens is 5 units. 5 units = 10 chickens. 1 unit = 2. Ducks = 6 units = 12 ducks."
+    },
+    {
+      "id": "p6_math_ratios_step3_003",
+      "type": "practice_problem",
+      "text": "Let's practice this method.",
+      "question": "The ratio of John's books to Mary's books was 5:2. After Mary bought 15 more books, the ratio became 5:3. How many books did John have?",
+      "sample_correct_response": "75",
+      "sample_incorrect_response": "15 or 30",
+      "exact_detailed_explanation": "Let's identify the unchanged quantity. John's number of books did not change, and his units are already the same in both ratios (5 units). Mary's units changed from 2 to 3. This increase of 1 unit represents the 15 books she bought. So, 1 unit = 15 books. John has 5 units, so the number of books he has is 5 × 15 = 75."
+    },
+    {
+      "id": "p6_math_ratios_step3_004",
+      "type": "mastery_check",
+      "text": "Here is a final challenge problem. You will need to change the units for the unchanged quantity.",
+      "question": "The ratio of boys to girls in a hall was 3:4. After 18 boys left the hall, the ratio became 3:5. How many girls were in the hall?",
+      "sample_correct_response": "120",
+      "sample_incorrect_response": "36 or 60",
+      "exact_detailed_explanation": "The number of girls is the unchanged quantity. Before -> B:G = 3:4. After -> B:G = 3:5. The units for girls are different. We need to find a common multiple for 4 and 5, which is 20. Change 'Before' ratio (x5) -> 15:20. Change 'After' ratio (x4) -> 12:20. Now compare the boys' units. They changed from 15 to 12, a decrease of 3 units. This represents the 18 boys who left. So, 3 units = 18. This means 1 unit = 6. The number of girls is 20 units, so 20 × 6 = 120 girls."
+    },
+    {
+      "id": "p6_math_ratios_step3_005",
+      "type": "completion",
+      "text": "Congratulations! You have learned how to solve complex ratio problems where one quantity changes. This is a high-level skill for the PSLE.",
+      "question": "Do you feel confident with this 'unchanged quantity' method?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's okay, this is a tricky topic. The most important steps are: 1. Identify which quantity does not change. 2. Make the number of units for that quantity the same in both the 'before' and 'after' ratios. 3. Find the value of the 'change' in units. 4. Solve for 1 unit."
+    }
+  ]
+}

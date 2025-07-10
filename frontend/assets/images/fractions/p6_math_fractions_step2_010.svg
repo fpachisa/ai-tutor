@@ -1,0 +1,34 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#f8f9fa"/>
+  
+
+  
+  <!-- Main bottle -->
+  <g id="main-bottle">
+    <text x="20" y="40" font-family="Arial, sans-serif" font-size="14" fill="#2c3e50">Bottle contains: 3/4 litre</text>
+    
+    <!-- Bottle outline -->
+    <rect x="80" y="80" width="60" height="120" fill="none" stroke="#2c3e50" stroke-width="2" rx="5"/>
+    <rect x="90" y="70" width="40" height="15" fill="none" stroke="#2c3e50" stroke-width="2" rx="2"/>
+    
+    <!-- Juice level (3/4 full) -->
+    <rect x="85" y="110" width="50" height="85" fill="#ff9500" opacity="0.8" rx="3"/>
+    
+    <!-- Measurement markings on bottle -->
+    <line x1="145" y1="200" x2="155" y2="200" stroke="#2c3e50" stroke-width="1"/>
+    <line x1="145" y1="170" x2="155" y2="170" stroke="#2c3e50" stroke-width="1"/>
+    <line x1="145" y1="140" x2="155" y2="140" stroke="#2c3e50" stroke-width="1"/>
+    <line x1="145" y1="110" x2="155" y2="110" stroke="#2c3e50" stroke-width="1"/>
+    <line x1="145" y1="80" x2="155" y2="80" stroke="#2c3e50" stroke-width="1"/>
+    
+    <text x="165" y="85" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">1 litre</text>
+    <text x="165" y="115" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">3/4 litre</text>
+    <text x="165" y="145" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">1/2 litre</text>
+    <text x="165" y="175" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">1/4 litre</text>
+    <text x="165" y="205" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">0 litre</text>
+    
+    <!-- Arrow pointing to juice level -->
+    <path d="M 160 110 L 145 110" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  </g>
+  </svg>
