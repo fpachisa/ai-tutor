@@ -191,6 +191,14 @@ def learning_tutor_chat(user_id, grade, subject, topic):
         # DEBUG: Basic route logging
         print(f"\\n🔍 {topic.upper()} TUTOR CHAT REQUEST:")
         print(f"   Student Answer: '{student_answer}'")
+        print(f"   Frontend conversation_history: {len(conversation_history)} messages")
+        
+        # Debug: Show frontend conversation history to ensure current message isn't included
+        for i, msg in enumerate(conversation_history):
+            sender = msg.get('sender', 'unknown')
+            message_preview = msg.get('message', '')[:20] + '...' if msg.get('message') else 'no message'
+            msg_section_id = msg.get('section_id', 'no_section_id')
+            print(f"     Frontend[{i+1}] {sender}: '{message_preview}' (section_id: {msg_section_id})")
         
         if not student_answer:
             return jsonify({'error': 'Student answer is required'}), 400
@@ -204,28 +212,47 @@ def learning_tutor_chat(user_id, grade, subject, topic):
         
         # Load full conversation context from multiple sections for AI processing
         full_conversation_context = []
+        current_section_only_context = []
+        
         if current_section_id:
             all_sections = tutor_service.get_all_section_ids()
             current_index = all_sections.index(current_section_id) if current_section_id in all_sections else 0
             
-            # Load messages from current section and a few previous sections for context
+            # Load messages from current section and a few previous sections for AI context
             sections_to_load = all_sections[max(0, current_index-2):current_index+1]
             
             for section_id in sections_to_load:
                 section_history = progress_service.get_chat_history(user_id, section_id)
                 if section_history:
                     full_conversation_context.extend(section_history)
+                    # Separate current section context for attempt counting
+                    if section_id == current_section_id:
+                        current_section_only_context.extend(section_history)
+                        print(f"📖 LOADED from current section {section_id}: {len(section_history)} messages")
+                        for i, msg in enumerate(section_history):
+                            sender = msg.get('sender', 'unknown')
+                            message_preview = msg.get('message', '')[:20] + '...' if msg.get('message') else 'no message'
+                            msg_section_id = msg.get('section_id', 'no_section_id')
+                            print(f"     [{i+1}] {sender}: '{message_preview}' (section_id: {msg_section_id})")
+                else:
+                    print(f"📖 No messages found for section {section_id}")
             
-            print(f"📖 Loaded conversation context from {len(sections_to_load)} sections: {sections_to_load}")
-            print(f"📖 Total context messages: {len(full_conversation_context)}")
+            print(f"📖 Loaded AI context from {len(sections_to_load)} sections: {sections_to_load}")
+            print(f"📖 Total AI context messages: {len(full_conversation_context)}")
+            print(f"📖 Current section context messages: {len(current_section_only_context)}")
         
         # Use full context for AI processing (includes conversation_history + previous sections)
         ai_conversation_context = full_conversation_context + conversation_history
         
+        # Use ONLY current section database context for attempt counting (NO frontend history)
+        # Frontend history would double-count previous attempts that were already saved to database
+        attempt_counting_context = current_section_only_context
+        
         # Generate tutor response using the service with full conversation context
+        # Pass both AI context (for better responses) and attempt counting context (for accurate counts)
         result = tutor_service.generate_tutor_response(
             student_answer, ai_conversation_context, 1, emotional_intelligence, 
-            user_progress, current_section_id)
+            user_progress, current_section_id, attempt_counting_context)
         
         # Handle different return formats
         if len(result) == 3:
@@ -287,33 +314,37 @@ def learning_tutor_chat(user_id, grade, subject, topic):
             'total_sections': len(all_sections)
         }
         
-        # SEND RESPONSE IMMEDIATELY - don't wait for database operations
-        from threading import Thread
-        
-        def save_progress_async():
-            try:
-                # Save section progress if completed
-                if section_completed and current_section_id:
-                    progress_service.save_progress(user_id, current_section_id, 'completed', [])
-                
-                # Save messages to current section
-                section_messages = [student_message, tutor_message]
-                message_save_status = 'completed' if (section_completed and current_section_id) else 'in_progress'
-                progress_service.save_progress(user_id, current_section_id, message_save_status, section_messages)
-                
-                # Position user in new section if completed
-                if section_completed and updated_section_id and updated_section_id != current_section_id:
-                    progress_service.save_progress(user_id, updated_section_id, 'in_progress', [])
-                
-                # Save overall progress
-                progress_status = 'mastered' if ready_for_problems else ('in_progress' if completed_sections_count > 0 else 'pending')
-                tutor_session_id = f"{topic}_tutor_session"
-                progress_service.save_progress(user_id, tutor_session_id, progress_status, [])
-            except Exception as e:
-                print(f"Background save error: {e}")
-        
-        # Start background thread for database operations
-        Thread(target=save_progress_async, daemon=True).start()
+        # SYNCHRONOUS SAVE - ensure messages are saved before next request
+        try:
+            print(f"💾 SAVING MESSAGES - Section: {current_section_id}")
+            print(f"   Student message: '{student_message['message'][:30]}...' (section_id: {student_message['section_id']})")
+            print(f"   Tutor message: '{tutor_message['message'][:30]}...' (section_id: {tutor_message['section_id']})")
+            
+            # Save section progress if completed
+            if section_completed and current_section_id:
+                progress_service.save_progress(user_id, current_section_id, 'completed', [])
+                print(f"   ✅ Marked section {current_section_id} as completed")
+            
+            # Save messages to current section - THIS IS CRITICAL FOR ATTEMPT COUNTING
+            section_messages = [student_message, tutor_message]
+            message_save_status = 'completed' if (section_completed and current_section_id) else 'in_progress'
+            progress_service.save_progress(user_id, current_section_id, message_save_status, section_messages)
+            print(f"   ✅ Saved {len(section_messages)} messages to section {current_section_id} with status {message_save_status}")
+            
+            # Position user in new section if completed
+            if section_completed and updated_section_id and updated_section_id != current_section_id:
+                progress_service.save_progress(user_id, updated_section_id, 'in_progress', [])
+                print(f"   ✅ Positioned user in new section {updated_section_id}")
+            
+            # Save overall progress
+            progress_status = 'mastered' if ready_for_problems else ('in_progress' if completed_sections_count > 0 else 'pending')
+            tutor_session_id = f"{topic}_tutor_session"
+            progress_service.save_progress(user_id, tutor_session_id, progress_status, [])
+            print(f"   ✅ Updated overall {topic} progress to {progress_status}")
+            
+        except Exception as e:
+            print(f"❌ CRITICAL: Save error: {e}")
+            # Continue anyway to not break user experience
         
         return jsonify(response_data)
         

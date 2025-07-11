@@ -156,36 +156,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const problemId = decodeURIComponent(hash.replace('#/problems/', ''));
             switchToSolverView(problemId);
-        } else if (hash.startsWith('#/algebra-tutor')) {
-            console.log('🔗 Hash routing: detected #/algebra-tutor, calling startAlgebraTutor');
-            console.log('🔗 DEBUGGING: Hash routing call stack:', new Error().stack);
-            if (!authToken) {
-                showView('login-view', false);
-                return;
-            }
-            startAlgebraTutor();
-        } else if (hash.startsWith('#/fractions-tutor')) {
-            console.log('🔗 Hash routing: detected #/fractions-tutor, calling startFractionsTutor');
-            console.log('🔗 DEBUGGING: Hash routing call stack:', new Error().stack);
-            if (!authToken) {
-                showView('login-view', false);
-                return;
-            }
-            startFractionsTutor();
         } else if (hash.match(/#\/(\w+)-tutor/)) {
-            // Generic tutor routing for any topic (geometry, ratio, speed, etc.)
+            // Generic tutor routing for any topic (including algebra, fractions, geometry, ratio, speed, etc.)
             const topicMatch = hash.match(/#\/(\w+)-tutor/);
             const topic = topicMatch[1];
             
-            // Skip if it's a topic we already handle specifically
-            if (topic !== 'algebra' && topic !== 'fractions') {
-                console.log(`🔗 Hash routing: detected #/${topic}-tutor, calling startLearningTutor`);
-                if (!authToken) {
-                    showView('login-view', false);
-                    return;
-                }
-                startLearningTutor(topic);
+            console.log(`🔗 Hash routing: detected #/${topic}-tutor, calling startLearningTutor`);
+            if (!authToken) {
+                showView('login-view', false);
+                return;
             }
+            startLearningTutor(topic);
         } else if (hash === '#/quiz') {
             showView('quiz-view', false);
         } else if (hash === '#/signup') {
@@ -1248,24 +1229,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- LEARNING PATHWAY MANAGEMENT ---
     function initializeLearningPathway(topicName) {
-        // Get user's tutor progress from localStorage or API
-        if (topicName === 'Algebra') {
-            getUserAlgebraTutorProgress().then(progress => {
-                updateLearningPathway(progress);
-                setupPathwayInteractivity(topicName);
-            });
-        } else if (topicName === 'Fractions') {
-            getUserFractionsTutorProgress().then(progress => {
-                updateLearningPathway(progress);
-                setupPathwayInteractivity(topicName);
-            });
-        } else {
-            // Use generic progress for other topics
-            getUserGenericTutorProgress(topicName).then(progress => {
-                updateLearningPathway(progress);
-                setupPathwayInteractivity(topicName);
-            });
-        }
+        // Get user's tutor progress using generic system for all topics
+        getUserGenericTutorProgress(topicName).then(progress => {
+            updateLearningPathway(progress);
+            setupPathwayInteractivity(topicName);
+        });
     }
 
     async function getUserAlgebraTutorProgress() {
@@ -1465,18 +1433,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handlePathwayStepClick(stepNumber, topicName) {
-        // Start the appropriate tutor based on topic
-        if (topicName === 'Algebra') {
-            console.log(`Starting algebra tutor from step ${stepNumber}`);
-            startAlgebraTutorFromStep(stepNumber);
-        } else if (topicName === 'Fractions') {
-            console.log(`Starting fractions tutor from step ${stepNumber}`);
-            startFractionsTutorFromStep(stepNumber);
-        } else {
-            // Use generic learning tutor for all other topics
-            console.log(`Starting ${topicName} tutor from step ${stepNumber}`);
-            startLearningTutor(topicName.toLowerCase(), stepNumber);
-        }
+        // Start the appropriate tutor based on topic using generic system
+        console.log(`Starting ${topicName} tutor from step ${stepNumber}`);
+        startLearningTutor(topicName.toLowerCase(), stepNumber);
     }
 
     function startAlgebraTutorFromStep(stepNumber = 1) {
@@ -1524,12 +1483,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const newReviewBtn = reviewBtn.cloneNode(true);
             reviewBtn.parentNode.replaceChild(newReviewBtn, reviewBtn);
             
-            // Start the appropriate tutor based on topic
-            if (topicName === 'Algebra') {
-                newReviewBtn.addEventListener('click', startAlgebraTutor);
-            } else if (topicName === 'Fractions') {
-                newReviewBtn.addEventListener('click', startFractionsTutor);
-            }
+            // Start the appropriate tutor using generic system
+            newReviewBtn.addEventListener('click', () => startLearningTutor(topicName.toLowerCase()));
         }
         
         // Load practice mode data
@@ -1888,12 +1843,30 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function parseMarkdown(text) {
         // Simple markdown parser for basic formatting
+        // IMPORTANT: Preserve MathJax $...$ and $$...$$ expressions
         let parsed = text;
         
+        // First, protect MathJax expressions by temporarily replacing them
+        const mathExpressions = [];
+        let mathIndex = 0;
+        
+        // Protect display math $$...$$ 
+        parsed = parsed.replace(/\$\$([\s\S]*?)\$\$/g, (match) => {
+            mathExpressions[mathIndex] = match;
+            return `__MATH_${mathIndex++}__`;
+        });
+        
+        // Protect inline math $...$
+        parsed = parsed.replace(/\$([^$\n]+?)\$/g, (match) => {
+            mathExpressions[mathIndex] = match;
+            return `__MATH_${mathIndex++}__`;
+        });
+        
+        // Now safely apply markdown formatting (won't interfere with math)
         // Bold text: **text** -> <strong>text</strong>
         parsed = parsed.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         
-        // Italic text: *text* -> <em>text</em>
+        // Italic text: *text* -> <em>text</em> (but be careful not to affect asterisks in math)
         parsed = parsed.replace(/\*(.*?)\*/g, '<em>$1</em>');
         
         // Code inline: `text` -> <code>text</code>
@@ -1907,7 +1880,11 @@ document.addEventListener('DOMContentLoaded', () => {
         parsed = parsed.replace(/\\n/g, '<br>');
         parsed = parsed.replace(/\n/g, '<br>');
         
-        // Preserve existing HTML (like equation boxes)
+        // Finally, restore the protected MathJax expressions
+        for (let i = mathExpressions.length - 1; i >= 0; i--) {
+            parsed = parsed.replace(`__MATH_${i}__`, mathExpressions[i]);
+        }
+        
         return parsed;
     }
 
@@ -2642,6 +2619,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTopic: null,
         history: [],
         currentStep: 1,
+        currentSectionId: null,  // Track current section for attempt counting
         initializing: false,
         lastCallTime: 0
     };
@@ -2781,11 +2759,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Regular session start or resume
                 await sendTutorMessage(data.message, 'tutor', data.current_section_id);
                 
+                // Update current section ID for attempt counting
+                if (data.current_section_id) {
+                    genericTutorState.currentSectionId = data.current_section_id;
+                }
+                
                 // Add to conversation history
                 genericTutorState.history.push({ 
                     sender: 'tutor', 
                     message: data.message, 
-                    step: genericTutorState.currentStep 
+                    step: genericTutorState.currentStep,
+                    section_id: data.current_section_id
                 });
             }
             
@@ -2845,6 +2829,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Generic step completion callback system for any topic
+     * @param {string} topic - The topic name
+     * @param {number} stepNumber - The completed step number
+     */
+    function onGenericStepCompleted(topic, stepNumber) {
+        console.log(`${topic} step ${stepNumber} completed!`);
+        
+        // Update the pathway display using generic progress function
+        getUserGenericTutorProgress(topic).then(progress => {
+            updateLearningPathway(progress);
+        });
+
+        // Add celebration animation (same as Algebra)
+        const step = document.querySelector(`[data-step="${stepNumber}"]`);
+        if (step) {
+            step.style.animation = 'celebrateCompletion 0.6s ease-in-out';
+            setTimeout(() => {
+                step.style.animation = '';
+            }, 600);
+        }
+    }
+
+    /**
      * Handle submit button click for generic learning tutor
      * @param {string} topic - The topic name
      */
@@ -2887,22 +2894,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             
-            // Add student message to conversation history before API call (check for duplicates)
-            const lastMessage = genericTutorState.history[genericTutorState.history.length - 1];
-            if (!lastMessage || lastMessage.sender !== 'student' || lastMessage.message !== userAnswer) {
-                genericTutorState.history.push({ 
-                    sender: 'student', 
-                    message: userAnswer, 
-                    step: genericTutorState.currentStep 
-                });
-            }
-            
             // Send user input to learning tutor API with emotional intelligence data
+            // NOTE: Do NOT add the current student message to history before sending to backend
+            // The backend needs to count previous attempts only, not including the current message
             const response = await authedFetch(APP_CONFIG.getHierarchicalURL(`/${topic}-tutor/chat`), {
                 method: 'POST',
                 body: JSON.stringify({
                     student_answer: userAnswer,
-                    conversation_history: genericTutorState.history,
+                    conversation_history: genericTutorState.history,  // Only previous messages, not current
                     current_step: genericTutorState.currentStep,
                     emotional_intelligence: {
                         response_time: responseTime,
@@ -2947,16 +2946,54 @@ document.addEventListener('DOMContentLoaded', () => {
             // Send tutor response with section ID for image support
             await sendTutorMessage(data.tutor_response, 'tutor', data.current_section_id);
             
+            // Update current section ID for attempt counting
+            if (data.current_section_id) {
+                genericTutorState.currentSectionId = data.current_section_id;
+            }
+            
+            // NOW add the student message to conversation history (after API call)
+            // Check for duplicates first
+            const lastMessage = genericTutorState.history[genericTutorState.history.length - 1];
+            if (!lastMessage || lastMessage.sender !== 'student' || lastMessage.message !== userAnswer) {
+                genericTutorState.history.push({ 
+                    sender: 'student', 
+                    message: userAnswer, 
+                    step: genericTutorState.currentStep,
+                    section_id: genericTutorState.currentSectionId  // Use updated section_id
+                });
+            }
+            
             // Add tutor response to conversation history
             genericTutorState.history.push({ 
                 sender: 'tutor', 
                 message: data.tutor_response, 
-                step: genericTutorState.currentStep 
+                step: genericTutorState.currentStep,
+                section_id: data.current_section_id
             });
             
             // Handle step progression and completion
             if (data.section_completed) {
                 console.log(`✅ Section completed for ${topic}!`);
+            }
+            
+            // Handle step completion (similar to topic-specific implementations)
+            if (data.step_completed) {
+                console.log(`🎉 Step ${data.step_completed} completed for ${topic}! Updating pathway...`);
+                
+                // Immediately update the pathway with the new progress
+                const updatedProgress = {
+                    completedSteps: data.completed_steps_count || 0,
+                    currentStep: data.new_step || genericTutorState.currentStep,
+                    isCompleted: data.ready_for_problems || false,
+                    progressStatus: data.ready_for_problems ? 'mastered' : 'in_progress'
+                };
+                
+                updateLearningPathway(updatedProgress);
+                
+                // Add celebration animation after a brief delay
+                setTimeout(() => {
+                    onGenericStepCompleted(topic, data.step_completed);
+                }, 500);
             }
             
             if (data.ready_for_problems) {
@@ -3001,9 +3038,76 @@ document.addEventListener('DOMContentLoaded', () => {
             genericTutorState.history.push({ 
                 sender: 'tutor', 
                 message: "I'm having trouble processing that. Could you try again?", 
-                step: genericTutorState.currentStep 
+                step: genericTutorState.currentStep,
+                section_id: genericTutorState.currentSectionId
             });
         }
+    }
+
+    // --- BACKWARD COMPATIBILITY WRAPPER FUNCTIONS ---
+    // These functions maintain existing API while redirecting to generic system
+    
+    /**
+     * Backward compatibility wrapper for startAlgebraTutor()
+     * Redirects to generic learning tutor system
+     */
+    function startAlgebraTutorGeneric() {
+        console.log('🔄 Using generic system for Algebra tutor');
+        return startLearningTutor('algebra');
+    }
+    
+    /**
+     * Backward compatibility wrapper for startFractionsTutor()
+     * Redirects to generic learning tutor system
+     */
+    function startFractionsTutorGeneric() {
+        console.log('🔄 Using generic system for Fractions tutor');
+        return startLearningTutor('fractions');
+    }
+    
+    /**
+     * Backward compatibility wrapper for startAlgebraTutorFromStep()
+     * Redirects to generic learning tutor system
+     */
+    function startAlgebraTutorFromStepGeneric(stepNumber = 1) {
+        console.log(`🔄 Using generic system for Algebra tutor from step ${stepNumber}`);
+        return startLearningTutor('algebra', stepNumber);
+    }
+    
+    /**
+     * Backward compatibility wrapper for startFractionsTutorFromStep()
+     * Redirects to generic learning tutor system
+     */
+    function startFractionsTutorFromStepGeneric(stepNumber = 1) {
+        console.log(`🔄 Using generic system for Fractions tutor from step ${stepNumber}`);
+        return startLearningTutor('fractions', stepNumber);
+    }
+    
+    /**
+     * Backward compatibility wrapper for setupAlgebraTutorListeners()
+     * Redirects to generic learning tutor system
+     */
+    function setupAlgebraTutorListenersGeneric() {
+        console.log('🔄 Using generic system for Algebra tutor listeners');
+        return setupLearningTutorListeners('algebra');
+    }
+    
+    /**
+     * Backward compatibility wrapper for setupFractionsTutorListeners()
+     * Redirects to generic learning tutor system
+     */
+    function setupFractionsTutorListenersGeneric() {
+        console.log('🔄 Using generic system for Fractions tutor listeners');
+        return setupLearningTutorListeners('fractions');
+    }
+    
+    /**
+     * Backward compatibility wrapper for onAlgebraStepCompleted()
+     * Redirects to generic completion callback
+     */
+    function onAlgebraStepCompletedGeneric(stepNumber) {
+        console.log('🔄 Using generic system for Algebra step completion');
+        return onGenericStepCompleted('algebra', stepNumber);
     }
 
     // --- IMAGE SUPPORT UTILITIES ---

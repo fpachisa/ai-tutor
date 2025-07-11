@@ -182,17 +182,19 @@ Generate a resume message:"""
     
     def generate_tutor_response(self, student_answer: str, conversation_history: List[Dict], 
                               current_step: int = 1, emotional_intelligence: Dict = None,
-                              user_progress: Dict = None, current_section_id: str = None) -> Tuple[str, str, bool, int]:
+                              user_progress: Dict = None, current_section_id: str = None,
+                              attempt_counting_context: List[Dict] = None) -> Tuple[str, str, bool, int]:
         """
         Generate tutor response and determine progression
         
         Args:
             student_answer: The student's response
-            conversation_history: Previous conversation messages
+            conversation_history: Previous conversation messages (used for AI context)
             current_step: Current learning step (kept for backward compatibility)
             emotional_intelligence: Dict containing emotional state data
             user_progress: Dict containing section-level progress
             current_section_id: ID of the current section being worked on
+            attempt_counting_context: Messages used only for counting attempts (current section only)
             
         Returns:
             Tuple of (tutor_message, next_section_id, section_completed, new_attempt_count)
@@ -216,14 +218,16 @@ Generate a resume message:"""
         if not section_content:
             raise Exception(f"Section not found: {current_section_id}")
         
-        # Get current attempt count from conversation history within this section ONLY
+        # Get current attempt count from attempt counting context (current section only)
+        # Use separate context for attempt counting to avoid multi-section duplication
+        counting_context = attempt_counting_context if attempt_counting_context is not None else conversation_history
         attempt_count = 1
-        if conversation_history:
-            # Count student messages ONLY for the current section
-            previous_attempts_in_section = 0
-            
-            # Go through conversation history in reverse and count ONLY current section attempts
-            for msg in reversed(conversation_history):
+        previous_attempts_in_section = 0
+        
+        if counting_context:
+            # Count student messages ONLY for the current section from counting context
+            # This should only count messages from PREVIOUS attempts, not the current one
+            for msg in counting_context:
                 msg_section_id = msg.get('section_id')
                 msg_sender = msg.get('sender')
                 
@@ -234,16 +238,22 @@ Generate a resume message:"""
             # Current attempt number = previous attempts in this section + 1
             attempt_count = previous_attempts_in_section + 1
             
-            print(f"🔍 ATTEMPT COUNTING: Section {current_section_id}, Previous attempts: {previous_attempts_in_section}, Current attempt: {attempt_count}")
+            print(f"🔍 ATTEMPT COUNTING: Section {current_section_id}")
+            print(f"   Using {'separate counting context' if attempt_counting_context else 'conversation history'}")
+            print(f"   Counting context messages: {len(counting_context)}")
             
-            # Debug: Show which messages were counted
-            current_section_student_messages = [
-                f"'{msg.get('message', '')[:30]}...'" 
-                for msg in conversation_history 
-                if msg.get('sender') == 'student' and msg.get('section_id') == current_section_id
-            ]
-            if current_section_student_messages:
-                print(f"🔍 COUNTED MESSAGES: {current_section_student_messages}")
+            # Debug: Show ALL messages in counting context with detailed analysis
+            for i, msg in enumerate(counting_context):
+                sender = msg.get('sender', 'unknown')
+                message_preview = msg.get('message', '')[:20] + '...' if msg.get('message') else 'no message'
+                msg_section_id = msg.get('section_id', 'no_section_id')
+                is_student = (sender == 'student')
+                is_current_section = (msg_section_id == current_section_id)
+                will_count = (is_student and is_current_section)
+                print(f"     Msg[{i+1}] {sender}: '{message_preview}' section:{msg_section_id} → {'✅COUNT' if will_count else '❌skip'}")
+            
+            print(f"   Previous attempts in section: {previous_attempts_in_section}")
+            print(f"   Current attempt: {attempt_count}")
         
         # Extract section data
         section_type = section_content.get('type', '')

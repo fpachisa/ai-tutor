@@ -25,8 +25,19 @@ class ProgressService:
         # Save progress using ProblemProgress model
         ProblemProgress.create_or_update_progress(user_id, problem_id, status)
         
-        # Save chat history using ChatHistory model
-        ChatHistory.create_or_update_history(user_id, problem_id, chat_history)
+        # Save chat history - APPEND new messages instead of replacing
+        if chat_history:  # Only save if there are new messages
+            existing_chat = ChatHistory.get_chat_history(user_id, problem_id)
+            if existing_chat and existing_chat.history:
+                # Append new messages to existing history
+                combined_history = existing_chat.history + chat_history
+                print(f"💾 APPEND: Adding {len(chat_history)} messages to existing {len(existing_chat.history)} → Total: {len(combined_history)}")
+            else:
+                # No existing history, use new messages
+                combined_history = chat_history
+                print(f"💾 CREATE: Creating new history with {len(chat_history)} messages")
+            
+            ChatHistory.create_or_update_history(user_id, problem_id, combined_history)
     
     def get_all_user_progress(self, user_id: int) -> Dict[str, str]:
         """Get all progress for a user as a map of problem_id -> status."""

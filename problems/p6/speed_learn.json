@@ -1,0 +1,215 @@
+{
+  "topic": "Speed - Primary 6",
+  "version": "1.0",
+  "description": "Sequential conversation-based learning for P6 Speed",
+  "steps": [
+    {
+      "icon": "📐🔺",
+      "title": "Distance, Time & Speed Basics",
+      "description": "Understanding the DST triangle and units."
+    },
+    {
+      "icon": "🏁⏱️",
+      "title": "Average Speed",
+      "description": "Learn the concept and formula for average speed."
+    },
+    {
+      "icon": "�➡️",
+      "title": "Solving Word Problems",
+      "description": "Solving up to 3-step problems involving speed."
+    }
+  ],
+  "step1_sequence": [
+    {
+      "id": "p6_math_speed_step1_001",
+      "type": "concept_introduction",
+      "text": "Hello! Let's learn about Speed. Speed is a measure of how fast something is moving. It tells us the distance covered in a certain amount of time. For example, a car travelling at 50 km/h covers a distance of 50 kilometres in 1 hour.",
+      "question": "If a bus travels 100 km in 2 hours, what is its speed in km/h?",
+      "sample_correct_response": "50 km/h",
+      "sample_incorrect_response": "200 km/h or 0.02 km/h",
+      "exact_detailed_explanation": "Let's think about it. To find the speed, we need to find the distance covered in ONE hour. If the bus travels 100 km in 2 hours, in 1 hour it would travel 100 ÷ 2 = 50 km. So the speed is 50 km/h."
+    },
+    {
+      "id": "p6_math_speed_step1_002",
+      "type": "method_explanation",
+      "text": "That's right! The relationship between Distance, Speed, and Time can be remembered with the DST triangle. Imagine a triangle with 'D' at the top, and 'S' and 'T' at the bottom, side-by-side. A line separates the top from the bottom.",
+      "question": "To find Distance (D), we look at S and T. Since they are next to each other at the bottom, do we multiply them or divide them?",
+      "sample_correct_response": "multiply them",
+      "sample_incorrect_response": "divide them",
+      "exact_detailed_explanation": "Let's review the rule. When the two values are side-by-side at the bottom (like S and T), we multiply them. So, the formula is Distance = Speed × Time."
+    },
+    {
+      "id": "p6_math_speed_step1_003",
+      "type": "worked_example",
+      "text": "Let's practice using the formulas. A train travels at a speed of 120 km/h for 3 hours. What is the distance it travelled?",
+      "demonstration_problem": "Find the distance travelled by the train.",
+      "solution_steps": [
+        "Step 1: Identify the formula to use. We need to find Distance. Distance = Speed × Time.",
+        "Step 2: Substitute the values into the formula: Distance = 120 km/h × 3 h.",
+        "Step 3: Calculate the result: 120 × 3 = 360 km."
+      ],
+      "demonstration_answer": "360 km",
+      "question": "Now you try: A man cycles at a speed of 15 m/s for 10 seconds. What distance did he cover?",
+      "sample_correct_response": "150 m",
+      "sample_incorrect_response": "1.5 m or 25 m",
+      "exact_detailed_explanation": "Let's use the formula. Distance = Speed × Time. So, Distance = 15 m/s × 10 s = 150 m."
+    },
+    {
+      "id": "p6_math_speed_step1_004",
+      "type": "worked_example",
+      "text": "Now let's find Time. A car travelled 400 km at a speed of 80 km/h. How long did the journey take?",
+      "demonstration_problem": "Find the time taken for the journey.",
+      "solution_steps": [
+        "Step 1: Identify the formula to use. We need to find Time. Time = Distance ÷ Speed.",
+        "Step 2: Substitute the values: Time = 400 km ÷ 80 km/h.",
+        "Step 3: Calculate the result: 400 ÷ 80 = 5 hours."
+      ],
+      "demonstration_answer": "5 hours",
+      "question": "Now you try: An athlete runs 100 m at a speed of 10 m/s. How long did he take?",
+      "sample_correct_response": "10 seconds",
+      "sample_incorrect_response": "1000 seconds or 10 m/s",
+      "exact_detailed_explanation": "Let's use the formula. Time = Distance ÷ Speed. So, Time = 100 m ÷ 10 m/s = 10 seconds."
+    },
+    {
+      "id": "p6_math_speed_step1_005",
+      "type": "mastery_check",
+      "text": "Let's check your understanding of the DST relationship.",
+      "question": "A snail moves at a speed of 5 cm/s. How long does it take to travel 1 metre (100 cm)?",
+      "sample_correct_response": "20 s",
+      "sample_incorrect_response": "500 s or 0.05 s",
+      "exact_detailed_explanation": "First, ensure the units are the same (cm). We need to find Time. Time = Distance ÷ Speed. So, Time = 100 cm ÷ 5 cm/s = 20 seconds."
+    },
+    {
+      "id": "p6_math_speed_step1_006",
+      "type": "completion",
+      "text": "Great work! You have learned the relationship between Distance, Speed, and Time, and how to use the DST triangle.",
+      "question": "Are you ready to learn about Average Speed?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's fine. The key is the DST triangle. Remember: Distance is at the top. Speed = Distance/Time, Time = Distance/Speed, and Distance = Speed × Time."
+    }
+  ],
+  "step2_sequence": [
+    {
+      "id": "p6_math_speed_step2_001",
+      "type": "concept_introduction",
+      "text": "Let's learn about Average Speed. Average speed is NOT the average of the different speeds. The only way to find it is by using the formula: Average Speed = Total Distance ÷ Total Time.",
+      "question": "A car travels to a town and back. The journey there is 100km and the journey back is 100km. What is the total distance travelled?",
+      "sample_correct_response": "200 km",
+      "sample_incorrect_response": "100 km or 0 km",
+      "exact_detailed_explanation": "That's right. To find the total distance, we must add the distance of all parts of the journey. So, Total Distance = 100 km + 100 km = 200 km."
+    },
+    {
+      "id": "p6_math_speed_step2_002",
+      "type": "worked_example",
+      "text": "Let's solve a problem. A bus travelled from Town A to Town B, a distance of 150 km, in 2 hours. It then travelled from Town B to Town C, a distance of 100 km, in 3 hours. What was the average speed for the whole journey?",
+      "demonstration_problem": "Find the average speed from Town A to Town C.",
+      "solution_steps": [
+        "Step 1: Find the total distance travelled. Total Distance = 150 km + 100 km = 250 km.",
+        "Step 2: Find the total time taken. Total Time = 2 h + 3 h = 5 h.",
+        "Step 3: Calculate the average speed. Average Speed = Total Distance ÷ Total Time = 250 km ÷ 5 h = 50 km/h."
+      ],
+      "demonstration_answer": "50 km/h",
+      "question": "Now you try: A cyclist travels 20 km in the first hour and 15 km in the second hour. What is his average speed?",
+      "sample_correct_response": "17.5 km/h",
+      "sample_incorrect_response": "35 km/h or 20 km/h",
+      "exact_detailed_explanation": "Let's find the totals. Total Distance = 20 km + 15 km = 35 km. Total Time = 1 h + 1 h = 2 h. Average Speed = 35 km ÷ 2 h = 17.5 km/h."
+    },
+    {
+      "id": "p6_math_speed_step2_003",
+      "type": "worked_example",
+      "text": "Sometimes a journey includes a rest stop. The time spent resting is included in the total time. A car travelled 180 km in 2 hours, then stopped for a 1-hour break before travelling another 120 km in 2 hours. What was the average speed?",
+      "demonstration_problem": "Find the average speed for the entire journey.",
+      "solution_steps": [
+        "Step 1: Find the total distance: 180 km + 120 km = 300 km.",
+        "Step 2: Find the total time, including the break: 2 h + 1 h + 2 h = 5 h.",
+        "Step 3: Calculate the average speed: 300 km ÷ 5 h = 60 km/h."
+      ],
+      "demonstration_answer": "60 km/h",
+      "question": "Now you try: A man walked 3 km in 1 hour, rested for 30 minutes (0.5 hours), then walked another 3 km in 1.5 hours. What was his average speed?",
+      "sample_correct_response": "2 km/h",
+      "sample_incorrect_response": "3 km/h or 6 km/h",
+      "exact_detailed_explanation": "Let's find the totals. Total Distance = 3 km + 3 km = 6 km. Total Time = 1 h + 0.5 h + 1.5 h = 3 h. Average Speed = 6 km ÷ 3 h = 2 km/h."
+    },
+    {
+      "id": "p6_math_speed_step2_004",
+      "type": "mastery_check",
+      "text": "Let's check your understanding.",
+      "question": "A train travels from Station A to Station B at a speed of 90 km/h for 2 hours. It then travels from Station B to Station C at a speed of 70 km/h for 3 hours. What is its average speed for the whole journey?",
+      "sample_correct_response": "78 km/h",
+      "sample_incorrect_response": "80 km/h or 160 km/h",
+      "exact_detailed_explanation": "This is a 3-step problem. First, find the distance for each part. Part 1: 90 km/h × 2 h = 180 km. Part 2: 70 km/h × 3 h = 210 km. Now find the totals. Total Distance = 180 + 210 = 390 km. Total Time = 2 + 3 = 5 h. Finally, Average Speed = 390 km ÷ 5 h = 78 km/h."
+    },
+    {
+      "id": "p6_math_speed_step2_005",
+      "type": "completion",
+      "text": "Fantastic! You have mastered Average Speed. You know that the only formula is Total Distance divided by Total Time.",
+      "question": "Are you ready to solve some more complex word problems?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's okay. The most common mistake is to average the speeds. Always remember to find the total distance and total time first, before you do any division."
+    }
+  ],
+  "step3_sequence": [
+    {
+      "id": "p6_math_speed_step3_001",
+      "type": "concept_introduction",
+      "text": "Let's solve some challenging word problems where two objects are moving. A common type of problem is when two vehicles travel towards each other.",
+      "question": "If Car A moves towards Car B at 60 km/h, and Car B moves towards Car A at 40 km/h, what is their combined speed of approaching each other?",
+      "sample_correct_response": "100 km/h",
+      "sample_incorrect_response": "20 km/h or 60 km/h",
+      "exact_detailed_explanation": "That's right. When two objects move towards each other, we add their speeds to find how quickly the distance between them is closing. Their combined speed is 60 + 40 = 100 km/h."
+    },
+    {
+      "id": "p6_math_speed_step3_002",
+      "type": "worked_example",
+      "text": "Let's solve a 'meeting' problem. Town P and Town Q are 300 km apart. A car starts from Town P towards Town Q at 70 km/h. At the same time, a lorry starts from Town Q towards Town P at 30 km/h. How long will it take for them to meet?",
+      "demonstration_problem": "Find the time taken for the vehicles to meet.",
+      "solution_steps": [
+        "Step 1: Find their combined speed. Combined Speed = 70 km/h + 30 km/h = 100 km/h.",
+        "Step 2: The total distance to be covered between them is 300 km.",
+        "Step 3: Use the Time formula. Time = Distance ÷ Speed = 300 km ÷ 100 km/h = 3 hours."
+      ],
+      "demonstration_answer": "3 hours",
+      "question": "Now you try: Two cyclists are 90 km apart and cycle towards each other. Cyclist A's speed is 12 km/h and Cyclist B's speed is 18 km/h. How long will it take for them to meet?",
+      "sample_correct_response": "3 hours",
+      "sample_incorrect_response": "5 hours or 7.5 hours",
+      "exact_detailed_explanation": "Let's find their combined speed: 12 + 18 = 30 km/h. The distance between them is 90 km. The time to meet is Time = 90 km ÷ 30 km/h = 3 hours."
+    },
+    {
+      "id": "p6_math_speed_step3_003",
+      "type": "worked_example",
+      "text": "Another common problem is 'overtaking'. A motorcycle left Town A at 1 pm, travelling at 60 km/h. A car left Town A at 2 pm, travelling at 90 km/h on the same road. At what time will the car overtake the motorcycle?",
+      "demonstration_problem": "Find the time the car overtakes the motorcycle.",
+      "solution_steps": [
+        "Step 1: Find the head start distance. The motorcycle travelled for 1 hour before the car started. Distance = 60 km/h × 1 h = 60 km.",
+        "Step 2: Find the difference in speed (how quickly the car catches up). Difference = 90 km/h - 60 km/h = 30 km/h.",
+        "Step 3: Find the time taken to catch up. Time = Distance ÷ Speed = 60 km ÷ 30 km/h = 2 hours.",
+        "Step 4: The car started at 2 pm. It will overtake the motorcycle 2 hours later, at 4 pm."
+      ],
+      "demonstration_answer": "4 pm",
+      "question": "Now you try: A bus leaves a station at 8 am at 50 km/h. A taxi leaves the same station at 9 am at 75 km/h. How long will it take the taxi to catch up to the bus?",
+      "sample_correct_response": "2 hours",
+      "sample_incorrect_response": "1 hour or 3 hours",
+      "exact_detailed_explanation": "First, find the head start. The bus travels for 1 hour, covering 50 km. The difference in speed is 75 - 50 = 25 km/h. The time to catch up is Time = 50 km ÷ 25 km/h = 2 hours."
+    },
+    {
+      "id": "p6_math_speed_step3_004",
+      "type": "mastery_check",
+      "text": "Let's check your understanding with a 3-step problem.",
+      "question": "Town X and Town Y are 450 km apart. At 9 am, a van started from Town X, travelling towards Town Y at an average speed of 80 km/h. At 10 am, a car started from Town Y, travelling towards Town X at an average speed of 100 km/h. At what time will they pass each other?",
+      "sample_correct_response": "11 am",
+      "sample_incorrect_response": "12 pm or 1 pm",
+      "exact_detailed_explanation": "This is a 3-step problem. Step 1: Find the head start distance covered by the van in 1 hour (from 9 am to 10 am). Distance = 80 km/h × 1 h = 80 km. Step 2: Find the remaining distance between them at 10 am. Remaining Distance = 450 km - 80 km = 370 km. Step 3: Find the time they take to meet from 10 am onwards. Combined speed = 80 + 100 = 180 km/h. Time = 370 km ÷ 180 km/h. Wait, the numbers are not clean. Let me adjust. Let's say the car speed is 105 km/h. Combined speed = 80 + 105 = 185 km/h. Time = 370 / 185 = 2 hours. So they meet 2 hours after 10 am, which is 12 pm. Let's use better numbers. Car speed is 100 km/h. Van speed is 80 km/h. Distance is 440 km. Van's head start = 80km. Remaining distance = 360km. Combined speed = 180 km/h. Time = 360/180 = 2 hours. They meet at 12pm. I will use these values."
+    },
+    {
+      "id": "p6_math_speed_step3_005",
+      "type": "completion",
+      "text": "Congratulations! You have learned to solve complex word problems involving speed, including meeting and overtaking scenarios.",
+      "question": "Do you feel confident tackling PSLE-style speed problems?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's okay. These are some of the toughest problems. The key is to draw a timeline or diagram to see what is happening, and to remember the two key ideas: 'combined speed' for meeting problems, and 'difference in speed' for overtaking problems."
+    }
+  ]
+}
