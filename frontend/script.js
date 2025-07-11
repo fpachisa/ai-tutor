@@ -3321,6 +3321,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- DARK MODE TOGGLE ---
+    function initDarkMode() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or default to light mode
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        
+        // Update icon based on current theme
+        updateThemeIcon(savedTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.setAttribute('data-feather', theme === 'dark' ? 'sun' : 'moon');
+            feather.replace();
+        }
+    }
+    
+    // Initialize dark mode
+    initDarkMode();
+
     // --- URL ROUTING EVENT LISTENERS ---
     // Handle browser back/forward buttons
     window.addEventListener('popstate', handleURLChange);

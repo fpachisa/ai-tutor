@@ -1,6 +1,6 @@
-/* --- The Polished & Responsive Theme --- */
-/* Import a more modern looking font */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+/* --- Modern Educational UI Theme --- */
+/* Import enhanced typography system */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* Next Problem Button */
 .next-problem-btn {
@@ -37,35 +37,149 @@
 
 
 :root {
-    /* Brand palette inspired by the HomeCampus portal */
-    --primary-color: #4caf50;
-    --primary-hover: #388e3c;
-    --accent-color: #2e7d32;
-    --success-color: #28a745;
-    --background-color: #e8f5e9;
-    --container-bg: #ffffff;
-    --text-primary: #1f2d3d;
-    --text-secondary: #5f6b7a;
-    --border-color: #d6e9c6;
-
-    /* Card accent colours */
-    --card-color-yellow: #fff9c4;
-    --card-color-orange: #ffe0b2;
-    --card-color-red: #ffccbc;
-    --card-color-blue: #bbdefb;
-    --card-color-purple: #e1bee7;
+    /* === MODERN EDUCATIONAL COLOR SYSTEM === */
+    
+    /* Primary Learning Colors */
+    --primary-color: #2563EB;        /* Deep learning blue - trust & focus */
+    --primary-hover: #1D4ED8;        /* Darker blue for hover states */
+    --primary-light: #DBEAFE;        /* Light blue for backgrounds */
+    --primary-dark: #1E40AF;         /* Dark blue for text on light backgrounds */
+    
+    /* Secondary & Accent Colors */
+    --secondary-color: #F97316;      /* Energetic orange - motivation & creativity */
+    --secondary-hover: #EA580C;      /* Darker orange for hover */
+    --secondary-light: #FED7AA;      /* Light orange for backgrounds */
+    
+    --accent-color: #8B5CF6;         /* Purple - innovation & inspiration */
+    --accent-hover: #7C3AED;         /* Darker purple for hover */
+    --accent-light: #EDE9FE;         /* Light purple for backgrounds */
+    
+    /* Success & Achievement Colors */
+    --success-color: #10B981;        /* Vibrant green - achievement & growth */
+    --success-hover: #059669;        /* Darker green for hover */
+    --success-light: #D1FAE5;        /* Light green for backgrounds */
+    
+    /* Warning & Attention Colors */
+    --warning-color: #F59E0B;        /* Amber - attention & caution */
+    --warning-hover: #D97706;        /* Darker amber for hover */
+    --warning-light: #FEF3C7;        /* Light amber for backgrounds */
+    
+    /* Error & Correction Colors */
+    --error-color: #EF4444;          /* Red - errors & corrections */
+    --error-hover: #DC2626;          /* Darker red for hover */
+    --error-light: #FEE2E2;          /* Light red for backgrounds */
+    
+    /* Neutral & Background Colors */
+    --background-color: #F8FAFC;     /* Light gray - main background */
+    --background-dark: #0F172A;      /* Dark mode background */
+    --container-bg: #FFFFFF;         /* Pure white - cards & containers */
+    --container-bg-dark: #1E293B;    /* Dark mode container background */
+    --surface-color: #F1F5F9;        /* Light surface - secondary backgrounds */
+    --surface-color-dark: #334155;   /* Dark mode surface */
+    
+    /* Text Colors */
+    --text-primary: #0F172A;         /* Primary text - high contrast */
+    --text-primary-dark: #F8FAFC;    /* Dark mode primary text */
+    --text-secondary: #475569;       /* Secondary text - medium contrast */
+    --text-secondary-dark: #CBD5E1;  /* Dark mode secondary text */
+    --text-muted: #64748B;           /* Muted text - low contrast */
+    --text-muted-dark: #94A3B8;      /* Dark mode muted text */
+    
+    /* Border & Divider Colors */
+    --border-color: #E2E8F0;         /* Light borders */
+    --border-color-dark: #475569;    /* Dark mode borders */
+    --divider-color: #F1F5F9;        /* Subtle dividers */
+    --divider-color-dark: #334155;   /* Dark mode dividers */
+    
+    /* Interactive Topic Colors */
+    --topic-math: #3B82F6;           /* Blue for mathematics */
+    --topic-science: #10B981;        /* Green for science */
+    --topic-language: #F59E0B;       /* Amber for language */
+    --topic-history: #8B5CF6;        /* Purple for history */
+    --topic-art: #EC4899;            /* Pink for arts */
+    
+    /* Gamification Colors */
+    --gold-color: #FBBF24;           /* Gold for achievements */
+    --silver-color: #9CA3AF;         /* Silver for secondary achievements */
+    --bronze-color: #D97706;         /* Bronze for basic achievements */
+    --streak-color: #F97316;         /* Orange for streak indicators */
+    
+    /* Typography Scale */
+    --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-family-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    
+    /* Font Sizes */
+    --text-xs: 0.75rem;      /* 12px */
+    --text-sm: 0.875rem;     /* 14px */
+    --text-base: 1rem;       /* 16px */
+    --text-lg: 1.125rem;     /* 18px */
+    --text-xl: 1.25rem;      /* 20px */
+    --text-2xl: 1.5rem;      /* 24px */
+    --text-3xl: 1.875rem;    /* 30px */
+    --text-4xl: 2.25rem;     /* 36px */
+    --text-5xl: 3rem;        /* 48px */
+    
+    /* Font Weights */
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
+    
+    /* Spacing Scale */
+    --space-1: 0.25rem;      /* 4px */
+    --space-2: 0.5rem;       /* 8px */
+    --space-3: 0.75rem;      /* 12px */
+    --space-4: 1rem;         /* 16px */
+    --space-5: 1.25rem;      /* 20px */
+    --space-6: 1.5rem;       /* 24px */
+    --space-8: 2rem;         /* 32px */
+    --space-10: 2.5rem;      /* 40px */
+    --space-12: 3rem;        /* 48px */
+    --space-16: 4rem;        /* 64px */
+    --space-20: 5rem;        /* 80px */
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;    /* 4px */
+    --radius-md: 0.5rem;     /* 8px */
+    --radius-lg: 0.75rem;    /* 12px */
+    --radius-xl: 1rem;       /* 16px */
+    --radius-2xl: 1.5rem;    /* 24px */
+    --radius-full: 9999px;   /* Full rounded */
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 300ms ease;
+    --transition-slow: 500ms ease;
+    
+    /* Legacy color mappings for backward compatibility */
+    --card-color-yellow: #FEF3C7;
+    --card-color-orange: #FED7AA;
+    --card-color-red: #FEE2E2;
+    --card-color-blue: #DBEAFE;
+    --card-color-purple: #EDE9FE;
 }
 
 #main-header {
     width: 100%;
-    padding: 1rem 2rem;
+    padding: var(--space-4) var(--space-8);
     box-sizing: border-box;
-    background-color: var(--primary-color); /* Use primary brand color */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* A slightly stronger shadow */
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    box-shadow: var(--shadow-lg);
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .header-content {
@@ -85,10 +199,12 @@
 }
 
 .brand-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #FFFFFF; /* Make title white */
+    font-size: var(--text-2xl);
+    font-weight: var(--font-extrabold);
+    color: #FFFFFF;
     margin: 0;
+    letter-spacing: -0.025em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .brand-logo svg {
@@ -97,27 +213,220 @@
 }
 
 #main-nav button {
-    background: transparent;
-    border: 2px solid #FFFFFF; /* White border */
-    color: #FFFFFF; /* White text */
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    font-weight: var(--font-semibold);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-lg);
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: var(--transition-normal);
+    backdrop-filter: blur(10px);
+    font-size: var(--text-sm);
 }
 
 #main-nav button:hover {
-    background-color: #FFFFFF;
-    color: var(--primary-color); /* On hover, flip colors */
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* === GLOBAL TYPOGRAPHY & BASE STYLES === */
+* {
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Nunito', sans-serif; /* Use the new font */
-    background: linear-gradient(135deg, #a8e063, #56ab2f);
-    background-attachment: fixed;
+    font-family: var(--font-family-primary);
+    font-size: var(--text-base);
+    font-weight: var(--font-normal);
+    line-height: 1.6;
     color: var(--text-primary);
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #BFDBFE 100%);
+    background-attachment: fixed;
     margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Scale */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-primary);
+    font-weight: var(--font-bold);
+    line-height: 1.3;
+    margin: 0 0 var(--space-4) 0;
+    color: var(--text-primary);
+}
+
+h1 { font-size: var(--text-4xl); font-weight: var(--font-extrabold); }
+h2 { font-size: var(--text-3xl); font-weight: var(--font-bold); }
+h3 { font-size: var(--text-2xl); font-weight: var(--font-semibold); }
+h4 { font-size: var(--text-xl); font-weight: var(--font-semibold); }
+h5 { font-size: var(--text-lg); font-weight: var(--font-medium); }
+h6 { font-size: var(--text-base); font-weight: var(--font-medium); }
+
+p {
+    margin: 0 0 var(--space-4) 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Code and Math Typography */
+code, .math-text {
+    font-family: var(--font-family-mono);
+    font-size: 0.9em;
+    background: var(--surface-color);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+/* Focus and Accessibility */
+*:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* === ANIMATIONS & TRANSITIONS === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Loading Animation */
+.loading-shimmer {
+    background: linear-gradient(90deg, var(--surface-color) 25%, var(--border-color) 50%, var(--surface-color) 75%);
+    background-size: 400% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* === DARK MODE SUPPORT === */
+[data-theme="dark"] {
+    --background-color: var(--background-dark);
+    --container-bg: var(--container-bg-dark);
+    --surface-color: var(--surface-color-dark);
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --text-muted: var(--text-muted-dark);
+    --border-color: var(--border-color-dark);
+    --divider-color: var(--divider-color-dark);
+}
+
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+    color: var(--text-primary-dark);
+}
+
+[data-theme="dark"] .auth-container {
+    background: var(--container-bg-dark);
+    border-color: var(--border-color-dark);
+}
+
+[data-theme="dark"] code, [data-theme="dark"] .math-text {
+    background: var(--surface-color-dark);
+    border-color: var(--border-color-dark);
+}
+
+/* Dark Mode Toggle Button */
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    padding: var(--space-2);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
 }
 
 /* --- Branding Header --- */
@@ -156,12 +465,25 @@ body {
     justify-content: center;
     max-width: 420px;
     width: 100%;
-    background: linear-gradient(180deg, #ffffff 0%, #f6f7fb 100%);
-    padding: 2.5rem;
-    border-radius: 16px;
+    background: var(--container-bg);
+    padding: var(--space-10);
+    border-radius: var(--radius-2xl);
     border: 1px solid var(--border-color);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-    backdrop-filter: blur(4px);
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-container:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+    border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
 }
 
 #dashboard-view {
@@ -203,19 +525,37 @@ h1 { font-size: 2rem; font-weight: 700; color: var(--text-primary); }
     overflow-y: auto; /* Allows the list to scroll if it gets long */
 }
 
-/* --- PROBLEM ITEM CARDS --- */
+/* --- MODERN PROBLEM ITEM CARDS --- */
 .problem-item {
-    background-color: var(--container-bg);
-    padding: 1.5rem;
-    border-radius: 12px;
+    background: var(--container-bg);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
     border: 1px solid var(--border-color);
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: var(--transition-normal);
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    margin-bottom: 1rem;
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--space-4);
     color: var(--text-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.problem-item:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    opacity: 0;
+    transition: var(--transition-normal);
+}
+
+.problem-item:hover:before {
+    opacity: 1;
 }
 
 /* colourful cards */
@@ -224,7 +564,10 @@ h1 { font-size: 2rem; font-weight: 700; color: var(--text-primary); }
 .problem-item:nth-child(5n+3) { background-color: var(--card-color-red); }
 .problem-item:nth-child(5n+4) { background-color: var(--card-color-blue); }
 .problem-item:nth-child(5n)   { background-color: var(--card-color-purple); }
-.problem-item:hover { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+.problem-item:hover { 
+    transform: translateY(-4px) scale(1.02); 
+    box-shadow: var(--shadow-xl); 
+}
 .problem-item-icon { margin-right: 1.5rem; color: var(--primary-color); }
 .problem-item-details { flex-grow: 1; }
 .problem-item-title { font-size: 1.1rem; font-weight: 600; }
@@ -279,19 +622,39 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
     box-sizing: border-box;
 }
 .auth-button, #submit-button {
-    background-image: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-    color: #fff;
-    font-weight: 600;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    color: #FFFFFF;
+    font-weight: var(--font-semibold);
     border: none;
-    border-radius: 8px;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-base);
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
 }
+
+.auth-button:before, #submit-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition-slow);
+}
+
+.auth-button:hover:before, #submit-button:hover:before {
+    left: 100%;
+}
+
 .auth-button:hover, #submit-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, var(--primary-hover) 0%, var(--accent-hover) 100%);
 }
 #logout-button {
     display: flex;
@@ -562,28 +925,52 @@ h2 { color: var(--text-primary); margin-top: 0; border-bottom: 1px solid var(--b
     cursor: not-allowed;
 }
 
+/* === MODERN BUTTON SYSTEM === */
 .button-primary {
-    /* Main call-to-action button style */
-    background-image: linear-gradient(45deg, var(--primary-color), var(--success-color));
-    color: #fff;
-    padding: 1rem 2.5rem;
-    font-size: 1.2rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: #FFFFFF;
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
     border: none;
-    border-radius: 50px;
+    border-radius: var(--radius-full);
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin-top: 1rem;
+    transition: var(--transition-normal);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    min-height: 44px;
+    gap: var(--space-2);
+    min-height: 48px;
     white-space: nowrap;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.button-primary:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition-slow);
+}
+
+.button-primary:hover:before {
+    left: 100%;
 }
 
 .button-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+    background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary-dark) 100%);
+}
+
+.button-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-md);
 }
 
 .recommended-topic-card {
