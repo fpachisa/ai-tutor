@@ -741,6 +741,389 @@ html {
     }
 }
 
+/* === HOW IT WORKS SECTION === */
+.how-it-works-section {
+    margin-top: var(--space-20);
+    padding: var(--space-16) 0;
+    background: linear-gradient(135deg, var(--surface-color) 0%, var(--container-bg) 100%);
+    border-radius: var(--radius-2xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.how-it-works-section:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-16);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--space-4);
+}
+
+.section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: linear-gradient(135deg, var(--secondary-light), var(--warning-light));
+    color: var(--secondary-color);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-4);
+    border: 1px solid var(--secondary-color);
+}
+
+.section-badge i {
+    width: 16px;
+    height: 16px;
+}
+
+.section-subtitle {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: var(--space-4) 0 0 0;
+}
+
+/* Philosophy Comparison */
+.philosophy-comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-6);
+    align-items: center;
+    margin: var(--space-16) 0;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--space-4);
+}
+
+.approach-card {
+    background: var(--container-bg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    transition: var(--transition-normal);
+    position: relative;
+}
+
+.approach-card.traditional {
+    border-color: var(--error-color);
+    background: linear-gradient(135deg, var(--error-light) 0%, var(--container-bg) 100%);
+}
+
+.approach-card.modern {
+    border-color: var(--success-color);
+    background: linear-gradient(135deg, var(--success-light) 0%, var(--container-bg) 100%);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg);
+}
+
+.approach-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.approach-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.approach-icon.reject {
+    background: var(--error-color);
+}
+
+.approach-icon.accept {
+    background: var(--success-color);
+}
+
+.approach-card h3 {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+}
+
+.approach-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.approach-list li {
+    padding: var(--space-2) 0;
+    position: relative;
+    padding-left: var(--space-6);
+}
+
+.traditional .approach-list li:before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--error-color);
+    font-weight: var(--font-bold);
+}
+
+.modern .approach-list li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success-color);
+    font-weight: var(--font-bold);
+}
+
+.vs-divider {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-extrabold);
+    font-size: var(--text-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Core Principles */
+.principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+    margin: var(--space-16) 0;
+    padding: 0 var(--space-4);
+}
+
+.principle-card {
+    background: var(--container-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    text-align: center;
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.principle-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    opacity: 0;
+    transition: var(--transition-normal);
+}
+
+.principle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.principle-card:hover:before {
+    opacity: 1;
+}
+
+.principle-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    color: white;
+    position: relative;
+}
+
+.principle-icon i {
+    width: 28px;
+    height: 28px;
+}
+
+.principle-card h3 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-3);
+}
+
+.principle-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Interactive Example */
+.example-section {
+    margin-top: var(--space-16);
+    padding: 0 var(--space-4);
+}
+
+.example-title {
+    text-align: center;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-8);
+}
+
+.example-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.example-card {
+    background: var(--container-bg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: var(--transition-normal);
+}
+
+.traditional-example {
+    border-color: var(--error-color);
+}
+
+.modern-example {
+    border-color: var(--success-color);
+    box-shadow: var(--shadow-lg);
+}
+
+.example-header {
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.traditional-example .example-header {
+    background: var(--error-light);
+}
+
+.modern-example .example-header {
+    background: var(--success-light);
+}
+
+.example-header h4 {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+}
+
+.example-tag {
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+}
+
+.example-tag.outdated {
+    background: var(--error-color);
+    color: white;
+}
+
+.example-tag.innovative {
+    background: var(--success-color);
+    color: white;
+}
+
+.conversation {
+    padding: var(--space-6);
+    min-height: 200px;
+}
+
+.message {
+    margin-bottom: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    max-width: 85%;
+}
+
+.message.student {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.message.tutor {
+    background: var(--surface-color);
+    border-bottom-left-radius: 4px;
+}
+
+.traditional-tutor {
+    background: var(--error-light);
+    color: var(--error-hover);
+}
+
+.modern-tutor {
+    background: var(--success-light);
+    color: var(--success-hover);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .philosophy-comparison {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    .vs-divider {
+        justify-self: center;
+        order: 1;
+    }
+    
+    .approach-card.modern {
+        transform: none;
+        order: 2;
+    }
+    
+    .approach-card.traditional {
+        order: 0;
+    }
+    
+    .example-comparison {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    .principles-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .how-it-works-section {
+        padding: var(--space-8) 0;
+    }
+}
+
 /* Dark Mode Support */
 [data-theme="dark"] .hero-badge {
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(139, 92, 246, 0.2));
@@ -752,7 +1135,7 @@ html {
     border-color: var(--border-color-dark);
 }
 
-[data-theme="dark"] .feature-card {
+[data-theme="dark"] .principle-card {
     background: var(--container-bg-dark);
     border-color: var(--border-color-dark);
 }
@@ -766,6 +1149,24 @@ html {
 [data-theme="dark"] .button-secondary:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
+}
+
+[data-theme="dark"] .how-it-works-section {
+    background: linear-gradient(135deg, var(--surface-color-dark) 0%, var(--container-bg-dark) 100%);
+}
+
+[data-theme="dark"] .approach-card {
+    background: var(--container-bg-dark);
+    border-color: var(--border-color-dark);
+}
+
+[data-theme="dark"] .example-card {
+    background: var(--container-bg-dark);
+    border-color: var(--border-color-dark);
+}
+
+[data-theme="dark"] .message.tutor {
+    background: var(--surface-color-dark);
 }
 
 /* --- Branding Header --- */

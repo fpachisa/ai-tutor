@@ -3394,10 +3394,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const learnMoreButton = document.getElementById('learn-more-button');
         if (learnMoreButton) {
             learnMoreButton.addEventListener('click', () => {
-                // Scroll to features section
-                const featuresSection = document.querySelector('.features-section');
-                if (featuresSection) {
-                    featuresSection.scrollIntoView({ behavior: 'smooth' });
+                // Scroll to how it works section
+                const howItWorksSection = document.querySelector('.how-it-works-section');
+                if (howItWorksSection) {
+                    howItWorksSection.scrollIntoView({ behavior: 'smooth' });
                 }
             });
         }
