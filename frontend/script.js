@@ -3325,55 +3325,70 @@ document.addEventListener('DOMContentLoaded', () => {
     function initNavigation() {
         // Dark Mode Toggle
         const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = themeToggle.querySelector('i');
         
         // Check for saved theme preference or default to light mode
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
         
-        // Update icon based on current theme
-        updateThemeIcon(savedTheme);
-        
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        if (themeToggle) {
+            const themeIcon = themeToggle.querySelector('i');
             
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
-        
-        function updateThemeIcon(theme) {
-            themeIcon.setAttribute('data-feather', theme === 'dark' ? 'sun' : 'moon');
-            feather.replace();
+            // Update icon based on current theme
+            updateThemeIcon(savedTheme);
+            
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+            
+            function updateThemeIcon(theme) {
+                if (themeIcon) {
+                    themeIcon.setAttribute('data-feather', theme === 'dark' ? 'sun' : 'moon');
+                    feather.replace();
+                }
+            }
         }
         
         // Sound Toggle
         const soundToggle = document.getElementById('sound-toggle');
-        const soundIcon = soundToggle.querySelector('i');
-        
-        // Check for saved sound preference
-        const savedSound = localStorage.getItem('sound') || 'on';
-        isTtsEnabled = savedSound === 'on';
-        updateSoundIcon(savedSound);
-        
-        soundToggle.addEventListener('click', () => {
-            isTtsEnabled = !isTtsEnabled;
-            const newSound = isTtsEnabled ? 'on' : 'off';
-            localStorage.setItem('sound', newSound);
-            updateSoundIcon(newSound);
-        });
-        
-        function updateSoundIcon(sound) {
-            soundIcon.setAttribute('data-feather', sound === 'on' ? 'volume-2' : 'volume-x');
-            feather.replace();
+        if (soundToggle) {
+            const soundIcon = soundToggle.querySelector('i');
+            
+            // Check for saved sound preference
+            const savedSound = localStorage.getItem('sound') || 'on';
+            isTtsEnabled = savedSound === 'on';
+            updateSoundIcon(savedSound);
+            
+            soundToggle.addEventListener('click', () => {
+                isTtsEnabled = !isTtsEnabled;
+                const newSound = isTtsEnabled ? 'on' : 'off';
+                localStorage.setItem('sound', newSound);
+                updateSoundIcon(newSound);
+            });
+            
+            function updateSoundIcon(sound) {
+                if (soundIcon) {
+                    soundIcon.setAttribute('data-feather', sound === 'on' ? 'volume-2' : 'volume-x');
+                    feather.replace();
+                }
+            }
+        } else {
+            // If sound toggle doesn't exist, still set the TTS state from localStorage
+            const savedSound = localStorage.getItem('sound') || 'on';
+            isTtsEnabled = savedSound === 'on';
         }
         
         // Login Button
         const navLoginButton = document.getElementById('nav-login-button');
-        navLoginButton.addEventListener('click', () => {
-            showView('login');
-        });
+        if (navLoginButton) {
+            navLoginButton.addEventListener('click', () => {
+                showView('login');
+            });
+        }
         
         // Learn More Button
         const learnMoreButton = document.getElementById('learn-more-button');
