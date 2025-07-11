@@ -31,8 +31,15 @@
                 <h1 class="brand-title">TutorAI</h1>
             </a>
             <nav id="main-nav">
-                <button class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">
+                <button class="nav-button" id="sound-toggle" title="Toggle Sound">
+                    <i data-feather="volume-2"></i>
+                </button>
+                <button class="nav-button" id="theme-toggle" title="Toggle Dark Mode">
                     <i data-feather="moon"></i>
+                </button>
+                <button class="nav-button nav-button-primary" id="nav-login-button" title="Login">
+                    <i data-feather="user"></i>
+                    <span>Login</span>
                 </button>
             </nav>
         </div>
@@ -42,11 +49,103 @@
     <main id="view-wrapper">
         
         <div id="welcome-chat-view" class="view-container active">
-            <div class="chat-container welcome-chat">
-                <div id="welcome-chat-log" class="feedback-area">
+            <div class="modern-welcome-container">
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <i data-feather="zap"></i>
+                            <span>AI-Powered Learning</span>
+                        </div>
+                        <h1 class="hero-title">Master PSLE Mathematics with <span class="highlight">TutorAI</span></h1>
+                        <p class="hero-description">
+                            Transform your math journey with personalized AI tutoring, adaptive practice, and engaging interactive lessons designed specifically for PSLE success.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">2,500+</div>
+                                <div class="stat-label">Problems Solved</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">95%</div>
+                                <div class="stat-label">Success Rate</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">AI Support</div>
+                            </div>
+                        </div>
+                        <div class="hero-actions">
+                            <button id="start-quiz-button" class="button-primary large">
+                                <i data-feather="play-circle"></i>
+                                Start Free Assessment
+                            </button>
+                            <button id="learn-more-button" class="button-secondary large">
+                                <i data-feather="info"></i>
+                                How It Works
+                            </button>
+                        </div>
                     </div>
-                <div id="welcome-chat-actions" class="chat-actions">
+                    <div class="hero-visual">
+                        <div class="floating-cards">
+                            <div class="math-card card-1">
+                                <div class="card-icon">📊</div>
+                                <div class="card-text">Statistics</div>
+                            </div>
+                            <div class="math-card card-2">
+                                <div class="card-icon">🔢</div>
+                                <div class="card-text">Algebra</div>
+                            </div>
+                            <div class="math-card card-3">
+                                <div class="card-icon">📐</div>
+                                <div class="card-text">Geometry</div>
+                            </div>
+                            <div class="math-card card-4">
+                                <div class="card-icon">🧮</div>
+                                <div class="card-text">Fractions</div>
+                            </div>
+                            <div class="math-card card-5">
+                                <div class="card-icon">📏</div>
+                                <div class="card-text">Measurement</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                
+                <!-- Features Section -->
+                <div class="features-section">
+                    <h2 class="section-title">Why Choose TutorAI?</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i data-feather="brain"></i>
+                            </div>
+                            <h3>Adaptive Learning</h3>
+                            <p>AI adjusts difficulty based on your progress, ensuring optimal challenge and growth.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i data-feather="target"></i>
+                            </div>
+                            <h3>Personalized Path</h3>
+                            <p>Custom learning journey tailored to your strengths and areas for improvement.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i data-feather="message-circle"></i>
+                            </div>
+                            <h3>24/7 AI Tutor</h3>
+                            <p>Get instant help and explanations whenever you need them, day or night.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i data-feather="award"></i>
+                            </div>
+                            <h3>Gamified Progress</h3>
+                            <p>Earn badges, track achievements, and stay motivated with our reward system.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>        
         

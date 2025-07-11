@@ -3321,8 +3321,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- DARK MODE TOGGLE ---
-    function initDarkMode() {
+    // --- NAVIGATION FUNCTIONALITY ---
+    function initNavigation() {
+        // Dark Mode Toggle
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = themeToggle.querySelector('i');
         
@@ -3346,10 +3347,49 @@ document.addEventListener('DOMContentLoaded', () => {
             themeIcon.setAttribute('data-feather', theme === 'dark' ? 'sun' : 'moon');
             feather.replace();
         }
+        
+        // Sound Toggle
+        const soundToggle = document.getElementById('sound-toggle');
+        const soundIcon = soundToggle.querySelector('i');
+        
+        // Check for saved sound preference
+        const savedSound = localStorage.getItem('sound') || 'on';
+        isTtsEnabled = savedSound === 'on';
+        updateSoundIcon(savedSound);
+        
+        soundToggle.addEventListener('click', () => {
+            isTtsEnabled = !isTtsEnabled;
+            const newSound = isTtsEnabled ? 'on' : 'off';
+            localStorage.setItem('sound', newSound);
+            updateSoundIcon(newSound);
+        });
+        
+        function updateSoundIcon(sound) {
+            soundIcon.setAttribute('data-feather', sound === 'on' ? 'volume-2' : 'volume-x');
+            feather.replace();
+        }
+        
+        // Login Button
+        const navLoginButton = document.getElementById('nav-login-button');
+        navLoginButton.addEventListener('click', () => {
+            showView('login');
+        });
+        
+        // Learn More Button
+        const learnMoreButton = document.getElementById('learn-more-button');
+        if (learnMoreButton) {
+            learnMoreButton.addEventListener('click', () => {
+                // Scroll to features section
+                const featuresSection = document.querySelector('.features-section');
+                if (featuresSection) {
+                    featuresSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
     }
     
-    // Initialize dark mode
-    initDarkMode();
+    // Initialize navigation
+    initNavigation();
 
     // --- URL ROUTING EVENT LISTENERS ---
     // Handle browser back/forward buttons
