@@ -1,1094 +1,142 @@
 [
   {
-    "id": "1.1.1",
+    "id": "1.4.2",
     "topic": "Algebra",
-    "subtopic": "Introduction to Algebra",
-    "question": "Which algebraic expression best represents “5 more than twice a number n”?",
+    "subtopic": "Word Problems",
+    "question": "Liz has 3 times as many stickers as Ken. Together they have 68 stickers. How many stickers does Ken have?",
+    "diagram_svg": null,
     "options": [
-      "2n + 5",
-      "5n + 2",
-      "n + 5/2",
-      "5 − n"
+      "68",
+      "51",
+      "17",
+      "34"
     ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to introduction to algebra",
-    "tags": [
-      "Algebra",
-      "Introduction to Algebra"
-    ]
-  },
-  {
-    "id": "1.1.2",
-    "topic": "Algebra",
-    "subtopic": "Introduction to Algebra",
-    "question": "If m represents Mary’s age, which expression shows Mary’s age 3 years ago?",
-    "options": [
-      "m − 3",
-      "m + 3",
-      "3m",
-      "m / 3"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to introduction to algebra",
-    "tags": [
-      "Algebra",
-      "Introduction to Algebra"
-    ]
-  },
-  {
-    "id": "1.2.1",
-    "topic": "Algebra",
-    "subtopic": "Simplifying Algebraic Expressions",
-    "question": "Simplify: 3x + 4 − 2x + 7",
-    "options": [
-      "x + 11",
-      "5x + 11",
-      "x + 3",
-      "−x + 11"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to simplifying algebraic expressions",
-    "tags": [
-      "Algebra",
-      "Simplifying Algebraic Expressions"
-    ]
+    "answer": 2
   },
   {
     "id": "1.2.2",
     "topic": "Algebra",
     "subtopic": "Simplifying Algebraic Expressions",
     "question": "Simplify: 5a − 2(b − a)",
+    "diagram_svg": null,
     "options": [
       "7a − 2b",
       "3a − 2b",
       "5a − 2b + a",
       "7a + 2b"
     ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to simplifying algebraic expressions",
-    "tags": [
-      "Algebra",
-      "Simplifying Algebraic Expressions"
-    ]
-  },
-  {
-    "id": "1.3.1",
-    "topic": "Algebra",
-    "subtopic": "Evaluating Algebraic Expressions",
-    "question": "Evaluate 3p² − 2q when p = 2 and q = 5.",
-    "options": [
-      "2",
-      "14",
-      "26",
-      "−2"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to evaluating algebraic expressions",
-    "tags": [
-      "Algebra",
-      "Evaluating Algebraic Expressions"
-    ]
-  },
-  {
-    "id": "1.3.2",
-    "topic": "Algebra",
-    "subtopic": "Evaluating Algebraic Expressions",
-    "question": "Given x = 4 and y = 3, find the value of (2x + y) ÷ y.",
-    "options": [
-      "11⁄3",
-      "3",
-      "13",
-      "22"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to evaluating algebraic expressions",
-    "tags": [
-      "Algebra",
-      "Evaluating Algebraic Expressions"
-    ]
-  },
-  {
-    "id": "1.4.1",
-    "topic": "Algebra",
-    "subtopic": "Word Problems",
-    "question": "A baker bakes 60 cupcakes each morning. After selling x cupcakes, he has 18 left. Which equation represents this situation?",
-    "options": [
-      "60 − x = 18",
-      "x − 60 = 18",
-      "60 + x = 18",
-      "x = 60 + 18"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Algebra",
-      "Word Problems"
-    ]
-  },
-  {
-    "id": "1.4.2",
-    "topic": "Algebra",
-    "subtopic": "Word Problems",
-    "question": "Liz has 3 times as many stickers as Ken. Together they have 68 stickers. How many stickers does Ken have?",
-    "options": [
-      "17",
-      "34",
-      "51",
-      "68"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Algebra",
-      "Word Problems"
-    ]
-  },
-  {
-    "id": "2.1.1",
-    "topic": "Fractions",
-    "subtopic": "Dividing Whole Number By Proper Fractions",
-    "question": "Find: 3 ÷ ¼",
-    "options": [
-      "12",
-      "¾",
-      "7.5",
-      "0.75"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to dividing whole number by proper fractions",
-    "tags": [
-      "Fractions",
-      "Dividing Whole Number By Proper Fractions"
-    ]
-  },
-  {
-    "id": "2.1.2",
-    "topic": "Fractions",
-    "subtopic": "Dividing Whole Number By Proper Fractions",
-    "question": "Find: 5 ÷ 2⁄3",
-    "options": [
-      "7.5",
-      "3⅓",
-      "2.4",
-      "15"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to dividing whole number by proper fractions",
-    "tags": [
-      "Fractions",
-      "Dividing Whole Number By Proper Fractions"
-    ]
-  },
-  {
-    "id": "2.2.1",
-    "topic": "Fractions",
-    "subtopic": "Dividing Proper Fractions by Proper Fractions",
-    "question": "Find: 3⁄5 ÷ 1⁄10",
-    "options": [
-      "6",
-      "½",
-      "3⁄50",
-      "3⁄2"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to dividing proper fractions by proper fractions",
-    "tags": [
-      "Fractions",
-      "Dividing Proper Fractions by Proper Fractions"
-    ]
-  },
-  {
-    "id": "2.2.2",
-    "topic": "Fractions",
-    "subtopic": "Dividing Proper Fractions by Proper Fractions",
-    "question": "Find: 7⁄8 ÷ ¼",
-    "options": [
-      "3.5",
-      "1¾",
-      "7⁄32",
-      "14"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to dividing proper fractions by proper fractions",
-    "tags": [
-      "Fractions",
-      "Dividing Proper Fractions by Proper Fractions"
-    ]
+    "answer": 0
   },
   {
     "id": "2.3.1",
     "topic": "Fractions",
     "subtopic": "Word Problems",
     "question": "A rope 3 m long is cut into pieces each ⅗ m long. How many pieces are obtained?",
+    "diagram_svg": null,
     "options": [
-      "5",
-      "6",
       "9",
-      "10"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Fractions",
-      "Word Problems"
-    ]
-  },
-  {
-    "id": "2.3.2",
-    "topic": "Fractions",
-    "subtopic": "Word Problems",
-    "question": "A water tank holds 2½ litres of water. Each glass holds ¼ litre. How many full glasses can be filled?",
-    "options": [
-      "10",
-      "8",
       "6",
-      "12"
+      "10",
+      "5"
     ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Fractions",
-      "Word Problems"
-    ]
-  },
-  {
-    "id": "3.1.1",
-    "topic": "Speed",
-    "subtopic": "Finding Distance, Time, and Speed",
-    "question": "A cyclist travels 45 km in 3 hours. What is his average speed?",
-    "options": [
-      "15 km/h",
-      "18 km/h",
-      "12 km/h",
-      "45 km/h"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to finding distance, time, and speed",
-    "tags": [
-      "Speed",
-      "Finding Distance, Time, and Speed"
-    ]
-  },
-  {
-    "id": "3.1.2",
-    "topic": "Speed",
-    "subtopic": "Finding Distance, Time, and Speed",
-    "question": "A car travels at 60 km/h for 2.5 hours. What distance does it cover?",
-    "options": [
-      "150 km",
-      "120 km",
-      "100 km",
-      "180 km"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to finding distance, time, and speed",
-    "tags": [
-      "Speed",
-      "Finding Distance, Time, and Speed"
-    ]
-  },
-  {
-    "id": "3.2.1",
-    "topic": "Speed",
-    "subtopic": "Average Speed",
-    "question": "A runner covers the first 4 km at 8 km/h and the next 6 km at 12 km/h. What is his average speed for the whole 10 km?",
-    "options": [
-      "10 km/h",
-      "9 km/h",
-      "8 km/h",
-      "12 km/h"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to average speed",
-    "tags": [
-      "Speed",
-      "Average Speed"
-    ]
-  },
-  {
-    "id": "3.2.2",
-    "topic": "Speed",
-    "subtopic": "Average Speed",
-    "question": "A bus travels 150 km at 75 km/h and another 50 km at 50 km/h. What is its average speed for the whole trip?",
-    "options": [
-      "66⅔ km/h",
-      "62.5 km/h",
-      "70 km/h",
-      "50 km/h"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to average speed",
-    "tags": [
-      "Speed",
-      "Average Speed"
-    ]
+    "answer": 3
   },
   {
     "id": "3.3.1",
     "topic": "Speed",
     "subtopic": "Word Problems",
-    "question": "Tom leaves town A at 9 a.m. and walks toward town B at 5 km/h. Two hours later, Jerry cycles from A to B at 15 km/h. At what time does Jerry overtake Tom?",
+    "question": "Tom leaves town A at 9 a.m. and walks toward town B at 5 km/h. Two hours later, Jerry cycles from A to B at 15 km/h. At what time does Jerry overtake Tom?",
+    "diagram_svg": null,
     "options": [
-      "12 p.m.",
-      "11 a.m.",
-      "1 p.m.",
-      "12 : 30 p.m."
+      "1 p.m.",
+      "11 a.m.",
+      "12 p.m.",
+      "12 : 30 p.m."
     ],
-    "answer": 0,
-    "difficulty": "Hard",
-    "cognitive_level": "Analyze",
-    "time_limit_sec": 120,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Speed",
-      "Word Problems"
-    ]
-  },
-  {
-    "id": "3.3.2",
-    "topic": "Speed",
-    "subtopic": "Word Problems",
-    "question": "A car travels from X to Y (240 km) at 80 km/h, rests 30 minutes, then returns to X at 60 km/h. How long does the whole journey take?",
-    "options": [
-      "7 h 30 min",
-      "6 h 30 min",
-      "8 h",
-      "7 h"
-    ],
-    "answer": 0,
-    "difficulty": "Hard",
-    "cognitive_level": "Analyze",
-    "time_limit_sec": 120,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Speed",
-      "Word Problems"
-    ]
-  },
-  {
-    "id": "4.1.1",
-    "topic": "Ratio",
-    "subtopic": "Ratios and Fractions",
-    "question": "Write the ratio 3 : 5 as a fraction of the whole.",
-    "options": [
-      "3⁄8",
-      "3⁄5",
-      "5⁄3",
-      "5⁄8"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to ratios and fractions",
-    "tags": [
-      "Ratio",
-      "Ratios and Fractions"
-    ]
-  },
-  {
-    "id": "4.1.2",
-    "topic": "Ratio",
-    "subtopic": "Ratios and Fractions",
-    "question": "In a class, the ratio of boys to girls is 2 : 3. What fraction of the class are girls?",
-    "options": [
-      "3⁄5",
-      "2⁄3",
-      "2⁄5",
-      "3⁄2"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to ratios and fractions",
-    "tags": [
-      "Ratio",
-      "Ratios and Fractions"
-    ]
-  },
-  {
-    "id": "4.2.1",
-    "topic": "Ratio",
-    "subtopic": "Equivalent Fractions and Ratios",
-    "question": "Which ratio is equivalent to 4 : 6?",
-    "options": [
-      "2 : 3",
-      "6 : 4",
-      "4 : 3",
-      "8 : 12"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to equivalent fractions and ratios",
-    "tags": [
-      "Ratio",
-      "Equivalent Fractions and Ratios"
-    ]
-  },
-  {
-    "id": "4.2.2",
-    "topic": "Ratio",
-    "subtopic": "Equivalent Fractions and Ratios",
-    "question": "Complete: 5 : 8 = ___ : 32",
-    "options": [
-      "20",
-      "10",
-      "32",
-      "40"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to equivalent fractions and ratios",
-    "tags": [
-      "Ratio",
-      "Equivalent Fractions and Ratios"
-    ]
-  },
-  {
-    "id": "4.3.1",
-    "topic": "Ratio",
-    "subtopic": "Word Problems",
-    "question": "The ratio of red to blue marbles is 2 : 5. If there are 35 blue marbles, how many marbles are there altogether?",
-    "options": [
-      "49",
-      "45",
-      "70",
-      "14"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Ratio",
-      "Word Problems"
-    ]
+    "answer": 2
   },
   {
     "id": "4.3.2",
     "topic": "Ratio",
     "subtopic": "Word Problems",
-    "question": "A recipe uses flour and sugar in the ratio 3 : 2. If 450 g of flour is used, how much sugar is needed?",
+    "question": "A recipe uses flour and sugar in the ratio 3 : 2. If 450 g of flour is used, how much sugar is needed?",
+    "diagram_svg": null,
     "options": [
-      "300 g",
-      "200 g",
-      "225 g",
-      "150 g"
+      "150 g",
+      "225 g",
+      "300 g",
+      "200 g"
     ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Ratio",
-      "Word Problems"
-    ]
-  },
-  {
-    "id": "5.1.1",
-    "topic": "Measurement",
-    "subtopic": "Radius and Diameter of a Circle",
-    "question": "A circle has a diameter of 14 cm. What is its radius?",
-    "options": [
-      "7 cm",
-      "14 cm",
-      "28 cm",
-      "3.5 cm"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to radius and diameter of a circle",
-    "tags": [
-      "Measurement",
-      "Radius and Diameter of a Circle"
-    ]
-  },
-  {
-    "id": "5.1.2",
-    "topic": "Measurement",
-    "subtopic": "Radius and Diameter of a Circle",
-    "question": "A circle has a radius of 5 cm. What is its diameter?",
-    "options": [
-      "10 cm",
-      "25 cm",
-      "5 cm",
-      "15 cm"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to radius and diameter of a circle",
-    "tags": [
-      "Measurement",
-      "Radius and Diameter of a Circle"
-    ]
-  },
-  {
-    "id": "5.2.1",
-    "topic": "Measurement",
-    "subtopic": "Circumference of a Circle",
-    "question": "Find the circumference of a circle with radius 7 cm (take π = 22⁄7).",
-    "options": [
-      "44 cm",
-      "14 cm",
-      "154 cm",
-      "22 cm"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to circumference of a circle",
-    "tags": [
-      "Measurement",
-      "Circumference of a Circle"
-    ]
-  },
-  {
-    "id": "5.2.2",
-    "topic": "Measurement",
-    "subtopic": "Circumference of a Circle",
-    "question": "Find the circumference of a circle with diameter 20 cm (take π = 3.14).",
-    "options": [
-      "62.8 cm",
-      "31.4 cm",
-      "40 cm",
-      "100 cm"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to circumference of a circle",
-    "tags": [
-      "Measurement",
-      "Circumference of a Circle"
-    ]
-  },
-  {
-    "id": "5.3.1",
-    "topic": "Measurement",
-    "subtopic": "Area of a Circle",
-    "question": "Find the area of a circle with radius 6 cm (π = 3.14).",
-    "options": [
-      "113.04 cm²",
-      "37.7 cm²",
-      "18.84 cm²",
-      "452.16 cm²"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to area of a circle",
-    "tags": [
-      "Measurement",
-      "Area of a Circle"
-    ]
-  },
-  {
-    "id": "5.3.2",
-    "topic": "Measurement",
-    "subtopic": "Area of a Circle",
-    "question": "Find the area of a circle with diameter 20 cm (π = 3.14).",
-    "options": [
-      "314 cm²",
-      "157 cm²",
-      "200 cm²",
-      "628 cm²"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to area of a circle",
-    "tags": [
-      "Measurement",
-      "Area of a Circle"
-    ]
-  },
-  {
-    "id": "5.4.1",
-    "topic": "Measurement",
-    "subtopic": "Perimeter of Semi-circles and Quadrants",
-    "question": "Find the perimeter of a semicircle with diameter 10 cm (π = 3.14).",
-    "options": [
-      "25.7 cm",
-      "15.7 cm",
-      "31.4 cm",
-      "20 cm"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to perimeter of semi-circles and quadrants",
-    "tags": [
-      "Measurement",
-      "Perimeter of Semi-circles and Quadrants"
-    ]
-  },
-  {
-    "id": "5.4.2",
-    "topic": "Measurement",
-    "subtopic": "Perimeter of Semi-circles and Quadrants",
-    "question": "Find the perimeter of a quadrant of a circle with radius 8 cm (π = 3.14).",
-    "options": [
-      "28.56 cm",
-      "12.56 cm",
-      "20 cm",
-      "25.12 cm"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to perimeter of semi-circles and quadrants",
-    "tags": [
-      "Measurement",
-      "Perimeter of Semi-circles and Quadrants"
-    ]
-  },
-  {
-    "id": "5.5.1",
-    "topic": "Measurement",
-    "subtopic": "Area of Semi-circles and Quadrants",
-    "question": "Find the area of a semicircle with radius 4 cm (π = 3.14).",
-    "options": [
-      "25.12 cm²",
-      "50.24 cm²",
-      "12.56 cm²",
-      "31.4 cm²"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to area of semi-circles and quadrants",
-    "tags": [
-      "Measurement",
-      "Area of Semi-circles and Quadrants"
-    ]
-  },
-  {
-    "id": "5.5.2",
-    "topic": "Measurement",
-    "subtopic": "Area of Semi-circles and Quadrants",
-    "question": "Find the area of a quadrant of a circle with radius 10 cm (π = 3.14).",
-    "options": [
-      "78.5 cm²",
-      "157 cm²",
-      "31.4 cm²",
-      "75 cm²"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to area of semi-circles and quadrants",
-    "tags": [
-      "Measurement",
-      "Area of Semi-circles and Quadrants"
-    ]
+    "answer": 2
   },
   {
     "id": "5.6.1",
     "topic": "Measurement",
     "subtopic": "Area and Perimeter of Composite Figures",
-    "question": "A rectangle 10 cm by 6 cm has a semicircle of diameter 6 cm attached to one of its shorter sides. What is the total area of the figure? (π = 3.14)",
+    "question": "A rectangle 10 cm by 6 cm has a semicircle of diameter 6 cm attached to one of its shorter sides, as shown in the figure. What is the total area of the figure? (π = 3.14)",
+    "diagram_svg": "<svg width='180' height='85' font-family='sans-serif' font-size='12' text-anchor='middle'><g stroke='black' fill='none'><rect x='1' y='1' width='100' height='60' /><path d='M101,61 A30,30 0 0 0 101,1' /></g><text x='51' y='35'>10 cm</text><text x='141' y='35' writing-mode='vertical-rl' >6 cm</text><line x1='101' y1='1' x2='101' y2='61' stroke-dasharray='2,2' stroke='gray'/></svg>",
     "options": [
-      "≈ 74.13 cm²",
-      "≈ 70 cm²",
-      "≈ 87 cm²",
-      "≈ 60 cm²"
+      "≈ 87 cm²",
+      "≈ 60 cm²",
+      "≈ 70 cm²",
+      "≈ 74.13 cm²"
     ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to area and perimeter of composite figures",
-    "tags": [
-      "Measurement",
-      "Area and Perimeter of Composite Figures"
-    ]
-  },
-  {
-    "id": "5.6.2",
-    "topic": "Measurement",
-    "subtopic": "Area and Perimeter of Composite Figures",
-    "question": "An L‑shaped figure is made from two rectangles: 8 cm by 4 cm and 4 cm by 4 cm. What is its perimeter?",
-    "options": [
-      "28 cm",
-      "24 cm",
-      "32 cm",
-      "36 cm"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to area and perimeter of composite figures",
-    "tags": [
-      "Measurement",
-      "Area and Perimeter of Composite Figures"
-    ]
-  },
-  {
-    "id": "5.7.1",
-    "topic": "Measurement",
-    "subtopic": "Volume of Cubes and Cuboids",
-    "question": "Find the volume of a cube with edge 4 cm.",
-    "options": [
-      "64 cm³",
-      "16 cm³",
-      "48 cm³",
-      "32 cm³"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to volume of cubes and cuboids",
-    "tags": [
-      "Measurement",
-      "Volume of Cubes and Cuboids"
-    ]
+    "answer": 3
   },
   {
     "id": "5.7.2",
     "topic": "Measurement",
     "subtopic": "Volume of Cubes and Cuboids",
-    "question": "Find the volume of a cuboid 8 cm by 5 cm by 2 cm.",
+    "question": "Find the volume of a cuboid 8 cm by 5 cm by 2 cm.",
+    "diagram_svg": null,
     "options": [
-      "80 cm³",
-      "40 cm³",
-      "100 cm³",
-      "20 cm³"
+      "40 cm³",
+      "20 cm³",
+      "80 cm³",
+      "100 cm³"
     ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to volume of cubes and cuboids",
-    "tags": [
-      "Measurement",
-      "Volume of Cubes and Cuboids"
-    ]
-  },
-  {
-    "id": "6.1.1",
-    "topic": "Data Analysis",
-    "subtopic": "Pie Charts",
-    "question": "In a pie chart, a sector measures 54°. What percentage of the whole does it represent?",
-    "options": [
-      "15 %",
-      "12 %",
-      "20 %",
-      "10 %"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to pie charts",
-    "tags": [
-      "Data Analysis",
-      "Pie Charts"
-    ]
-  },
-  {
-    "id": "6.1.2",
-    "topic": "Data Analysis",
-    "subtopic": "Pie Charts",
-    "question": "A pie chart shows apples 90°, oranges 120°, bananas 60°. What fraction of the chart is labelled 'Others'?",
-    "options": [
-      "¼",
-      "⅓",
-      "½",
-      "⅙"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to pie charts",
-    "tags": [
-      "Data Analysis",
-      "Pie Charts"
-    ]
-  },
-  {
-    "id": "6.2.1",
-    "topic": "Data Analysis",
-    "subtopic": "Pie Charts – Word Problems",
-    "question": "A class has 40 students. If 25 % like soccer according to a pie chart, how many students like soccer?",
-    "options": [
-      "10",
-      "8",
-      "12",
-      "16"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to pie charts – word problems",
-    "tags": [
-      "Data Analysis",
-      "Pie Charts – Word Problems"
-    ]
+    "answer": 2
   },
   {
     "id": "6.2.2",
     "topic": "Data Analysis",
     "subtopic": "Pie Charts – Word Problems",
-    "question": "In a company’s budget pie chart, Marketing = 72°, R&D = 108°, Production = 144°. If the total budget is \\$2 million, how much is allocated to 'Others'?",
+    "question": "The diagram shows a company’s budget. If the total budget is $2 million, how much is allocated to 'Others'? (Marketing = 72°, R&D = 108°, Production = 144°)",
+    "diagram_svg": "<svg width='200' height='200' viewBox='0 0 100 100' font-family='sans-serif' font-size='7px' text-anchor='middle'><g stroke='white' stroke-width='1.5'><circle cx='50' cy='50' r='50' fill='#4BC0C0' /><path d='M50,50 L50,0 A50,50 0 0,1 97.5,34.5 Z' fill='#FF6384' /><path d='M50,50 L97.5,34.5 A50,50 0 0,1 50,100 Z' fill='#36A2EB' /><path d='M50,50 L50,100 A50,50 0 0,1 20.6,90.5 Z' fill='#FFCE56' /></g><g fill='white'><text x='72' y='28'>Marketing</text><text x='72' y='68'>R&D</text><text x='36' y='90'>Others</text><text x='23' y='48'>Production</text></g></svg>",
     "options": [
-      "$0.2 million",
-      "$0.5 million",
-      "$0.1 million",
-      "$0.3 million"
+      "$0.2 million",
+      "$0.5 million",
+      "$0.3 million",
+      "$0.1 million"
     ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to pie charts – word problems",
-    "tags": [
-      "Data Analysis",
-      "Pie Charts – Word Problems"
-    ]
-  },
-  {
-    "id": "7.1.1",
-    "topic": "Percentage",
-    "subtopic": "Finding Whole Given Part and Percentage",
-    "question": "35 % of a number is 49. What is the number?",
-    "options": [
-      "140",
-      "84",
-      "70",
-      "35"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to finding whole given part and percentage",
-    "tags": [
-      "Percentage",
-      "Finding Whole Given Part and Percentage"
-    ]
-  },
-  {
-    "id": "7.1.2",
-    "topic": "Percentage",
-    "subtopic": "Finding Whole Given Part and Percentage",
-    "question": "24 is 20 % of what number?",
-    "options": [
-      "120",
-      "48",
-      "96",
-      "110"
-    ],
-    "answer": 0,
-    "difficulty": "Easy",
-    "cognitive_level": "Apply",
-    "time_limit_sec": 60,
-    "learning_objective": "Demonstrate ability to finding whole given part and percentage",
-    "tags": [
-      "Percentage",
-      "Finding Whole Given Part and Percentage"
-    ]
+    "answer": 0
   },
   {
     "id": "7.2.1",
     "topic": "Percentage",
     "subtopic": "Percentage Increase and Decrease",
-    "question": "The price of a jacket increases from \\$80 to \\$100. What is the percentage increase?",
+    "question": "The price of a jacket increases from $80 to $100. What is the percentage increase?",
+    "diagram_svg": null,
     "options": [
-      "25 %",
-      "20 %",
-      "12.5 %",
-      "22 %"
+      "22 %",
+      "12.5 %",
+      "25 %",
+      "20 %"
     ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to percentage increase and decrease",
-    "tags": [
-      "Percentage",
-      "Percentage Increase and Decrease"
-    ]
-  },
-  {
-    "id": "7.2.2",
-    "topic": "Percentage",
-    "subtopic": "Percentage Increase and Decrease",
-    "question": "John’s weight decreases from 72 kg to 63 kg. What is the percentage decrease?",
-    "options": [
-      "12.5 %",
-      "9 %",
-      "15 %",
-      "10 %"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to percentage increase and decrease",
-    "tags": [
-      "Percentage",
-      "Percentage Increase and Decrease"
-    ]
-  },
-  {
-    "id": "7.3.1",
-    "topic": "Percentage",
-    "subtopic": "Word Problems",
-    "question": "Ali scored 45 out of 60 marks in a test. What percentage did he score?",
-    "options": [
-      "75 %",
-      "70 %",
-      "60 %",
-      "80 %"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Percentage",
-      "Word Problems"
-    ]
-  },
-  {
-    "id": "7.3.2",
-    "topic": "Percentage",
-    "subtopic": "Word Problems",
-    "question": "A shirt costing \\$40 is discounted by 15 %. What is the sale price?",
-    "options": [
-      "$34",
-      "$36",
-      "$30",
-      "$32"
-    ],
-    "answer": 0,
-    "difficulty": "Medium",
-    "cognitive_level": "Understand",
-    "time_limit_sec": 90,
-    "learning_objective": "Demonstrate ability to word problems",
-    "tags": [
-      "Percentage",
-      "Word Problems"
-    ]
+    "answer": 2
   },
   {
     "id": "8.1.1",
     "topic": "Geometry",
     "subtopic": "Finding Unknown Angles – Advanced Problems",
-    "question": "Triangle ABC is isosceles with AB = AC. If ∠B = 38°, find ∠A.",
+    "question": "In the isosceles triangle ABC shown, AB = AC. If ∠B = 38°, find ∠A.",
+    "diagram_svg": "<svg width='150' height='130' font-family='sans-serif' font-size='14' viewBox='0 0 150 130'><polygon points='75,20 25,110 125,110' fill='rgba(0,0,0,0.05)' stroke='black' stroke-width='1.5' /><text x='75' y='18' font-weight='bold' text-anchor='middle'>A</text><text x='20' y='125' font-weight='bold' text-anchor='middle'>B</text><text x='130' y='125' font-weight='bold' text-anchor='middle'>C</text><text x='35' y='100'>38°</text><line x1='46' y1='67' x2='56' y2='62' stroke='black' stroke-width='2' stroke-linecap='round' /><line x1='94' y1='62' x2='104' y2='67' stroke='black' stroke-width='2' stroke-linecap='round' /></svg>",
     "options": [
-      "104°",
-      "38°",
+      "42°",
       "76°",
-      "42°"
+      "104°",
+      "38°"
     ],
-    "answer": 0,
-    "difficulty": "Hard",
-    "cognitive_level": "Analyze",
-    "time_limit_sec": 120,
-    "learning_objective": "Demonstrate ability to finding unknown angles – advanced problems",
-    "tags": [
-      "Geometry",
-      "Finding Unknown Angles – Advanced Problems"
-    ]
-  },
-  {
-    "id": "8.1.2",
-    "topic": "Geometry",
-    "subtopic": "Finding Unknown Angles – Advanced Problems",
-    "question": "On a straight line, ∠X + ∠Y = 180°. If ∠X = 2y + 10 and ∠Y = y + 50, find y.",
-    "options": [
-      "40",
-      "30",
-      "35",
-      "45"
-    ],
-    "answer": 0,
-    "difficulty": "Hard",
-    "cognitive_level": "Analyze",
-    "time_limit_sec": 120,
-    "learning_objective": "Demonstrate ability to finding unknown angles – advanced problems",
-    "tags": [
-      "Geometry",
-      "Finding Unknown Angles – Advanced Problems"
-    ]
+    "answer": 2
   }
 ]

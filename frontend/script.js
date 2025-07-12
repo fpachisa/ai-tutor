@@ -415,8 +415,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = quizState.questions[quizState.currentQuestionIndex];
         const questionNumber = quizState.currentQuestionIndex + 1;
         
+        // Update question counter
+        const questionCounter = document.getElementById('quiz-question-counter');
+        if (questionCounter) {
+            questionCounter.textContent = `Question ${questionNumber} of ${quizState.questions.length}`;
+        }
+        
         quizQuestionNumber.textContent = `Question ${questionNumber} of ${quizState.questions.length}`;
         quizQuestionText.innerHTML = question.question;
+        
+        // Handle SVG diagrams
+        const diagramContainer = document.getElementById('quiz-question-diagram');
+        if (question.diagram_svg && question.diagram_svg !== null) {
+            diagramContainer.innerHTML = question.diagram_svg;
+            diagramContainer.style.display = 'flex';
+        } else {
+            diagramContainer.innerHTML = '';
+            diagramContainer.style.display = 'none';
+        }
+        
+        // Handle traditional images (fallback)
         quizQuestionImage.style.display = question.image_url ? 'block' : 'none';
         quizQuestionImage.src = question.image_url || '';
         
@@ -434,7 +452,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         quizProgressFill.style.width = `${(questionNumber / quizState.questions.length) * 100}%`;
         quizSubmitButton.disabled = true;
-        typesetMath(views.quiz);
+        
+        // Ensure MathJax processes the new content
+        setTimeout(() => {
+            typesetMath(document.getElementById('quiz-question-area'));
+            typesetMath(document.getElementById('quiz-options-area'));
+        }, 100);
     }
 
 
@@ -470,25 +493,83 @@ document.addEventListener('DOMContentLoaded', () => {
     async function fetchAndDisplayDashboard() {
         const recommendedContainer = document.getElementById('recommended-topics-container');
         const allTopicsContainer = document.getElementById('all-topics-container');
-        recommendedContainer.innerHTML = '<p>Loading recommendations...</p>';
-        allTopicsContainer.innerHTML = '';
+        
+        // Show loading state
+        recommendedContainer.innerHTML = '<div class="loading-message">Loading recommendations...</div>';
+        allTopicsContainer.innerHTML = '<div class="loading-message">Loading topics...</div>';
 
         try {
             const response = await authedFetch(APP_CONFIG.getHierarchicalURL('/dashboard'));
             if (!response.ok) throw new Error('Could not fetch dashboard data');
             const data = await response.json();
+            
+            // Update dashboard stats with real data
+            await updateDashboardStats();
 
-            // A helper function to create a card to avoid repeating code
-            const createTopicCard = (topic) => {
+            // Enhanced function to create topic cards with real data
+            const createEnhancedTopicCard = async (topic, isRecommended = false) => {
                 const card = document.createElement('div');
-                card.className = 'topic-card';
-
-                // Get the specific icon and gradient for this topic
+                card.className = 'enhanced-topic-card';
+                
+                // Get topic metadata
                 const metadata = TOPIC_METADATA[topic] || TOPIC_METADATA['Default'];
-
-                card.style.background = metadata.gradient;
-                card.innerHTML = `<i data-feather="${metadata.icon}"></i><span>${topic}</span>`;
-
+                
+                // Fetch real progress data for this topic
+                let topicStats = {
+                    total_problems: 0,
+                    mastered_count: 0,
+                    in_progress_count: 0
+                };
+                
+                try {
+                    const statsResponse = await authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${topic}/progress/summary`));
+                    if (statsResponse.ok) {
+                        topicStats = await statsResponse.json();
+                    }
+                } catch (error) {
+                    console.warn(`Could not fetch stats for ${topic}:`, error);
+                }
+                
+                // Calculate learning journey status
+                const masteredPercent = topicStats.total_problems > 0 ? 
+                    Math.round((topicStats.mastered_count / topicStats.total_problems) * 100) : 0;
+                
+                let journeyStatus = 'Not Started';
+                let statusClass = 'status-not-started';
+                
+                if (topicStats.mastered_count > 0 && topicStats.mastered_count === topicStats.total_problems) {
+                    journeyStatus = 'Mastered';
+                    statusClass = 'status-mastered';
+                } else if (topicStats.in_progress_count > 0 || topicStats.mastered_count > 0) {
+                    journeyStatus = 'In Progress';
+                    statusClass = 'status-in-progress';
+                }
+                
+                card.innerHTML = `
+                    <div class="topic-card-header">
+                        <div class="topic-card-icon">
+                            <i data-feather="${metadata.icon}"></i>
+                        </div>
+                        <h3 class="topic-card-title">${topic}</h3>
+                    </div>
+                    
+                    <div class="topic-card-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Problems Solved</span>
+                            <span class="stat-value">${topicStats.mastered_count}/${topicStats.total_problems}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Learning Status</span>
+                            <span class="stat-value ${statusClass}">${journeyStatus}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="topic-card-meta">
+                        ${masteredPercent > 0 ? `<span class="mastery-badge">${masteredPercent}% Mastered</span>` : ''}
+                        ${topicStats.in_progress_count > 0 ? `<span class="progress-badge">${topicStats.in_progress_count} Active</span>` : ''}
+                    </div>
+                `;
+                
                 card.addEventListener('click', () => showTopicView(topic));
                 return card;
             };
@@ -496,27 +577,139 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- Populate Recommended Topics ---
             recommendedContainer.innerHTML = '';
             if (data.recommended_topics && data.recommended_topics.length > 0) {
-                data.recommended_topics.forEach(topic => {
-                    recommendedContainer.appendChild(createTopicCard(topic));
-                });
+                for (const topic of data.recommended_topics) {
+                    const card = await createEnhancedTopicCard(topic, true);
+                    recommendedContainer.appendChild(card);
+                }
             } else {
-                recommendedContainer.innerHTML = '<p>No specific recommendations yet. Great job! Pick any topic to begin.</p>';
+                recommendedContainer.innerHTML = '<div class="empty-state">No specific recommendations yet. Great job! Pick any topic to begin.</div>';
             }
 
             // --- Populate All Other Topics ---
             allTopicsContainer.innerHTML = '';
             if (data.all_topics && data.all_topics.length > 0) {
-                data.all_topics.forEach(topic => {
-                    allTopicsContainer.appendChild(createTopicCard(topic));
-                });
+                for (const topic of data.all_topics) {
+                    const card = await createEnhancedTopicCard(topic, false);
+                    allTopicsContainer.appendChild(card);
+                }
             }
+            
+            // Set up quick action event listeners
+            setupQuickActions();
 
             // This is essential to render the new icons
             feather.replace();
 
         } catch (error) {
-            recommendedContainer.innerHTML = '<p>Could not load recommendations.</p>';
+            recommendedContainer.innerHTML = '<div class="error-state">Could not load recommendations. Please try again.</div>';
+            allTopicsContainer.innerHTML = '<div class="error-state">Could not load topics. Please try again.</div>';
             console.error("Dashboard fetch error:", error);
+        }
+    }
+    
+    async function updateDashboardStats() {
+        try {
+            // Fetch real user progress data
+            const progressResponse = await authedFetch(`${API_BASE_URL}/progress/all`);
+            if (!progressResponse.ok) throw new Error('Could not fetch progress data');
+            const progressData = await progressResponse.json();
+            
+            // Calculate real statistics
+            const totalProblems = Object.keys(progressData).length;
+            const masteredProblems = Object.values(progressData).filter(status => status === 'mastered').length;
+            
+            // For topics completed, we need to check each topic's completion status
+            const topicsCompleted = await calculateCompletedTopics();
+            
+            // For learning streak, we'll use mastered problems for now (could be enhanced with date tracking)
+            const learningStreak = masteredProblems;
+            
+            const stats = {
+                topicsCompleted: topicsCompleted,
+                learningStreak: learningStreak,
+                totalProblems: masteredProblems
+            };
+            
+            // Update stat values with animation
+            animateStatValue('topics-completed', stats.topicsCompleted);
+            animateStatValue('learning-streak', stats.learningStreak);
+            animateStatValue('total-problems', stats.totalProblems);
+            
+        } catch (error) {
+            console.warn('Could not fetch real dashboard stats:', error);
+            // Fallback to default values on error
+            animateStatValue('topics-completed', 0);
+            animateStatValue('learning-streak', 0);
+            animateStatValue('total-problems', 0);
+        }
+    }
+    
+    async function calculateCompletedTopics() {
+        const topics = ['Algebra', 'Fractions', 'Speed', 'Ratio', 'Measurement', 'Data Analysis', 'Percentage', 'Geometry'];
+        let completedCount = 0;
+        
+        for (const topic of topics) {
+            try {
+                const statsResponse = await authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${topic}/progress/summary`));
+                if (statsResponse.ok) {
+                    const topicStats = await statsResponse.json();
+                    if (topicStats.mastered_count > 0 && topicStats.mastered_count === topicStats.total_problems && topicStats.total_problems > 0) {
+                        completedCount++;
+                    }
+                }
+            } catch (error) {
+                console.warn(`Could not check completion for ${topic}:`, error);
+            }
+        }
+        
+        return completedCount;
+    }
+    
+    function animateStatValue(elementId, targetValue) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        
+        const startValue = 0;
+        const duration = 1000;
+        const startTime = Date.now();
+        
+        function updateValue() {
+            const currentTime = Date.now();
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const currentValue = Math.floor(startValue + (targetValue - startValue) * progress);
+            element.textContent = currentValue;
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateValue);
+            }
+        }
+        
+        requestAnimationFrame(updateValue);
+    }
+    
+    function setupQuickActions() {
+        const retakeQuizCard = document.getElementById('retake-quiz-card');
+        const continueCard = document.getElementById('continue-learning-card');
+        
+        if (retakeQuizCard) {
+            retakeQuizCard.addEventListener('click', () => {
+                startQuiz();
+            });
+        }
+        
+        if (continueCard) {
+            continueCard.addEventListener('click', () => {
+                // Navigate to the first recommended topic or show topic selection
+                const firstRecommended = document.querySelector('#recommended-topics-container .enhanced-topic-card');
+                if (firstRecommended) {
+                    firstRecommended.click();
+                } else {
+                    // If no recommendations, scroll to all topics
+                    document.getElementById('all-topics-section').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         }
     }
     
@@ -861,9 +1054,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const resultsArea = document.getElementById('quiz-results-area');
         const signupPromptArea = document.getElementById('signup-prompt-area');
 
-        // Set the initial "loading" state
-        resultsArea.innerHTML = '<h2>Analyzing your results<span class="ellipsis"><span>.</span><span>.</span><span>.</span></span></h2><p>I am building your personalized report.</p>';
-        signupPromptArea.style.display = 'none'; // Ensure the prompt is hidden initially
+        // Ensure the prompt is hidden initially
+        signupPromptArea.style.display = 'none';
 
         try {
             const response = await fetch(APP_CONFIG.getHierarchicalURL('/diagnostic/analyze'), {
@@ -873,7 +1065,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                // This will be handled by the 'catch' block below
                 throw new Error('Analysis failed');
             }
 
@@ -881,20 +1072,63 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Store the recommended topic for signup
             quizState.recommendedTopic = report.recommended_topic;
-
-            // If successful, display the personalized report
+            
+            // Calculate score percentage for visual display
+            const correctAnswers = quizState.userAnswers.filter(answer => answer.is_correct).length;
+            const totalQuestions = quizState.userAnswers.length;
+            const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
+            
+            // Get topic icon from metadata
+            const topicMetadata = TOPIC_METADATA[report.recommended_topic] || TOPIC_METADATA['Default'];
+            
+            // Display enhanced results with visual elements
             resultsArea.innerHTML = `
-                <h2>Quiz Complete!</h2>
-                <h3>${report.score_text}</h3>
-                <p>${report.summary_message}</p>
-                <p><strong>We recommend you start with:</strong></p>
-                <div class="recommended-topic-card">${report.recommended_topic}</div>
+                <div class="score-section">
+                    <div class="score-circle">
+                        <svg>
+                            <circle class="progress-bg" cx="60" cy="60" r="52"></circle>
+                            <circle class="progress-fill" cx="60" cy="60" r="52" 
+                                stroke-dasharray="${scorePercentage * 3.27} 327" 
+                                stroke-dashoffset="0"></circle>
+                        </svg>
+                        <div class="score-text">${correctAnswers}/${totalQuestions}</div>
+                    </div>
+                    <h2>${report.score_text}</h2>
+                    <div class="score-description">${report.summary_message}</div>
+                </div>
+                
+                <div class="recommendation-section">
+                    <h3>Your Personalized Learning Path</h3>
+                    <div class="recommendation-card" id="recommendation-card">
+                        <div class="recommendation-icon">
+                            <i data-feather="${topicMetadata.icon}"></i>
+                        </div>
+                        <h3>Start with ${report.recommended_topic}</h3>
+                        <p>Based on your assessment, this topic will help you build a strong foundation and boost your confidence.</p>
+                        <div class="recommendation-cta" id="begin-learning-btn">
+                            <span>Begin Learning</span>
+                            <i data-feather="arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
             `;
-
-            // Add click event listener to the recommended topic card
-            const recommendedTopicCard = resultsArea.querySelector('.recommended-topic-card');
-            if (recommendedTopicCard) {
-                recommendedTopicCard.addEventListener('click', () => {
+            
+            // Re-initialize feather icons for the new content
+            feather.replace();
+            
+            // Add click event listener to the Begin Learning button
+            const beginLearningBtn = document.getElementById('begin-learning-btn');
+            const recommendationCard = document.getElementById('recommendation-card');
+            
+            if (beginLearningBtn) {
+                beginLearningBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showView('signup-view');
+                });
+            }
+            
+            if (recommendationCard) {
+                recommendationCard.addEventListener('click', () => {
                     showView('signup-view');
                 });
             }
@@ -902,7 +1136,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error("Error analyzing results:", error);
             // If there's an error, display a fallback message
-            resultsArea.innerHTML = "<h2>Quiz Complete!</h2><p>There was an issue generating your personalized report, but you can still sign up to start practicing.</p>";
+            resultsArea.innerHTML = `
+                <div class="score-section">
+                    <h2>Quiz Complete!</h2>
+                    <div class="score-description">There was an issue generating your personalized report, but you can still sign up to start practicing.</div>
+                </div>
+            `;
         } finally {
             // This block is guaranteed to run after the try/catch finishes.
             // This ensures the signup prompt always appears once the process is done.
@@ -3401,6 +3640,61 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+        
+        // Floating Math Cards Click Handlers
+        const mathCards = document.querySelectorAll('.math-card');
+        mathCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const cardText = card.querySelector('.card-text')?.textContent?.toLowerCase();
+                let targetTopic = '';
+                
+                // Map card text to topic data attributes
+                switch(cardText) {
+                    case 'statistics':
+                        targetTopic = 'data-analysis';
+                        break;
+                    case 'algebra':
+                        targetTopic = 'algebra';
+                        break;
+                    case 'geometry':
+                        targetTopic = 'geometry';
+                        break;
+                    case 'fractions':
+                        targetTopic = 'fractions';
+                        break;
+                    case 'measurement':
+                        targetTopic = 'measurement';
+                        break;
+                    case 'ratio':
+                        targetTopic = 'ratio';
+                        break;
+                    case 'percentage':
+                        targetTopic = 'percentage';
+                        break;
+                    case 'speed':
+                        targetTopic = 'speed';
+                        break;
+                }
+                
+                if (targetTopic) {
+                    const targetCard = document.querySelector(`[data-topic="${targetTopic}"]`);
+                    if (targetCard) {
+                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        // Add a highlight effect
+                        targetCard.style.transform = 'translateY(-8px)';
+                        targetCard.style.boxShadow = '0 20px 40px rgba(37, 99, 235, 0.3)';
+                        targetCard.style.borderColor = 'var(--primary-color)';
+                        
+                        // Remove highlight after 2 seconds
+                        setTimeout(() => {
+                            targetCard.style.transform = '';
+                            targetCard.style.boxShadow = '';
+                            targetCard.style.borderColor = '';
+                        }, 2000);
+                    }
+                }
+            });
+        });
     }
     
     // Initialize navigation
@@ -3416,4 +3710,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         initializeApp();
     }
+    
+    // Ensure all feather icons are properly rendered
+    feather.replace();
 });
