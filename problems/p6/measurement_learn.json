@@ -1,0 +1,237 @@
+{
+  "topic": "Measurement - Primary 6",
+  "version": "2.1",
+  "description": "Sequential conversation-based learning for P6 Measurement",
+  "steps": [
+    {
+      "icon": "⚪📏",
+      "title": "Area & Circumference of Circles",
+      "description": "Learn the formulas for full circles."
+    },
+    {
+      "icon": "�📐",
+      "title": "Area & Perimeter of Semicircles and Quadrants",
+      "description": "Learn the formulas for parts of a circle."
+    },
+    {
+      "icon": "🧩🖼️",
+      "title": "Area & Perimeter of Composite Figures",
+      "description": "Solving problems with combined shapes."
+    },
+    {
+      "icon": "📦🧊",
+      "title": "Volume of Cubes and Cuboids",
+      "description": "Find missing lengths using volume, base area, and cube roots."
+    }
+  ],
+  "step1_sequence": [
+    {
+      "id": "p6_math_measurement_step1_001",
+      "type": "concept_introduction",
+      "text": "Hello! Let's learn about circles. To work with circles, we use a special number called Pi, written as π. For PSLE, we usually use π ≈ 3.14 or π ≈ 22/7. The distance across the circle through the center is the 'diameter' (d), and half of that is the 'radius' (r).",
+      "question": "If a circle has a diameter of 14 cm, what is its radius?",
+      "sample_correct_response": "7 cm",
+      "sample_incorrect_response": "14 cm or 28 cm",
+      "exact_detailed_explanation": "Let's review the relationship. The radius is always half of the diameter. So, if the diameter is 14 cm, the radius is 14 ÷ 2 = 7 cm."
+    },
+    {
+      "id": "p6_math_measurement_step1_002",
+      "type": "worked_example",
+      "text": "The distance around a circle is the circumference (C = πd). The space inside is the area (A = πr²). Let's find the circumference and area of a circle with a radius of 10 cm. (Use π = 3.14)",
+      "demonstration_problem": "Find the circumference and area of a circle with r = 10 cm.",
+      "solution_steps": [
+        "Step 1 (Circumference): First, find the diameter. d = 2 × r = 2 × 10 = 20 cm.",
+        "Step 2 (Circumference): Use the formula C = πd. C = 3.14 × 20 = 62.8 cm.",
+        "Step 3 (Area): Use the formula A = πr². A = 3.14 × 10 × 10 = 314 cm²."
+      ],
+      "demonstration_answer": "Circumference = 62.8 cm, Area = 314 cm²",
+      "question": "Now you try: Find the circumference of a circle with a diameter of 7 cm. (Use π = 22/7)",
+      "sample_correct_response": "22 cm",
+      "sample_incorrect_response": "44 cm or 11 cm",
+      "exact_detailed_explanation": "Let's use the circumference formula: C = πd. We substitute the values: C = (22/7) × 7. The 7s cancel out, leaving us with 22 cm."
+    },
+    {
+      "id": "p6_math_measurement_step1_003",
+      "type": "mastery_check",
+      "text": "Let's check your understanding of the area of a circle.",
+      "question": "Find the area of a circle with a radius of 5 cm. (Use π = 3.14)",
+      "sample_correct_response": "78.5 cm²",
+      "sample_incorrect_response": "31.4 cm² or 15.7 cm²",
+      "exact_detailed_explanation": "Let's use the area formula: A = πr². We substitute the values: A = 3.14 × 5 × 5. The correct calculation is 3.14 × 25 = 78.5 cm²."
+    },
+    {
+      "id": "p6_math_measurement_step1_004",
+      "type": "completion",
+      "text": "Excellent! You have learned the key formulas for the area and circumference of circles.",
+      "question": "Are you ready to learn about parts of a circle, like semicircles?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's fine. The most important things to remember are the two main formulas: Circumference = πd and Area = πr²."
+    }
+  ],
+  "step2_sequence": [
+    {
+      "id": "p6_math_measurement_step2_001",
+      "type": "concept_introduction",
+      "text": "Now let's look at parts of a circle, like a semicircle (half a circle) or a quadrant (a quarter circle). The key thing to remember for perimeter is that you must add the straight edges to the curved arc.",
+      "question": "The perimeter of a semicircle is made up of a curved arc and one straight side. What is the mathematical name for this straight side?",
+      "sample_correct_response": "diameter",
+      "sample_incorrect_response": "radius or circumference",
+      "exact_detailed_explanation": "That's right, the straight edge of a semicircle is its diameter. For a quarter circle, the perimeter is made of an arc and two radii."
+    },
+    {
+      "id": "p6_math_measurement_step2_002",
+      "type": "worked_example",
+      "text": "Let's find the perimeter and area of a semicircle with a diameter of 14 cm. (Use π = 22/7)",
+      "demonstration_problem": "Find the perimeter and area of a semicircle with d = 14 cm.",
+      "solution_steps": [
+        "Step 1 (Perimeter - Arc): The arc is half the circumference. Arc = 1/2 × πd = 1/2 × (22/7) × 14 = 22 cm.",
+        "Step 2 (Perimeter - Total): Total Perimeter = Arc + Diameter = 22 + 14 = 36 cm.",
+        "Step 3 (Area): First, find the radius. r = 14 ÷ 2 = 7 cm.",
+        "Step 4 (Area): Area of semicircle = 1/2 × πr² = 1/2 × (22/7) × 7 × 7 = 77 cm²."
+      ],
+      "demonstration_answer": "Perimeter = 36 cm, Area = 77 cm²",
+      "question": "Now you try: What is the area of a quarter circle with a radius of 20 cm? (Use π = 3.14)",
+      "sample_correct_response": "314 cm²",
+      "sample_incorrect_response": "1256 cm² or 62.8 cm²",
+      "exact_detailed_explanation": "The formula for the area of a quarter circle is 1/4 × πr². We substitute the values: Area = 1/4 × 3.14 × 20 × 20 = 1/4 × 1256 = 314 cm²."
+    },
+    {
+      "id": "p6_math_measurement_step2_003",
+      "type": "mastery_check",
+      "text": "Let's check your understanding of the perimeter of a quadrant.",
+      "question": "What is the perimeter of a quarter circle with a radius of 7 cm? (Use π = 22/7)",
+      "sample_correct_response": "25 cm",
+      "sample_incorrect_response": "11 cm or 44 cm",
+      "exact_detailed_explanation": "Let's break it down. The perimeter has three parts: the curved arc and two straight radii. Arc = 1/4 × πd = 1/4 × (22/7) × 14 = 11 cm. The two radii add 7 + 7 = 14 cm. Total perimeter = 11 + 14 = 25 cm."
+    },
+    {
+      "id": "p6_math_measurement_step2_004",
+      "type": "completion",
+      "text": "Great work! You can now find the area and perimeter for semicircles and quarter circles.",
+      "question": "Are you ready to combine these shapes with others to make composite figures?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "No problem. The trickiest part is always the perimeter. Remember to trace the outside boundary of the shape and add up each part, whether it's curved or straight."
+    }
+  ],
+  "step3_sequence": [
+    {
+      "id": "p6_math_measurement_step3_001",
+      "type": "concept_introduction",
+      "text": "Let's solve problems with composite figures. These are shapes made by combining or removing simpler shapes like squares, rectangles, triangles, and parts of circles.",
+      "question": "To find the area of a large rectangle with a small square cut out from its corner, should you add the two areas or subtract the small area from the large area?",
+      "sample_correct_response": "subtract",
+      "sample_incorrect_response": "add",
+      "exact_detailed_explanation": "That's right. When a piece is 'cut out' or 'removed', we find the area of the larger shape first and then subtract the area of the smaller shape that was removed."
+    },
+    {
+      "id": "p6_math_measurement_step3_002",
+      "type": "worked_example",
+      "text": "Let's find the area and perimeter of the figure below, which is made of a square and a semicircle. The square has a side of 14 cm. (Use π = 22/7)",
+      "demonstration_problem": "Find the area and perimeter of the composite figure.",
+      "solution_steps": [
+        "Step 1 (Area - Square): Area of square = 14 × 14 = 196 cm².",
+        "Step 2 (Area - Semicircle): The diameter of the semicircle is 14 cm, so its radius is 7 cm. Area = 1/2 × πr² = 1/2 × (22/7) × 7 × 7 = 77 cm².",
+        "Step 3 (Area - Total): Total Area = 196 + 77 = 273 cm².",
+        "Step 4 (Perimeter): The perimeter is the outside boundary. It consists of 3 sides of the square and the curved arc. Arc = 1/2 × πd = 1/2 × (22/7) × 14 = 22 cm.",
+        "Step 5 (Perimeter - Total): Total Perimeter = (3 × 14) + 22 = 42 + 22 = 64 cm."
+      ],
+      "demonstration_answer": "Area = 273 cm², Perimeter = 64 cm",
+      "question": "Now you try: A figure is made of a rectangle (10cm by 5cm) and a triangle with a base of 10cm and height of 4cm, attached to one of the 10cm sides. What is the total area?",
+      "sample_correct_response": "70 cm²",
+      "sample_incorrect_response": "50 cm² or 20 cm²",
+      "exact_detailed_explanation": "We need to find the area of each part and add them. Area of rectangle = 10 × 5 = 50 cm². Area of triangle = 1/2 × base × height = 1/2 × 10 × 4 = 20 cm². Total Area = 50 + 20 = 70 cm²."
+    },
+    {
+      "id": "p6_math_measurement_step3_003",
+      "type": "practice_problem",
+      "text": "Let's practice with another shape.",
+      "question": "The figure shows a square with a quarter circle removed from one corner. If the side of the square is 10 cm, what is the area of the shaded region? (Use π = 3.14)",
+      "sample_correct_response": "21.5 cm²",
+      "sample_incorrect_response": "100 cm² or 78.5 cm²",
+      "exact_detailed_explanation": "This is a subtraction problem. First, find the area of the square: 10 × 10 = 100 cm². Next, find the area of the quarter circle (which is the unshaded part): 1/4 × 3.14 × 10 × 10 = 78.5 cm². The shaded area is the difference: 100 - 78.5 = 21.5 cm²."
+    },
+    {
+      "id": "p6_math_measurement_step3_004",
+      "type": "mastery_check",
+      "text": "Here is a final challenge. This shape is like a running track.",
+      "question": "The figure consists of a rectangle (100 m by 56 m) and two semicircles at each end. Find the perimeter of the figure. (Use π = 22/7)",
+      "sample_correct_response": "376 m",
+      "sample_incorrect_response": "200 m or 176 m",
+      "exact_detailed_explanation": "The perimeter consists of two straight parts and two curved parts. The two straight parts are 100 m + 100 m = 200 m. The two semicircles form one full circle with a diameter of 56 m. The circumference of this circle is πd = (22/7) × 56 = 176 m. The total perimeter is 200 m + 176 m = 376 m."
+    },
+    {
+      "id": "p6_math_measurement_step3_005",
+      "type": "completion",
+      "text": "Congratulations! You have learned how to find the area and perimeter of complex composite figures. This is a very important skill for the PSLE.",
+      "question": "Are you ready to move on to Volume?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "That's okay. The key is to break down the complex shape into simpler parts you know, like squares, rectangles, triangles, and circles. Then, decide if you need to add or subtract the areas, and carefully trace the outside boundary for the perimeter."
+    }
+  ],
+  "step4_sequence": [
+    {
+      "id": "p6_math_measurement_step4_001",
+      "type": "concept_introduction",
+      "text": "Let's learn about Volume. Volume is the amount of space a 3D object takes up. For a cuboid (a box shape), the formula is Volume = Length × Width × Height.",
+      "question": "If a cuboid has a length of 5 cm, a width of 4 cm, and a height of 3 cm, what is its volume?",
+      "sample_correct_response": "60 cm³",
+      "sample_incorrect_response": "12 cm³ or 60 cm²",
+      "exact_detailed_explanation": "To find the volume, we multiply all three dimensions: Volume = 5 cm × 4 cm × 3 cm = 60 cm³. Remember, the unit for volume is cubed (³)."
+    },
+    {
+      "id": "p6_math_measurement_step4_002",
+      "type": "worked_example",
+      "text": "A cube is a special cuboid where all edges are the same length (L). So, Volume = L × L × L, or L³. To find the length from the volume, we use the cube root (∛). For example, the cube root of 27 is 3 because 3×3×3=27.",
+      "demonstration_problem": "A cube has a volume of 64 cm³. What is the length of one edge?",
+      "solution_steps": [
+        "Step 1: We know Volume = L³.",
+        "Step 2: So, L³ = 64 cm³.",
+        "Step 3: To find L, we need to find the cube root of 64. L = ∛64.",
+        "Step 4: We think: what number multiplied by itself three times gives 64? 4 × 4 × 4 = 64. So, L = 4 cm."
+      ],
+      "demonstration_answer": "4 cm",
+      "question": "Now you try: The volume of a cube is 125 cm³. What is the length of one edge?",
+      "sample_correct_response": "5 cm",
+      "sample_incorrect_response": "25 cm or 41.6 cm",
+      "exact_detailed_explanation": "We need to find the cube root of 125. We can test numbers: 4×4×4=64 (too small), 5×5×5=125. The length of one edge is 5 cm."
+    },
+    {
+      "id": "p6_math_measurement_step4_003",
+      "type": "worked_example",
+      "text": "We can also find a missing dimension of a cuboid. A cuboid has a volume of 120 cm³. Its length is 6 cm and its width is 5 cm. Find its height.",
+      "demonstration_problem": "Find the height of the cuboid.",
+      "solution_steps": [
+        "Step 1: We know Volume = Length × Width × Height.",
+        "Step 2: Substitute the known values: 120 = 6 × 5 × Height.",
+        "Step 3: Simplify the right side: 120 = 30 × Height.",
+        "Step 4: To find the height, we divide the volume by the product of the other two sides: Height = 120 ÷ 30 = 4 cm."
+      ],
+      "demonstration_answer": "4 cm",
+      "question": "Now you try: A rectangular tank has a volume of 200 cm³. Its base area (Length × Width) is 50 cm². What is its height?",
+      "sample_correct_response": "4 cm",
+      "sample_incorrect_response": "150 cm or 10000 cm",
+      "exact_detailed_explanation": "The formula can also be written as Volume = Base Area × Height. To find the height, we rearrange it: Height = Volume ÷ Base Area. So, Height = 200 cm³ ÷ 50 cm² = 4 cm."
+    },
+    {
+      "id": "p6_math_measurement_step4_004",
+      "type": "mastery_check",
+      "text": "Let's check your understanding of volume.",
+      "question": "A cube has a volume of 27 cm³. What is the area of one of its faces?",
+      "sample_correct_response": "9 cm²",
+      "sample_incorrect_response": "3 cm² or 54 cm²",
+      "exact_detailed_explanation": "This is a two-step problem. First, find the length of one edge. L = ∛27 = 3 cm. Then, find the area of one square face. Area = Length × Length = 3 cm × 3 cm = 9 cm²."
+    },
+    {
+      "id": "p6_math_measurement_step4_005",
+      "type": "completion",
+      "text": "Excellent! You have learned how to work with the volume of cubes and cuboids and find missing lengths.",
+      "question": "Do you feel confident with all the Measurement topics?",
+      "sample_correct_response": "yes",
+      "sample_incorrect_response": "no",
+      "exact_detailed_explanation": "No problem. The key formulas are Volume = L×W×H for a cuboid, and Volume = L³ for a cube. To find a missing side, you always work backwards using division."
+    }
+  ]
+}

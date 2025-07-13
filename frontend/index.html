@@ -9,7 +9,7 @@
     <script>
         MathJax = {
             tex: {
-                inlineMath: [['\\(', '\\)'], ['$', '$']],  // Added back ['$', '$'] for fraction problems
+                inlineMath: [['\\(', '\\)']],  // Removed ['$', '$'] to avoid conflicts with currency
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true,
                 processEnvironments: true
@@ -30,7 +30,18 @@
                 <i data-feather="target"></i>
                 <h1 class="brand-title">TutorAI</h1>
             </a>
-            <nav id="main-nav"></nav>
+            <nav id="main-nav">
+                <button class="nav-button" id="sound-toggle" title="Toggle Sound">
+                    <i data-feather="volume-2"></i>
+                </button>
+                <button class="nav-button" id="theme-toggle" title="Toggle Dark Mode">
+                    <i data-feather="moon"></i>
+                </button>
+                <button class="nav-button nav-button-primary" id="nav-login-button" title="Login">
+                    <i data-feather="user"></i>
+                    <span>Login</span>
+                </button>
+            </nav>
         </div>
     </header>
 
@@ -38,11 +49,311 @@
     <main id="view-wrapper">
         
         <div id="welcome-chat-view" class="view-container active">
-            <div class="chat-container welcome-chat">
-                <div id="welcome-chat-log" class="feedback-area">
+            <div class="modern-welcome-container">
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <i data-feather="zap"></i>
+                            <span>AI-Powered Learning</span>
+                        </div>
+                        <h1 class="hero-title">Master PSLE Mathematics with <span class="highlight">TutorAI</span></h1>
+                        <p class="hero-description">
+                            Experience the power of Socratic questioning with an AI tutor that helps your child uncover mathematical truths through thoughtful dialogue, developing deep understanding that lasts.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">10,000+</div>
+                                <div class="stat-label">"Aha!" Moments</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Build Lasting Understanding</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Thinking Partner Available</div>
+                            </div>
+                        </div>
+                        <div class="hero-actions">
+                            <button id="start-quiz-button" class="button-primary large">
+                                <i data-feather="play-circle"></i>
+                                Start Free Assessment
+                            </button>
+                            <button id="learn-more-button" class="button-secondary large">
+                                <i data-feather="info"></i>
+                                How It Works
+                            </button>
+                        </div>
                     </div>
-                <div id="welcome-chat-actions" class="chat-actions">
+                    <div class="hero-visual">
+                        <div class="floating-cards">
+                            <div class="math-card card-1">
+                                <div class="card-icon">📊</div>
+                                <div class="card-text">Data Analysis</div>
+                            </div>
+                            <div class="math-card card-2">
+                                <div class="card-icon">🔢</div>
+                                <div class="card-text">Algebra</div>
+                            </div>
+                            <div class="math-card card-3">
+                                <div class="card-icon">📐</div>
+                                <div class="card-text">Geometry</div>
+                            </div>
+                            <div class="math-card card-4">
+                                <div class="card-icon">🧮</div>
+                                <div class="card-text">Fractions</div>
+                            </div>
+                            <div class="math-card card-5">
+                                <div class="card-icon">📏</div>
+                                <div class="card-text">Measurement</div>
+                            </div>
+                            <div class="math-card card-6">
+                                <div class="card-icon">⚖️</div>
+                                <div class="card-text">Ratio</div>
+                            </div>
+                            <div class="math-card card-7">
+                                <div class="card-icon">📈</div>
+                                <div class="card-text">Percentage</div>
+                            </div>
+                            <div class="math-card card-8">
+                                <div class="card-icon">🏃‍♂️</div>
+                                <div class="card-text">Speed</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                
+                <!-- How It Works Section -->
+                <div class="how-it-works-section">
+                    <div class="section-header">
+                        <div class="section-badge">
+                            <i data-feather="zap"></i>
+                            <span>Revolutionary Approach</span>
+                        </div>
+                        <h2 class="section-title">A Thinking Partner—Not an Answer Machine</h2>
+                        <p class="section-subtitle">
+                            TutorAI represents education's true purpose: developing capable, independent thinkers through discovery-based learning.
+                        </p>
+                    </div>
+                    
+                    <!-- Philosophy Comparison -->
+                    <div class="philosophy-comparison">
+                        <div class="approach-card traditional">
+                            <div class="approach-header">
+                                <div class="approach-icon reject">
+                                    <i data-feather="x-circle"></i>
+                                </div>
+                                <h3>Traditional Tutoring</h3>
+                            </div>
+                            <ul class="approach-list">
+                                <li>Gives direct answers</li>
+                                <li>Focuses on memorization</li>
+                                <li>Creates dependency</li>
+                                <li>Shows solutions step-by-step</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="vs-divider">
+                            <span>VS</span>
+                        </div>
+                        
+                        <div class="approach-card modern">
+                            <div class="approach-header">
+                                <div class="approach-icon accept">
+                                    <i data-feather="check-circle"></i>
+                                </div>
+                                <h3>TutorAI Approach</h3>
+                            </div>
+                            <ul class="approach-list">
+                                <li>Guides discovery through questions</li>
+                                <li>Develops deep understanding</li>
+                                <li>Builds independent thinking</li>
+                                <li>Teaches principles & reasoning</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Core Principles -->
+                    <div class="principles-grid">
+                        <div class="principle-card">
+                            <div class="principle-icon">
+                                <i data-feather="compass"></i>
+                            </div>
+                            <h3>Guides Discovery</h3>
+                            <p>Instead of providing direct answers, TutorAI asks strategic questions that lead you to discover solutions yourself, building genuine understanding.</p>
+                        </div>
+                        
+                        <div class="principle-card">
+                            <div class="principle-icon">
+                                <i data-feather="message-square"></i>
+                            </div>
+                            <h3>Socratic Questioning</h3>
+                            <p>Using the time-tested Socratic method, our AI develops your thinking through thoughtful questions that reveal deeper mathematical principles.</p>
+                        </div>
+                        <!---
+                        <div class="principle-card">
+                            <div class="principle-icon">
+                                <i data-feather="layers"></i>
+                            </div>
+                            <h3>Principles Over Solutions</h3>
+                            <p>Rather than memorizing procedures, you'll understand the underlying mathematical concepts that apply across different problem types.</p>
+                        </div>
+                        -->
+                        <div class="principle-card">
+                            <div class="principle-icon">
+                                <i data-feather="user-check"></i>
+                            </div>
+                            <h3>Independent Thinking</h3>
+                            <p>Our ultimate goal is developing confident, capable thinkers who can tackle new challenges without constant guidance or support.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Interactive Example -->
+                    <div class="example-section">
+                        <h3 class="example-title">See the Difference in Action</h3>
+                        <div class="example-comparison">
+                            <div class="example-card traditional-example">
+                                <div class="example-header">
+                                    <h4>Traditional Approach</h4>
+                                    <span class="example-tag outdated">Outdated</span>
+                                </div>
+                                <div class="conversation">
+                                    <div class="message tutor traditional-tutor">Traditional Tutor: What's 25% of 80?</div>
+                                    <div class="message student">Student: 40?</div>
+                                    <div class="message tutor traditional-tutor">Traditional Tutor: Wrong, the answer is 20. Here's how: 25% = 0.25, so 0.25 × 80 = 20.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="example-card modern-example">
+                                <div class="example-header">
+                                    <h4>TutorAI Approach</h4>
+                                    <span class="example-tag innovative">Innovative</span>
+                                </div>
+                                <div class="conversation">
+                                    <div class="message tutor modern-tutor">TutorAI: Let's think about what % means. Can you find out 25% of 80.</div>
+                                    <div class="message student">Student: 40?</div>
+                                    <div class="message tutor modern-tutor">TutorAI: Hmm, let me ask you this - what does 25% mean as a fraction?</div>
+                                    <div class="message student">Student: 25/100... so 1/4?</div>
+                                    <div class="message tutor modern-tutor">TutorAI: Exactly! So if 25% equals 1/4, then what's 1/4 of 80?</div>
+                                    <div class="message student">Student: Oh! 80 ÷ 4 = 20!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- What You'll Learn Section -->
+                <div class="what-youll-learn-section">
+                    <div class="section-header">
+                        <div class="section-badge">
+                            <i data-feather="book-open"></i>
+                            <span>Comprehensive Coverage</span>
+                        </div>
+                        <h2 class="section-title">What You'll Learn</h2>
+                        <p class="section-subtitle">
+                            Master all key Primary 6 Mathematics topics through guided discovery and deep understanding
+                        </p>
+                    </div>
+                    
+                    <div class="topics-grid">
+                        <div class="topic-card" data-topic="data-analysis">
+                            <div class="topic-icon">📊</div>
+                            <h3>Data Analysis</h3>
+                            <p>Interpret charts, graphs, and tables. Learn to analyze data patterns and draw meaningful conclusions from statistical information.</p>
+                            <div class="topic-skills">
+                                <span class="skill-tag">Bar Charts</span>
+                                <span class="skill-tag">Pie Charts</span>
+                                <span class="skill-tag">Line Graphs</span>
+                                <span class="skill-tag">Data Interpretation</span>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-card" data-topic="algebra">
+                            <div class="topic-icon">🔢</div>
+                            <h3>Algebra</h3>
+                            <p>Discover how to use letters to represent unknown numbers and solve equations through logical reasoning and mathematical thinking.</p>
+                            <div class="topic-skills">
+                                <span class="skill-tag">Unknown Numbers</span>
+                                <span class="skill-tag">Simple Equations</span>
+                                <span class="skill-tag">Problem Solving</span>
+                                <span class="skill-tag">Mathematical Reasoning</span>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-card" data-topic="geometry">
+                            <div class="topic-icon">📐</div>
+                            <h3>Geometry</h3>
+                            <p>Explore shapes, angles, and spatial relationships. Understand properties of parallelograms, triangles, and other geometric figures.</p>
+                            <div class="topic-skills">
+                                <span class="skill-tag">Angle Properties</span>
+                                <span class="skill-tag">Parallelograms</span>
+                                <span class="skill-tag">Triangles</span>
+                                <span class="skill-tag">Spatial Reasoning</span>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-card" data-topic="fractions">
+                            <div class="topic-icon">🧮</div>
+                            <h3>Fractions</h3>
+                            <p>Build deep understanding of fraction concepts, operations, and real-world applications through step-by-step discovery.</p>
+                            <div class="topic-skills">
+                                <span class="skill-tag">Fraction Operations</span>
+                                <span class="skill-tag">Equivalent Fractions</span>
+                                <span class="skill-tag">Mixed Numbers</span>
+                                <span class="skill-tag">Word Problems</span>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-card" data-topic="measurement">
+                            <div class="topic-icon">📏</div>
+                            <h3>Measurement</h3>
+                            <p>Master units of measurement, conversions, and practical applications. Learn to measure length, mass, volume, and time accurately.</p>
+                            <div class="topic-skills">
+                                <span class="skill-tag">Length & Distance</span>
+                                <span class="skill-tag">Mass & Volume</span>
+                                <span class="skill-tag">Unit Conversions</span>
+                                <span class="skill-tag">Time & Money</span>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-card" data-topic="ratio">
+                            <div class="topic-icon">⚖️</div>
+                            <h3>Ratio</h3>
+                            <p>Understand relationships between quantities and solve complex problems involving before-and-after scenarios and proportional reasoning.</p>
+                            <div class="topic-skills">
+                                <span class="skill-tag">Constant Difference</span>
+                                <span class="skill-tag">Before & After</span>
+                                <span class="skill-tag">Units & Parts</span>
+                                <span class="skill-tag">Proportional Reasoning</span>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-card" data-topic="percentage">
+                            <div class="topic-icon">📈</div>
+                            <h3>Percentage</h3>
+                            <p>Master percentage calculations, increases, decreases, and real-world applications through guided discovery of mathematical relationships.</p>
+                            <div class="topic-skills">
+                                <span class="skill-tag">Finding the Whole</span>
+                                <span class="skill-tag">Percentage Increase</span>
+                                <span class="skill-tag">Percentage Decrease</span>
+                                <span class="skill-tag">Real-world Applications</span>
+                            </div>
+                        </div>
+                        
+                        <div class="topic-card" data-topic="speed">
+                            <div class="topic-icon">🏃‍♂️</div>
+                            <h3>Speed</h3>
+                            <p>Explore the relationship between distance, speed, and time. Solve problems involving average speed, travel time, and relative motion.</p>
+                            <div class="topic-skills">
+                                <span class="skill-tag">Distance Calculation</span>
+                                <span class="skill-tag">Average Speed</span>
+                                <span class="skill-tag">Time & Motion</span>
+                                <span class="skill-tag">Relative Speed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>        
         
@@ -63,30 +374,126 @@
 
         <div id="quiz-view" class="view-container" style="display: none;">
             <div class="quiz-container">
-                <div id="quiz-progress-bar"><div id="quiz-progress-fill"></div></div>
-                <div id="quiz-question-area">
-                    <p id="quiz-question-number"></p>
-                    <h2 id="quiz-question-text"></h2>
-                    <img id="quiz-question-image" src="" alt="Question diagram">
+                <!-- Quiz Header -->
+                <div class="quiz-header">
+                    <div class="quiz-header-content">
+                        <div class="quiz-badge">
+                            <i data-feather="target"></i>
+                            <span>Diagnostic Assessment</span>
+                        </div>
+                        <h1 class="quiz-title">Discover Your Math Journey</h1>
+                        <p class="quiz-description">
+                            This quick assessment helps us understand your current knowledge and create a personalized learning path just for you.
+                        </p>
+                        <div class="quiz-info">
+                            <div class="quiz-info-item">
+                                <i data-feather="clock"></i>
+                                <span>10-15 minutes</span>
+                            </div>
+                            <div class="quiz-info-item">
+                                <i data-feather="help-circle"></i>
+                                <span>10 questions</span>
+                            </div>
+                            <div class="quiz-info-item">
+                                <i data-feather="brain"></i>
+                                <span>Adaptive difficulty</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="quiz-options-area"></div>
-                <button id="quiz-submit-button" class="auth-button" disabled>Submit Answer</button>
+
+                <!-- Progress Bar -->
+                <div class="quiz-progress-section">
+                    <div class="progress-info">
+                        <span id="quiz-question-counter">Question 1 of 10</span>
+                    </div>
+                    <div id="quiz-progress-bar">
+                        <div id="quiz-progress-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Question Area -->
+                <div id="quiz-question-area" class="quiz-question-section">
+                    <div class="question-header">
+                        <p id="quiz-question-number"></p>
+                    </div>
+                    <div class="question-content">
+                        <h2 id="quiz-question-text"></h2>
+                        <div id="quiz-question-diagram" class="question-diagram"></div>
+                        <img id="quiz-question-image" src="" alt="Question diagram">
+                    </div>
+                </div>
+
+                <!-- Answer Options -->
+                <div id="quiz-options-area" class="quiz-options-section"></div>
+
+                <!-- Submit Button -->
+                <div class="quiz-actions">
+                    <button id="quiz-submit-button" class="button-primary large" disabled>
+                        <i data-feather="arrow-right"></i>
+                        Next Question
+                    </button>
+                </div>
             </div>
         </div>
 
         <div id="auth-hook-view" class="view-container" style="display: none;">
-            <div class="auth-container">
-                <div id="quiz-results-area">
-                    <h2>Calculating your results...</h2>
-                    <p>Our AI is building your personalized report.</p>
-                </div>
-                <div id="signup-prompt-area" style="display: none;">
-                    <hr class="divider">
-                    <p>Create a free account to save your results and start your personalized learning plan.</p>
-                    <div class="form-group">
-                         <button id="hook-show-signup-button" class="auth-button">Sign Up For Free</button>
+            <div class="results-dashboard-container">
+                <!-- Results Header -->
+                <div class="results-header">
+                    <div class="results-badge">
+                        <i data-feather="check-circle"></i>
+                        <span>Assessment Complete</span>
                     </div>
-                     <p class="auth-switch">Already have an account? <a href="#" id="hook-show-login-link">Login</a></p>
+                    <h1 class="results-title">Your Learning Journey Begins!</h1>
+                    <p class="results-subtitle">Discover your personalized path to PSLE Mathematics mastery</p>
+                </div>
+
+                <!-- Main Results Content -->
+                <div id="quiz-results-area" class="results-content">
+                    <div class="loading-state">
+                        <div class="loading-animation">
+                            <div class="loading-spinner"></div>
+                        </div>
+                        <h2>Analyzing your results<span class="ellipsis"><span>.</span><span>.</span><span>.</span></span></h2>
+                        <p>Our AI is building your personalized report</p>
+                    </div>
+                </div>
+
+                <!-- Enhanced Signup Section -->
+                <div id="signup-prompt-area" class="signup-section" style="display: none;">
+                    <div class="signup-card">
+                        <div class="signup-header">
+                            <div class="signup-icon">
+                                <i data-feather="user-plus"></i>
+                            </div>
+                            <h3>Ready to Start Learning?</h3>
+                            <p>Create your free account to save your results and begin your personalized learning journey</p>
+                        </div>
+                        
+                        <div class="signup-benefits">
+                            <div class="benefit-item">
+                                <i data-feather="bookmark"></i>
+                                <span>Save your progress</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i data-feather="target"></i>
+                                <span>Personalized practice</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i data-feather="trending-up"></i>
+                                <span>Track improvements</span>
+                            </div>
+                        </div>
+                        
+                        <div class="signup-actions">
+                            <button id="hook-show-signup-button" class="button-primary large">
+                                <i data-feather="arrow-right"></i>
+                                Start Learning For Free
+                            </button>
+                            <p class="auth-switch">Already have an account? <a href="#" id="hook-show-login-link">Login here</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,41 +512,221 @@
         </div>
 
         <div id="signup-view" class="view-container" style="display: none;">
-             <div class="auth-container">
-                <h2>Create Account</h2>
-                <form id="signup-form">
-                    <div class="form-group">
-                        <label for="signup-firstname">First Name</label>
-                        <input type="text" id="signup-firstname" required>
+            <div class="signup-page-container">
+                <!-- Left Side: Benefits -->
+                <div class="signup-benefits-section">
+                    <div class="signup-benefits-content">
+                        <div class="benefits-header">
+                            <div class="benefits-logo">
+                                <i data-feather="target"></i>
+                                <h2>TutorAI</h2>
+                            </div>
+                            <h1>Join thousands of students mastering PSLE Mathematics</h1>
+                            <p>Experience personalized AI tutoring that adapts to your learning style and helps you excel.</p>
+                        </div>
+                        
+                        <div class="benefits-stats">
+                            <div class="benefit-stat">
+                                <div class="stat-number">10,000+</div>
+                                <div class="stat-label">"Aha!" Moments</div>
+                            </div>
+                            <div class="benefit-stat">
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Confidence Building</div>
+                            </div>
+                            <div class="benefit-stat">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">TutorAI Support</div>
+                            </div>
+                        </div>
+                        
+                        <div class="benefits-features">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i data-feather="target"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>Personalized Learning</h3>
+                                    <p>AI adapts to your learning pace and style for optimal understanding</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i data-feather="message-square"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>Socratic Method</h3>
+                                    <p>Learn through guided discovery and thoughtful questioning</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i data-feather="trending-up"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>Track Progress</h3>
+                                    <p>Monitor your improvement with detailed analytics and insights</p>
+                                </div>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i data-feather="pen-tool"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>PSLE Ready</h3>
+                                    <p>Comprehensive coverage of all PSLE Mathematics topics</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="signup-lastname">Last Name</label>
-                        <input type="text" id="signup-lastname" required>
+                </div>
+                
+                <!-- Right Side: Signup Form -->
+                <div class="signup-form-section">
+                    <div class="signup-form-container">
+                        <div class="form-header">
+                            <h2>Create Your Account</h2>
+                            <p>Start your personalized learning journey today</p>
+                        </div>
+                        
+                        <form id="signup-form" class="enhanced-signup-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="signup-firstname">First Name</label>
+                                    <input type="text" id="signup-firstname" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signup-lastname">Last Name</label>
+                                    <input type="text" id="signup-lastname" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="signup-email">Email Address</label>
+                                <input type="email" id="signup-email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="signup-password">Password</label>
+                                <input type="password" id="signup-password" required>
+                                <div class="password-hint">At least 8 characters recommended</div>
+                            </div>
+                            
+                            <button type="submit" class="signup-submit-btn">
+                                <span>Create Account</span>
+                                <i data-feather="arrow-right"></i>
+                            </button>
+                            
+                            <p id="signup-error" class="error-message"></p>
+                        </form>
+                        
+                        <div class="form-footer">
+                            <p class="auth-switch">Already have an account? <a href="#" id="show-login-link">Sign in here</a></p>
+                            <div class="privacy-note">
+                                <i data-feather="lock"></i>
+                                <span>Your data is secure and never shared with third parties</span>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="form-group"><label for="signup-email">Email</label><input type="email" id="signup-email" required></div>
-                    <div class="form-group"><label for="signup-password">Password</label><input type="password" id="signup-password" required></div>
-                    <br><button type="submit" class="auth-button">Sign Up</button>
-                    <p id="signup-error" class="error-message"></p>
-                </form>
-                <p class="auth-switch">Already have an account? <a href="#" id="show-login-link">Login</a></p>
+                </div>
             </div>
         </div>
 
         <div id="dashboard-view" class="view-container" style="display: none;">
-
-
-            <div id="dashboard-grid">
-                <div id="recommended-section">
-                    <h2>Recommended For You</h2>
-                    <div id="recommended-topics-container" class="topic-grid">
+            <div class="dashboard-container">
+                <!-- Dashboard Header -->
+                <div class="dashboard-header">
+                    <div class="welcome-section">
+                        <h1 class="dashboard-title">Welcome back!</h1>
+                        <p class="dashboard-subtitle">Continue your mathematics learning journey</p>
+                    </div>
+                    
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i data-feather="target"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="topics-completed">0</div>
+                                <div class="stat-label">Topics Mastered</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i data-feather="trending-up"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="learning-streak">0</div>
+                                <div class="stat-label">Day Streak</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i data-feather="award"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="total-problems">0</div>
+                                <div class="stat-label">Problems Solved</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div id="all-topics-section">
-                    <h2>All Other Topics</h2>
-                    <div id="all-topics-container" class="topic-grid">
-                    </div>
+                <!-- Main Dashboard Content -->
+                <div class="dashboard-content">
+                    <!-- Recommended Section -->
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>🎯 Recommended For You</h2>
+                        </div>
+                        <div id="recommended-topics-container" class="enhanced-topic-grid">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </section>
+
+                    <!-- All Topics Section -->
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>📚 All PSLE Maths Topics</h2>
+                        </div>
+                        <div id="all-topics-container" class="enhanced-topic-grid">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </section>
+
+                    <!-- Quick Actions Section -->
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>⚡ Quick Actions</h2>
+                            <p class="section-description">Jump back into learning</p>
+                        </div>
+                        <div class="quick-actions-grid">
+                            <div class="action-card" id="retake-quiz-card">
+                                <div class="action-icon">
+                                    <i data-feather="refresh-cw"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h3>Retake Assessment</h3>
+                                    <p>Get updated recommendations</p>
+                                </div>
+                            </div>
+                            
+                            <div class="action-card" id="continue-learning-card">
+                                <div class="action-icon">
+                                    <i data-feather="play-circle"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h3>Continue Learning</h3>
+                                    <p>Pick up where you left off</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>

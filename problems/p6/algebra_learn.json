@@ -64,7 +64,7 @@
     {
       "id": "p6_math_algebra_step1_005",
       "type": "completion",
-      "text": "Well done! You now understand that in Algebra, letters are simply used as placeholders for unknown numbers. This is the first big step!",
+      "text": "You now understand that in Algebra, letters are simply used as placeholders for unknown numbers. This is the first big step!",
       "question": "Are you ready to learn how to simplify expressions?",
       "sample_correct_response": "yes",
       "sample_incorrect_response": "no",
@@ -111,7 +111,7 @@
     {
       "id": "p6_math_algebra_step2_005",
       "type": "completion",
-      "text": "Excellent! You now know how to simplify algebraic expressions by combining like terms. This is a very useful skill.",
+      "text": "You now know how to simplify algebraic expressions by combining like terms. This is a very useful skill.",
       "question": "Ready to move on to evaluating expressions?",
       "sample_correct_response": "yes",
       "sample_incorrect_response": "no",
@@ -158,7 +158,7 @@
     {
       "id": "p6_math_algebra_step3_005",
       "type": "completion",
-      "text": "Great job! You can now evaluate algebraic expressions. This is like using a secret code where you know what the letters mean!",
+      "text": "You can now evaluate algebraic expressions. This is like using a secret code where you know what the letters mean!",
       "question": "Are you ready for the final step, solving equations?",
       "sample_correct_response": "yes",
       "sample_incorrect_response": "no",
@@ -214,7 +214,7 @@
     {
       "id": "p6_math_algebra_step4_006",
       "type": "completion",
-      "text": "Congratulations! You have successfully learned the basics of PSLE Algebra, from understanding variables to solving 2-step word problems.",
+      "text": "You have successfully learned the basics of PSLE Algebra, from understanding variables to solving 2-step word problems.",
       "question": "Do you feel confident with this topic?",
       "sample_correct_response": "yes",
       "sample_incorrect_response": "no",
