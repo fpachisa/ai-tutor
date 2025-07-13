@@ -263,15 +263,10 @@ Generate a resume message:"""
         sample_incorrect = section_content.get('sample_incorrect_response', '')
         detailed_explanation = section_content.get('exact_detailed_explanation', '')
         
-        # For completion sections, both yes and no responses should be treated as correct
-        if section_type == 'completion':
-            student_lower = student_answer.lower().strip()
-            is_correct = any(word in student_lower for word in ['yes', 'no', 'ready', 'not ready', 'confident', 'not confident', 'sure', 'not sure'])
-        else:
-            # Check if response is correct using AI
-            is_correct = self._evaluate_student_response(
-                student_answer, sample_correct, sample_incorrect, section_question
-            )
+        # Use AI evaluation for all section types, including completion sections
+        is_correct = self._evaluate_student_response(
+            student_answer, sample_correct, sample_incorrect, section_question, section_type
+        )
         
         
         # Initialize progression variables
@@ -283,13 +278,13 @@ Generate a resume message:"""
         if is_correct:
             # Handle completion sections specially
             if section_type == 'completion':
-                student_lower = student_answer.lower().strip()
-                is_ready = any(word in student_lower for word in ['yes', 'ready', 'confident', 'sure'])
-                
                 # For completion sections, both yes and no lead to advancement
                 next_section_id = self.get_next_section_id(current_section_id)
                 section_completed = True
                 new_attempt_count = 1
+                
+                # Use AI to determine if response is positive (ready) or negative (not ready)
+                is_ready = self._detect_positive_sentiment(student_answer)
                 
                 if is_ready:
                     # Student says yes - regular positive transition
@@ -355,12 +350,25 @@ Generate a resume message:"""
                current_section_id, next_section_id)
     
     def _evaluate_student_response(self, student_answer: str, sample_correct: str, 
-                                 sample_incorrect: str, question: str) -> bool:
+                                 sample_incorrect: str, question: str, section_type: str = '') -> bool:
         """Use AI to evaluate if student response matches the correct sample"""
         if not self.model:
             return False
         
-        prompt = f"""You are evaluating a P6 student's {self.topic} response.
+        # For completion sections, any meaningful response should be considered correct
+        if section_type == 'completion':
+            prompt = f"""You are evaluating a P6 student's response to a completion question.
+
+QUESTION: {question}
+STUDENT ANSWER: "{student_answer}"
+
+This is a completion section where students indicate their readiness or confidence.
+Any meaningful response (yes, no, maybe, kind of, etc.) should be considered correct.
+Only consider it incorrect if the response is completely unrelated or nonsensical.
+
+Respond with only: "CORRECT" or "INCORRECT" """
+        else:
+            prompt = f"""You are evaluating a P6 student's {self.topic} response.
 
 QUESTION: {question}
 STUDENT ANSWER: "{student_answer}"
@@ -381,6 +389,34 @@ Respond with only: "CORRECT" or "INCORRECT" """
         except Exception as e:
             print(f"❌ CRITICAL: Error evaluating response: {e}")
             raise Exception(f"AI failed to evaluate student response: {e}")
+    
+    def _detect_positive_sentiment(self, student_answer: str) -> bool:
+        """Use AI to detect if student's completion response indicates readiness/confidence"""
+        if not self.model:
+            # Fallback to simple keyword detection if no AI available
+            student_lower = student_answer.lower().strip()
+            return any(word in student_lower for word in ['yes', 'ready', 'confident', 'sure'])
+        
+        prompt = f"""You are analyzing a P6 student's response to determine their readiness/confidence level.
+
+STUDENT RESPONSE: "{student_answer}"
+
+Does this response indicate the student feels READY/CONFIDENT/POSITIVE about proceeding?
+
+Examples of POSITIVE responses: "yes", "ready", "I think so", "confident", "sure", "let's go"
+Examples of NEGATIVE responses: "no", "not ready", "I need more practice", "uncertain", "maybe not"
+
+Respond with only: "POSITIVE" or "NEGATIVE" """
+
+        try:
+            response = self.model.generate_content(prompt)
+            result = response.text.strip().upper()
+            return result == "POSITIVE"
+        except Exception as e:
+            print(f"❌ Error detecting sentiment: {e}")
+            # Fallback to simple keyword detection
+            student_lower = student_answer.lower().strip()
+            return any(word in student_lower for word in ['yes', 'ready', 'confident', 'sure'])
     
     def _generate_section_message(self, section_id: str, is_starter: bool = False) -> str:
         """Generate message for a section (starter or transition)"""
@@ -713,19 +749,19 @@ CURRENT STEP COMPLETED: {current_text}
 ENCOURAGEMENT GUIDANCE: {detailed_explanation}
 NEXT STEP CONTENT: {next_text}
 
-Generate ONE cohesive response that:
+Generate a natural transition (2-3 sentences) that:
 1. Acknowledges their honesty - it's perfectly okay to feel that way
 2. Reassures them they've done great to reach this far
 3. Mentions they'll get plenty of practice opportunities to build confidence
-4. Naturally introduces the next step as a logical progression 
-5. Ends with the next step question seamlessly integrated
+4. Naturally introduces the next step as a logical progression
 
-Make it feel like one natural conversation, not two separate messages. The transition should be so smooth that moving to the next step feels like the obvious next thing to do."""
+Make it warm and encouraging, then I'll add the complete next section content."""
 
         try:
             response = self.model.generate_content(prompt)
-            # Return the complete cohesive response (no need to append next_content)
-            return response.text.strip()
+            encouragement = response.text.strip()
+            # Include the complete next section content for a full transition
+            return f"{encouragement}\\n\\n{next_content}"
         except Exception as e:
             print(f"❌ Error generating encouragement transition: {e}")
             # Fallback: create a natural single message
