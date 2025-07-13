@@ -20,9 +20,17 @@ def get_problems_by_topic(current_user_id, grade, subject, topic):
     
     try:
         filter_type = request.args.get('filter')
+        max_learning_step = request.args.get('max_learning_step')
         
-        # Get problem IDs for the topic
-        problem_ids = problem_service.get_problems_by_topic(topic)
+        # Get problem IDs for the topic, optionally filtered by learning step
+        if max_learning_step:
+            try:
+                max_step = int(max_learning_step)
+                problem_ids = problem_service.get_problems_by_learning_step(topic, max_step)
+            except ValueError:
+                return jsonify({"error": "max_learning_step must be an integer"}), 400
+        else:
+            problem_ids = problem_service.get_problems_by_topic(topic)
         
         # Get filtered problems using the content service
         final_problem_list = content_service.get_filtered_problems(
@@ -50,6 +58,72 @@ def get_problem(grade, subject, problem_id):
     if not problem:
         return jsonify({"error": "Problem not found"}), 404
     return jsonify(problem)
+
+@content_bp.route('/<grade>/subjects/<subject>/topics/<topic>/problems/by-learning-step/<int:max_step>', methods=['GET'])
+@token_required
+def get_problems_by_learning_step(current_user_id, grade, subject, topic, max_step):
+    """Get practice problems for a specific topic filtered by maximum learning step."""
+    # Validate grade and subject
+    if not Config.validate_grade_subject(grade, subject):
+        return jsonify({"error": "Grade/subject combination not supported"}), 400
+    
+    try:
+        filter_type = request.args.get('filter')  # Optional: still allow progress filtering
+        
+        # Get problem IDs filtered by learning step
+        problem_ids = problem_service.get_problems_by_learning_step(topic, max_step)
+        
+        # Get filtered problems using the content service
+        final_problem_list = content_service.get_filtered_problems(
+            user_id=current_user_id,
+            topic=topic,
+            filter_type=filter_type,
+            problem_ids=problem_ids,
+            practice_problems=problem_service.get_practice_problems_dict()
+        )
+
+        return jsonify({
+            "problems": final_problem_list,
+            "max_learning_step": max_step,
+            "total_problems": len(final_problem_list)
+        })
+
+    except Exception as e:
+        print(f"An error occurred in get_problems_by_learning_step: {e}")
+        return jsonify({"error": "Could not retrieve problems for learning step"}), 500
+
+@content_bp.route('/<grade>/subjects/<subject>/topics/<topic>/problems/for-step/<int:step>', methods=['GET'])
+@token_required
+def get_problems_for_specific_step(current_user_id, grade, subject, topic, step):
+    """Get practice problems specifically designed for a particular learning step."""
+    # Validate grade and subject
+    if not Config.validate_grade_subject(grade, subject):
+        return jsonify({"error": "Grade/subject combination not supported"}), 400
+    
+    try:
+        filter_type = request.args.get('filter')  # Optional: still allow progress filtering
+        
+        # Get problem IDs for specific step
+        problem_ids = problem_service.get_problems_for_specific_step(topic, step)
+        
+        # Get filtered problems using the content service
+        final_problem_list = content_service.get_filtered_problems(
+            user_id=current_user_id,
+            topic=topic,
+            filter_type=filter_type,
+            problem_ids=problem_ids,
+            practice_problems=problem_service.get_practice_problems_dict()
+        )
+
+        return jsonify({
+            "problems": final_problem_list,
+            "learning_step": step,
+            "total_problems": len(final_problem_list)
+        })
+
+    except Exception as e:
+        print(f"An error occurred in get_problems_for_specific_step: {e}")
+        return jsonify({"error": f"Could not retrieve problems for step {step}"}), 500
 
 @content_bp.route('/<grade>/subjects/<subject>/dashboard', methods=['GET'])
 @token_required

@@ -44,10 +44,13 @@ class ProblemService:
                             # Check if the filename indicates it's a diagnostic quiz
                             is_diagnostic = 'diagnostic' in json_file.name.lower()
                             for problem in problems_list:
+                                # Normalize problem data to ensure learn_step field exists
+                                normalized_problem = self._normalize_problem(problem)
+                                
                                 if is_diagnostic:
-                                    diagnostic_problems[problem['id']] = problem
+                                    diagnostic_problems[problem['id']] = normalized_problem
                                 else:
-                                    practice_problems[problem['id']] = problem
+                                    practice_problems[problem['id']] = normalized_problem
                     except Exception as e:
                         print(f"Error loading {json_file}: {e}")
         
@@ -60,6 +63,20 @@ class ProblemService:
         self._build_topic_cache()
         
         print(f"Loaded {len(practice_problems)} practice problems and {len(diagnostic_problems)} diagnostic questions.")
+    
+    def _normalize_problem(self, problem: Dict) -> Dict:
+        """
+        Normalize problem data to ensure all required fields exist.
+        Adds learn_step field with default value if not present.
+        """
+        normalized = problem.copy()
+        
+        # Add learn_step field with default value if not present
+        # None = problem can be practiced without specific learning step completion
+        if 'learn_step' not in normalized:
+            normalized['learn_step'] = None
+            
+        return normalized
     
     def _build_topic_cache(self) -> None:
         """Build cache of problems by topic for faster lookups."""
@@ -89,6 +106,55 @@ class ProblemService:
     def get_all_topics(self) -> List[str]:
         """Get all available topics."""
         return self.all_topics.copy()
+    
+    def get_problems_by_learning_step(self, topic: str, max_step: Optional[int] = None) -> List[str]:
+        """
+        Get practice problem IDs for a specific topic filtered by learning step.
+        
+        Args:
+            topic: The topic to filter by
+            max_step: Maximum learning step (inclusive). If None, returns all problems.
+                     Problems with learn_step=None are always included.
+        
+        Returns:
+            List of problem IDs appropriate for the learning step
+        """
+        topic_problems = self.get_problems_by_topic(topic)
+        
+        if max_step is None:
+            return topic_problems
+        
+        filtered_problems = []
+        for problem_id in topic_problems:
+            problem = self.get_practice_problem(problem_id)
+            if problem:
+                problem_step = problem.get('learn_step')
+                # Include problems with no step requirement or step <= max_step
+                if problem_step is None or problem_step <= max_step:
+                    filtered_problems.append(problem_id)
+        
+        return filtered_problems
+    
+    def get_problems_for_specific_step(self, topic: str, step: int) -> List[str]:
+        """
+        Get practice problems specifically designed for a particular learning step.
+        
+        Args:
+            topic: The topic to filter by
+            step: The specific learning step number
+        
+        Returns:
+            List of problem IDs for that specific step
+        """
+        topic_problems = self.get_problems_by_topic(topic)
+        
+        step_problems = []
+        for problem_id in topic_problems:
+            problem = self.get_practice_problem(problem_id)
+            if problem and problem.get('learn_step') == step:
+                step_problems.append(problem_id)
+        
+        return step_problems
     
     def get_practice_problems_dict(self) -> Dict:
         """Get the practice problems dictionary."""

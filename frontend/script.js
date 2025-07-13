@@ -9,8 +9,540 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSubject: 'math',
         getHierarchicalURL: function(endpoint) {
             return `${API_BASE_URL}/grades/${this.currentGrade}/subjects/${this.currentSubject}${endpoint}`;
+        },
+        
+        // Learning-Practice Integration Methods
+        getProblemsForLearningStep: function(topic, maxStep) {
+            return this.getHierarchicalURL(`/topics/${topic}/problems/by-learning-step/${maxStep}`);
+        },
+        
+        getProblemsForSpecificStep: function(topic, step) {
+            return this.getHierarchicalURL(`/topics/${topic}/problems/for-step/${step}`);
+        },
+        
+        getProblemsWithLearningFilter: function(topic, maxStep) {
+            return this.getHierarchicalURL(`/topics/${topic}/problems?max_learning_step=${maxStep}`);
+        },
+        
+        getLearningProgress: function(topic) {
+            return this.getHierarchicalURL(`/${topic}-tutor/status`);
         }
     };
+    
+    // --- CACHING SYSTEM ---
+    const CACHE_CONFIG = {
+        TTL: {
+            DASHBOARD: 5 * 60 * 1000,      // 5 minutes
+            TOPIC_PROGRESS: 3 * 60 * 1000,  // 3 minutes
+            USER_STATS: 5 * 60 * 1000,      // 5 minutes
+        },
+        KEYS: {
+            DASHBOARD: 'ai_tutor_dashboard',
+            TOPIC_PROGRESS: 'ai_tutor_topic_progress',
+            USER_STATS: 'ai_tutor_user_stats',
+        }
+    };
+    
+    const CacheManager = {
+        // Set data in cache with timestamp
+        set(key, data, ttl = CACHE_CONFIG.TTL.DASHBOARD) {
+            try {
+                const cacheItem = {
+                    data: data,
+                    timestamp: Date.now(),
+                    ttl: ttl
+                };
+                localStorage.setItem(key, JSON.stringify(cacheItem));
+                console.log(`Cache SET: ${key}`);
+            } catch (error) {
+                console.warn('Cache storage failed:', error);
+            }
+        },
+        
+        // Get data from cache if valid
+        get(key) {
+            try {
+                const cached = localStorage.getItem(key);
+                if (!cached) return null;
+                
+                const cacheItem = JSON.parse(cached);
+                const now = Date.now();
+                
+                // Check if cache is expired
+                if (now - cacheItem.timestamp > cacheItem.ttl) {
+                    console.log(`Cache EXPIRED: ${key}`);
+                    this.remove(key);
+                    return null;
+                }
+                
+                console.log(`Cache HIT: ${key}`);
+                return cacheItem.data;
+            } catch (error) {
+                console.warn('Cache retrieval failed:', error);
+                return null;
+            }
+        },
+        
+        // Remove specific cache entry
+        remove(key) {
+            localStorage.removeItem(key);
+            console.log(`Cache REMOVED: ${key}`);
+        },
+        
+        // Clear all cache entries
+        clearAll() {
+            Object.values(CACHE_CONFIG.KEYS).forEach(key => {
+                this.remove(key);
+            });
+            console.log('All cache cleared');
+        },
+        
+        // Check if cache exists and is valid
+        isValid(key) {
+            const cached = this.get(key);
+            return cached !== null;
+        },
+        
+        // Get cache info for debugging
+        getInfo(key) {
+            try {
+                const cached = localStorage.getItem(key);
+                if (!cached) return null;
+                
+                const cacheItem = JSON.parse(cached);
+                const now = Date.now();
+                const age = now - cacheItem.timestamp;
+                const remaining = cacheItem.ttl - age;
+                
+                return {
+                    exists: true,
+                    age: Math.round(age / 1000) + 's',
+                    remaining: Math.round(remaining / 1000) + 's',
+                    expired: remaining <= 0
+                };
+            } catch (error) {
+                return null;
+            }
+        }
+    };
+    
+    // --- SPECIALIZED CACHE FUNCTIONS ---
+    const DashboardCache = {
+        // Cache dashboard data
+        setDashboardData(data) {
+            CacheManager.set(CACHE_CONFIG.KEYS.DASHBOARD, data, CACHE_CONFIG.TTL.DASHBOARD);
+        },
+        
+        getDashboardData() {
+            return CacheManager.get(CACHE_CONFIG.KEYS.DASHBOARD);
+        },
+        
+        // Cache topic progress data with topic-specific keys
+        setTopicProgress(topic, progressData) {
+            const cacheKey = `${CACHE_CONFIG.KEYS.TOPIC_PROGRESS}_${topic}`;
+            CacheManager.set(cacheKey, progressData, CACHE_CONFIG.TTL.TOPIC_PROGRESS);
+        },
+        
+        getTopicProgress(topic) {
+            const cacheKey = `${CACHE_CONFIG.KEYS.TOPIC_PROGRESS}_${topic}`;
+            return CacheManager.get(cacheKey);
+        },
+        
+        // Cache all topics progress in one object
+        setAllTopicsProgress(allProgressData) {
+            CacheManager.set(CACHE_CONFIG.KEYS.TOPIC_PROGRESS, allProgressData, CACHE_CONFIG.TTL.TOPIC_PROGRESS);
+        },
+        
+        getAllTopicsProgress() {
+            return CacheManager.get(CACHE_CONFIG.KEYS.TOPIC_PROGRESS);
+        },
+        
+        // Cache user statistics
+        setUserStats(statsData) {
+            CacheManager.set(CACHE_CONFIG.KEYS.USER_STATS, statsData, CACHE_CONFIG.TTL.USER_STATS);
+        },
+        
+        getUserStats() {
+            return CacheManager.get(CACHE_CONFIG.KEYS.USER_STATS);
+        },
+        
+        // Invalidate specific caches when user completes problems
+        invalidateAfterProblemCompletion(topicName) {
+            // Remove topic-specific progress cache
+            const topicCacheKey = `${CACHE_CONFIG.KEYS.TOPIC_PROGRESS}_${topicName}`;
+            CacheManager.remove(topicCacheKey);
+            
+            // Remove learning progress cache for this topic
+            const learningCacheKey = `learning_progress_${topicName}`;
+            CacheManager.remove(learningCacheKey);
+            
+            // Remove general caches that depend on progress
+            CacheManager.remove(CACHE_CONFIG.KEYS.TOPIC_PROGRESS);
+            CacheManager.remove(CACHE_CONFIG.KEYS.USER_STATS);
+            CacheManager.remove(CACHE_CONFIG.KEYS.DASHBOARD);
+            
+            console.log(`Cache invalidated after ${topicName} progress update`);
+        },
+        
+        // Clear all dashboard-related caches
+        clearAll() {
+            CacheManager.clearAll();
+            // Also clear topic-specific caches
+            const topics = ['Algebra', 'Fractions', 'Speed', 'Ratio', 'Measurement', 'Data Analysis', 'Percentage', 'Geometry'];
+            topics.forEach(topic => {
+                const topicCacheKey = `${CACHE_CONFIG.KEYS.TOPIC_PROGRESS}_${topic}`;
+                CacheManager.remove(topicCacheKey);
+                
+                // Also clear learning progress cache for each topic
+                const learningCacheKey = `learning_progress_${topic}`;
+                CacheManager.remove(learningCacheKey);
+            });
+        }
+    };
+    
+    // --- LEARNING-PRACTICE INTEGRATION SERVICE ---
+    const LearningPracticeIntegrator = {
+        // Get completed learning steps for a topic
+        async getCompletedLearningSteps(topic) {
+            try {
+                const response = await fetch(APP_CONFIG.getLearningProgress(topic), {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                    }
+                });
+                
+                if (!response.ok) {
+                    console.warn(`No learning progress found for ${topic}`);
+                    return [];
+                }
+                
+                const learningStatus = await response.json();
+                return this.extractCompletedSteps(learningStatus);
+            } catch (error) {
+                console.warn(`Error fetching learning progress for ${topic}:`, error);
+                return [];
+            }
+        },
+        
+        // Extract completed step numbers from learning status
+        extractCompletedSteps(learningStatus) {
+            if (!learningStatus || !learningStatus.progress_by_step) {
+                return [];
+            }
+            
+            const completedSteps = [];
+            Object.entries(learningStatus.progress_by_step).forEach(([step, status]) => {
+                if (status === 'mastered' || status === 'completed') {
+                    const stepNumber = parseInt(step.replace('step', ''));
+                    if (!isNaN(stepNumber)) {
+                        completedSteps.push(stepNumber);
+                    }
+                }
+            });
+            
+            return completedSteps;
+        },
+        
+        // Get practice problems appropriate for completed learning steps
+        async getRecommendedProblems(topic, filter = null) {
+            try {
+                const completedSteps = await this.getCompletedLearningSteps(topic);
+                const maxStep = completedSteps.length > 0 ? Math.max(...completedSteps) : 0;
+                
+                // If no learning completed, get all available problems
+                if (maxStep === 0) {
+                    return this.getAllProblems(topic, filter);
+                }
+                
+                // Get problems appropriate for completed learning steps
+                const url = filter 
+                    ? `${APP_CONFIG.getProblemsForLearningStep(topic, maxStep)}?filter=${filter}`
+                    : APP_CONFIG.getProblemsForLearningStep(topic, maxStep);
+                
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch recommended problems');
+                }
+                
+                const data = await response.json();
+                return {
+                    problems: data.problems || data, // Handle both formats
+                    maxLearningStep: maxStep,
+                    completedSteps: completedSteps
+                };
+            } catch (error) {
+                console.error('Error getting recommended problems:', error);
+                // Fallback to all problems
+                return this.getAllProblems(topic, filter);
+            }
+        },
+        
+        // Get all problems for a topic (fallback)
+        async getAllProblems(topic, filter = null) {
+            try {
+                const url = filter 
+                    ? APP_CONFIG.getHierarchicalURL(`/topics/${topic}/problems?filter=${filter}`)
+                    : APP_CONFIG.getHierarchicalURL(`/topics/${topic}/problems`);
+                
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch problems');
+                }
+                
+                const problems = await response.json();
+                return {
+                    problems: problems,
+                    maxLearningStep: null,
+                    completedSteps: []
+                };
+            } catch (error) {
+                console.error('Error getting all problems:', error);
+                return { problems: [], maxLearningStep: null, completedSteps: [] };
+            }
+        },
+        
+        // Get problems for a specific learning step (for step completion celebration)
+        async getProblemsForStep(topic, step) {
+            try {
+                const response = await fetch(APP_CONFIG.getProblemsForSpecificStep(topic, step), {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                    }
+                });
+                
+                if (!response.ok) {
+                    return [];
+                }
+                
+                const data = await response.json();
+                return data.problems || [];
+            } catch (error) {
+                console.error(`Error getting problems for step ${step}:`, error);
+                return [];
+            }
+        },
+        
+        // Determine if user should start with learning or practice
+        async shouldShowLearningFirst(topic) {
+            const completedSteps = await this.getCompletedLearningSteps(topic);
+            // Show learning first if no steps completed or less than 2 steps completed
+            return completedSteps.length < 2;
+        },
+        
+        // Get learning context for a practice problem
+        getLearningContext(problem) {
+            if (!problem.learn_step) {
+                return null;
+            }
+            
+            return {
+                step: problem.learn_step,
+                message: `This problem uses concepts from Learning Step ${problem.learn_step}`,
+                reviewAction: () => {
+                    // Navigate to learning step review
+                    navigateToLearningStep(problem.topic, problem.learn_step);
+                }
+            };
+        }
+    };
+    
+    // --- SMART NAVIGATION SERVICE ---
+    const SmartNavigationService = {
+        // Determine the best next action for a user based on their progress
+        async getNextAction(topic) {
+            try {
+                const completedSteps = await LearningPracticeIntegrator.getCompletedLearningSteps(topic);
+                const recommendedData = await LearningPracticeIntegrator.getRecommendedProblems(topic);
+                
+                // Decision tree for next action
+                if (completedSteps.length === 0) {
+                    return {
+                        action: 'start_learning',
+                        step: 1,
+                        text: 'Begin Learning',
+                        description: 'Start with Step 1 to learn fundamental concepts',
+                        buttonClass: 'button-primary',
+                        icon: '🚀'
+                    };
+                }
+                
+                if (this.hasNewPracticeProblems(completedSteps, recommendedData)) {
+                    const newProblems = await LearningPracticeIntegrator.getProblemsForStep(topic, Math.max(...completedSteps));
+                    return {
+                        action: 'practice_problems',
+                        text: 'Try Practice Problems',
+                        description: `${newProblems.length} new problems unlocked from Step ${Math.max(...completedSteps)}`,
+                        buttonClass: 'button-primary',
+                        icon: '💪'
+                    };
+                }
+                
+                if (this.canContinueLearning(completedSteps)) {
+                    const nextStep = Math.max(...completedSteps) + 1;
+                    return {
+                        action: 'continue_learning',
+                        step: nextStep,
+                        text: `Continue to Step ${nextStep}`,
+                        description: 'Learn new concepts to unlock more practice problems',
+                        buttonClass: 'button-primary',
+                        icon: '📚'
+                    };
+                }
+                
+                if (this.hasMorePractice(recommendedData)) {
+                    return {
+                        action: 'continue_practice',
+                        text: 'Continue Practice',
+                        description: 'Master more problems to complete the topic',
+                        buttonClass: 'button-secondary',
+                        icon: '🎯'
+                    };
+                }
+                
+                return {
+                    action: 'topic_mastered',
+                    text: 'Topic Mastered! 🎉',
+                    description: 'You\'ve completed all learning steps and practice problems',
+                    buttonClass: 'button-success',
+                    icon: '✨'
+                };
+            } catch (error) {
+                console.error('Error determining next action:', error);
+                return {
+                    action: 'start_learning',
+                    step: 1,
+                    text: 'Begin Learning',
+                    description: 'Start your learning journey',
+                    buttonClass: 'button-primary',
+                    icon: '🚀'
+                };
+            }
+        },
+        
+        // Check if there are new practice problems available
+        hasNewPracticeProblems(completedSteps, recommendedData) {
+            if (completedSteps.length === 0) return false;
+            
+            const maxStep = Math.max(...completedSteps);
+            const availableProblems = recommendedData.problems || [];
+            
+            // Check if there are problems for the latest completed step that haven't been practiced
+            return availableProblems.some(problem => 
+                problem.learn_step === maxStep && 
+                !this.isProblemMastered(problem.id)
+            );
+        },
+        
+        // Check if user can continue learning (not all 4 steps completed)
+        canContinueLearning(completedSteps) {
+            return completedSteps.length < 4;
+        },
+        
+        // Check if there are more practice problems to do
+        hasMorePractice(recommendedData) {
+            const problems = recommendedData.problems || [];
+            return problems.some(problem => !this.isProblemMastered(problem.id));
+        },
+        
+        // Check if a specific problem is mastered (would need to check progress)
+        isProblemMastered(problemId) {
+            // This would need to check actual problem progress
+            // For now, assume not mastered
+            return false;
+        },
+        
+        // Navigate based on action
+        async executeAction(topic, action) {
+            switch (action.action) {
+                case 'start_learning':
+                case 'continue_learning':
+                    await this.navigateToLearning(topic, action.step || 1);
+                    break;
+                case 'practice_problems':
+                case 'continue_practice':
+                    await this.navigateToPractice(topic);
+                    break;
+                case 'topic_mastered':
+                    this.showMasterycelebration(topic);
+                    break;
+                default:
+                    console.warn('Unknown action:', action);
+            }
+        },
+        
+        // Navigate to learning mode
+        async navigateToLearning(topic, step = 1) {
+            // This would trigger the learning pathway view
+            showTopicView(topic); // Uses existing function
+        },
+        
+        // Navigate to practice mode with smart problem filtering
+        async navigateToPractice(topic) {
+            // This would show practice problems filtered by learning progress
+            showTopicView(topic); // Uses existing function
+        },
+        
+        // Show mastery celebration
+        showMasterycelebration(topic) {
+            // Create celebration modal or notification
+            console.log(`🎉 Congratulations! You've mastered ${topic}!`);
+        }
+    };
+    
+    // --- REQUEST BATCHING UTILITY ---
+    const RequestBatcher = {
+        // In-flight request cache to prevent duplicate requests
+        inFlightRequests: new Map(),
+        
+        // Batch promises into groups to prevent overwhelming the server
+        async batchProcess(items, processFn, batchSize = 5) {
+            const results = [];
+            for (let i = 0; i < items.length; i += batchSize) {
+                const batch = items.slice(i, i + batchSize);
+                const batchPromises = batch.map(processFn);
+                const batchResults = await Promise.all(batchPromises);
+                results.push(...batchResults);
+                
+                // Small delay between batches to be server-friendly
+                if (i + batchSize < items.length) {
+                    await new Promise(resolve => setTimeout(resolve, 50));
+                }
+            }
+            return results;
+        },
+        
+        // Deduplicate API requests by URL
+        async deduplicatedFetch(url, options = {}) {
+            const requestKey = `${url}_${JSON.stringify(options)}`;
+            
+            // If request is already in flight, return the existing promise
+            if (this.inFlightRequests.has(requestKey)) {
+                console.log(`Deduplicated request: ${url}`);
+                return this.inFlightRequests.get(requestKey);
+            }
+            
+            // Create new request and cache the promise
+            const requestPromise = authedFetch(url, options)
+                .finally(() => {
+                    // Clean up the cache when request completes
+                    this.inFlightRequests.delete(requestKey);
+                });
+            
+            this.inFlightRequests.set(requestKey, requestPromise);
+            return requestPromise;
+        }
+    };
+    
     let authToken = localStorage.getItem('authToken');
     let currentProblemId = null;
     let chatHistory = [];
@@ -385,6 +917,10 @@ document.addEventListener('DOMContentLoaded', () => {
         quizState.userAnswers = [];
         loginForm.reset();
         signupForm.reset();
+        
+        // Clear all cached data on logout
+        DashboardCache.clearAll();
+        
         showView('logout-view');
         updateHeader();
     }
@@ -407,7 +943,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Error starting quiz:", error);
             // In a real app, show this error in the UI
             alert("Could not load the diagnostic quiz. Please try again later.");
-            showView('welcome-view');
+            showView('welcome-chat-view');
         }
     }
 
@@ -494,111 +1030,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const recommendedContainer = document.getElementById('recommended-topics-container');
         const allTopicsContainer = document.getElementById('all-topics-container');
         
-        // Show loading state
+        // Check for cached dashboard data first
+        const cachedDashboard = DashboardCache.getDashboardData();
+        const cachedStats = DashboardCache.getUserStats();
+        
+        if (cachedDashboard && cachedStats) {
+            console.log('Loading dashboard from cache...');
+            // Display cached data immediately
+            await displayDashboardData(cachedDashboard, cachedStats);
+            return;
+        }
+        
+        // Show loading state if no cache
         recommendedContainer.innerHTML = '<div class="loading-message">Loading recommendations...</div>';
         allTopicsContainer.innerHTML = '<div class="loading-message">Loading topics...</div>';
 
         try {
+            // Fetch fresh dashboard data
             const response = await authedFetch(APP_CONFIG.getHierarchicalURL('/dashboard'));
             if (!response.ok) throw new Error('Could not fetch dashboard data');
             const data = await response.json();
             
-            // Update dashboard stats with real data
-            await updateDashboardStats();
-
-            // Enhanced function to create topic cards with real data
-            const createEnhancedTopicCard = async (topic, isRecommended = false) => {
-                const card = document.createElement('div');
-                card.className = 'enhanced-topic-card';
-                
-                // Get topic metadata
-                const metadata = TOPIC_METADATA[topic] || TOPIC_METADATA['Default'];
-                
-                // Fetch real progress data for this topic
-                let topicStats = {
-                    total_problems: 0,
-                    mastered_count: 0,
-                    in_progress_count: 0
-                };
-                
-                try {
-                    const statsResponse = await authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${topic}/progress/summary`));
-                    if (statsResponse.ok) {
-                        topicStats = await statsResponse.json();
-                    }
-                } catch (error) {
-                    console.warn(`Could not fetch stats for ${topic}:`, error);
-                }
-                
-                // Calculate learning journey status
-                const masteredPercent = topicStats.total_problems > 0 ? 
-                    Math.round((topicStats.mastered_count / topicStats.total_problems) * 100) : 0;
-                
-                let journeyStatus = 'Not Started';
-                let statusClass = 'status-not-started';
-                
-                if (topicStats.mastered_count > 0 && topicStats.mastered_count === topicStats.total_problems) {
-                    journeyStatus = 'Mastered';
-                    statusClass = 'status-mastered';
-                } else if (topicStats.in_progress_count > 0 || topicStats.mastered_count > 0) {
-                    journeyStatus = 'In Progress';
-                    statusClass = 'status-in-progress';
-                }
-                
-                card.innerHTML = `
-                    <div class="topic-card-header">
-                        <div class="topic-card-icon">
-                            <i data-feather="${metadata.icon}"></i>
-                        </div>
-                        <h3 class="topic-card-title">${topic}</h3>
-                    </div>
-                    
-                    <div class="topic-card-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">Problems Solved</span>
-                            <span class="stat-value">${topicStats.mastered_count}/${topicStats.total_problems}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Learning Status</span>
-                            <span class="stat-value ${statusClass}">${journeyStatus}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="topic-card-meta">
-                        ${masteredPercent > 0 ? `<span class="mastery-badge">${masteredPercent}% Mastered</span>` : ''}
-                        ${topicStats.in_progress_count > 0 ? `<span class="progress-badge">${topicStats.in_progress_count} Active</span>` : ''}
-                    </div>
-                `;
-                
-                card.addEventListener('click', () => showTopicView(topic));
-                return card;
-            };
-
-            // --- Populate Recommended Topics ---
-            recommendedContainer.innerHTML = '';
-            if (data.recommended_topics && data.recommended_topics.length > 0) {
-                for (const topic of data.recommended_topics) {
-                    const card = await createEnhancedTopicCard(topic, true);
-                    recommendedContainer.appendChild(card);
-                }
-            } else {
-                recommendedContainer.innerHTML = '<div class="empty-state">No specific recommendations yet. Great job! Pick any topic to begin.</div>';
-            }
-
-            // --- Populate All Other Topics ---
-            allTopicsContainer.innerHTML = '';
-            if (data.all_topics && data.all_topics.length > 0) {
-                for (const topic of data.all_topics) {
-                    const card = await createEnhancedTopicCard(topic, false);
-                    allTopicsContainer.appendChild(card);
-                }
-            }
+            // Cache the dashboard data
+            DashboardCache.setDashboardData(data);
             
-            // Set up quick action event listeners
-            setupQuickActions();
-
-            // This is essential to render the new icons
-            feather.replace();
+            // Update dashboard stats with real data
+            const statsData = await updateDashboardStats();
+            
+            // Display the data
+            await displayDashboardData(data, statsData);
 
         } catch (error) {
             recommendedContainer.innerHTML = '<div class="error-state">Could not load recommendations. Please try again.</div>';
@@ -607,7 +1067,198 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // Separate function to display dashboard data (used for both cached and fresh data)
+    async function displayDashboardData(data, statsData) {
+        const recommendedContainer = document.getElementById('recommended-topics-container');
+        const allTopicsContainer = document.getElementById('all-topics-container');
+        
+        // Enhanced function to create topic cards with cached data
+        const createEnhancedTopicCard = async (topic, isRecommended = false) => {
+            const card = document.createElement('div');
+            card.className = 'enhanced-topic-card';
+            
+            // Get topic metadata
+            const metadata = TOPIC_METADATA[topic] || TOPIC_METADATA['Default'];
+            
+            // Try to get cached data first
+            let topicStats = DashboardCache.getTopicProgress(topic);
+            let learningProgress = null;
+            const learningCacheKey = `learning_progress_${topic}`;
+            learningProgress = CacheManager.get(learningCacheKey);
+            
+            // Prepare parallel API calls for missing data
+            const apiCalls = [];
+            
+            if (!topicStats) {
+                apiCalls.push(
+                    RequestBatcher.deduplicatedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${topic}/progress/summary`))
+                        .then(response => response.ok ? response.json() : null)
+                        .catch(error => {
+                            console.warn(`Could not fetch stats for ${topic}:`, error);
+                            return null;
+                        })
+                );
+            } else {
+                apiCalls.push(Promise.resolve(topicStats));
+            }
+            
+            if (!learningProgress) {
+                const topicKey = topic.toLowerCase();
+                apiCalls.push(
+                    RequestBatcher.deduplicatedFetch(APP_CONFIG.getHierarchicalURL(`/${topicKey}-tutor/status`))
+                        .then(response => response.ok ? response.json() : null)
+                        .catch(error => {
+                            console.warn(`Could not fetch learning progress for ${topic}:`, error);
+                            return null;
+                        })
+                );
+            } else {
+                apiCalls.push(Promise.resolve(learningProgress));
+            }
+            
+            // Execute both API calls in parallel
+            const [practiceData, learningData] = await Promise.all(apiCalls);
+            
+            // Update topic stats
+            if (!topicStats && practiceData) {
+                topicStats = practiceData;
+                DashboardCache.setTopicProgress(topic, topicStats);
+            } else if (!topicStats) {
+                topicStats = {
+                    total_problems: 0,
+                    mastered_count: 0,
+                    in_progress_count: 0
+                };
+            }
+            
+            // Update learning progress
+            if (!learningProgress && learningData) {
+                learningProgress = learningData;
+                console.log(`Learning progress for ${topic}:`, learningProgress);
+                CacheManager.set(learningCacheKey, learningProgress, CACHE_CONFIG.TTL.TOPIC_PROGRESS);
+            }
+            
+            // Calculate integrated learning journey status using our new service
+            const completedSteps = learningProgress ? 
+                LearningPracticeIntegrator.extractCompletedSteps(learningProgress) : [];
+            
+            const masteredPercent = topicStats.total_problems > 0 ? 
+                Math.round((topicStats.mastered_count / topicStats.total_problems) * 100) : 0;
+            
+            // Create unified progress display
+            let journeyStatus = 'Not Started';
+            let statusClass = 'status-not-started';
+            let progressDetails = '';
+            
+            // Enhanced status calculation with learning steps integration
+            if (learningProgress && learningProgress.progress_status === 'mastered') {
+                journeyStatus = 'Mastered';
+                statusClass = 'status-mastered';
+                progressDetails = `All 4 Steps Complete • ${topicStats.mastered_count}/${topicStats.total_problems} Practice Problems`;
+            } else if (completedSteps.length > 0) {
+                journeyStatus = 'In Progress';
+                statusClass = 'status-in-progress';
+                const stepText = completedSteps.length === 1 ? 'Step' : 'Steps';
+                progressDetails = `${completedSteps.length}/4 ${stepText} • ${topicStats.mastered_count}/${topicStats.total_problems} Practice`;
+            } else if (learningProgress && (learningProgress.progress_status === 'in_progress' || learningProgress.has_history)) {
+                journeyStatus = 'In Progress';
+                statusClass = 'status-in-progress';
+                progressDetails = `Learning in Progress • ${topicStats.mastered_count}/${topicStats.total_problems} Practice`;
+            } else if (topicStats.mastered_count > 0 && topicStats.mastered_count === topicStats.total_problems) {
+                journeyStatus = 'Mastered';
+                statusClass = 'status-mastered';
+                progressDetails = `Practice Complete • ${topicStats.mastered_count}/${topicStats.total_problems} Problems`;
+            } else if (topicStats.in_progress_count > 0 || topicStats.mastered_count > 0) {
+                journeyStatus = 'In Progress';
+                statusClass = 'status-in-progress';
+                progressDetails = `Practice Only • ${topicStats.mastered_count}/${topicStats.total_problems} Problems`;
+            } else {
+                progressDetails = `${topicStats.total_problems} Practice Problems Available`;
+            }
+            
+            card.innerHTML = `
+                <div class="topic-card-header">
+                    <div class="topic-card-icon">
+                        <i data-feather="${metadata.icon}"></i>
+                    </div>
+                    <h3 class="topic-card-title">${topic}</h3>
+                </div>
+                
+                <div class="topic-card-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Learning Journey</span>
+                        <span class="stat-value ${statusClass}">${journeyStatus}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Progress Details</span>
+                        <span class="stat-details">${progressDetails}</span>
+                    </div>
+                </div>
+                
+                <div class="topic-card-meta">
+                    ${completedSteps.length > 0 ? `<span class="learning-badge">Step ${Math.max(...completedSteps)}/4</span>` : ''}
+                    ${masteredPercent > 0 ? `<span class="mastery-badge">${masteredPercent}% Practice</span>` : ''}
+                    ${topicStats.in_progress_count > 0 ? `<span class="progress-badge">${topicStats.in_progress_count} Active</span>` : ''}
+                </div>
+            `;
+            
+            card.addEventListener('click', () => showTopicView(topic));
+            return card;
+        };
+
+        // --- Populate Recommended Topics (Batched Parallel Processing) ---
+        recommendedContainer.innerHTML = '';
+        if (data.recommended_topics && data.recommended_topics.length > 0) {
+            // Create recommended topic cards with batching (max 5 concurrent)
+            const recommendedCards = await RequestBatcher.batchProcess(
+                data.recommended_topics,
+                topic => createEnhancedTopicCard(topic, true),
+                5
+            );
+            
+            // Append all cards at once
+            recommendedCards.forEach(card => {
+                recommendedContainer.appendChild(card);
+            });
+        } else {
+            recommendedContainer.innerHTML = '<div class="empty-state">No specific recommendations yet. Great job! Pick any topic to begin.</div>';
+        }
+
+        // --- Populate All Other Topics (Batched Parallel Processing) ---
+        allTopicsContainer.innerHTML = '';
+        if (data.all_topics && data.all_topics.length > 0) {
+            // Create all topic cards with batching (max 5 concurrent)
+            const allTopicCards = await RequestBatcher.batchProcess(
+                data.all_topics,
+                topic => createEnhancedTopicCard(topic, false),
+                5
+            );
+            
+            // Append all cards at once
+            allTopicCards.forEach(card => {
+                allTopicsContainer.appendChild(card);
+            });
+        }
+        
+        // Set up quick action event listeners
+        setupQuickActions();
+
+        // This is essential to render the new icons
+        feather.replace();
+    }
+    
     async function updateDashboardStats() {
+        // Check for cached stats first
+        const cachedStats = DashboardCache.getUserStats();
+        if (cachedStats) {
+            console.log('Loading dashboard stats from cache...');
+            // Update stat values with cached data
+            animateStatValue('topics-completed', cachedStats.topicsCompleted);
+            animateStatValue('learning-streak', cachedStats.learningStreak);
+            animateStatValue('total-problems', cachedStats.totalProblems);
+            return cachedStats;
+        }
+        
         try {
             // Fetch real user progress data
             const progressResponse = await authedFetch(`${API_BASE_URL}/progress/all`);
@@ -627,40 +1278,70 @@ document.addEventListener('DOMContentLoaded', () => {
             const stats = {
                 topicsCompleted: topicsCompleted,
                 learningStreak: learningStreak,
-                totalProblems: masteredProblems
+                totalProblems: masteredProblems,
+                progressData: progressData // Include raw data for future use
             };
+            
+            // Cache the stats
+            DashboardCache.setUserStats(stats);
             
             // Update stat values with animation
             animateStatValue('topics-completed', stats.topicsCompleted);
             animateStatValue('learning-streak', stats.learningStreak);
             animateStatValue('total-problems', stats.totalProblems);
             
+            return stats;
+            
         } catch (error) {
             console.warn('Could not fetch real dashboard stats:', error);
             // Fallback to default values on error
+            const fallbackStats = {
+                topicsCompleted: 0,
+                learningStreak: 0,
+                totalProblems: 0
+            };
             animateStatValue('topics-completed', 0);
             animateStatValue('learning-streak', 0);
             animateStatValue('total-problems', 0);
+            return fallbackStats;
         }
     }
     
     async function calculateCompletedTopics() {
         const topics = ['Algebra', 'Fractions', 'Speed', 'Ratio', 'Measurement', 'Data Analysis', 'Percentage', 'Geometry'];
-        let completedCount = 0;
         
-        for (const topic of topics) {
-            try {
-                const statsResponse = await authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${topic}/progress/summary`));
-                if (statsResponse.ok) {
-                    const topicStats = await statsResponse.json();
-                    if (topicStats.mastered_count > 0 && topicStats.mastered_count === topicStats.total_problems && topicStats.total_problems > 0) {
-                        completedCount++;
+        // Use batched processing for topic completion checks
+        const completionResults = await RequestBatcher.batchProcess(
+            topics,
+            async topic => {
+                // Try to get cached topic progress first
+                let topicStats = DashboardCache.getTopicProgress(topic);
+                
+                if (!topicStats) {
+                    // If not cached, fetch it
+                    try {
+                        const statsResponse = await authedFetch(APP_CONFIG.getHierarchicalURL(`/topics/${topic}/progress/summary`));
+                        if (statsResponse.ok) {
+                            topicStats = await statsResponse.json();
+                            // Cache the topic progress for future use
+                            DashboardCache.setTopicProgress(topic, topicStats);
+                        }
+                    } catch (error) {
+                        console.warn(`Could not check completion for ${topic}:`, error);
+                        return false; // Return false for failed fetches
                     }
                 }
-            } catch (error) {
-                console.warn(`Could not check completion for ${topic}:`, error);
-            }
-        }
+                
+                // Check if topic is completed
+                return topicStats && topicStats.mastered_count > 0 && 
+                       topicStats.mastered_count === topicStats.total_problems && 
+                       topicStats.total_problems > 0;
+            },
+            4 // Batch size of 4 for stats calculation
+        );
+        
+        // Count completed topics
+        const completedCount = completionResults.filter(Boolean).length;
         
         return completedCount;
     }
@@ -931,8 +1612,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             renderChatHistory();
             if (result.is_correct) {
-                // Refresh dashboard data in background to update status badge
-                fetchAndDisplayDashboard();
+                // Invalidate cache for this topic since user completed a problem
+                if (currentTopicName) {
+                    DashboardCache.invalidateAfterProblemCompletion(currentTopicName);
+                }
                 // Show Next Problem button
                 showNextProblemButton();
             }
@@ -1084,15 +1767,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Display enhanced results with visual elements
             resultsArea.innerHTML = `
                 <div class="score-section">
-                    <div class="score-circle">
-                        <svg>
-                            <circle class="progress-bg" cx="60" cy="60" r="52"></circle>
-                            <circle class="progress-fill" cx="60" cy="60" r="52" 
-                                stroke-dasharray="${scorePercentage * 3.27} 327" 
-                                stroke-dashoffset="0"></circle>
-                        </svg>
-                        <div class="score-text">${correctAnswers}/${totalQuestions}</div>
-                    </div>
                     <h2>${report.score_text}</h2>
                     <div class="score-description">${report.summary_message}</div>
                 </div>
@@ -1914,7 +2588,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const messageContent = document.createElement('div');
                     messageContent.className = 'message-content';
                     messageContent.innerHTML = `
-                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; transition: all 0.2s ease;">
+                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem;">
                             <i data-feather="arrow-right"></i> Continue Practice
                         </button>
                     `;
@@ -1944,7 +2618,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const messageContent = document.createElement('div');
                     messageContent.className = 'message-content';
                     messageContent.innerHTML = `
-                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; transition: all 0.2s ease;">
+                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem;">
                             <i data-feather="arrow-right"></i> Try Practice Problems
                         </button>
                     `;
@@ -1994,6 +2668,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     isCompleted: false,
                     progressStatus: 'in_progress'
                 };
+                
+                // Invalidate cache since learning progress started
+                DashboardCache.invalidateAfterProblemCompletion('Algebra');
+                
                 updateLearningPathway(newSessionProgress);
                 
                 // Send initial message
@@ -2288,6 +2966,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const data = await response.json();
             
+            
             // --- EMOTIONAL INTELLIGENCE PROCESSING ---
             // Update error tracking based on student understanding
             if (data.shows_understanding) {
@@ -2316,27 +2995,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const previousStep = currentAlgebraStep;
             currentAlgebraStep = data.new_step;
             
-            // Update learning pathway if step was completed
-            if (data.step_completed) {
-                console.log(`🎉 Step ${data.step_completed} completed! Updating pathway...`);
-                // Immediately update the pathway with the new progress
-                const updatedProgress = {
-                    completedSteps: data.completed_steps_count || 0,
-                    currentStep: data.new_step,
-                    isCompleted: data.ready_for_problems || false,
-                    progressStatus: data.ready_for_problems ? 'mastered' : 'in_progress'
-                };
-                
-                // Update the pathway immediately
-                updateLearningPathway(updatedProgress);
-                
-                // Add celebration animation after a brief delay
-                setTimeout(() => {
-                    if (typeof onAlgebraStepCompleted === 'function') {
-                        onAlgebraStepCompleted(data.step_completed);
-                    }
-                }, 500);
-            }
+            
             
             // Show typing indicator
             showTypingIndicator();
@@ -2361,7 +3020,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const messageContent = document.createElement('div');
                         messageContent.className = 'message-content';
                         messageContent.innerHTML = `
-                            <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; transition: all 0.2s ease;">
+                            <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem;">
                                 <i data-feather="arrow-right"></i> Try Practice Problems
                             </button>
                         `;
@@ -2548,7 +3207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const messageContent = document.createElement('div');
                     messageContent.className = 'message-content';
                     messageContent.innerHTML = `
-                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; transition: all 0.2s ease;">
+                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem;">
                             <i data-feather="arrow-right"></i> Continue Practice
                         </button>
                     `;
@@ -2578,7 +3237,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const messageContent = document.createElement('div');
                     messageContent.className = 'message-content';
                     messageContent.innerHTML = `
-                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; transition: all 0.2s ease;">
+                        <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem;">
                             <i data-feather="arrow-right"></i> Try Practice Problems
                         </button>
                     `;
@@ -2628,6 +3287,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     isCompleted: false,
                     progressStatus: 'in_progress'
                 };
+                
+                // Invalidate cache since learning progress started
+                DashboardCache.invalidateAfterProblemCompletion('Fractions');
+                
                 updateLearningPathway(newSessionProgress);
                 
                 // Send initial message with section ID for image support
@@ -2765,6 +3428,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const data = await response.json();
             
+            
             // --- EMOTIONAL INTELLIGENCE PROCESSING ---
             // Update error tracking based on student understanding
             if (data.shows_understanding) {
@@ -2783,20 +3447,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const previousStep = currentFractionsStep;
             currentFractionsStep = data.new_step;
             
-            // Update learning pathway if step was completed
-            if (data.step_completed) {
-                console.log(`🎉 Step ${data.step_completed} completed! Updating pathway...`);
-                // Immediately update the pathway with the new progress
-                const updatedProgress = {
-                    completedSteps: data.completed_steps_count || 0,
-                    currentStep: data.new_step,
-                    isCompleted: data.ready_for_problems || false,
-                    progressStatus: data.ready_for_problems ? 'mastered' : 'in_progress'
-                };
-                
-                // Update the pathway immediately
-                updateLearningPathway(updatedProgress);
-            }
             
             // Send tutor response after a brief delay to feel natural
             setTimeout(async () => {
@@ -2827,7 +3477,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const messageContent = document.createElement('div');
                         messageContent.className = 'message-content';
                         messageContent.innerHTML = `
-                            <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 25px; color: white; cursor: pointer; font-weight: 600; transition: all 0.2s ease;">
+                            <button class="button-primary" onclick="goToPracticeProblems()" style="margin-top: 0.5rem;">
                                 <i data-feather="arrow-right"></i> Try Practice Problems
                             </button>
                         `;
@@ -3003,6 +3653,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     genericTutorState.currentSectionId = data.current_section_id;
                 }
                 
+                // Invalidate cache since learning progress started
+                DashboardCache.invalidateAfterProblemCompletion(currentTopicName);
+                
                 // Add to conversation history
                 genericTutorState.history.push({ 
                     sender: 'tutor', 
@@ -3072,7 +3725,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {string} topic - The topic name
      * @param {number} stepNumber - The completed step number
      */
-    function onGenericStepCompleted(topic, stepNumber) {
+    async function onGenericStepCompleted(topic, stepNumber) {
         console.log(`${topic} step ${stepNumber} completed!`);
         
         // Update the pathway display using generic progress function
@@ -3080,7 +3733,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLearningPathway(progress);
         });
 
-        // Add celebration animation (same as Algebra)
+        // Add celebration animation
         const step = document.querySelector(`[data-step="${stepNumber}"]`);
         if (step) {
             step.style.animation = 'celebrateCompletion 0.6s ease-in-out';
@@ -3088,7 +3741,121 @@ document.addEventListener('DOMContentLoaded', () => {
                 step.style.animation = '';
             }, 600);
         }
+        
+        // Show practice problem recommendation after step completion
+        setTimeout(async () => {
+            await showStepCompletionCelebration(topic, stepNumber);
+        }, 1000);
     }
+
+    // New function to show step completion celebration with practice recommendations
+    async function showStepCompletionCelebration(topic, stepNumber) {
+        try {
+            // Get newly unlocked practice problems for this step
+            const newProblems = await LearningPracticeIntegrator.getProblemsForStep(topic, stepNumber);
+            
+            if (newProblems.length > 0) {
+                // Show celebration with practice recommendation
+                const celebrationHTML = `
+                    <div class="step-completion-celebration">
+                        <div class="celebration-content">
+                            <div class="celebration-header">
+                                <h3>🎉 Step ${stepNumber} Complete!</h3>
+                                <p>Great job! You've mastered the concepts from Step ${stepNumber}.</p>
+                            </div>
+                            <div class="practice-recommendation">
+                                <h4>What would you like to do next? 🤔</h4>
+                                <p>You've unlocked <strong>${newProblems.length} new practice problems</strong> that use Step ${stepNumber} concepts!</p>
+                                <div class="celebration-buttons">
+                                    <button class="button-primary" onclick="navigateToPracticeProblems('${topic}', ${stepNumber})">
+                                        <i data-feather="target"></i>
+                                        Practice Step ${stepNumber} Problems
+                                    </button>
+                                    <button class="button-secondary" onclick="continueToNextStep('${topic}', ${stepNumber})">
+                                        <i data-feather="arrow-right"></i>
+                                        Continue to Step ${stepNumber + 1}
+                                    </button>
+                                </div>
+                                <p style="font-size: 0.9em; color: var(--text-muted); margin-top: 1rem;">
+                                    💡 <strong>Tip:</strong> Practicing now helps reinforce what you learned before moving on!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add celebration to chat log
+                const chatLog = document.getElementById('tutor-chat-log');
+                if (chatLog) {
+                    const celebrationDiv = document.createElement('div');
+                    celebrationDiv.innerHTML = celebrationHTML;
+                    chatLog.appendChild(celebrationDiv);
+                    chatLog.scrollTop = chatLog.scrollHeight;
+                    
+                    // Update feather icons
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error showing step completion celebration:', error);
+        }
+    }
+
+    // Navigation functions for celebration buttons
+    async function navigateToPracticeProblems(topic, stepNumber) {
+        console.log(`Navigating to practice problems for ${topic} step ${stepNumber}`);
+        
+        // Invalidate cache to ensure fresh data
+        DashboardCache.invalidateAfterProblemCompletion(topic);
+        
+        // Navigate to topic view which will show practice mode
+        showTopicView(topic);
+    }
+
+    async function continueToNextStep(topic, stepNumber) {
+        console.log(`Continuing to next step for ${topic} from step ${stepNumber}`);
+        
+        // Close the celebration
+        const celebration = document.querySelector('.step-completion-celebration');
+        if (celebration) {
+            celebration.style.display = 'none';
+        }
+        
+        // Continue the learning flow by sending a continue message to the backend
+        try {
+            const response = await fetch(APP_CONFIG.getHierarchicalURL(`/${topic.toLowerCase()}-tutor/chat`), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                },
+                body: JSON.stringify({
+                    message: 'Yes, I want to continue to the next step.',
+                    action: 'continue_learning'
+                })
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Process the response (transition to next step)
+                setTimeout(async () => {
+                    hideTypingIndicator();
+                    await sendTutorMessage(data.tutor_response, 'tutor', data.current_section_id);
+                }, 1000);
+            }
+        } catch (error) {
+            console.error('Error continuing to next step:', error);
+            // Fallback: just show a continuation message
+            await sendTutorMessage('Great! Let\'s continue to the next step.', 'tutor');
+        }
+    }
+
 
     /**
      * Handle submit button click for generic learning tutor
@@ -3182,6 +3949,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             hideTypingIndicator();
             
+            
             // Send tutor response with section ID for image support
             await sendTutorMessage(data.tutor_response, 'tutor', data.current_section_id);
             
@@ -3210,30 +3978,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 section_id: data.current_section_id
             });
             
-            // Handle step progression and completion
-            if (data.section_completed) {
-                console.log(`✅ Section completed for ${topic}!`);
-            }
-            
-            // Handle step completion (similar to topic-specific implementations)
-            if (data.step_completed) {
-                console.log(`🎉 Step ${data.step_completed} completed for ${topic}! Updating pathway...`);
-                
-                // Immediately update the pathway with the new progress
-                const updatedProgress = {
-                    completedSteps: data.completed_steps_count || 0,
-                    currentStep: data.new_step || genericTutorState.currentStep,
-                    isCompleted: data.ready_for_problems || false,
-                    progressStatus: data.ready_for_problems ? 'mastered' : 'in_progress'
-                };
-                
-                updateLearningPathway(updatedProgress);
-                
-                // Add celebration animation after a brief delay
-                setTimeout(() => {
-                    onGenericStepCompleted(topic, data.step_completed);
-                }, 500);
-            }
             
             if (data.ready_for_problems) {
                 console.log(`🎓 ${topic} learning completed - student ready for practice!`);

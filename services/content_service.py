@@ -91,7 +91,8 @@ class ContentService:
                 final_problem_list.append({
                     "id": problem_data.get("id"),
                     "title": problem_data.get("title", "Untitled"),
-                    "topic": problem_data.get("topic")
+                    "topic": problem_data.get("topic"),
+                    "learn_step": problem_data.get("learn_step")
                 })
 
         return final_problem_list

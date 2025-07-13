@@ -238,22 +238,6 @@ Generate a resume message:"""
             # Current attempt number = previous attempts in this section + 1
             attempt_count = previous_attempts_in_section + 1
             
-            print(f"🔍 ATTEMPT COUNTING: Section {current_section_id}")
-            print(f"   Using {'separate counting context' if attempt_counting_context else 'conversation history'}")
-            print(f"   Counting context messages: {len(counting_context)}")
-            
-            # Debug: Show ALL messages in counting context with detailed analysis
-            for i, msg in enumerate(counting_context):
-                sender = msg.get('sender', 'unknown')
-                message_preview = msg.get('message', '')[:20] + '...' if msg.get('message') else 'no message'
-                msg_section_id = msg.get('section_id', 'no_section_id')
-                is_student = (sender == 'student')
-                is_current_section = (msg_section_id == current_section_id)
-                will_count = (is_student and is_current_section)
-                print(f"     Msg[{i+1}] {sender}: '{message_preview}' section:{msg_section_id} → {'✅COUNT' if will_count else '❌skip'}")
-            
-            print(f"   Previous attempts in section: {previous_attempts_in_section}")
-            print(f"   Current attempt: {attempt_count}")
         
         # Extract section data
         section_type = section_content.get('type', '')
@@ -441,12 +425,14 @@ Now it's your turn! **{section_question}**"""
         next_question = next_section.get('question', '')
         
         # Check if this is a step transition (e.g., step1 → step2, step2 → step3)
+        # Step transitions happen when going FROM a completion section TO the first section of the next step
         is_step_transition = (
-            current_section_id.endswith('_012') and 
-            next_section_id.endswith('_001') and
+            current_type == 'completion' and  # Current section is the completion of a step
             'step' in current_section_id and 'step' in next_section_id and
-            current_section_id.split('_step')[1][0] != next_section_id.split('_step')[1][0]
+            next_section_id.endswith('_001') and  # Next section is start of new step
+            current_section_id.split('_step')[1][0] != next_section_id.split('_step')[1][0]  # Different step numbers
         )
+        
         
         # Handle worked examples for next section
         if next_type == 'worked_example':
@@ -475,9 +461,6 @@ Now it's your turn! **{next_question}**"""
             next_step = next_section_id.split('_step')[1][0]
             
             prompt = f"""You are a P6 math tutor. The student just completed Step {current_step} and is moving to Step {next_step}.
-
-CURRENT SECTION COMPLETED: {current_section.get('text', '')}
-NEXT SECTION STARTING: {next_text}
 
 Generate a natural transition (2-3 sentences) that:
 1. Celebrates completing the previous step
