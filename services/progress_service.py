@@ -71,6 +71,26 @@ class ProgressService:
     def get_recent_progress(self, user_id: int, limit: int = 5) -> List[ProblemProgress]:
         """Get recent progress for a user."""
         return ProblemProgress.get_recent_user_progress(user_id, limit)
+    
+    def save_multiple_progress(self, save_operations: List[Dict]) -> None:
+        """
+        Save multiple progress updates efficiently.
+        
+        Args:
+            save_operations: List of dicts with keys:
+                - user_id: int
+                - problem_id: str  
+                - status: str
+                - chat_history: List[Dict] (optional)
+        """
+        for operation in save_operations:
+            user_id = operation['user_id']
+            problem_id = operation['problem_id']
+            status = operation['status']
+            chat_history = operation.get('chat_history', [])
+            
+            # Use existing save_progress method to maintain all current logic
+            self.save_progress(user_id, problem_id, status, chat_history)
 
 
 # Global instance

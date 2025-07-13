@@ -26,16 +26,19 @@ class TutorServiceFactory:
         'geometry': GeometryTutorService,
     }
     
+    # Cache for instantiated services (singleton pattern)
+    _service_instances = {}
+    
     @classmethod
     def get_service(cls, topic: str):
         """
-        Get the appropriate tutor service for a topic
+        Get the appropriate tutor service for a topic (cached singleton)
         
         Args:
             topic: The topic name (e.g., 'fractions', 'algebra')
             
         Returns:
-            Instance of the appropriate tutor service
+            Cached instance of the appropriate tutor service
             
         Raises:
             ValueError: If topic is not supported
@@ -44,8 +47,16 @@ class TutorServiceFactory:
             available_topics = list(cls._services.keys())
             raise ValueError(f"Topic '{topic}' is not supported. Available topics: {available_topics}")
         
+        # Return cached instance if it exists
+        if topic in cls._service_instances:
+            return cls._service_instances[topic]
+        
+        # Create new instance and cache it
         service_class = cls._services[topic]
-        return service_class()
+        service_instance = service_class()
+        cls._service_instances[topic] = service_instance
+        print(f"🔄 Cached {topic} tutor service instance")
+        return service_instance
     
     @classmethod
     def get_available_topics(cls):
@@ -62,6 +73,17 @@ class TutorServiceFactory:
         """Register a new tutor service (for future use)"""
         cls._services[topic] = service_class
         print(f"✅ Registered {topic} tutor service")
+    
+    @classmethod
+    def clear_cache(cls, topic: str = None):
+        """Clear cached service instances (for testing/debugging)"""
+        if topic:
+            if topic in cls._service_instances:
+                del cls._service_instances[topic]
+                print(f"🗑️ Cleared {topic} tutor service cache")
+        else:
+            cls._service_instances.clear()
+            print(f"🗑️ Cleared all tutor service cache")
 
 # Convenience function for easy access
 def get_tutor_service(topic: str):

@@ -285,23 +285,49 @@ def learning_tutor_chat(user_id, grade, subject, topic):
         
         # SYNCHRONOUS SAVE - ensure messages are saved before next request
         try:
-            # Save section progress if completed
-            if section_completed and current_section_id:
-                progress_service.save_progress(user_id, current_section_id, 'completed', [])
-            
-            # Save messages to current section - THIS IS CRITICAL FOR ATTEMPT COUNTING
+            # Prepare all save operations to batch them (reduces datastore latency)
+            save_operations = []
             section_messages = [student_message, tutor_message]
             message_save_status = 'completed' if (section_completed and current_section_id) else 'in_progress'
-            progress_service.save_progress(user_id, current_section_id, message_save_status, section_messages)
+            
+            # Main save: messages to current section - CRITICAL FOR ATTEMPT COUNTING
+            save_operations.append({
+                'user_id': user_id,
+                'problem_id': current_section_id,
+                'status': message_save_status,
+                'chat_history': section_messages
+            })
+            
+            # Save section completion if needed
+            if section_completed and current_section_id:
+                save_operations.append({
+                    'user_id': user_id,
+                    'problem_id': current_section_id,
+                    'status': 'completed',
+                    'chat_history': []
+                })
             
             # Position user in new section if completed
             if section_completed and updated_section_id and updated_section_id != current_section_id:
-                progress_service.save_progress(user_id, updated_section_id, 'in_progress', [])
+                save_operations.append({
+                    'user_id': user_id,
+                    'problem_id': updated_section_id,
+                    'status': 'in_progress',
+                    'chat_history': []
+                })
             
             # Save overall progress
             progress_status = 'mastered' if ready_for_problems else ('in_progress' if completed_sections_count > 0 else 'pending')
             tutor_session_id = f"{topic}_tutor_session"
-            progress_service.save_progress(user_id, tutor_session_id, progress_status, [])
+            save_operations.append({
+                'user_id': user_id,
+                'problem_id': tutor_session_id,
+                'status': progress_status,
+                'chat_history': []
+            })
+            
+            # Execute all saves (maintains all existing logic but batched)
+            progress_service.save_multiple_progress(save_operations)
             
         except Exception as e:
             print(f"Save error: {e}")

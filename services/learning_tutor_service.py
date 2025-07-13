@@ -247,10 +247,15 @@ Generate a resume message:"""
         sample_incorrect = section_content.get('sample_incorrect_response', '')
         detailed_explanation = section_content.get('exact_detailed_explanation', '')
         
-        # Use AI evaluation for all section types, including completion sections
-        is_correct = self._evaluate_student_response(
-            student_answer, sample_correct, sample_incorrect, section_question, section_type
-        )
+        # For completion sections, combine evaluation and sentiment detection in one AI call
+        if section_type == 'completion':
+            is_correct, is_ready = self._evaluate_completion_response(student_answer, section_question)
+        else:
+            # Use AI evaluation for regular sections
+            is_correct = self._evaluate_student_response(
+                student_answer, sample_correct, sample_incorrect, section_question, section_type
+            )
+            is_ready = None  # Not applicable for non-completion sections
         
         
         # Initialize progression variables
@@ -267,8 +272,7 @@ Generate a resume message:"""
                 section_completed = True
                 new_attempt_count = 1
                 
-                # Use AI to determine if response is positive (ready) or negative (not ready)
-                is_ready = self._detect_positive_sentiment(student_answer)
+                # is_ready already determined by _evaluate_completion_response above
                 
                 if is_ready:
                     # Student says yes - regular positive transition
@@ -374,6 +378,45 @@ Respond with only: "CORRECT" or "INCORRECT" """
             print(f"❌ CRITICAL: Error evaluating response: {e}")
             raise Exception(f"AI failed to evaluate student response: {e}")
     
+    def _evaluate_completion_response(self, student_answer: str, question: str) -> Tuple[bool, bool]:
+        """Combined evaluation and sentiment detection for completion sections (faster)"""
+        if not self.model:
+            # Fallback to simple keyword detection if no AI available
+            student_lower = student_answer.lower().strip()
+            is_correct = any(word in student_lower for word in ['yes', 'no', 'ready', 'not ready', 'confident', 'not confident', 'sure', 'not sure'])
+            is_ready = any(word in student_lower for word in ['yes', 'ready', 'confident', 'sure'])
+            return is_correct, is_ready
+        
+        prompt = f"""Analyze this P6 student's completion response:
+
+QUESTION: {question}
+STUDENT ANSWER: "{student_answer}"
+
+Evaluate TWO things:
+1. Is this a valid response? (any meaningful answer about readiness/confidence = valid)
+2. Does it indicate POSITIVE readiness? (ready/confident vs not ready/uncertain)
+
+Respond with ONLY: "VALID_POSITIVE" or "VALID_NEGATIVE" or "INVALID" """
+
+        try:
+            response = self.model.generate_content(prompt)
+            result = response.text.strip().upper()
+            
+            if result == "VALID_POSITIVE":
+                return True, True
+            elif result == "VALID_NEGATIVE":
+                return True, False
+            else:  # INVALID
+                return False, False
+                
+        except Exception as e:
+            print(f"❌ Error evaluating completion response: {e}")
+            # Fallback to simple keyword detection
+            student_lower = student_answer.lower().strip()
+            is_correct = any(word in student_lower for word in ['yes', 'no', 'ready', 'not ready', 'confident', 'not confident', 'sure', 'not sure'])
+            is_ready = any(word in student_lower for word in ['yes', 'ready', 'confident', 'sure'])
+            return is_correct, is_ready
+    
     def _detect_positive_sentiment(self, student_answer: str) -> bool:
         """Use AI to detect if student's completion response indicates readiness/confidence"""
         if not self.model:
@@ -444,7 +487,7 @@ Now it's your turn! **{section_question}**"""
             else:
                 intro = ""
             
-            return f"{intro}{section_text} **{section_question}**"
+            return f"{intro}{section_text}\\n\\n**{section_question}**"
     
     def _generate_correct_response_with_transition(self, current_section_id: str, next_section_id: str) -> str:
         """Generate response for correct answer and transition to next section"""
@@ -488,7 +531,7 @@ Now it's your turn! **{section_question}**"""
 
 Now it's your turn! **{next_question}**"""
         else:
-            next_content = f"{next_text} **{next_question}**"
+            next_content = f"{next_text}\\n\\n**{next_question}**"
         
         # For step transitions, create a more natural flow
         if is_step_transition:
@@ -560,7 +603,7 @@ Then I'll add the next section content."""
 
 Now it's your turn! **{next_question}**"""
             else:
-                next_content = f"{next_text} **{next_question}**"
+                next_content = f"{next_text}\\n\\n**{next_question}**"
             
             # Handle completion sections differently
             if next_type == 'completion':
@@ -724,7 +767,7 @@ Keep it brief and supportive."""
 
 Now it's your turn! **{next_question}**"""
         else:
-            next_content = f"{next_text} **{next_question}**"
+            next_content = f"{next_text}\\n\\n**{next_question}**"
         
         prompt = f"""You are a P6 math tutor. The student just completed a step but says they don't feel confident yet.
 
@@ -748,7 +791,7 @@ Make it warm and encouraging, then I'll add the complete next section content.""
         except Exception as e:
             print(f"❌ Error generating encouragement transition: {e}")
             # Fallback: create a natural single message
-            return f"That's perfectly fine! {detailed_explanation} You've done great to reach this far, and you'll get plenty of practice opportunities. Now, let's build on what you learned - {next_text.lower()} **{next_question}**"
+            return f"That's perfectly fine! {detailed_explanation} You've done great to reach this far, and you'll get plenty of practice opportunities. Now, let's build on what you learned - {next_text.lower()}\\n\\n**{next_question}**"
     
     def generate_practice_review_message(self, completed_count: int, in_progress_count: int, total_attempted: int) -> str:
         """Generate AI-powered practice review message based on student progress"""
