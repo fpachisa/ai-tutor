@@ -1,446 +1,628 @@
 [
   {
-    "id": "FRAC-101",
+    "id": "FRAC-S1-E1",
     "topic": "Fractions",
-    "title": "Sharing a Cake",
-    "complexity": 1,
+    "title": "Basic Fraction Division by Whole Number",
+    "learn_step": 1,
+    "complexity": "Easy",
     "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 30,
+    "skills_tested": [
+      "Dividing a fraction by a whole number"
+    ],
+    "problem_text": "Calculate the value of 1/5 ÷ 4.",
+    "verified_answer": "1/20",
+    "solution_hints": [
+      "Remember the rule: to divide by a whole number, you multiply by its reciprocal.",
+      "What is the reciprocal of 4?",
+      "Change the problem to 1/5 × 1/4."
+    ],
+    "common_pitfalls": [
+      "Multiplying 1/5 by 4 instead of its reciprocal.",
+      "Calculating 4 ÷ 1/5 instead."
+    ],
+    "verified_methodology": [
+      "Step 1: The problem is 1/5 ÷ 4.",
+      "Step 2: The reciprocal of the whole number 4 is 1/4.",
+      "Step 3: Change the division to multiplication using the reciprocal: 1/5 × 1/4.",
+      "Step 4: Multiply the numerators (1×1) and the denominators (5×4) to get 1/20."
+    ]
+  },
+  {
+    "id": "FRAC-S1-E2",
+    "topic": "Fractions",
+    "title": "Fraction Division by Whole Number",
+    "learn_step": 1,
+    "complexity": "Easy",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 35,
+    "skills_tested": [
+      "Dividing a fraction by a whole number"
+    ],
+    "problem_text": "Calculate the value of 2/7 ÷ 3.",
+    "verified_answer": "2/21",
+    "solution_hints": [
+      "Keep the first fraction, change the sign to multiply, and use the reciprocal of the second number.",
+      "The reciprocal of 3 is 1/3.",
+      "Multiply 2/7 by 1/3."
+    ],
+    "common_pitfalls": [
+      "Incorrectly simplifying before multiplying.",
+      "Adding or subtracting the numbers."
+    ],
+    "verified_methodology": [
+      "Step 1: The problem is 2/7 ÷ 3.",
+      "Step 2: Find the reciprocal of 3, which is 1/3.",
+      "Step 3: Rewrite the problem as a multiplication: 2/7 × 1/3.",
+      "Step 4: Multiply across: (2×1) / (7×3) = 2/21."
+    ]
+  },
+  {
+    "id": "FRAC-S1-M1",
+    "topic": "Fractions",
+    "title": "Division Requiring Simplification",
+    "learn_step": 1,
+    "complexity": "Medium",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 50,
+    "skills_tested": [
+      "Dividing a fraction by a whole number",
+      "Simplifying fractions"
+    ],
+    "problem_text": "A piece of wood is 4/5 metres long. It is cut into 2 equal pieces. What is the length of each piece?",
+    "verified_answer": "2/5",
+    "solution_hints": [
+      "This is a division problem: 4/5 ÷ 2.",
+      "Rewrite the problem as 4/5 × 1/2.",
+      "Multiply to get 4/10, then simplify your final answer."
+    ],
+    "common_pitfalls": [
+      "Forgetting to simplify the final answer (4/10).",
+      "Multiplying 4/5 by 2."
+    ],
+    "verified_methodology": [
+      "Step 1: Set up the division: 4/5 ÷ 2.",
+      "Step 2: Change to multiplication using the reciprocal: 4/5 × 1/2.",
+      "Step 3: Multiply the fractions: 4/10.",
+      "Step 4: Simplify the resulting fraction by dividing the numerator and denominator by 2. The final answer is 2/5."
+    ]
+  },
+  {
+    "id": "FRAC-S1-M2",
+    "topic": "Fractions",
+    "title": "Simple Word Problem",
+    "learn_step": 1,
+    "complexity": "Medium",
+    "image_url": null,
+    "svg_code": null,
     "estimated_time_seconds": 60,
     "skills_tested": [
-      "Division of a proper fraction by a whole number"
+      "Applying fraction division to a word problem"
     ],
-    "problem_text": "A cake was cut into equal slices. Siti had $\\frac{1}{2}$ of the cake. She shared her portion of the cake equally among herself and 2 friends. What fraction of the whole cake did each friend get?",
-    "verified_answer": "$\\frac{1}{6}$",
+    "problem_text": "A jug containing 3/4 litres of juice is poured equally into 3 glasses. What is the volume of juice in each glass?",
+    "verified_answer": "1/4",
     "solution_hints": [
-      "Siti is sharing her portion among 3 people in total (herself and 2 friends).",
-      "You need to calculate $\\frac{1}{2} \\div 3$.",
-      "Dividing by a whole number is the same as multiplying by its reciprocal. The reciprocal of 3 is $\\frac{1}{3}$."
+      "The total amount (3/4 litres) is being shared among 3 glasses.",
+      "The calculation is 3/4 ÷ 3.",
+      "You can simplify this problem before multiplying."
     ],
     "common_pitfalls": [
-      "Dividing by 2 instead of 3.",
-      "Calculating $3 \\div \\frac{1}{2}$ instead.",
-      "Multiplying $\\frac{1}{2}$ by 3."
+      "Setting up the problem as 3 ÷ 3/4.",
+      "Getting 9/4 as the answer by multiplying instead of dividing."
     ],
     "verified_methodology": [
-      "Step 1: Identify the fraction of the cake Siti had, which is $\\frac{1}{2}$.",
-      "Step 2: Identify the number of people sharing the portion, which is 1 (Siti) + 2 (friends) = 3 people.",
-      "Step 3: Set up the division equation: $\\frac{1}{2} \\div 3$.",
-      "Step 4: To divide by a whole number, we multiply by its reciprocal: $\\frac{1}{2} \\times \\frac{1}{3}$.",
-      "Step 5: Multiply the numerators and the denominators: $\\frac{1 \\times 1}{2 \\times 3} = \\frac{1}{6}$. Each friend got $\\frac{1}{6}$ of the cake."
+      "Step 1: Set up the equation: 3/4 ÷ 3.",
+      "Step 2: Rewrite as a multiplication: 3/4 × 1/3.",
+      "Step 3: Multiply the fractions: 3/12.",
+      "Step 4: Simplify the fraction: 1/4. Each glass has 1/4 litre of juice."
     ]
   },
   {
-    "id": "FRAC-102",
+    "id": "FRAC-S1-H1",
     "topic": "Fractions",
-    "title": "Cutting a Ribbon",
-    "complexity": 1,
+    "title": "Word Problem with a Hidden Divisor",
+    "learn_step": 1,
+    "complexity": "Hard",
     "image_url": null,
-    "estimated_time_seconds": 60,
+    "svg_code": null,
+    "estimated_time_seconds": 90,
     "skills_tested": [
-      "Division of a proper fraction by a whole number"
+      "Interpreting a word problem to find the divisor",
+      "Dividing a fraction by a whole number"
     ],
-    "problem_text": "A ribbon is $\\frac{4}{5}$ m long. It is cut into 8 equal shorter pieces. What is the length of each shorter piece of ribbon in metres?",
-    "verified_answer": "$\\frac{1}{10}$ m",
+    "problem_text": "James had 7/8 of a large pizza. He shared it equally among himself and 6 friends. What fraction of the original pizza did each person get?",
+    "verified_answer": "1/8",
     "solution_hints": [
-      "The total length $\\frac{4}{5}$ m is being divided into 8 parts.",
-      "The equation is $\\frac{4}{5} \\div 8$.",
-      "Remember to simplify the fraction after multiplying."
+      "First, determine the total number of people sharing the pizza.",
+      "It's James 'and' 6 friends.",
+      "The problem is 7/8 divided by the total number of people.",
+      "The calculation is 7/8 × 1/7."
     ],
     "common_pitfalls": [
-      "Calculating $8 \\div \\frac{4}{5}$.",
-      "Forgetting to simplify the final answer of $\\frac{4}{40}$.",
-      "Multiplying $\\frac{4}{5}$ by 8."
+      "Dividing by 6 instead of 7.",
+      "Multiplying 7/8 by 7."
     ],
     "verified_methodology": [
-      "Step 1: Set up the division problem: $\\frac{4}{5} \\div 8$.",
-      "Step 2: Change the division to multiplication by the reciprocal of 8: $\\frac{4}{5} \\times \\frac{1}{8}$.",
-      "Step 3: Multiply the fractions: $\\frac{4 \\times 1}{5 \\times 8} = \\frac{4}{40}$.",
-      "Step 4: Simplify the resulting fraction by dividing both the numerator and denominator by their greatest common divisor, which is 4: $\\frac{4 \\div 4}{40 \\div 4} = \\frac{1}{10}$. The length of each piece is $\\frac{1}{10}$ m."
+      "Step 1: Determine the total number of people: James (1) + 6 friends = 7 people.",
+      "Step 2: Set up the division problem: 7/8 ÷ 7.",
+      "Step 3: Change to multiplication using the reciprocal: 7/8 × 1/7.",
+      "Step 4: Multiply the fractions. The 7s cancel out, leaving 1/8. Each person got 1/8 of the pizza."
     ]
   },
   {
-    "id": "FRAC-103",
+    "id": "FRAC-S2-E1",
     "topic": "Fractions",
-    "title": "Pouring Juice",
-    "complexity": 1,
+    "title": "Whole Number Divided by Unit Fraction",
+    "learn_step": 2,
+    "complexity": "Easy",
     "image_url": null,
-    "estimated_time_seconds": 60,
+    "svg_code": null,
+    "estimated_time_seconds": 30,
     "skills_tested": [
-      "Division of a proper fraction by a whole number"
+      "Dividing a whole number by a fraction",
+      "Using reciprocals"
     ],
-    "problem_text": "A jug contains $\\frac{3}{4}$ litres of juice. The juice is poured equally into 5 glasses. How many litres of juice are in each glass?",
-    "verified_answer": "$\\frac{3}{20}$ litres",
+    "problem_text": "Calculate the value of 8 ÷ 1/3.",
+    "verified_answer": "24",
     "solution_hints": [
-      "You are dividing the total amount of juice by the number of glasses.",
-      "Set up the expression: $\\frac{3}{4} \\div 5$.",
-      "Keep the first fraction, change the sign to multiply, and flip the second number."
+      "Use the 'Keep, Change, Flip' method.",
+      "Keep the 8, change ÷ to ×, and flip 1/3 to its reciprocal.",
+      "Calculate 8 × 3."
     ],
     "common_pitfalls": [
-      "Incorrectly flipping the first fraction instead of the whole number.",
-      "Adding or subtracting the numbers instead of dividing."
+      "Calculating 8 × 1/3.",
+      "Getting 3/8 as the answer."
     ],
     "verified_methodology": [
-      "Step 1: The total juice is $\\frac{3}{4}$ litres, and it's divided into 5 glasses.",
-      "Step 2: The equation is $\\frac{3}{4} \\div 5$.",
-      "Step 3: Convert the division into multiplication: $\\frac{3}{4} \\times \\frac{1}{5}$.",
-      "Step 4: Multiply the numerators and denominators: $\\frac{3 \\times 1}{4 \\times 5} = \\frac{3}{20}$. Each glass has $\\frac{3}{20}$ litres of juice."
+      "Step 1: The problem is 8 ÷ 1/3.",
+      "Step 2: The reciprocal of 1/3 is 3/1 or 3.",
+      "Step 3: Rewrite the problem as a multiplication: 8 × 3.",
+      "Step 4: Calculate the result: 24."
     ]
   },
   {
-    "id": "FRAC-104",
+    "id": "FRAC-S2-M1",
     "topic": "Fractions",
-    "title": "Painting a Wall",
-    "complexity": 1,
+    "title": "Fraction Divided by Fraction",
+    "learn_step": 2,
+    "complexity": "Medium",
     "image_url": null,
-    "estimated_time_seconds": 60,
+    "svg_code": null,
+    "estimated_time_seconds": 45,
     "skills_tested": [
-      "Division of a proper fraction by a whole number"
+      "Dividing a fraction by another fraction"
     ],
-    "problem_text": "Ali painted $\\frac{2}{3}$ of a wall. He took 4 hours to paint this section. What fraction of the wall did he paint each hour, assuming he painted at a constant rate?",
-    "verified_answer": "$\\frac{1}{6}$",
-    "solution_hints": [
-      "The total fraction of the wall painted is $\\frac{2}{3}$. This was done over 4 hours.",
-      "To find the fraction painted per hour, you need to divide the total fraction by the number of hours.",
-      "Calculate $\\frac{2}{3} \\div 4$ and simplify."
-    ],
-    "common_pitfalls": [
-      "Calculating $4 \\div \\frac{2}{3}$.",
-      "Making a mistake during the simplification step.",
-      "Multiplying $\\frac{2}{3}$ by 4."
-    ],
-    "verified_methodology": [
-      "Step 1: Set up the division equation to find the rate per hour: $\\frac{2}{3} \\div 4$.",
-      "Step 2: Rewrite the division as multiplication by the reciprocal: $\\frac{2}{3} \\times \\frac{1}{4}$.",
-      "Step 3: Multiply the fractions: $\\frac{2}{12}$.",
-      "Step 4: Simplify the fraction: $\\frac{2 \\div 2}{12 \\div 2} = \\frac{1}{6}$. Ali painted $\\frac{1}{6}$ of the wall each hour."
-    ]
-  },
-  {
-    "id": "FRAC-105",
-    "topic": "Fractions",
-    "title": "Bag of Flour",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 60,
-    "skills_tested": [
-      "Division of a proper fraction by a whole number"
-    ],
-    "problem_text": "Mrs. Tan used $\\frac{5}{8}$ kg of flour. She used it to bake 10 identical cupcakes. How much flour was used for each cupcake?",
-    "verified_answer": "$\\frac{1}{16}$ kg",
-    "solution_hints": [
-      "Divide the total amount of flour by the number of cupcakes.",
-      "The expression is $\\frac{5}{8} \\div 10$.",
-      "You can simplify before you multiply. Think about the relationship between 5 and 10."
-    ],
-    "common_pitfalls": [
-      "Not simplifying the answer.",
-      "Multiplying $\\frac{5}{8}$ by 10.",
-      "Dividing 10 by $\\frac{5}{8}$."
-    ],
-    "verified_methodology": [
-      "Step 1: Set up the equation: $\\frac{5}{8} \\div 10$.",
-      "Step 2: Change to multiplication: $\\frac{5}{8} \\times \\frac{1}{10}$.",
-      "Step 3: Multiply the numerators and denominators: $\\frac{5}{80}$.",
-      "Step 4: Simplify the fraction by dividing the numerator and denominator by 5: $\\frac{5 \\div 5}{80 \\div 5} = \\frac{1}{16}$. Each cupcake used $\\frac{1}{16}$ kg of flour."
-    ]
-  },
-    {
-    "id": "FRAC-201",
-    "topic": "Fractions",
-    "title": "How Many Pieces?",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 75,
-    "skills_tested": [
-      "Division of a whole number by a proper fraction"
-    ],
-    "problem_text": "A string is 6 metres long. How many pieces of string, each $\\frac{3}{4}$ metres long, can be cut from it?",
-    "verified_answer": "8",
-    "solution_hints": [
-      "You need to find out how many times $\\frac{3}{4}$ fits into 6.",
-      "This is a division problem: $6 \\div \\frac{3}{4}$.",
-      "To divide by a fraction, you multiply by its reciprocal (the flipped fraction)."
-    ],
-    "common_pitfalls": [
-      "Calculating $\\frac{3}{4} \\div 6$.",
-      "Multiplying $6 \\times \\frac{3}{4}$.",
-      "Forgetting to flip the fraction when changing division to multiplication."
-    ],
-    "verified_methodology": [
-      "Step 1: Set up the division equation: $6 \\div \\frac{3}{4}$.",
-      "Step 2: To divide by a fraction, multiply by its reciprocal: $6 \\times \\frac{4}{3}$.",
-      "Step 3: Perform the multiplication: $\\frac{6 \\times 4}{3} = \\frac{24}{3}$.",
-      "Step 4: Simplify the fraction to a whole number: $24 \\div 3 = 8$. 8 pieces can be cut."
-    ]
-  },
-  {
-    "id": "FRAC-202",
-    "topic": "Fractions",
-    "title": "Filling Small Bottles",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 75,
-    "skills_tested": [
-      "Division of a whole number by a proper fraction"
-    ],
-    "problem_text": "A water dispenser holds 10 litres of water. How many bottles, each with a capacity of $\\frac{2}{5}$ litre, can be filled completely from the dispenser?",
-    "verified_answer": "25",
-    "solution_hints": [
-      "Divide the total volume of water by the capacity of one bottle.",
-      "The calculation is $10 \\div \\frac{2}{5}$.",
-      "Remember to multiply by the reciprocal of $\\frac{2}{5}$."
-    ],
-    "common_pitfalls": [
-      "Multiplying $10 \\times \\frac{2}{5}$, which would tell you the total volume of 10 bottles.",
-      "Incorrectly finding the reciprocal.",
-      "Calculating $\\frac{2}{5} \\div 10$."
-    ],
-    "verified_methodology": [
-      "Step 1: The total volume is 10 litres, and each bottle holds $\\frac{2}{5}$ litre.",
-      "Step 2: Set up the division: $10 \\div \\frac{2}{5}$.",
-      "Step 3: Change to multiplication by the reciprocal: $10 \\times \\frac{5}{2}$.",
-      "Step 4: Calculate the result: $\\frac{10 \\times 5}{2} = \\frac{50}{2}$.",
-      "Step 5: Simplify: $50 \\div 2 = 25$. 25 bottles can be filled."
-    ]
-  },
-  {
-    "id": "FRAC-203",
-    "topic": "Fractions",
-    "title": "Sharing a Pie",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 75,
-    "skills_tested": [
-      "Division of a proper fraction by a proper fraction"
-    ],
-    "problem_text": "There was $\\frac{1}{2}$ of a pie left. Each serving is $\\frac{1}{8}$ of the whole pie. How many servings are left?",
+    "problem_text": "What is 2/3 ÷ 1/6?",
     "verified_answer": "4",
     "solution_hints": [
-      "You need to see how many times the serving size ($\frac{1}{8}$) fits into the amount of pie left ($\frac{1}{2}$).",
-      "The equation is $\\frac{1}{2} \\div \\frac{1}{8}$.",
-      "Keep, Change, Flip: Keep $\\frac{1}{2}$, change $\\div$ to $\\times$, and flip $\\frac{1}{8}$ to $\\frac{8}{1}$."
+      "Use the 'Keep, Change, Flip' method.",
+      "The problem becomes 2/3 × 6/1.",
+      "Multiply the numerators and denominators, then simplify."
     ],
     "common_pitfalls": [
-      "Dividing $\\frac{1}{8}$ by $\\frac{1}{2}$.",
-      "Multiplying the fractions without flipping the second one.",
-      "Flipping the first fraction instead of the second."
+      "Flipping the first fraction instead of the second.",
+      "Multiplying the fractions without flipping (2/3 × 1/6 = 2/18)."
     ],
     "verified_methodology": [
-      "Step 1: Set up the division based on the problem: $\\frac{1}{2} \\div \\frac{1}{8}$.",
-      "Step 2: Apply the 'Keep, Change, Flip' rule: $\\frac{1}{2} \\times \\frac{8}{1}$.",
-      "Step 3: Multiply the fractions: $\\frac{1 \\times 8}{2 \\times 1} = \\frac{8}{2}$.",
-      "Step 4: Simplify the result: $8 \\div 2 = 4$. There are 4 servings left."
+      "Step 1: Keep the first fraction (2/3), change the sign (×), and flip the second fraction (6/1).",
+      "Step 2: The new problem is 2/3 × 6/1.",
+      "Step 3: Multiply across: (2 × 6) / (3 × 1) = 12/3.",
+      "Step 4: Simplify the result: 12 ÷ 3 = 4."
     ]
   },
   {
-    "id": "FRAC-204",
+    "id": "FRAC-S2-M2",
     "topic": "Fractions",
-    "title": "Fabric for Dresses",
-    "complexity": 2,
+    "title": "Dividing by Fraction Word Problem",
+    "learn_step": 2,
+    "complexity": "Medium",
     "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 70,
+    "skills_tested": [
+      "Applying fraction division to a word problem"
+    ],
+    "problem_text": "A tailor uses 2/5 m of cloth to make one mask. How many masks can she make from a roll of cloth that is 10 m long?",
+    "verified_answer": "25",
+    "solution_hints": [
+      "You need to find how many times 2/5 fits into 10.",
+      "Set up the division: 10 ÷ 2/5.",
+      "Use 'Keep, Change, Flip' to solve."
+    ],
+    "common_pitfalls": [
+      "Calculating 10 × 2/5, which finds 2/5 of the roll's length.",
+      "Setting up the division in the wrong order (2/5 ÷ 10)."
+    ],
+    "verified_methodology": [
+      "Step 1: Set up the division problem: 10 ÷ 2/5.",
+      "Step 2: Change to multiplication using the reciprocal: 10 × 5/2.",
+      "Step 3: Calculate the result: 50/2.",
+      "Step 4: Simplify the fraction: 25. She can make 25 masks."
+    ]
+  },
+  {
+    "id": "FRAC-S2-H1",
+    "topic": "Fractions",
+    "title": "Division with Simplification First",
+    "learn_step": 2,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": [
+      "Dividing fractions with larger numbers",
+      "Simplifying before multiplying"
+    ],
+    "problem_text": "Calculate the value of 5/8 ÷ 15/16.",
+    "verified_answer": "2/3",
+    "solution_hints": [
+      "First, set up the multiplication: 5/8 × 16/15.",
+      "Before you multiply, look for common factors between the numerators and denominators.",
+      "Simplify 5 and 15. Simplify 8 and 16.",
+      "Multiply the simplified fractions."
+    ],
+    "common_pitfalls": [
+      "Multiplying the large numbers directly (5×16 and 8×15) leading to a complex fraction to simplify.",
+      "Incorrectly simplifying the fractions."
+    ],
+    "verified_methodology": [
+      "Step 1: Rewrite the division as multiplication: 5/8 × 16/15.",
+      "Step 2: Simplify diagonally. Divide 5 and 15 by 5, which gives 1 and 3.",
+      "Step 3: Simplify diagonally. Divide 16 and 8 by 8, which gives 2 and 1.",
+      "Step 4: The problem becomes 1/1 × 2/3.",
+      "Step 5: Multiply the simplified fractions to get 2/3."
+    ]
+  },
+  {
+    "id": "FRAC-S2-H2",
+    "topic": "Fractions",
+    "title": "Division with Mixed Numbers",
+    "learn_step": 2,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 100,
+    "skills_tested": [
+      "Converting mixed numbers to improper fractions",
+      "Dividing fractions"
+    ],
+    "problem_text": "How many 3/4-cup servings are there in 6 3/4 cups of juice?",
+    "verified_answer": "9",
+    "solution_hints": [
+      "First, you must convert the mixed number (6 3/4) into an improper fraction.",
+      "Then, set up the division problem using the improper fraction.",
+      "Solve using 'Keep, Change, Flip'."
+    ],
+    "common_pitfalls": [
+      "Trying to divide the whole number and fraction parts separately.",
+      "Incorrectly converting the mixed number."
+    ],
+    "verified_methodology": [
+      "Step 1: Convert the mixed number 6 3/4 to an improper fraction: (6 × 4 + 3) / 4 = 27/4.",
+      "Step 2: Set up the division problem: 27/4 ÷ 3/4.",
+      "Step 3: Rewrite as multiplication: 27/4 × 4/3.",
+      "Step 4: Simplify the fractions. The 4s cancel out. 27 and 3 can be simplified to 9 and 1.",
+      "Step 5: The result is 9. There are 9 servings."
+    ]
+  },
+  {
+    "id": "FRAC-S3-E1",
+    "topic": "Fractions",
+    "title": "Word Problem: Subtraction",
+    "learn_step": 3,
+    "complexity": "Easy",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 50,
+    "skills_tested": [
+      "Identifying the correct operation from context",
+      "Subtracting fractions with the same denominator"
+    ],
+    "problem_text": "A tank was 5/6 full of water. After some water was used for washing, it is now 1/6 full. What fraction of the tank's water was used?",
+    "verified_answer": "4/6 or 2/3",
+    "solution_hints": [
+      "The question asks for the amount 'used', which means you need to find the difference.",
+      "The operation is subtraction.",
+      "Calculate 5/6 - 1/6."
+    ],
+    "common_pitfalls": [
+      "Adding the fractions instead of subtracting.",
+      "Subtracting the denominators."
+    ],
+    "verified_methodology": [
+      "Step 1: Identify that finding the amount 'used' requires subtraction.",
+      "Step 2: Set up the calculation: 5/6 - 1/6.",
+      "Step 3: Since the denominators are the same, subtract the numerators: 5 - 1 = 4.",
+      "Step 4: The result is 4/6, which simplifies to 2/3."
+    ]
+  },
+  {
+    "id": "FRAC-S3-M1",
+    "topic": "Fractions",
+    "title": "Word Problem: Multiplication",
+    "learn_step": 3,
+    "complexity": "Medium",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 60,
+    "skills_tested": [
+      "Identifying the correct operation from context",
+      "Finding a fraction of a whole number"
+    ],
+    "problem_text": "In a car park with 40 vehicles, 3/8 are cars. The rest are motorcycles. How many cars are there?",
+    "verified_answer": "15",
+    "solution_hints": [
+      "The phrase 'fraction of a number' tells you to multiply.",
+      "Calculate 3/8 of 40.",
+      "This means 3/8 × 40."
+    ],
+    "common_pitfalls": [
+      "Dividing 40 by 3/8.",
+      "Finding the number of motorcycles instead of cars."
+    ],
+    "verified_methodology": [
+      "Step 1: Identify that '3/8 of 40' requires multiplication.",
+      "Step 2: Set up the calculation: 3/8 × 40.",
+      "Step 3: Calculate: (3 × 40) / 8 = 120 / 8.",
+      "Step 4: The answer is 15. There are 15 cars."
+    ]
+  },
+  {
+    "id": "FRAC-S3-M2",
+    "topic": "Fractions",
+    "title": "Word Problem: Subtraction (Unlike Denominators)",
+    "learn_step": 3,
+    "complexity": "Medium",
+    "image_url": null,
+    "svg_code": null,
     "estimated_time_seconds": 75,
     "skills_tested": [
-      "Division of a proper fraction by a proper fraction"
+      "Identifying the correct operation from context",
+      "Subtracting fractions with different denominators"
     ],
-    "problem_text": "A tailor has $\\frac{3}{4}$ of a roll of fabric. She needs $\\frac{1}{4}$ of a roll to make one dress. How many dresses can she make?",
-    "verified_answer": "3",
+    "problem_text": "Mei Ling has a ribbon 5/6 m long. Lina has a ribbon 1/3 m long. How much longer is Mei Ling's ribbon than Lina's?",
+    "verified_answer": "3/6 or 1/2",
     "solution_hints": [
-      "Divide the total fabric the tailor has by the fabric needed for one dress.",
-      "Calculate $\\frac{3}{4} \\div \\frac{1}{4}$.",
-      "When the denominators are the same in a division problem, you can just divide the numerators."
+      "The phrase 'how much longer' indicates you need to find the difference.",
+      "The calculation is 5/6 - 1/3.",
+      "You must find a common denominator before you can subtract."
     ],
     "common_pitfalls": [
-      "Multiplying $\\frac{3}{4}$ by $\\frac{1}{4}$.",
-      "Getting confused because the denominators are the same.",
-      "Calculating $\\frac{1}{4} \\div \\frac{3}{4}$."
+      "Subtracting the numerators and denominators without finding a common denominator (e.g., 4/3).",
+      "Adding the fractions."
     ],
     "verified_methodology": [
-      "Step 1: Set up the division: $\\frac{3}{4} \\div \\frac{1}{4}$.",
-      "Step 2: Change to multiplication by the reciprocal: $\\frac{3}{4} \\times \\frac{4}{1}$.",
-      "Step 3: Multiply the numerators and denominators: $\\frac{3 \\times 4}{4 \\times 1} = \\frac{12}{4}$.",
-      "Step 4: Simplify the fraction: $12 \\div 4 = 3$. She can make 3 dresses."
+      "Step 1: Identify the operation as subtraction: 5/6 - 1/3.",
+      "Step 2: Find a common denominator, which is 6.",
+      "Step 3: Convert 1/3 to an equivalent fraction with a denominator of 6: 1/3 = 2/6.",
+      "Step 4: Perform the subtraction: 5/6 - 2/6 = 3/6.",
+      "Step 5: Simplify the answer: 1/2 m."
     ]
   },
   {
-    "id": "FRAC-205",
+    "id": "FRAC-S3-H1",
     "topic": "Fractions",
-    "title": "Comparing Lengths",
-    "complexity": 2,
+    "title": "Word Problem: Division",
+    "learn_step": 3,
+    "complexity": "Hard",
     "image_url": null,
-    "estimated_time_seconds": 75,
+    "svg_code": null,
+    "estimated_time_seconds": 80,
     "skills_tested": [
-      "Division of a proper fraction by a proper fraction"
+      "Identifying the correct operation from context",
+      "Applying fraction division"
     ],
-    "problem_text": "A red ribbon is $\\frac{9}{10}$ m long and a blue ribbon is $\\frac{3}{5}$ m long. How many times is the red ribbon longer than the blue ribbon?",
-    "verified_answer": "$\\frac{3}{2}$ or $1\\frac{1}{2}$",
+    "problem_text": "A large bottle holds 2 litres of oil. The oil is used to fill smaller bottles, each with a capacity of 2/5 of a litre. How many small bottles can be completely filled?",
+    "verified_answer": "5",
     "solution_hints": [
-      "To compare how many times one number is of another, you divide.",
-      "Divide the length of the red ribbon by the length of the blue ribbon.",
-      "Calculate $\\frac{9}{10} \\div \\frac{3}{5}$."
+      "The question asks how many times a smaller amount (2/5) fits into a larger amount (2). This is division.",
+      "The calculation is 2 ÷ 2/5.",
+      "Use 'Keep, Change, Flip'."
     ],
     "common_pitfalls": [
-      "Subtracting the fractions instead of dividing.",
-      "Dividing the blue ribbon's length by the red ribbon's length.",
-      "Making errors when simplifying the multiplication."
+      "Multiplying 2 by 2/5.",
+      "Incorrectly setting up the division as 2/5 ÷ 2."
     ],
     "verified_methodology": [
-      "Step 1: Set up the division expression: $\\frac{9}{10} \\div \\frac{3}{5}$.",
-      "Step 2: Change the division to multiplication by the reciprocal: $\\frac{9}{10} \\times \\frac{5}{3}$.",
-      "Step 3: Multiply the fractions. You can simplify before multiplying: $\\frac{9^3}{10_2} \\times \\frac{5^1}{3_1} = \\frac{3 \\times 1}{2 \\times 1}$.",
-      "Step 4: The result is $\\frac{3}{2}$. As a mixed number, this is $1\\frac{1}{2}$. The red ribbon is $1\\frac{1}{2}$ times longer than the blue ribbon."
+      "Step 1: Identify the operation as division: 2 ÷ 2/5.",
+      "Step 2: Rewrite using the reciprocal: 2 × 5/2.",
+      "Step 3: Calculate: 10/2.",
+      "Step 4: Simplify to get the answer: 5. 5 small bottles can be filled."
     ]
   },
   {
-    "id": "FRAC-301",
+    "id": "FRAC-S3-H2",
     "topic": "Fractions",
-    "title": "Money Spent and Left",
-    "complexity": 3,
+    "title": "Word Problem: Addition (Unlike Denominators)",
+    "learn_step": 3,
+    "complexity": "Hard",
     "image_url": null,
-    "estimated_time_seconds": 120,
+    "svg_code": null,
+    "estimated_time_seconds": 80,
     "skills_tested": [
-      "Solving word problems involving the 4 operations"
+      "Identifying the correct operation from context",
+      "Adding fractions with different denominators"
     ],
-    "problem_text": "John had $120. He spent $\\frac{1}{4}$ of his money on a book and $\\frac{2}{5}$ of the *remainder* on a shirt. How much money did he have left?",
-    "verified_answer": "$54",
+    "problem_text": "On Monday, a snail crawled 1/2 of a metre. On Tuesday, it crawled another 2/5 of a metre. What was the total distance the snail crawled in the two days?",
+    "verified_answer": "9/10",
     "solution_hints": [
-      "First, calculate the amount spent on the book.",
-      "Second, find the remainder after buying the book.",
-      "Third, calculate the amount spent on the shirt from the remainder.",
-      "Finally, subtract the amount spent on the shirt from the remainder."
+      "The word 'total' suggests addition.",
+      "You need to calculate 1/2 + 2/5.",
+      "First, find a common denominator for 2 and 5."
     ],
     "common_pitfalls": [
-      "Calculating the cost of the shirt based on the original $120 instead of the remainder.",
-      "Adding the fractions $\\frac{1}{4}$ and $\\frac{2}{5}$ together.",
-      "Only finding the cost of the shirt and not the final amount left."
+      "Adding numerators and denominators without a common denominator, getting 3/7.",
+      "Using an incorrect common denominator."
     ],
     "verified_methodology": [
-      "Step 1: Money spent on book = $\\frac{1}{4} \\times 120 = \\$30$.",
-      "Step 2: Remainder after buying book = $120 - \\$30 = \\$90$.",
-      "Step 3: Money spent on shirt = $\\frac{2}{5} \\times 90 = \\$36$.",
-      "Step 4: Money left = Remainder - Money spent on shirt = $90 - \\$36 = \\$54$."
+      "Step 1: Identify the operation as addition: 1/2 + 2/5.",
+      "Step 2: Find the lowest common denominator for 2 and 5, which is 10.",
+      "Step 3: Convert the fractions: 1/2 = 5/10 and 2/5 = 4/10.",
+      "Step 4: Add the equivalent fractions: 5/10 + 4/10 = 9/10.",
+      "Step 5: The total distance is 9/10 of a metre."
     ]
   },
   {
-    "id": "FRAC-302",
+    "id": "FRAC-S4-M1",
     "topic": "Fractions",
-    "title": "Boys and Girls in a Class",
-    "complexity": 3,
+    "title": "Two-Step Problem (Addition & Subtraction)",
+    "learn_step": 4,
+    "complexity": "Medium",
     "image_url": null,
-    "estimated_time_seconds": 120,
+    "svg_code": null,
+    "estimated_time_seconds": 90,
     "skills_tested": [
-      "Solving word problems involving the 4 operations"
+      "Solving multi-step problems",
+      "Adding and subtracting fractions"
     ],
-    "problem_text": "In a class, $\\frac{2}{5}$ of the students are boys. There are 18 girls in the class. How many more girls than boys are there?",
-    "verified_answer": "6",
+    "problem_text": "Ravi had a sum of money. He spent 1/3 of it on a book and 1/6 of it on a pen. What fraction of his money was left?",
+    "verified_answer": "1/2",
     "solution_hints": [
-      "If $\\frac{2}{5}$ are boys, what fraction of the students are girls?",
-      "The fraction representing girls is equal to 18 students.",
-      "Use this information to find the value of 1 unit (e.g., $\\frac{1}{5}$ of the class).",
-      "Then find the number of boys and the difference."
+      "Step 1: Find the total fraction of money he spent by adding the two fractions.",
+      "Step 2: The whole amount is always represented by 1. Subtract the total fraction spent from 1.",
+      "Remember to find a common denominator for 1/3 and 1/6."
     ],
     "common_pitfalls": [
-      "Calculating $\\frac{2}{5}$ of 18.",
-      "Assuming the total number of students is 18.",
-      "Finding the number of boys but not the difference between girls and boys."
+      "Subtracting the fractions from each other.",
+      "Forgetting to subtract the total spent from the whole (1)."
     ],
     "verified_methodology": [
-      "Step 1: Fraction of girls = $1 - \\frac{2}{5} = \\frac{3}{5}$.",
-      "Step 2: $\\frac{3}{5}$ of the class represents 18 students. So, 3 units = 18.",
-      "Step 3: Find the value of 1 unit: 1 unit = $18 \\div 3 = 6$ students.",
-      "Step 4: The number of boys is 2 units: 2 units = $2 \\times 6 = 12$ boys.",
-      "Step 5: Find the difference: Number of girls - Number of boys = $18 - 12 = 6$. There are 6 more girls than boys."
+      "Step 1: Find the fraction spent: 1/3 + 1/6. The common denominator is 6. So, 2/6 + 1/6 = 3/6.",
+      "Step 2: Simplify the fraction spent: 3/6 = 1/2.",
+      "Step 3: Find the fraction left: 1 - 1/2 = 1/2. He had 1/2 of his money left."
     ]
   },
   {
-    "id": "FRAC-303",
+    "id": "FRAC-S4-M2",
     "topic": "Fractions",
-    "title": "Ribbon Cutting Problem",
-    "complexity": 3,
+    "title": "Two-Step Problem (Multiplication & Subtraction)",
+    "learn_step": 4,
+    "complexity": "Medium",
     "image_url": null,
-    "estimated_time_seconds": 120,
+    "svg_code": null,
+    "estimated_time_seconds": 90,
     "skills_tested": [
-      "Solving word problems involving the 4 operations"
+      "Solving multi-step problems",
+      "Finding a fraction of a fraction"
     ],
-    "problem_text": "Siti had a ribbon of $3$ m long. She used $\\frac{3}{5}$ of it to tie a present. Then, she cut the remaining ribbon into 4 equal pieces. What is the length of each of the 4 pieces in metres?",
-    "verified_answer": "$\\frac{3}{10}$ m",
+    "problem_text": "A baker had 4/5 kg of flour. He used 1/2 of it to bake a cake. How much flour, in kg, was left?",
+    "verified_answer": "2/5",
     "solution_hints": [
-      "First, find the length of the ribbon used.",
-      "Then, find the length of the remaining ribbon.",
-      "Finally, divide the remaining length by 4."
+      "Step 1: Find the amount of flour used. '1/2 of it' means 1/2 of 4/5 kg.",
+      "Step 2: Subtract the amount used from the starting amount.",
+      "The word 'of' in fractions means multiply."
     ],
     "common_pitfalls": [
-      "Dividing the original length (3 m) by 4.",
-      "Finding the length of ribbon used and then dividing that by 4.",
-      "Calculating the remaining fraction ($\frac{2}{5}$) but forgetting to multiply by the original length (3 m) before dividing."
+      "Subtracting 1/2 from 4/5 directly.",
+      "Giving the answer for the amount used, not the amount left."
     ],
     "verified_methodology": [
-      "Step 1: Length of ribbon used = $\\frac{3}{5} \\times 3 = \\frac{9}{5}$ m.",
-      "Step 2: Length of remaining ribbon = $3 - \\frac{9}{5} = \\frac{15}{5} - \\frac{9}{5} = \\frac{6}{5}$ m.",
-      "Step 3: Length of each small piece = $\\frac{6}{5} \\div 4 = \\frac{6}{5} \\times \\frac{1}{4} = \\frac{6}{20}$ m.",
-      "Step 4: Simplify the fraction: $\\frac{6 \\div 2}{20 \\div 2} = \\frac{3}{10}$ m."
+      "Step 1: Calculate the flour used: 1/2 × 4/5 = 4/10 = 2/5 kg.",
+      "Step 2: Calculate the flour left: 4/5 (start) - 2/5 (used) = 2/5 kg.",
+      "Step 3: The amount of flour left is 2/5 kg."
     ]
   },
   {
-      "id": "FRAC-304",
-      "topic": "Fractions",
-      "title": "Journey on Foot and by Bus",
-      "complexity": 3,
-      "image_url": null,
-      "estimated_time_seconds": 120,
-      "skills_tested": [
-        "Solving word problems involving the 4 operations"
-      ],
-      "problem_text": "Ahmad travelled from his home to the library. He walked $\\frac{1}{8}$ of the journey and took a bus for $\\frac{2}{3}$ of the remaining journey. He then jogged the final 7 km to the library. What was the total distance from his home to the library?",
-      "verified_answer": "24 km",
-      "solution_hints": [
-        "Work backwards from the final part of the journey.",
-        "The 7 km jog represents the part of the journey after the bus ride.",
-        "If he took a bus for $\\frac{2}{3}$ of the remainder, the jog is $\\frac{1}{3}$ of the remainder.",
-        "Use this to find the 'remainder' distance, and then the total distance."
-      ],
-      "common_pitfalls": [
-        "Adding the fractions $\\frac{1}{8}$ and $\\frac{2}{3}$ directly.",
-        "Calculating $\\frac{2}{3}$ of the total journey instead of the remainder.",
-        "Assuming 7 km is $\\frac{1}{8}$ of the journey."
-      ],
-      "verified_methodology": [
-        "Step 1: Find the fraction of the journey remaining after walking: $1 - \\frac{1}{8} = \\frac{7}{8}$.",
-        "Step 2: Find the fraction of the *remainder* that was jogged: $1 - \\frac{2}{3} = \\frac{1}{3}$.",
-        "Step 3: This $\\frac{1}{3}$ of the remainder corresponds to 7 km. Therefore, the full remaining distance is $7 \\times 3 = 21$ km.",
-        "Step 4: This 21 km distance is equal to $\\frac{7}{8}$ of the total journey. So, 7 units = 21 km.",
-        "Step 5: Find the distance of 1 unit: $21 \\div 7 = 3$ km.",
-        "Step 6: The total journey is 8 units, so the total distance is $8 \\times 3 = 24$ km."
-      ]
-    },
-    {
-    "id": "FRAC-305",
+    "id": "FRAC-S4-H1",
     "topic": "Fractions",
-    "title": "Tank Filling and Leaking",
-    "complexity": 3,
+    "title": "Fraction of a Remainder Problem",
+    "learn_step": 4,
+    "complexity": "Hard",
     "image_url": null,
-    "estimated_time_seconds": 120,
+    "svg_code": null,
+    "estimated_time_seconds": 150,
     "skills_tested": [
-      "Solving word problems involving the 4 operations"
+      "Solving multi-step 'remainder' problems",
+      "Working backwards from a known value"
     ],
-    "problem_text": "A tank is $\\frac{1}{3}$ full of water. When 30 litres of water are added, it becomes $\\frac{3}{4}$ full. What is the capacity of the tank in litres?",
-    "verified_answer": "72 litres",
+    "problem_text": "Mrs. Lim spent 1/5 of her money on a dress and 1/2 of the remainder on a bag. She had $140 left. How much money did she have at first?",
+    "verified_answer": "350",
     "solution_hints": [
-      "Find the difference in the fraction of the tank that was filled by the 30 litres of water.",
-      "The difference is $\\frac{3}{4} - \\frac{1}{3}$.",
-      "This difference in fraction is equivalent to 30 litres. Use this to find the value for the whole tank (1)."
+      "Work backwards. The $140 she had left represents the portion of the 'remainder' that was NOT spent on the bag.",
+      "If 1/2 of the remainder was spent, the other 1/2 was left. So, 1/2 of the remainder is $140.",
+      "Find the full 'remainder'. This remainder is the money she had after buying the dress.",
+      "This remainder represents 4/5 of her original money. Use this to find the total."
     ],
     "common_pitfalls": [
-      "Adding the fractions.",
-      "Incorrectly subtracting the fractions due to different denominators.",
-      "Calculating $\\frac{3}{4}$ of 30 or $\\frac{1}{3}$ of 30."
+      "Calculating 1/2 of the original amount, not the remainder.",
+      "Thinking the $140 represents 1/2 of the total money."
     ],
     "verified_methodology": [
-      "Step 1: Find the increase in the fraction of the tank filled: $\\frac{3}{4} - \\frac{1}{3}$.",
-      "Step 2: To subtract, find a common denominator, which is 12: $\\frac{9}{12} - \\frac{4}{12} = \\frac{5}{12}$.",
-      "Step 3: The increase of $\\frac{5}{12}$ of the tank represents 30 litres of water.",
-      "Step 4: 5 units = 30 litres.",
-      "Step 5: Find the capacity of 1 unit: 1 unit ($\frac{1}{12}$ of the tank) = $30 \\div 5 = 6$ litres.",
-      "Step 6: The total capacity of the tank (12 units) is $12 \\times 6 = 72$ litres."
+      "Step 1: The $140 left is 1 - 1/2 = 1/2 of the remainder.",
+      "Step 2: If 1/2 of the remainder is $140, the full remainder is $140 × 2 = $280.",
+      "Step 3: The remainder ($280) is the money left after spending 1/5. So, it is 1 - 1/5 = 4/5 of the original money.",
+      "Step 4: If 4/5 of the original money is $280, then 1/5 is $280 ÷ 4 = $70.",
+      "Step 5: The original money (5/5) is $70 × 5 = $350."
+    ]
+  },
+  {
+    "id": "FRAC-S4-H2",
+    "topic": "Fractions",
+    "title": "Division with Remainder Problem",
+    "learn_step": 4,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 150,
+    "skills_tested": [
+      "Solving multi-step problems involving division",
+      "Interpreting the whole number and fractional parts of a division answer"
+    ],
+    "problem_text": "A container with 10 litres of water is used to fill as many glasses as possible. Each glass has a capacity of 3/8 of a litre. How much water, in litres, is left in the container?",
+    "verified_answer": "1/4",
+    "solution_hints": [
+      "Step 1: Find out how many full glasses can be filled. This is a division problem: 10 ÷ 3/8.",
+      "The result will be a mixed number. The whole number is the number of full glasses.",
+      "Step 2: Calculate the total amount of water used for the full glasses.",
+      "Step 3: Subtract the amount used from the original 10 litres to find the remainder."
+    ],
+    "common_pitfalls": [
+      "Giving the answer as the fraction part of the division result (e.g., 2/3), which represents a fraction of a glass, not a volume in litres.",
+      "Mistakes in the initial division."
+    ],
+    "verified_methodology": [
+      "Step 1: Find the number of glasses: 10 ÷ 3/8 = 10 × 8/3 = 80/3 = 26 2/3. So, 26 full glasses can be filled.",
+      "Step 2: Find the volume of water used: 26 × 3/8 = 78/8 litres.",
+      "Step 3: Find the water left: 10 - 78/8. Convert 10 to 80/8. The subtraction is 80/8 - 78/8 = 2/8 litres.",
+      "Step 4: Simplify the remainder: 2/8 = 1/4 litre."
+    ]
+  },
+  {
+    "id": "FRAC-S4-H3",
+    "topic": "Fractions",
+    "title": "Multi-Step Problem with Units",
+    "learn_step": 4,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 180,
+    "skills_tested": [
+      "Solving complex multi-step problems",
+      "Using the 'units' method with fractions"
+    ],
+    "problem_text": "In a fruit stall, 2/7 of the fruits are apples. The rest are oranges and pears. There are twice as many oranges as pears. If there are 80 more oranges than pears, how many apples are there?",
+    "verified_answer": "96",
+    "solution_hints": [
+      "The difference between oranges and pears (80) corresponds to 1 unit in their 2:1 ratio.",
+      "Find the number of oranges and pears first.",
+      "Calculate the total number of fruits (apples + oranges + pears).",
+      "This total represents 5/7 of all fruits in the stall (since 2/7 are apples). Use this to find the number of apples."
+    ],
+    "common_pitfalls": [
+      "Thinking the 80 fruits represents the total of oranges and pears.",
+      "Incorrectly relating the number of oranges and pears to the fraction of apples."
+    ],
+    "verified_methodology": [
+      "Step 1: Oranges : Pears ratio is 2 : 1. The difference is 1 unit.",
+      "Step 2: This 1 unit represents 80 fruits. So, Pears = 80, Oranges = 2 × 80 = 160.",
+      "Step 3: Total number of oranges and pears = 80 + 160 = 240.",
+      "Step 4: This total represents the 'rest' of the fruits, which is 1 - 2/7 = 5/7 of all fruits.",
+      "Step 5: If 5/7 of the fruits is 240, then 1/7 is 240 ÷ 5 = 48.",
+      "Step 6: The number of apples is 2/7 of the total. So, number of apples = 2 × 48 = 96. Let me recheck. 2 * 48 = 96. Let's re-verify the whole thing. Oranges-Pears = 1 unit = 80. Pears = 80, Oranges = 160. Total O+P = 240. This is 5/7 of total. 1/7 -> 240/5 = 48. Apples are 2/7, so 2 * 48 = 96. Okay, my previous answer was wrong. The correct answer is 96.",
+      "Corrected Methodology: Step 6: The number of apples is 2/7 of the total. So, number of apples = 2 × 48 = 96."
     ]
   }
 ]

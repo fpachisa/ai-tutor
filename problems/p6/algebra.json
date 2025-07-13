@@ -1,696 +1,638 @@
 [
   {
-    "id": "ALG-101",
+    "id": "ALG-S1-E1",
     "topic": "Algebra",
-    "title": "Finding the Unknown",
-    "complexity": 1,
+    "title": "Adding to an Unknown",
+    "learn_step": 1,
+    "complexity": "Easy",
     "image_url": null,
+    "svg_code": null,
     "estimated_time_seconds": 30,
     "skills_tested": [
-      "Using a letter to represent an unknown number"
+      "Using a letter to represent an unknown number",
+      "Forming an addition expression"
     ],
-    "problem_text": "There are some sweets in a jar. After taking out 5 sweets, there are 12 sweets left. How many sweets were in the jar at first? Represent the initial number of sweets with the letter 's'.",
-    "verified_answer": "17",
+    "problem_text": "Amelia has 'b' books. She buys 4 more books. Write an expression for the total number of books she has now.",
+    "verified_answer": "b + 4",
     "solution_hints": [
-      "Think about what operation is happening. Sweets are being 'taken out'.",
-      "Set up an equation: s - 5 = 12.",
-      "To find the starting number, you need to do the opposite of taking out."
+      "Start with the initial number of books, which is 'b'.",
+      "The term 'more' suggests addition.",
+      "Combine the initial amount and the new amount."
     ],
     "common_pitfalls": [
-      "Subtracting 5 from 12 instead of adding.",
-      "Forgetting to represent the unknown with the letter 's'."
+      "Writing '4b', which implies multiplication.",
+      "Writing 'b - 4', which would mean she lost books."
     ],
     "verified_methodology": [
-      "Step 1: Represent the unknown initial number of sweets as 's'.",
-      "Step 2: Write the equation based on the problem: s - 5 = 12.",
-      "Step 3: To find 's', add 5 to both sides of the equation: s = 12 + 5.",
-      "Step 4: Calculate the result: s = 17. There were 17 sweets at first."
+      "Step 1: Identify the initial quantity, which is 'b' books.",
+      "Step 2: Identify the change, which is adding 4 books.",
+      "Step 3: Write the expression by combining the initial quantity and the change: b + 4."
     ]
   },
   {
-    "id": "ALG-102",
+    "id": "ALG-S1-E2",
     "topic": "Algebra",
-    "title": "Sharing Stickers",
-    "complexity": 1,
+    "title": "Multiplying an Unknown",
+    "learn_step": 1,
+    "complexity": "Easy",
     "image_url": null,
+    "svg_code": null,
     "estimated_time_seconds": 30,
     "skills_tested": [
-      "Using a letter to represent an unknown number"
+      "Using a letter to represent an unknown number",
+      "Forming a multiplication expression"
     ],
-    "problem_text": "John shares a box of stickers equally among 4 friends. Each friend receives 9 stickers. Let 't' be the total number of stickers in the box. Find the value of 't'.",
-    "verified_answer": "36",
+    "problem_text": "A box contains 'n' pencils. How many pencils are there in 5 such boxes? Write an expression in terms of 'n'.",
+    "verified_answer": "5n",
     "solution_hints": [
-      "The total number of stickers 't' is divided among 4 friends.",
-      "The result of this division is 9.",
-      "To find the total, you should use the inverse operation of division."
+      "Think about finding the total for multiple groups.",
+      "The operation needed is multiplication.",
+      "In algebra, we write the number before the letter."
     ],
     "common_pitfalls": [
-      "Dividing 9 by 4.",
-      "Adding 4 and 9."
+      "Writing 'n + 5', which would mean adding 5 pencils instead of 5 boxes.",
+      "Writing 'n5' instead of the conventional '5n'."
     ],
     "verified_methodology": [
-      "Step 1: Represent the total number of stickers as 't'.",
-      "Step 2: Set up the equation from the problem: t ÷ 4 = 9.",
-      "Step 3: To solve for 't', multiply both sides by 4: t = 9 × 4.",
-      "Step 4: Calculate the value: t = 36. There were 36 stickers in total."
+      "Step 1: The number of pencils in one box is 'n'.",
+      "Step 2: To find the total for 5 boxes, we need to multiply the number of pencils per box by 5.",
+      "Step 3: The expression is 5 × n, which is written as '5n' in algebra."
     ]
   },
   {
-    "id": "ALG-103",
+    "id": "ALG-S1-M1",
     "topic": "Algebra",
-    "title": "Total Cost",
-    "complexity": 1,
+    "title": "Division as a Fraction",
+    "learn_step": 1,
+    "complexity": "Medium",
     "image_url": null,
-    "estimated_time_seconds": 30,
-    "skills_tested": [
-      "Using a letter to represent an unknown number"
-    ],
-    "problem_text": "A pen costs $2. David bought a few pens and paid a total of $18. Let 'p' be the number of pens David bought. How many pens did he buy?",
-    "verified_answer": "9",
-    "solution_hints": [
-      "The total cost is the cost of one pen multiplied by the number of pens.",
-      "Your equation will look like 2 × p = 18.",
-      "How do you find 'p'?"
-    ],
-    "common_pitfalls": [
-      "Adding 2 and 18.",
-      "Multiplying 18 by 2."
-    ],
-    "verified_methodology": [
-      "Step 1: Let 'p' be the number of pens.",
-      "Step 2: Form the equation: 2 × p = 18 or 2p = 18.",
-      "Step 3: To find 'p', divide the total cost by the cost of one pen: p = 18 ÷ 2.",
-      "Step 4: Solve for p: p = 9. David bought 9 pens."
-    ]
-  },
-  {
-    "id": "ALG-104",
-    "topic": "Algebra",
-    "title": "Age Difference",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 30,
-    "skills_tested": [
-      "Using a letter to represent an unknown number"
-    ],
-    "problem_text": "Mary is 'y' years old. Her brother is 5 years older than her. If her brother is 13 years old, how old is Mary?",
-    "verified_answer": "8",
-    "solution_hints": [
-      "Mary's age plus 5 years equals her brother's age.",
-      "Create an equation: y + 5 = 13.",
-      "To find 'y', you need to subtract 5 from her brother's age."
-    ],
-    "common_pitfalls": [
-      "Adding 13 and 5.",
-      "Confusing Mary's age with her brother's age."
-    ],
-    "verified_methodology": [
-      "Step 1: Mary's age is represented by 'y'.",
-      "Step 2: Her brother's age is y + 5.",
-      "Step 3: We know her brother is 13, so y + 5 = 13.",
-      "Step 4: To find 'y', subtract 5 from 13: y = 13 - 5.",
-      "Step 5: Calculate the result: y = 8. Mary is 8 years old."
-    ]
-  },
-  {
-    "id": "ALG-105",
-    "topic": "Algebra",
-    "title": "Saving Money",
-    "complexity": 1,
-    "image_url": null,
+    "svg_code": null,
     "estimated_time_seconds": 45,
     "skills_tested": [
-      "Using a letter to represent an unknown number"
+      "Using a letter to represent an unknown number",
+      "Expressing division algebraically"
     ],
-    "problem_text": "Siti saves $m every week. After 6 weeks, she has saved $42. How much does she save each week?",
-    "verified_answer": "7",
+    "problem_text": "A rope of 'k' metres long is cut into 8 equal pieces. Write an expression for the length of each piece of rope.",
+    "verified_answer": "k/8",
     "solution_hints": [
-      "The total savings is the weekly savings multiplied by the number of weeks.",
-      "Set up the equation: 6 × m = 42.",
-      "To find the weekly savings, divide the total savings by the number of weeks."
+      "The total length is 'k'.",
+      "The rope is 'cut into equal pieces', which means division.",
+      "In algebra, division is often written as a fraction."
     ],
     "common_pitfalls": [
-      "Multiplying 42 by 6.",
-      "Adding 6 and 42."
+      "Writing '8/k', which would mean dividing 8 by the length of the rope.",
+      "Writing 'k - 8', which is subtraction."
     ],
     "verified_methodology": [
-      "Step 1: Represent the weekly savings as '$m'.",
-      "Step 2: Formulate the equation: 6 × m = 42 or 6m = 42.",
-      "Step 3: To find 'm', divide the total savings by the number of weeks: m = 42 ÷ 6.",
-      "Step 4: Calculate the value of 'm': m = 7. Siti saves $7 each week."
+      "Step 1: The total length of the rope is 'k' metres.",
+      "Step 2: It is divided into 8 equal parts.",
+      "Step 3: The operation is k ÷ 8.",
+      "Step 4: Write this as a fraction: k/8."
     ]
   },
   {
-    "id": "ALG-201",
+    "id": "ALG-S1-M2",
     "topic": "Algebra",
-    "title": "More than a Number",
-    "complexity": 1,
+    "title": "Two-Step Expression",
+    "learn_step": 1,
+    "complexity": "Medium",
     "image_url": null,
-    "estimated_time_seconds": 30,
-    "skills_tested": [
-      "Notation, representations and interpretation"
-    ],
-    "problem_text": "Write an expression for the number that is 7 more than k.",
-    "verified_answer": "k + 7",
-    "solution_hints": [
-      "The term 'more than' suggests addition.",
-      "You are starting with 'k' and adding 7 to it."
-    ],
-    "common_pitfalls": [
-      "Writing '7k', which means multiplication.",
-      "Writing 'k - 7', which means less than."
-    ],
-    "verified_methodology": [
-      "Step 1: Identify the base number, which is 'k'.",
-      "Step 2: Understand that '7 more than' means you need to add 7.",
-      "Step 3: Combine them to form the expression: k + 7."
-    ]
-  },
-  {
-    "id": "ALG-202",
-    "topic": "Algebra",
-    "title": "Product of a Number",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 30,
-    "skills_tested": [
-      "Notation, representations and interpretation"
-    ],
-    "problem_text": "There are 'b' bags. Each bag contains 8 apples. Write an expression for the total number of apples.",
-    "verified_answer": "8b",
-    "solution_hints": [
-      "To find the total, you need to multiply the number of bags by the number of apples in each bag.",
-      "In algebra, we usually write the number before the letter."
-    ],
-    "common_pitfalls": [
-      "Writing 'b + 8'.",
-      "Writing 'b8' instead of '8b'."
-    ],
-    "verified_methodology": [
-      "Step 1: Identify the number of groups ('b' bags) and the number in each group (8 apples).",
-      "Step 2: The total is found by multiplication: b × 8.",
-      "Step 3: Write the expression in standard algebraic notation: 8b."
-    ]
-  },
-  {
-    "id": "ALG-203",
-    "topic": "Algebra",
-    "title": "Dividing a Quantity",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 45,
-    "skills_tested": [
-      "Notation, representations and interpretation"
-    ],
-    "problem_text": "A ribbon of length 'x' cm is cut into 5 equal pieces. Write an expression for the length of each piece.",
-    "verified_answer": "x/5",
-    "solution_hints": [
-      "The word 'cut into equal pieces' implies division.",
-      "The total length 'x' is being divided by 5.",
-      "Division in algebra can be shown as a fraction."
-    ],
-    "common_pitfalls": [
-      "Writing '5x', which means 5 times the length.",
-      "Writing 'x - 5', which means the length is reduced by 5."
-    ],
-    "verified_methodology": [
-      "Step 1: Identify the total length, which is 'x'.",
-      "Step 2: Identify the number of pieces it is divided into, which is 5.",
-      "Step 3: Write the division expression: x ÷ 5.",
-      "Step 4: Represent the division as a fraction: x/5."
-    ]
-  },
-  {
-    "id": "ALG-204",
-    "topic": "Algebra",
-    "title": "Age in the Past",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 45,
-    "skills_tested": [
-      "Notation, representations and interpretation"
-    ],
-    "problem_text": "Ali is 'p' years old now. Write an expression for his age 4 years ago.",
-    "verified_answer": "p - 4",
-    "solution_hints": [
-      "To find an age in the past, you need to subtract.",
-      "Start with his current age, 'p'."
-    ],
-    "common_pitfalls": [
-      "Writing 'p + 4', which would be his age in the future.",
-      "Writing '4p' or '4 - p'."
-    ],
-    "verified_methodology": [
-      "Step 1: Ali's current age is 'p'.",
-      "Step 2: '4 years ago' means you must subtract 4 years from his current age.",
-      "Step 3: The expression is p - 4."
-    ]
-  },
-  {
-    "id": "ALG-205",
-    "topic": "Algebra",
-    "title": "Total Mass",
-    "complexity": 2,
-    "image_url": null,
+    "svg_code": null,
     "estimated_time_seconds": 60,
     "skills_tested": [
-      "Notation, representations and interpretation"
+      "Using a letter to represent an unknown number",
+      "Forming an expression with two operations"
     ],
-    "problem_text": "A basket has a mass of 'm' kg. A durian has a mass of 2 kg. What is the total mass of the basket and 3 such durians in terms of 'm'?",
-    "verified_answer": "m + 6",
+    "problem_text": "Raju has 'x' stickers. Ken has twice as many stickers as Raju. Ken then gives away 7 stickers. Write an expression for the number of stickers Ken has left.",
+    "verified_answer": "2x - 7",
     "solution_hints": [
-      "First, find the total mass of the 3 durians.",
-      "Then, add the mass of the basket.",
-      "The mass of the basket is 'm'."
+      "First, find out how many stickers Ken has in terms of 'x'. 'Twice as many' means multiply by 2.",
+      "Then, account for the stickers Ken 'gives away'. This means subtraction.",
+      "Combine these two steps into one expression."
     ],
     "common_pitfalls": [
-      "Writing 'm + 2', forgetting there are 3 durians.",
-      "Writing '3m + 2' or '3m + 6', incorrectly multiplying the basket's mass.",
-      "Writing 'm + 3 + 2', just adding all the numbers."
+      "Writing 'x + 2 - 7', which misunderstands 'twice'.",
+      "Writing '2(x - 7)', which would mean Raju gave away stickers first.",
+      "Calculating 'x - 7' first, which is incorrect."
     ],
     "verified_methodology": [
-      "Step 1: Find the mass of the 3 durians: 3 × 2 = 6 kg.",
-      "Step 2: The mass of the basket is 'm' kg.",
-      "Step 3: The total mass is the sum of the basket's mass and the durians' mass.",
-      "Step 4: Write the expression: m + 6."
+      "Step 1: Raju has 'x' stickers.",
+      "Step 2: Ken has twice as many, so Ken has 2 × x = 2x stickers.",
+      "Step 3: Ken gives away 7 stickers, so we subtract 7 from his total.",
+      "Step 4: The final expression for the number of stickers Ken has is 2x - 7."
     ]
   },
   {
-    "id": "ALG-301",
+    "id": "ALG-S1-H1",
     "topic": "Algebra",
-    "title": "Combining Like Terms",
-    "complexity": 1,
+    "title": "Expression with Unit Conversion",
+    "learn_step": 1,
+    "complexity": "Hard",
     "image_url": null,
-    "estimated_time_seconds": 45,
-    "skills_tested": [
-      "Simplifying simple linear expressions"
-    ],
-    "problem_text": "Simplify: 4w + 2w + 5w",
-    "verified_answer": "11w",
-    "solution_hints": [
-      "All terms have the same letter 'w', so they are 'like terms'.",
-      "You can add the numbers (coefficients) in front of the letter.",
-      "Think of it as '4 watermelons + 2 watermelons + 5 watermelons'."
-    ],
-    "common_pitfalls": [
-      "Forgetting to write the 'w' in the final answer.",
-      "Adding the coefficients incorrectly."
-    ],
-    "verified_methodology": [
-      "Step 1: Identify that 4w, 2w, and 5w are like terms.",
-      "Step 2: Add their coefficients: 4 + 2 + 5 = 11.",
-      "Step 3: Attach the common variable 'w' to the result: 11w."
-    ]
-  },
-  {
-    "id": "ALG-302",
-    "topic": "Algebra",
-    "title": "Simplifying with Subtraction",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 45,
-    "skills_tested": [
-      "Simplifying simple linear expressions"
-    ],
-    "problem_text": "Simplify: 10y - 3y",
-    "verified_answer": "7y",
-    "solution_hints": [
-      "Both terms involve 'y', so you can combine them.",
-      "Subtract the coefficients.",
-      "10 yo-yos minus 3 yo-yos is 7 yo-yos."
-    ],
-    "common_pitfalls": [
-      "Adding the coefficients instead of subtracting.",
-      "Thinking that '10y - 3y' is '10 - 3' and 'y - y', resulting in '7'."
-    ],
-    "verified_methodology": [
-      "Step 1: Identify that 10y and 3y are like terms.",
-      "Step 2: Subtract the coefficients: 10 - 3 = 7.",
-      "Step 3: Keep the common variable 'y': 7y."
-    ]
-  },
-  {
-    "id": "ALG-303",
-    "topic": "Algebra",
-    "title": "Simplifying with Mixed Operations",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 60,
-    "skills_tested": [
-      "Simplifying simple linear expressions"
-    ],
-    "problem_text": "Simplify: 8k + 5 - 3k + 2",
-    "verified_answer": "5k + 7",
-    "solution_hints": [
-      "Group the terms with 'k' together and the numbers together.",
-      "Combine the 'k' terms first.",
-      "Then, combine the number terms."
-    ],
-    "common_pitfalls": [
-      "Combining all numbers together (8 + 5 - 3 + 2).",
-      "Subtracting 3k from 5 instead of 8k.",
-      "Incorrectly combining the numbers: 5 - 2 instead of 5 + 2."
-    ],
-    "verified_methodology": [
-      "Step 1: Rearrange the expression to group like terms: (8k - 3k) + (5 + 2).",
-      "Step 2: Simplify the 'k' terms: 8k - 3k = 5k.",
-      "Step 3: Simplify the number terms: 5 + 2 = 7.",
-      "Step 4: Combine the results to form the final expression: 5k + 7."
-    ]
-  },
-  {
-    "id": "ALG-304",
-    "topic": "Algebra",
-    "title": "Simplifying with Multiple Variables (Scaffold)",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 60,
-    "skills_tested": [
-      "Simplifying simple linear expressions"
-    ],
-    "problem_text": "Simplify: 7a + 4 + 3a",
-    "verified_answer": "10a + 4",
-    "solution_hints": [
-      "You can only combine terms that are alike.",
-      "Which terms have the letter 'a'?",
-      "The number '4' does not have an 'a', so it cannot be combined with the other terms."
-    ],
-    "common_pitfalls": [
-      "Adding everything together: 7 + 4 + 3 = 14, to get 14a.",
-      "Forgetting the '+ 4' in the final answer."
-    ],
-    "verified_methodology": [
-      "Step 1: Identify the like terms. In this expression, 7a and 3a are like terms.",
-      "Step 2: Combine the like terms: 7a + 3a = 10a.",
-      "Step 3: The term '4' is a constant and has no like terms to be combined with.",
-      "Step 4: Write the simplified expression: 10a + 4."
-    ]
-  },
-  {
-    "id": "ALG-305",
-    "topic": "Algebra",
-    "title": "Simplifying Expressions from Words",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 75,
-    "skills_tested": [
-      "Simplifying simple linear expressions",
-      "Notation, representations and interpretation"
-    ],
-    "problem_text": "Subtract 4m from the sum of 9m and 2m. Simplify the expression.",
-    "verified_answer": "7m",
-    "solution_hints": [
-      "First, find the 'sum of 9m and 2m'.",
-      "Then, 'subtract 4m' from that result.",
-      "Write it out as one expression: 9m + 2m - 4m."
-    ],
-    "common_pitfalls": [
-      "Subtracting 2m from 4m.",
-      "Calculating 4m - (9m + 2m).",
-      "Performing the operations in the wrong order."
-    ],
-    "verified_methodology": [
-      "Step 1: Write down the expression for 'the sum of 9m and 2m': 9m + 2m.",
-      "Step 2: Write the full expression as described: (9m + 2m) - 4m.",
-      "Step 3: Simplify the sum first: 9m + 2m = 11m.",
-      "Step 4: Perform the subtraction: 11m - 4m = 7m."
-    ]
-  },
-  {
-    "id": "ALG-401",
-    "topic": "Algebra",
-    "title": "Evaluating Basic Expression",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 45,
-    "skills_tested": [
-      "Evaluating simple linear expressions by substitution"
-    ],
-    "problem_text": "Find the value of the expression 5 + x when x = 10.",
-    "verified_answer": "15",
-    "solution_hints": [
-      "Replace the letter 'x' with the number 10.",
-      "Then, perform the addition."
-    ],
-    "common_pitfalls": [
-      "Thinking the answer is '510'.",
-      "Subtracting instead of adding."
-    ],
-    "verified_methodology": [
-      "Step 1: Write down the expression: 5 + x.",
-      "Step 2: Substitute x with 10: 5 + 10.",
-      "Step 3: Calculate the result: 5 + 10 = 15."
-    ]
-  },
-  {
-    "id": "ALG-402",
-    "topic": "Algebra",
-    "title": "Evaluating with Multiplication",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 45,
-    "skills_tested": [
-      "Evaluating simple linear expressions by substitution"
-    ],
-    "problem_text": "Find the value of 4p when p = 6.",
-    "verified_answer": "24",
-    "solution_hints": [
-      "Remember that '4p' means '4 multiplied by p'.",
-      "Substitute the value of 'p' into the expression."
-    ],
-    "common_pitfalls": [
-      "Thinking '4p' is '46' when p=6.",
-      "Adding 4 and 6 instead of multiplying."
-    ],
-    "verified_methodology": [
-      "Step 1: The expression is 4p, which means 4 × p.",
-      "Step 2: Replace 'p' with its given value, 6: 4 × 6.",
-      "Step 3: Perform the multiplication: 4 × 6 = 24."
-    ]
-  },
-  {
-    "id": "ALG-403",
-    "topic": "Algebra",
-    "title": "Evaluating with Division",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 45,
-    "skills_tested": [
-      "Evaluating simple linear expressions by substitution"
-    ],
-    "problem_text": "Find the value of y/3 when y = 21.",
-    "verified_answer": "7",
-    "solution_hints": [
-      "The expression 'y/3' means 'y divided by 3'.",
-      "Replace 'y' with 21 and then calculate."
-    ],
-    "common_pitfalls": [
-      "Multiplying 21 by 3.",
-      "Dividing 3 by 21."
-    ],
-    "verified_methodology": [
-      "Step 1: The expression is y/3.",
-      "Step 2: Substitute y = 21 into the expression: 21/3.",
-      "Step 3: Perform the division: 21 ÷ 3 = 7."
-    ]
-  },
-  {
-    "id": "ALG-404",
-    "topic": "Algebra",
-    "title": "Evaluating with Two Steps",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 60,
-    "skills_tested": [
-      "Evaluating simple linear expressions by substitution"
-    ],
-    "problem_text": "Find the value of 2a + 5 when a = 4.",
-    "verified_answer": "13",
-    "solution_hints": [
-      "Follow the order of operations (BODMAS/PEMDAS): Multiplication first, then Addition.",
-      "First, calculate '2a' (2 × a).",
-      "Then, add 5 to the result."
-    ],
-    "common_pitfalls": [
-      "Adding 5 and 4 first (5+4=9) and then multiplying by 2 (2x9=18).",
-      "Thinking 2a is 24."
-    ],
-    "verified_methodology": [
-      "Step 1: Write down the expression: 2a + 5.",
-      "Step 2: Substitute a = 4: 2 × 4 + 5.",
-      "Step 3: Perform multiplication first: 2 × 4 = 8.",
-      "Step 4: Perform addition: 8 + 5 = 13."
-    ]
-  },
-  {
-    "id": "ALG-405",
-    "topic": "Algebra",
-    "title": "Evaluating with Subtraction",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 60,
-    "skills_tested": [
-      "Evaluating simple linear expressions by substitution"
-    ],
-    "problem_text": "Find the value of 15 - 3b when b = 2.",
-    "verified_answer": "9",
-    "solution_hints": [
-      "Calculate the value of '3b' first.",
-      "Then subtract that result from 15.",
-      "Remember the order of operations."
-    ],
-    "common_pitfalls": [
-      "Subtracting first: 15 - 3 = 12, then multiplying by 2 to get 24.",
-      "Replacing '3b' with '32'."
-    ],
-    "verified_methodology": [
-      "Step 1: Write down the expression: 15 - 3b.",
-      "Step 2: Substitute b = 2: 15 - 3 × 2.",
-      "Step 3: Perform the multiplication first: 3 × 2 = 6.",
-      "Step 4: Perform the subtraction: 15 - 6 = 9."
-    ]
-  },
-  {
-    "id": "ALG-501",
-    "topic": "Algebra",
-    "title": "Solving with a Box (Addition)",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 30,
-    "skills_tested": [
-      "Solving simple linear equations"
-    ],
-    "problem_text": "Find the value of the unknown: ☐ + 7 = 15.",
-    "verified_answer": "8",
-    "solution_hints": [
-      "To find the number in the box, you need to isolate it.",
-      "What do you need to do to both sides of the equation to get the box by itself?",
-      "Think: What number plus 7 gives 15?"
-    ],
-    "common_pitfalls": [
-      "Adding 15 and 7.",
-      "Guessing the number incorrectly."
-    ],
-    "verified_methodology": [
-      "Step 1: The equation is ☐ + 7 = 15.",
-      "Step 2: To find the value of ☐, subtract 7 from both sides of the equation.",
-      "Step 3: ☐ = 15 - 7.",
-      "Step 4: Calculate the result: ☐ = 8."
-    ]
-  },
-  {
-    "id": "ALG-502",
-    "topic": "Algebra",
-    "title": "Solving with a Box (Subtraction)",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 30,
-    "skills_tested": [
-      "Solving simple linear equations"
-    ],
-    "problem_text": "Find the value of the unknown: 20 - ☐ = 11.",
-    "verified_answer": "9",
-    "solution_hints": [
-      "Think: 20 minus what number gives you 11?",
-      "You can also find the answer by calculating 20 - 11."
-    ],
-    "common_pitfalls": [
-      "Adding 20 and 11.",
-      "Subtracting 11 from 20 but making a calculation error."
-    ],
-    "verified_methodology": [
-      "Step 1: The equation is 20 - ☐ = 11.",
-      "Step 2: To find the value of ☐, you can subtract 11 from 20.",
-      "Step 3: ☐ = 20 - 11.",
-      "Step 4: Calculate the result: ☐ = 9."
-    ]
-  },
-  {
-    "id": "ALG-503",
-    "topic": "Algebra",
-    "title": "Solving with a Box (Multiplication)",
-    "complexity": 1,
-    "image_url": null,
-    "estimated_time_seconds": 30,
-    "skills_tested": [
-      "Solving simple linear equations"
-    ],
-    "problem_text": "Find the value of the unknown: 6 × ☐ = 48.",
-    "verified_answer": "8",
-    "solution_hints": [
-      "To find the unknown, you need to do the inverse operation of multiplication.",
-      "Divide 48 by 6.",
-      "Think: 6 times what number is 48?"
-    ],
-    "common_pitfalls": [
-      "Multiplying 48 by 6.",
-      "Adding 48 and 6."
-    ],
-    "verified_methodology": [
-      "Step 1: The equation is 6 × ☐ = 48.",
-      "Step 2: To find the value of ☐, divide 48 by 6.",
-      "Step 3: ☐ = 48 ÷ 6.",
-      "Step 4: Calculate the result: ☐ = 8."
-    ]
-  },
-  {
-    "id": "ALG-504",
-    "topic": "Algebra",
-    "title": "Solving Simple Equation in Context",
-    "complexity": 2,
-    "image_url": null,
-    "estimated_time_seconds": 75,
-    "skills_tested": [
-      "Solving simple linear equations"
-    ],
-    "problem_text": "Raju has 'x' marbles. His friend gives him 8 more marbles. He now has 23 marbles. How many marbles did Raju have at first?",
-    "verified_answer": "15",
-    "solution_hints": [
-      "First, write an equation to represent the situation.",
-      "Raju's initial marbles (x) plus the marbles he received (8) equals his total (23).",
-      "Solve the equation x + 8 = 23."
-    ],
-    "common_pitfalls": [
-      "Adding 23 and 8.",
-      "Setting up the equation incorrectly, e.g., x - 8 = 23."
-    ],
-    "verified_methodology": [
-      "Step 1: Form an equation from the word problem: x + 8 = 23.",
-      "Step 2: To find 'x', you need to isolate it by subtracting 8 from both sides.",
-      "Step 3: x = 23 - 8.",
-      "Step 4: Calculate the value of x: x = 15. Raju had 15 marbles at first."
-    ]
-  },
-  {
-    "id": "ALG-505",
-    "topic": "Algebra",
-    "title": "Solving Word Problem with Model Drawing Link",
-    "complexity": 2,
-    "image_url": null,
+    "svg_code": null,
     "estimated_time_seconds": 90,
     "skills_tested": [
-      "Solving simple linear equations"
+      "Using a letter to represent an unknown number",
+      "Forming an expression involving unit conversion"
     ],
-    "problem_text": "There are 35 children in a choir. The number of girls is 9 more than the number of boys. How many boys are there?",
-    "verified_answer": "13",
+    "problem_text": "A container has a total of 'w' litres of water. If the water is used to fill bottles that can each hold 500 ml, write an expression for the total number of bottles that can be filled.",
+    "verified_answer": "2w",
     "solution_hints": [
-      "Let the number of boys be 'b'.",
-      "Then the number of girls is 'b + 9'.",
-      "The total number of children is boys + girls. Set up the equation: b + (b + 9) = 35.",
-      "You can draw a model with two equal bars for boys and girls, and an extra block of 9 for the girls."
+      "The units are different (litres and ml). You must make them the same first.",
+      "How many ml are there in 1 litre?",
+      "Convert the total volume to ml, then divide by the volume of one bottle."
     ],
     "common_pitfalls": [
-      "Dividing 35 by 2.",
-      "Subtracting 9 from 35 and then forgetting to divide by 2.",
-      "Adding 9 to 35."
+      "Dividing 'w' by 500 directly, without converting units (w/500).",
+      "Multiplying instead of dividing.",
+      "Using the wrong conversion factor for litres to millilitres."
     ],
     "verified_methodology": [
-      "Step 1: Let the number of boys be 'b'. The number of girls is 'b + 9'.",
-      "Step 2: Write the equation for the total number of children: b + b + 9 = 35.",
-      "Step 3: Simplify the equation: 2b + 9 = 35.",
-      "Step 4: Subtract 9 from both sides to find the value of 2b: 2b = 35 - 9, so 2b = 26.",
-      "Step 5: Divide by 2 to find 'b': b = 26 ÷ 2.",
-      "Step 6: Calculate the result: b = 13. There are 13 boys."
+      "Step 1: Recall the conversion: 1 litre = 1000 ml.",
+      "Step 2: Convert the total volume of water from litres to ml. Total volume = w × 1000 = 1000w ml.",
+      "Step 3: Each bottle holds 500 ml.",
+      "Step 4: To find the number of bottles, divide the total volume in ml by the volume of one bottle: 1000w / 500.",
+      "Step 5: Simplify the expression: 1000/500 = 2. The final expression is 2w."
+    ]
+  },
+  {
+    "id": "ALG-S2-E1",
+    "topic": "Algebra",
+    "title": "Combining Like Terms (Addition)",
+    "learn_step": 2,
+    "complexity": "Easy",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 20,
+    "skills_tested": [
+      "Identifying like terms",
+      "Simplifying algebraic expressions"
+    ],
+    "problem_text": "Simplify the following expression: 7a + 5a",
+    "verified_answer": "12a",
+    "solution_hints": [
+      "The terms '7a' and '5a' are 'like terms' because they both have the variable 'a'.",
+      "Think of it as '7 apples + 5 apples'.",
+      "Add the numbers (coefficients) in front of the letter."
+    ],
+    "common_pitfalls": [
+      "Leaving the answer as '12', forgetting the 'a'.",
+      "Thinking the terms cannot be combined."
+    ],
+    "verified_methodology": [
+      "Step 1: Identify that both 7a and 5a are like terms.",
+      "Step 2: Add the coefficients (the numbers): 7 + 5 = 12.",
+      "Step 3: Keep the common variable 'a'.",
+      "Step 4: The simplified expression is 12a."
+    ]
+  },
+  {
+    "id": "ALG-S2-E2",
+    "topic": "Algebra",
+    "title": "Simplifying with a Constant",
+    "learn_step": 2,
+    "complexity": "Easy",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 30,
+    "skills_tested": [
+      "Identifying like terms",
+      "Simplifying algebraic expressions with constants"
+    ],
+    "problem_text": "Simplify the following expression: 10 + 4k + 3",
+    "verified_answer": "4k + 13",
+    "solution_hints": [
+      "You can only combine 'like terms'.",
+      "Which terms are the numbers (constants)? Which terms have 'k'?",
+      "Group the like terms together before adding."
+    ],
+    "common_pitfalls": [
+      "Adding everything together to get '17k'.",
+      "Thinking that '4k' and '13' can be combined."
+    ],
+    "verified_methodology": [
+      "Step 1: Identify the like terms. The constants '10' and '3' are like terms. '4k' is a separate term.",
+      "Step 2: Group the like terms: 4k + (10 + 3).",
+      "Step 3: Combine the constants: 10 + 3 = 13.",
+      "Step 4: The simplified expression is 4k + 13."
+    ]
+  },
+  {
+    "id": "ALG-S2-M1",
+    "topic": "Algebra",
+    "title": "Simplifying with Subtraction",
+    "learn_step": 2,
+    "complexity": "Medium",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": [
+      "Identifying like terms",
+      "Simplifying expressions with addition and subtraction"
+    ],
+    "problem_text": "Simplify the following expression: 9p + 6 - 5p + 2",
+    "verified_answer": "4p + 8",
+    "solution_hints": [
+      "Group the terms with 'p' together.",
+      "Group the number terms (constants) together.",
+      "Be careful with the signs (+ and -) when combining."
+    ],
+    "common_pitfalls": [
+      "Incorrectly subtracting or adding the numbers.",
+      "Combining 'p' terms with constant terms, for example '4p + 8 = 12p'."
+    ],
+    "verified_methodology": [
+      "Step 1: Rearrange and group the like terms: (9p - 5p) + (6 + 2).",
+      "Step 2: Simplify the 'p' terms: 9p - 5p = 4p.",
+      "Step 3: Simplify the constant terms: 6 + 2 = 8.",
+      "Step 4: Combine the results: 4p + 8."
+    ]
+  },
+  {
+    "id": "ALG-S2-H1",
+    "topic": "Algebra",
+    "title": "Simplifying with Multiple Variables",
+    "learn_step": 2,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 75,
+    "skills_tested": [
+      "Identifying different sets of like terms",
+      "Simplifying complex algebraic expressions"
+    ],
+    "problem_text": "Simplify the following expression: 8x + 10 + 3y - 5x - y + 4",
+    "verified_answer": "3x + 2y + 14",
+    "solution_hints": [
+      "There are three types of terms here: terms with 'x', terms with 'y', and constants.",
+      "Group each type of like term together.",
+      "Remember that '- y' means '- 1y'."
+    ],
+    "common_pitfalls": [
+      "Mixing up the 'x' and 'y' terms.",
+      "Making errors with the signs, especially with '- y'.",
+      "Forgetting to combine the constants."
+    ],
+    "verified_methodology": [
+      "Step 1: Identify and group the 'x' terms: 8x - 5x.",
+      "Step 2: Identify and group the 'y' terms: 3y - y.",
+      "Step 3: Identify and group the constant terms: 10 + 4.",
+      "Step 4: Simplify each group: (8x - 5x) = 3x. (3y - y) = 2y. (10 + 4) = 14.",
+      "Step 5: Combine the simplified groups to get the final answer: 3x + 2y + 14."
+    ]
+  },
+  {
+    "id": "ALG-S2-H2",
+    "topic": "Algebra",
+    "title": "Simplifying Fractional Expressions",
+    "learn_step": 2,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": [
+      "Simplifying expressions with fractional coefficients",
+      "Combining like terms"
+    ],
+    "problem_text": "Mr Tan had (5k/2) kg of flour. He used 2 kg of it and bought another (k/2) kg of flour. How much flour does he have now in terms of k?",
+    "verified_answer": "3k - 2",
+    "solution_hints": [
+      "First, write out the expression representing the changes.",
+      "Identify the like terms. Terms with 'k' can be combined.",
+      "To combine the fractional 'k' terms, their denominators are already the same."
+    ],
+    "common_pitfalls": [
+      "Incorrectly combining the term '-2' with the 'k' terms.",
+      "Errors in adding the fractions, e.g., adding the denominators.",
+      "Forgetting the '-2' in the final answer."
+    ],
+    "verified_methodology": [
+      "Step 1: Write the expression from the story: (5k/2) - 2 + (k/2).",
+      "Step 2: Group the like terms: (5k/2) + (k/2) - 2.",
+      "Step 3: Combine the 'k' terms: (5k + k) / 2 = 6k / 2.",
+      "Step 4: Simplify the 'k' term: 6k / 2 = 3k.",
+      "Step 5: Include the constant term to get the final expression: 3k - 2."
+    ]
+  },
+  {
+    "id": "ALG-S3-E1",
+    "topic": "Algebra",
+    "title": "Basic Substitution",
+    "learn_step": 3,
+    "complexity": "Easy",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 30,
+    "skills_tested": [
+      "Substituting a value into an expression",
+      "Evaluating an expression"
+    ],
+    "problem_text": "Find the value of the expression 15 - x when x = 9.",
+    "verified_answer": "6",
+    "solution_hints": [
+      "Replace the letter 'x' with the number '9'.",
+      "Perform the subtraction."
+    ],
+    "common_pitfalls": [
+      "Accidentally adding instead of subtracting (15 + 9).",
+      "Subtracting in the wrong order (9 - 15)."
+    ],
+    "verified_methodology": [
+      "Step 1: Start with the expression: 15 - x.",
+      "Step 2: Substitute x = 9 into the expression: 15 - 9.",
+      "Step 3: Calculate the result: 15 - 9 = 6."
+    ]
+  },
+  {
+    "id": "ALG-S3-M1",
+    "topic": "Algebra",
+    "title": "Substitution with Multiplication",
+    "learn_step": 3,
+    "complexity": "Medium",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 45,
+    "skills_tested": [
+      "Substituting a value into an expression",
+      "Following the order of operations (BODMAS/PEMDAS)"
+    ],
+    "problem_text": "Find the value of 7p + 5 when p = 6.",
+    "verified_answer": "47",
+    "solution_hints": [
+      "Remember that '7p' means 7 multiplied by 'p'.",
+      "Replace 'p' with 6.",
+      "Do multiplication before addition."
+    ],
+    "common_pitfalls": [
+      "Adding before multiplying: 7 * (6+5) = 7 * 11 = 77.",
+      "Seeing '7p' with p=6 and writing '76'."
+    ],
+    "verified_methodology": [
+      "Step 1: Start with the expression: 7p + 5.",
+      "Step 2: Substitute p = 6: (7 × 6) + 5.",
+      "Step 3: Follow BODMAS/PEMDAS. Multiply first: 7 × 6 = 42.",
+      "Step 4: Then, add: 42 + 5 = 47."
+    ]
+  },
+  {
+    "id": "ALG-S3-M2",
+    "topic": "Algebra",
+    "title": "Substitution with Division",
+    "learn_step": 3,
+    "complexity": "Medium",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 50,
+    "skills_tested": [
+      "Substituting a value into an expression",
+      "Evaluating fractional expressions"
+    ],
+    "problem_text": "Find the value of (m/4) + 10 when m = 24.",
+    "verified_answer": "16",
+    "solution_hints": [
+      "The fraction m/4 means m divided by 4.",
+      "Replace 'm' with 24.",
+      "Do the division first, then the addition."
+    ],
+    "common_pitfalls": [
+      "Mistakes in the division calculation.",
+      "Adding 10 to 24 before dividing by 4."
+    ],
+    "verified_methodology": [
+      "Step 1: Start with the expression: (m/4) + 10.",
+      "Step 2: Substitute m = 24: (24 / 4) + 10.",
+      "Step 3: Perform the division: 24 / 4 = 6.",
+      "Step 4: Perform the addition: 6 + 10 = 16."
+    ]
+  },
+  {
+    "id": "ALG-S3-H1",
+    "topic": "Algebra",
+    "title": "Simplify then Substitute",
+    "learn_step": 3,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": [
+      "Simplifying an algebraic expression",
+      "Substituting a value and evaluating"
+    ],
+    "problem_text": "Simplify the expression 8k + 9 - 3k - 2 and then find its value when k = 5.",
+    "verified_answer": "32",
+    "solution_hints": [
+      "First, simplify the expression by combining like terms.",
+      "Group the 'k' terms and the number terms.",
+      "Once you have the simplified expression, substitute k = 5 to find the final value."
+    ],
+    "common_pitfalls": [
+      "Substituting before simplifying, which involves more calculations and a higher chance of error.",
+      "Making a mistake during the initial simplification step.",
+      "Errors in multiplication or addition after substitution."
+    ],
+    "verified_methodology": [
+      "Step 1: Simplify the expression 8k + 9 - 3k - 2.",
+      "Step 2: Group like terms: (8k - 3k) + (9 - 2).",
+      "Step 3: Combine them: 5k + 7.",
+      "Step 4: Now substitute k = 5 into the simplified expression: 5(5) + 7.",
+      "Step 5: Calculate the value: 25 + 7 = 32."
+    ]
+  },
+  {
+    "id": "ALG-S3-H2",
+    "topic": "Algebra",
+    "title": "Substitution with Two Variables",
+    "learn_step": 3,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": [
+      "Substituting multiple values into an expression",
+      "Following the order of operations (BODMAS/PEMDAS)"
+    ],
+    "problem_text": "Find the value of 4x + 3y - 9 when x = 5 and y = 2.",
+    "verified_answer": "17",
+    "solution_hints": [
+      "Replace 'x' with 5 and 'y' with 2 in the expression.",
+      "Calculate the multiplication parts first (4x and 3y).",
+      "Finally, perform the addition and subtraction from left to right."
+    ],
+    "common_pitfalls": [
+      "Mixing up the values for x and y.",
+      "Performing addition/subtraction before multiplication.",
+      "Calculation errors."
+    ],
+    "verified_methodology": [
+      "Step 1: Start with the expression: 4x + 3y - 9.",
+      "Step 2: Substitute x = 5 and y = 2: 4(5) + 3(2) - 9.",
+      "Step 3: Perform multiplications: 20 + 6 - 9.",
+      "Step 4: Perform addition: 26 - 9.",
+      "Step 5: Perform subtraction: 17."
+    ]
+  },
+  {
+    "id": "ALG-S4-E1",
+    "topic": "Algebra",
+    "title": "One-Step Equation (Addition)",
+    "learn_step": 4,
+    "complexity": "Easy",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 60,
+    "skills_tested": [
+      "Forming a one-step linear equation from a word problem",
+      "Solving for the unknown"
+    ],
+    "problem_text": "Devi baked some cookies. After she gave away 12 cookies, she had 30 cookies left. How many cookies did she bake at first? Let 'c' be the number of cookies she baked.",
+    "verified_answer": "42",
+    "solution_hints": [
+      "Set up an equation. 'Gave away' means subtraction.",
+      "The equation is c - 12 = 30.",
+      "To find 'c', you need to do the opposite of subtracting 12."
+    ],
+    "common_pitfalls": [
+      "Subtracting 12 from 30 (30 - 12 = 18).",
+      "Setting up the equation incorrectly, e.g., 12 - c = 30."
+    ],
+    "verified_methodology": [
+      "Step 1: Form an equation. Let 'c' be the initial number of cookies. The equation is c - 12 = 30.",
+      "Step 2: To solve for 'c', we need to isolate it. Add 12 to both sides of the equation.",
+      "Step 3: c = 30 + 12.",
+      "Step 4: Calculate the result: c = 42. She baked 42 cookies at first."
+    ]
+  },
+  {
+    "id": "ALG-S4-M1",
+    "topic": "Algebra",
+    "title": "One-Step Equation (Multiplication)",
+    "learn_step": 4,
+    "complexity": "Medium",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 70,
+    "skills_tested": [
+      "Forming a one-step linear equation from a word problem",
+      "Solving for the unknown"
+    ],
+    "problem_text": "Mdm Lim paid $56 for 4 identical blouses. What is the cost of one blouse? Let 'b' be the cost of one blouse.",
+    "verified_answer": "14",
+    "solution_hints": [
+      "The cost of 4 blouses can be written as 4b.",
+      "The total cost is $56, so the equation is 4b = 56.",
+      "To find 'b', do the opposite of multiplying by 4."
+    ],
+    "common_pitfalls": [
+      "Multiplying 56 by 4.",
+      "Setting up the equation as b + 4 = 56."
+    ],
+    "verified_methodology": [
+      "Step 1: Form the equation. The cost of 4 blouses is 4 times the cost of one blouse ('b'). So, 4b = 56.",
+      "Step 2: To solve for 'b', divide both sides by 4.",
+      "Step 3: b = 56 ÷ 4.",
+      "Step 4: Calculate the result: b = 14. The cost of one blouse is $14."
+    ]
+  },
+  {
+    "id": "ALG-S4-M2",
+    "topic": "Algebra",
+    "title": "Two-Step Word Problem",
+    "learn_step": 4,
+    "complexity": "Medium",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 90,
+    "skills_tested": [
+      "Forming a two-step linear equation from a word problem",
+      "Solving for the unknown"
+    ],
+    "problem_text": "Farhan bought a book for $15 and 5 identical pens. He spent a total of $25. What was the cost of one pen? Let 'p' be the cost of one pen.",
+    "verified_answer": "2",
+    "solution_hints": [
+      "First, write an expression for the total cost: cost of 5 pens plus the cost of the book.",
+      "Set up the equation: 5p + 15 = 25.",
+      "To solve, first subtract 15 from both sides, then divide by 5."
+    ],
+    "common_pitfalls": [
+      "Adding $15 and $25.",
+      "Dividing $25 by 5 first.",
+      "Forgetting one of the steps in solving the equation."
+    ],
+    "verified_methodology": [
+      "Step 1: Form the equation. Cost of 5 pens is 5p. Total cost is 5p + 15. So, 5p + 15 = 25.",
+      "Step 2: Subtract 15 from both sides to find the cost of the 5 pens: 5p = 25 - 15.",
+      "Step 3: Simplify: 5p = 10.",
+      "Step 4: Divide both sides by 5 to find the cost of one pen: p = 10 ÷ 5.",
+      "Step 5: Calculate the result: p = 2. The cost of one pen was $2."
+    ]
+  },
+  {
+    "id": "ALG-S4-H1",
+    "topic": "Algebra",
+    "title": "Word Problem with Combined Variables",
+    "learn_step": 4,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 120,
+    "skills_tested": [
+      "Forming an equation by combining like terms",
+      "Solving a multi-step word problem"
+    ],
+    "problem_text": "A pouch contains some black and white marbles. The number of black marbles is twice the number of white marbles. If there are 63 marbles in total, how many white marbles are there? Let 'w' be the number of white marbles.",
+    "verified_answer": "21",
+    "solution_hints": [
+      "Express the number of black marbles in terms of 'w'.",
+      "The total number of marbles is the sum of white and black marbles.",
+      "Form an equation: w + 2w = 63.",
+      "First, simplify the expression on the left by combining like terms."
+    ],
+    "common_pitfalls": [
+      "Setting up the equation as 2w = 63, ignoring the white marbles.",
+      "Making 'w' the number of black marbles and getting confused.",
+      "Finding the number of black marbles instead of white marbles."
+    ],
+    "verified_methodology": [
+      "Step 1: Express the number of each type of marble. White marbles = w. Black marbles = 2w.",
+      "Step 2: Form the equation for the total number of marbles: w + 2w = 63.",
+      "Step 3: Simplify the left side of the equation: 3w = 63.",
+      "Step 4: Solve for 'w' by dividing both sides by 3: w = 63 ÷ 3.",
+      "Step 5: Calculate the result: w = 21. There are 21 white marbles."
+    ]
+  },
+  {
+    "id": "ALG-S4-H2",
+    "topic": "Algebra",
+    "title": "Problem Involving a Future State",
+    "learn_step": 4,
+    "complexity": "Hard",
+    "image_url": null,
+    "svg_code": null,
+    "estimated_time_seconds": 150,
+    "skills_tested": [
+      "Forming complex algebraic expressions for a word problem",
+      "Solving a multi-step equation"
+    ],
+    "problem_text": "Ben is 'y' years old. His mother is 4 times his age. In 3 years' time, the sum of their ages will be 51. How old is Ben now?",
+    "verified_answer": "9",
+    "solution_hints": [
+      "Write their current ages: Ben is 'y', Mother is '4y'.",
+      "Write their ages in 3 years' time: Ben will be 'y+3', Mother will be '4y+3'.",
+      "Form the equation by adding their future ages: (y+3) + (4y+3) = 51.",
+      "Simplify the equation by combining like terms, then solve for 'y'."
+    ],
+    "common_pitfalls": [
+      "Adding 3 only once, e.g., y + 4y + 3 = 51.",
+      "Using their current ages to sum to 51: y + 4y = 51.",
+      "Mistakes in simplifying the equation, e.g., not combining the constants (3+3)."
+    ],
+    "verified_methodology": [
+      "Step 1: Write expressions for their current ages: Ben = y, Mother = 4y.",
+      "Step 2: Write expressions for their ages in 3 years: Ben = y + 3, Mother = 4y + 3.",
+      "Step 3: Form the equation for the sum of their future ages: (y + 3) + (4y + 3) = 51.",
+      "Step 4: Simplify the equation by combining like terms: 5y + 6 = 51.",
+      "Step 5: Solve the two-step equation. First, subtract 6 from both sides: 5y = 45.",
+      "Step 6: Then, divide by 5: y = 9. Ben is 9 years old now."
     ]
   }
 ]
